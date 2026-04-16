@@ -111,10 +111,10 @@ jobs:
               exit 1
             fi
 
-            HOME_HTML=$(curl -fsS http://127.0.0.1:8097/ || true)
-            if ! echo "$HOME_HTML" | grep -q "Buried Oil Tank"; then
-              echo "Local homepage check failed."
-              echo "$HOME_HTML" | sed -n '1,120p'
+            LOCAL_HEADERS=$(curl -fsSI http://127.0.0.1:8097/ || true)
+            if ! echo "$LOCAL_HEADERS" | grep -qi '^Location: https://oiltankroute.com/$'; then
+              echo "Local canonical redirect check failed."
+              echo "$LOCAL_HEADERS" | sed -n '1,40p'
               exit 1
             fi
 
