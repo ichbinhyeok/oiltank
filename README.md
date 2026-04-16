@@ -99,7 +99,7 @@ Example production environment:
 
 ```bash
 export SPRING_PROFILES_ACTIVE=prod
-export BURIED_OIL_TANK_BASE_URL=https://your-domain.example
+export BURIED_OIL_TANK_BASE_URL=https://oiltankroute.com
 export BURIED_OIL_TANK_STORAGE_ROOT=/var/lib/buried-oil-tank-verdict
 export BURIED_OIL_TANK_ADMIN_USERNAME=admin
 export BURIED_OIL_TANK_ADMIN_PASSWORD='replace-this'
@@ -111,13 +111,19 @@ Example systemd service fragment:
 [Service]
 WorkingDirectory=/opt/buried-oil-tank-verdict/current
 Environment=SPRING_PROFILES_ACTIVE=prod
-Environment=BURIED_OIL_TANK_BASE_URL=https://your-domain.example
+Environment=BURIED_OIL_TANK_BASE_URL=https://oiltankroute.com
 Environment=BURIED_OIL_TANK_STORAGE_ROOT=/var/lib/buried-oil-tank-verdict
 Environment=BURIED_OIL_TANK_ADMIN_USERNAME=admin
 Environment=BURIED_OIL_TANK_ADMIN_PASSWORD=replace-this
 ExecStart=/usr/bin/java -jar /opt/buried-oil-tank-verdict/current/target/buried-oil-tank-verdict-0.0.1-SNAPSHOT.jar
 Restart=always
 ```
+
+Production host policy:
+
+- Canonical public host is `https://oiltankroute.com`
+- `www.oiltankroute.com` should redirect to the apex domain
+- The app now redirects non-canonical hosts to the configured `buried-oil-tank.base-url`
 
 ## Recommended launch cohort
 Start with four public states where the topic is both real and monetizable:
