@@ -111,7 +111,7 @@ jobs:
               exit 1
             fi
 
-            LOCAL_HEADERS=$(curl -fsSI http://127.0.0.1:8097/ || true)
+            LOCAL_HEADERS=$(curl -fsSI http://127.0.0.1:8097/ | tr -d '\r' || true)
             if ! echo "$LOCAL_HEADERS" | grep -qi '^Location: https://oiltankroute.com/$'; then
               echo "Local canonical redirect check failed."
               echo "$LOCAL_HEADERS" | sed -n '1,40p'
