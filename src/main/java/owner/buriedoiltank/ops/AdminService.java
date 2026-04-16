@@ -89,7 +89,9 @@ public class AdminService {
                         "Lead, CTA, and route-promotion review surface.",
                         baseUrl.resolve("/admin/").toString(),
                         false,
-                        List.of()
+                        List.of(),
+                        baseUrl.resolve("/og-default.png").toString(),
+                        "Buried Oil Tank Verdict site preview"
                 ),
                 metrics,
                 partnerMetrics,

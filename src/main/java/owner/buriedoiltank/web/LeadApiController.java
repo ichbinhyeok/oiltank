@@ -5,6 +5,7 @@ import owner.buriedoiltank.leads.EventLogService;
 import owner.buriedoiltank.leads.LeadCaptureRequest;
 import owner.buriedoiltank.leads.LeadEventRequest;
 import owner.buriedoiltank.leads.LeadService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,15 +18,27 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class LeadApiController {
     private final LeadService leadService;
     private final EventLogService eventLogService;
+    private final ApiRequestProtectionService apiRequestProtectionService;
 
-    public LeadApiController(LeadService leadService, EventLogService eventLogService) {
+    public LeadApiController(
+            LeadService leadService,
+            EventLogService eventLogService,
+            ApiRequestProtectionService apiRequestProtectionService
+    ) {
         this.leadService = leadService;
         this.eventLogService = eventLogService;
+        this.apiRequestProtectionService = apiRequestProtectionService;
     }
 
     @PostMapping(path = "/api/leads/capture", consumes = "application/x-www-form-urlencoded")
-    public String captureLead(@Valid @ModelAttribute LeadCaptureRequest request, BindingResult bindingResult) {
+    public String captureLead(@Valid @ModelAttribute LeadCaptureRequest request, BindingResult bindingResult, HttpServletRequest httpServletRequest) {
         String returnPath = sanitizeReturnPath(request.getPagePath());
+        if (!apiRequestProtectionService.isTrustedRequest(httpServletRequest)) {
+            return "redirect:" + returnPath + "?lead=error";
+        }
+        if (!apiRequestProtectionService.tryConsumeLeadCapture(httpServletRequest)) {
+            return "redirect:" + returnPath + "?lead=busy";
+        }
         if (bindingResult.hasErrors()) {
             return "redirect:" + returnPath + "?lead=error";
         }
@@ -39,7 +52,17 @@ public class LeadApiController {
 
     @PostMapping(path = "/api/leads/event", consumes = "application/x-www-form-urlencoded")
     @ResponseBody
-    public ResponseEntity<Void> recordEvent(@Valid @ModelAttribute LeadEventRequest request, BindingResult bindingResult) {
+    public ResponseEntity<Void> recordEvent(
+            @Valid @ModelAttribute LeadEventRequest request,
+            BindingResult bindingResult,
+            HttpServletRequest httpServletRequest
+    ) {
+        if (!apiRequestProtectionService.isTrustedRequest(httpServletRequest)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+        if (!apiRequestProtectionService.tryConsumeEvent(httpServletRequest)) {
+            return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
+        }
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().build();
         }

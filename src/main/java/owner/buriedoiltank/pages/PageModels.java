@@ -18,7 +18,9 @@ public final class PageModels {
             String description,
             String canonicalUrl,
             boolean indexable,
-            List<String> structuredDataJson
+            List<String> structuredDataJson,
+            String socialImageUrl,
+            String socialImageAlt
         ) {
     }
 
@@ -167,7 +169,8 @@ public final class PageModels {
             String heading,
             String intro,
             List<String> bullets,
-            List<Breadcrumb> breadcrumbs
+            List<Breadcrumb> breadcrumbs,
+            String contactEmail
     ) {
     }
 

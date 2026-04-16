@@ -4,7 +4,7 @@
 <section class="hero hero--home">
     <div class="hero__inner hero__inner--home">
         <div class="hero__copy">
-            <div class="hero__status">Live closing guidance</div>
+            <div class="hero__status">For live transactions</div>
             <div class="section__eyebrow">Buried oil tank disclosure, records, and closing steps</div>
             <h1>
                 <span class="hero__title-line">Buried Oil Tank</span>
@@ -12,10 +12,10 @@
                 <span class="hero__title-line">What Buyers and Sellers</span>
                 <span class="hero__title-line">Should Do Next</span>
             </h1>
-            <p class="hero__lede">Use this when a buried oil tank question changes disclosure language, records requests, sweep timing, financing pressure, or the next step before closing.</p>
+            <p class="hero__lede">For buyers and sellers dealing with a suspected buried residential heating-oil tank or missing records before closing.</p>
             <div class="hero__proofline">
                 <span>Official state source review</span>
-                <span>Current coverage: NJ, NY, CT, ME only</span>
+                <span>Launch coverage: NJ, NY, CT, ME</span>
             </div>
             <div class="hero__actions">
                 <a class="button" href="#states">Start with your state</a>
@@ -26,21 +26,21 @@
             <div class="hero__media hero__media--home">
                 <img class="hero__image" src="https://images.unsplash.com/photo-1618179131275-e90e3dfde775?auto=format&fit=crop&w=1400&q=80" alt="Historic residential house exterior in a dark editorial treatment" width="1400" height="1400" loading="eager" fetchpriority="high" decoding="async">
                 <div class="hero__stamp hero__stamp--dark">
-                    <strong>Disclosure and evidence first</strong>
-                    <span>Do not widen into removal or cleanup until records, sweep results, and the state process align.</span>
+                    <strong>Start with records and evidence</strong>
+                    <span>Do not widen into removal or cleanup until the file, sweep result, and state process line up.</span>
                 </div>
             </div>
             <div class="hero__docket">
                 <div class="docket-row">
-                    <span class="docket-row__label">Workflow</span>
+                    <span class="docket-row__label">Order</span>
                     <p>Verify first. Route second. Escalate only when the evidence changes.</p>
                 </div>
                 <div class="docket-row">
-                    <span class="docket-row__label">Who carries this</span>
+                    <span class="docket-row__label">Who it serves</span>
                     <p>Buyer, seller, owner, agent, or attorney carrying a live deal clock.</p>
                 </div>
                 <div class="docket-row">
-                    <span class="docket-row__label">Boundary</span>
+                    <span class="docket-row__label">Keep separate</span>
                     <p>Records, sweep, confirmed tank, and leak concern stay in separate routes.</p>
                 </div>
             </div>
@@ -101,8 +101,8 @@
 <section class="section">
     <div class="section__inner feature-split">
         <div class="feature-copy">
-            <div class="section__eyebrow">Use this when the deal is live</div>
-            <h2>Use this when disclosure, financing, or closing timing can slip.</h2>
+                <div class="section__eyebrow">Use this when the deal is live</div>
+                <h2>Use this when disclosure, financing, or closing timing can slip.</h2>
             <ol class="number-list">
                 @for (var i = 0; i < page.takeaways().size(); i++)
                     <li>

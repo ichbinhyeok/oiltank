@@ -15,9 +15,12 @@
     <meta property="og:description" content="${meta.description()}">
     <meta property="og:url" content="${meta.canonicalUrl()}">
     <meta property="og:type" content="${"home".equals(activeNav) ? "website" : "article"}">
-    <meta name="twitter:card" content="summary">
+    <meta property="og:image" content="${meta.socialImageUrl()}">
+    <meta property="og:image:alt" content="${meta.socialImageAlt()}">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="${meta.title()}">
     <meta name="twitter:description" content="${meta.description()}">
+    <meta name="twitter:image" content="${meta.socialImageUrl()}">
     @if (!meta.indexable())
         <meta name="robots" content="noindex,follow">
     @endif
@@ -30,6 +33,7 @@
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="icon" href="/favicon.ico" sizes="32x32">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <script>document.documentElement.classList.add('js');</script>
     <link rel="stylesheet" href="/app.css">
 </head>
 <body class="${"admin".equals(activeNav) ? "page page--admin" : "page"}">
@@ -66,6 +70,7 @@
                 <span>Built for live files, missing records, sweep-first questions, and contract-side timing pressure.</span>
             </div>
             <div class="site-footer__links">
+                <a href="/contact/">Contact</a>
                 <a href="/privacy/">Privacy</a>
                 <a href="/terms/">Terms</a>
                 <a href="/not-government-affiliated/">Not government affiliated</a>

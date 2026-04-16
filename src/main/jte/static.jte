@@ -11,7 +11,7 @@
         </div>
         <div class="hero__aside">
             <div class="hero__media hero__media--detail">
-                <img class="hero__image" src="https://images.unsplash.com/photo-1767972159674-460283907c21?auto=format&fit=crop&w=1400&q=80" alt="Gavel on a dark legal surface" width="1400" height="1167" loading="eager" fetchpriority="high" decoding="async">
+                <img class="hero__image" src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1400&q=80" alt="Property notes and paperwork on a desk" width="1400" height="933" loading="eager" fetchpriority="high" decoding="async">
             </div>
         </div>
     </div>
@@ -26,6 +26,13 @@
                     <li>${bullet}</li>
                 @endfor
             </ul>
+            @if (page.contactEmail() != null)
+                <div class="contact-card">
+                    <span class="contact-card__label">Editorial contact</span>
+                    <a class="contact-card__email" href="mailto:${page.contactEmail()}">${page.contactEmail()}</a>
+                    <p>Use this address for source corrections, stale links, launch questions, or factual updates.</p>
+                </div>
+            @endif
         </div>
     </div>
 </section>

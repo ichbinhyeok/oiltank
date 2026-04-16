@@ -90,7 +90,7 @@ function bindCta(root) {
 
   openButton.addEventListener("click", () => {
     syncPartnerType();
-    form.hidden = false;
+    form.dataset.collapsed = "false";
     openButton.hidden = true;
     const firstField = form.querySelector('select[name="userRole"], input[name="email"]');
     if (firstField) {
@@ -116,15 +116,22 @@ function bindCta(root) {
 
   const query = new URLSearchParams(window.location.search);
   if (query.get("lead") === "success") {
-    form.hidden = false;
+    form.dataset.collapsed = "false";
     openButton.hidden = true;
     statusNode.hidden = false;
     statusNode.textContent = "Your file checklist was recorded.";
+  } else if (query.get("lead") === "busy") {
+    form.dataset.collapsed = "false";
+    openButton.hidden = true;
+    statusNode.hidden = false;
+    statusNode.textContent = "The checklist is busy right now. Wait a minute and send it again.";
   } else if (query.get("lead") === "error") {
-    form.hidden = false;
+    form.dataset.collapsed = "false";
     openButton.hidden = true;
     statusNode.hidden = false;
     statusNode.textContent = "Check the file details and try again.";
+  } else {
+    form.dataset.collapsed = "true";
   }
 }
 

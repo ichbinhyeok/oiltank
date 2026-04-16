@@ -26,7 +26,7 @@
             </button>
             <p class="cta-box__trust">${cta.trustNote()}</p>
         </div>
-        <form class="lead-form" action="/api/leads/capture" method="post" hidden data-lead-form>
+        <form class="lead-form" action="/api/leads/capture" method="post" data-lead-form data-collapsed="true">
             <input type="hidden" name="pageId" value="${cta.pageId()}">
             <input type="hidden" name="pagePath" value="${cta.pagePath()}">
             <input type="hidden" name="routeFamily" value="${cta.routeFamily()}">

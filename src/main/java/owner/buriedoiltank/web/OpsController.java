@@ -42,7 +42,8 @@ public class OpsController {
                 Allow: /
                 Disallow: /admin
                 Disallow: /api
-                """;
+                Sitemap: %s
+                """.formatted(baseUrl.resolve("/sitemap.xml"));
     }
 
     @GetMapping(value = "/sitemap.xml", produces = MediaType.APPLICATION_XML_VALUE)

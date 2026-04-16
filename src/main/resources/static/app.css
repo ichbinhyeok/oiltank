@@ -112,7 +112,7 @@ li {
     gap: 4px;
     font-size: 0.9rem;
     font-weight: 800;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--accent-deep);
 }
@@ -135,11 +135,11 @@ li {
 .site-nav__link {
     padding: 10px 0;
     color: var(--ink-soft);
-    font-size: 0.72rem;
+    font-size: 0.74rem;
     font-weight: 700;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    border-bottom: 2px solid transparent;
+    border-bottom: 1px solid transparent;
     transition: color var(--transition), border-color var(--transition);
 }
 
@@ -160,9 +160,9 @@ li {
     border: 1px solid transparent;
     background: var(--accent);
     color: #ffffff;
-    font-size: 0.74rem;
+    font-size: 0.76rem;
     font-weight: 800;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     cursor: pointer;
     transition: transform var(--transition), background var(--transition), color var(--transition), border-color var(--transition);
@@ -261,12 +261,14 @@ li {
 .hero__status {
     width: fit-content;
     padding: 8px 12px;
-    background: rgba(7, 22, 60, 0.96);
-    color: #ffffff;
+    background: rgba(17, 78, 212, 0.1);
+    border: 1px solid rgba(17, 78, 212, 0.14);
+    color: var(--accent-deep);
     font-size: 0.66rem;
     font-weight: 800;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
+    border-radius: var(--radius);
 }
 
 .hero__copy h1,
@@ -297,17 +299,17 @@ li {
 
 .hero__accent {
     color: var(--accent);
-    font-style: italic;
+    font-style: normal;
 }
 
 .hero__lede {
     margin: 0;
     max-width: 720px;
-    padding-left: 20px;
-    border-left: 1px solid rgba(17, 78, 212, 0.24);
+    padding-left: 18px;
+    border-left: 2px solid rgba(17, 78, 212, 0.12);
     color: var(--ink-soft);
     font-size: clamp(1rem, 1.8vw, 1.15rem);
-    line-height: 1.78;
+    line-height: 1.72;
 }
 
 .hero--home .hero__lede {
@@ -327,11 +329,11 @@ li {
     min-height: 38px;
     padding: 0 14px;
     border: 1px solid rgba(17, 29, 55, 0.12);
-    background: rgba(17, 29, 55, 0.04);
+    background: #ffffff;
     color: var(--ink);
     font-size: 0.72rem;
     font-weight: 700;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
 }
 
@@ -390,17 +392,18 @@ li {
     right: 20px;
     bottom: 20px;
     padding: 18px 18px 16px;
-    background: rgba(255, 255, 255, 0.92);
-    border-left: 4px solid var(--accent);
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(17, 29, 55, 0.12);
     backdrop-filter: blur(14px);
     box-shadow: var(--shadow-card);
+    border-radius: var(--radius);
 }
 
 .hero__stamp strong {
     color: var(--accent-deep);
     font-size: 0.72rem;
     font-weight: 800;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
 }
 
@@ -416,8 +419,8 @@ li {
 }
 
 .hero__stamp--dark {
-    background: rgba(7, 22, 60, 0.92);
-    border-left-color: #dbe5ff;
+    background: rgba(7, 22, 60, 0.88);
+    border-color: rgba(219, 229, 255, 0.16);
 }
 
 .hero__stamp--dark strong {
@@ -451,9 +454,10 @@ li {
     gap: 12px;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     padding: 20px 22px;
-    background: linear-gradient(180deg, #f7f9fe 0%, #edf2fb 100%);
+    background: #ffffff;
     border: 1px solid var(--line);
     border-radius: var(--radius);
+    box-shadow: var(--shadow-card);
 }
 
 .docket-row {
@@ -465,7 +469,7 @@ li {
     color: var(--accent);
     font-size: 0.68rem;
     font-weight: 800;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
 }
 
@@ -534,7 +538,7 @@ li {
 .info-card,
 .support-panel,
 .review-panel {
-    background: linear-gradient(180deg, #ffffff 0%, #f7f9fe 100%);
+    background: #ffffff;
 }
 
 .info-card,
@@ -607,7 +611,7 @@ li {
 }
 
 .section--proof {
-    background: linear-gradient(180deg, #10234f 0%, #0a183f 100%);
+    background: linear-gradient(180deg, #0f2149 0%, #0c183a 100%);
     color: var(--ink-inverse);
 }
 
@@ -685,7 +689,7 @@ li {
     color: var(--accent);
     font-size: 0.72rem;
     font-weight: 800;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
 }
 
@@ -703,8 +707,8 @@ li {
     display: grid;
     gap: 10px;
     padding: 22px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--radius);
 }
 
@@ -712,7 +716,7 @@ li {
     color: #dbe5ff;
     font-size: 0.7rem;
     font-weight: 800;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
 }
 
@@ -1254,6 +1258,18 @@ li {
     justify-self: start;
 }
 
+[data-cta-open] {
+    display: none;
+}
+
+.js [data-cta-open] {
+    display: inline-flex;
+}
+
+.js [data-lead-form][data-collapsed="true"] {
+    display: none;
+}
+
 .lead-form {
     display: grid;
     gap: 14px;
@@ -1274,8 +1290,34 @@ li {
 .field span {
     font-size: 0.72rem;
     font-weight: 800;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
+}
+
+.contact-card {
+    display: grid;
+    gap: 8px;
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(17, 29, 55, 0.1);
+}
+
+.contact-card__label {
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.contact-card__email {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--accent-deep);
+}
+
+.contact-card__email:hover {
+    color: var(--accent);
 }
 
 .lead-form .field span {
@@ -1678,7 +1720,7 @@ li {
         min-height: 44px;
         padding: 0 14px;
         font-size: 0.64rem;
-        letter-spacing: 0.1em;
+        letter-spacing: 0.06em;
     }
 
     .hero__proofline span {

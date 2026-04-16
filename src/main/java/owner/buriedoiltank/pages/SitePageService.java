@@ -23,6 +23,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SitePageService {
+    private static final String CONTACT_EMAIL = "shinhyeok22@gmail.com";
+
     private final ContentRepository repository;
     private final RouteInventoryService routeInventoryService;
     private final URI baseUrl;
@@ -230,9 +232,10 @@ public class SitePageService {
                                     "We keep the public scope narrow: buyer-seller risk, sweep first, and records first.",
                                     "We route by state because process, reporting, and cleanup language may differ.",
                                     "We do not present ourselves as a government source or a legal substitute.",
-                                    "Pages are pressure-tested by internal virtual desks for routing, source review, and risk boundaries. Those desks are editorial roles, not named licensed professionals."
+                                    "Pages are pressure-tested by internal editorial review standards for routing, source review, and risk boundaries."
                             ),
-                            breadcrumbs("About", "/about/")
+                            breadcrumbs("About", "/about/"),
+                            null
             );
             case "methodology" -> new PageModels.StaticPageModel(
                     meta(
@@ -256,9 +259,10 @@ public class SitePageService {
                             "The site follows a verify, route, then escalate sequence instead of jumping straight to removal or cleanup.",
                             "State environmental and cleanup sources outrank every secondary source.",
                             "Pages stay directional and scenario-bound, especially on cost and cleanup questions.",
-                            "A virtual routing desk drafts the page shape, a source review desk checks official references, and a risk boundary desk looks for overreach before publication."
+                            "Each page goes through routing review, source review, and a boundary check before it stays public."
                     ),
-                    breadcrumbs("Methodology", "/methodology/")
+                    breadcrumbs("Methodology", "/methodology/"),
+                    null
             );
             case "contact" -> new PageModels.StaticPageModel(
                     meta(
@@ -276,13 +280,15 @@ public class SitePageService {
                             )
                     ),
                     "Contact",
-                    "Use the file checklist on a scenario page for route-specific help, and use this page for editorial corrections or source updates.",
+                    "Use the file checklist on a scenario page for route-specific help, and use this page for editorial corrections, source updates, or launch questions.",
                     List.of(
+                            "Email shinhyeok22@gmail.com for source corrections, stale links, or launch questions.",
                             "Flag any outdated state source or PDF.",
                             "Point out where a county or delegated authority materially changes the answer.",
                             "Use route-level submissions when a live file needs file-specific next steps."
                     ),
-                    breadcrumbs("Contact", "/contact/")
+                    breadcrumbs("Contact", "/contact/"),
+                    CONTACT_EMAIL
             );
             case "privacy" -> new PageModels.StaticPageModel(
                     meta(
@@ -306,7 +312,8 @@ public class SitePageService {
                             "Event logging keeps route, state, and scenario context for QA and promotion review.",
                             "This release does not include user accounts or a broad provider marketplace."
                     ),
-                    breadcrumbs("Privacy", "/privacy/")
+                    breadcrumbs("Privacy", "/privacy/"),
+                    null
             );
             case "terms" -> new PageModels.StaticPageModel(
                     meta(
@@ -330,7 +337,8 @@ public class SitePageService {
                             "Do not treat a general page as proof that a property is clean or tank-free.",
                             "Verify current state guidance when the route depends on reporting or cleanup obligations."
                     ),
-                    breadcrumbs("Terms", "/terms/")
+                    breadcrumbs("Terms", "/terms/"),
+                    null
             );
             case "not-government-affiliated" -> new PageModels.StaticPageModel(
                     meta(
@@ -354,7 +362,8 @@ public class SitePageService {
                             "Commercial CTAs are scenario-specific and stay separate from source stacks.",
                             "Where the state source is unclear, the page should stay narrower or remain held."
                     ),
-                    breadcrumbs("Not government affiliated", "/not-government-affiliated/")
+                    breadcrumbs("Not government affiliated", "/not-government-affiliated/"),
+                    null
             );
             default -> throw new IllegalArgumentException("Unknown static page: " + slug);
         };
@@ -656,7 +665,15 @@ public class SitePageService {
     }
 
     private PageModels.PageMeta meta(String title, String description, String path, boolean indexable, List<String> structuredDataJson) {
-        return new PageModels.PageMeta(title, description, baseUrl.resolve(path).toString(), indexable, structuredDataJson);
+        return new PageModels.PageMeta(
+                title,
+                description,
+                baseUrl.resolve(path).toString(),
+                indexable,
+                structuredDataJson,
+                baseUrl.resolve("/og-default.png").toString(),
+                "Buried Oil Tank Verdict site preview"
+        );
     }
 
     private static List<PageModels.Breadcrumb> breadcrumbs(String label, String path) {
@@ -879,10 +896,12 @@ public class SitePageService {
         return schema;
     }
 
-    private static Map<String, Object> siteOrganization() {
+    private Map<String, Object> siteOrganization() {
         return Map.of(
                 "@type", "Organization",
                 "name", "Buried Oil Tank Verdict",
+                "url", baseUrl.resolve("/").toString(),
+                "email", "mailto:" + CONTACT_EMAIL,
                 "description", "Editorial decision-support product for buried and abandoned residential heating oil tank questions before closing."
         );
     }

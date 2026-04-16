@@ -70,16 +70,19 @@ class BuriedOilTankVerdictApplicationTests {
 				.andExpect(content().string(containsString("Buried Oil Tank")))
 				.andExpect(content().string(containsString("<span class=\"hero__accent\">Before Closing</span>")))
 				.andExpect(content().string(containsString("What Buyers and Sellers")))
+				.andExpect(content().string(containsString("suspected buried residential heating-oil tank or missing records before closing")))
 				.andExpect(content().string(containsString("Use the state page or route guide before the file widens into assumption.")))
 				.andExpect(content().string(containsString("Support routes")))
 				.andExpect(content().string(containsString("Keep these cases separate")))
 				.andExpect(content().string(containsString("Current state coverage")))
-				.andExpect(content().string(containsString("Virtual review team")))
+				.andExpect(content().string(containsString("Editorial standard")))
 				.andExpect(content().string(containsString("Official guidance first. Transaction support after the record is clear.")))
+				.andExpect(content().string(containsString("property=\"og:image\"")))
 				.andExpect(content().string(containsString("application/ld+json")))
 				.andExpect(content().string(containsString("href=\"/states/\"")))
 				.andExpect(content().string(containsString("href=\"/routes/\"")))
 				.andExpect(content().string(containsString("href=\"/guides/\"")))
+				.andExpect(content().string(containsString("href=\"/contact/\"")))
 				.andExpect(content().string(not(containsString("href=\"/admin/\""))))
 				.andExpect(content().string(not(containsString("/states/massachusetts/"))));
 
@@ -160,14 +163,19 @@ class BuriedOilTankVerdictApplicationTests {
 			mockMvc.perform(get("/guides/" + guide + "/"))
 					.andExpect(status().isOk())
 					.andExpect(content().string(not(containsString("<meta name=\"robots\" content=\"noindex,follow\">"))))
-					.andExpect(content().string(containsString("Virtual review team")))
+					.andExpect(content().string(containsString("Editorial standard")))
 					.andExpect(content().string(containsString("application/ld+json")));
 		}
 
 		mockMvc.perform(get("/methodology/"))
 				.andExpect(status().isOk())
 				.andExpect(content().string(containsString("verify, route, then escalate sequence")))
-				.andExpect(content().string(containsString("virtual routing desk")));
+				.andExpect(content().string(containsString("routing review, source review, and a boundary check")));
+
+		mockMvc.perform(get("/contact/"))
+				.andExpect(status().isOk())
+				.andExpect(content().string(containsString("mailto:shinhyeok22@gmail.com")))
+				.andExpect(content().string(containsString("shinhyeok22@gmail.com")));
 
 		mockMvc.perform(get("/states/new-jersey/"))
 				.andExpect(status().isOk())
@@ -193,7 +201,8 @@ class BuriedOilTankVerdictApplicationTests {
 		mockMvc.perform(get("/robots.txt"))
 				.andExpect(status().isOk())
 				.andExpect(content().string(containsString("Disallow: /admin")))
-				.andExpect(content().string(containsString("Disallow: /api")));
+				.andExpect(content().string(containsString("Disallow: /api")))
+				.andExpect(content().string(containsString("Sitemap: http://localhost:8080/sitemap.xml")));
 
 		mockMvc.perform(get("/admin/"))
 				.andExpect(status().isUnauthorized())
@@ -204,6 +213,7 @@ class BuriedOilTankVerdictApplicationTests {
 	void leadCaptureAndEventLoggingStoreScenarioContext() throws Exception {
 		mockMvc.perform(post("/api/leads/event")
 						.contentType("application/x-www-form-urlencoded")
+						.header("Origin", "http://localhost:8080")
 						.param("eventType", "cta_click")
 						.param("pageId", "new-jersey:buyer-seller")
 						.param("pagePath", "/states/new-jersey/buyer-seller/")
@@ -217,6 +227,7 @@ class BuriedOilTankVerdictApplicationTests {
 
 		mockMvc.perform(post("/api/leads/capture")
 						.contentType("application/x-www-form-urlencoded")
+						.header("Origin", "http://localhost:8080")
 						.param("pageId", "new-jersey:buyer-seller")
 						.param("pagePath", "/states/new-jersey/buyer-seller/")
 						.param("stateSlug", "new-jersey")
@@ -303,10 +314,39 @@ class BuriedOilTankVerdictApplicationTests {
 	void malformedLeadEventPayloadReturnsBadRequestInsteadOfServerError() throws Exception {
 		mockMvc.perform(post("/api/leads/event")
 						.contentType("application/x-www-form-urlencoded")
+						.header("Origin", "http://localhost:8080")
 						.param("eventType", "cta_click")
 						.param("pageId", "new-jersey:buyer-seller")
 						.param("pagePath", "/states/new-jersey/buyer-seller/"))
 				.andExpect(status().isBadRequest());
+	}
+
+	@Test
+	void crossOriginLeadRequestsAreRejected() throws Exception {
+		mockMvc.perform(post("/api/leads/event")
+						.contentType("application/x-www-form-urlencoded")
+						.header("Origin", "https://evil.example")
+						.param("eventType", "cta_click")
+						.param("pageId", "new-jersey:buyer-seller")
+						.param("pagePath", "/states/new-jersey/buyer-seller/")
+						.param("stateSlug", "new-jersey")
+						.param("routeFamily", "buyer-seller")
+						.param("scenario", "buyer_seller"))
+				.andExpect(status().isForbidden());
+
+		mockMvc.perform(post("/api/leads/capture")
+						.contentType("application/x-www-form-urlencoded")
+						.header("Origin", "https://evil.example")
+						.param("pageId", "new-jersey:buyer-seller")
+						.param("pagePath", "/states/new-jersey/buyer-seller/")
+						.param("stateSlug", "new-jersey")
+						.param("routeFamily", "buyer-seller")
+						.param("scenario", "buyer_seller")
+						.param("userRole", "buyer")
+						.param("tankStatus", "records_missing")
+						.param("email", "owner@example.com"))
+				.andExpect(status().is3xxRedirection())
+				.andExpect(redirectedUrl("/states/new-jersey/buyer-seller/?lead=error"));
 	}
 
 }
