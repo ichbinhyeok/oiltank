@@ -1,0 +1,136 @@
+name: Deploy OiltankRoute to OCI
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+concurrency:
+  group: oiltankroute-production
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Make Maven wrapper executable
+        run: chmod +x ./mvnw
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Run tests
+        run: ./mvnw test
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push ARM64 image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/arm64
+          push: true
+          tags: |
+            shinhyeok22/oiltank:latest
+            shinhyeok22/oiltank:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Copy compose file to OCI
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.OCI_HOST }}
+          username: ${{ secrets.OCI_USERNAME }}
+          key: ${{ secrets.OCI_KEY }}
+          source: "docker-compose.yml"
+          target: "~/deploy/oiltankroute"
+          overwrite: true
+
+      - name: Deploy on OCI host
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.OCI_HOST }}
+          username: ${{ secrets.OCI_USERNAME }}
+          key: ${{ secrets.OCI_KEY }}
+          script: |
+            set -euo pipefail
+
+            APP_DIR="$HOME/deploy/oiltankroute"
+            mkdir -p "$APP_DIR/storage" "$APP_DIR/logs"
+
+            cat > "$APP_DIR/.env" <<EOF
+            IMAGE_NAME=shinhyeok22/oiltank:${{ github.sha }}
+            SPRING_PROFILES_ACTIVE=prod
+            BURIED_OIL_TANK_BASE_URL=https://oiltankroute.com
+            BURIED_OIL_TANK_ADMIN_USERNAME=${{ secrets.APP_ADMIN_USERNAME }}
+            BURIED_OIL_TANK_ADMIN_PASSWORD=${{ secrets.APP_ADMIN_PASSWORD }}
+            JAVA_OPTS=-XX:+UseG1GC -Xms256m -Xmx384m -Xss512k -Djava.security.egd=file:/dev/./urandom
+            EOF
+
+            cd "$APP_DIR"
+            docker compose pull
+            docker compose up -d --remove-orphans
+            docker compose ps
+            docker image prune -f
+
+            for attempt in $(seq 1 24); do
+              HEALTH_JSON=$(curl -fsS http://127.0.0.1:8097/actuator/health || true)
+              if echo "$HEALTH_JSON" | grep -q '"status":"UP"'; then
+                echo "Health check passed on attempt $attempt."
+                break
+              fi
+
+              echo "Health check not ready yet, attempt $attempt/24."
+              sleep 5
+            done
+
+            HEALTH_JSON=$(curl -fsS http://127.0.0.1:8097/actuator/health || true)
+            if ! echo "$HEALTH_JSON" | grep -q '"status":"UP"'; then
+              echo "App health check failed after deploy."
+              docker compose logs --tail=200 app
+              exit 1
+            fi
+
+            HOME_HTML=$(curl -fsS http://127.0.0.1:8097/ || true)
+            if ! echo "$HOME_HTML" | grep -q "Buried Oil Tank"; then
+              echo "Local homepage check failed."
+              echo "$HOME_HTML" | sed -n '1,120p'
+              exit 1
+            fi
+
+            PUBLIC_HTML=""
+            for attempt in $(seq 1 12); do
+              PUBLIC_HTML=$(curl -fsSL https://oiltankroute.com/ || true)
+              if echo "$PUBLIC_HTML" | grep -q "Buried Oil Tank"; then
+                echo "Public domain check passed on attempt $attempt."
+                break
+              fi
+              echo "Public domain not ready yet, attempt $attempt/12."
+              sleep 5
+            done
+
+            if ! echo "$PUBLIC_HTML" | grep -q "Buried Oil Tank"; then
+              echo "Public domain check failed."
+              echo "$PUBLIC_HTML" | sed -n '1,120p'
+              exit 1
+            fi

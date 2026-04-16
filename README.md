@@ -125,6 +125,19 @@ Production host policy:
 - `www.oiltankroute.com` should redirect to the apex domain
 - The app now redirects non-canonical hosts to the configured `buried-oil-tank.base-url`
 
+OCI deploy defaults:
+
+- Docker image: `shinhyeok22/oiltank`
+- Local OCI container port mapping: `8097 -> 8080`
+- Required GitHub secrets:
+  - `DOCKERHUB_USERNAME`
+  - `DOCKERHUB_TOKEN`
+  - `OCI_HOST`
+  - `OCI_USERNAME`
+  - `OCI_KEY`
+  - `APP_ADMIN_USERNAME`
+  - `APP_ADMIN_PASSWORD`
+
 ## Recommended launch cohort
 Start with four public states where the topic is both real and monetizable:
 

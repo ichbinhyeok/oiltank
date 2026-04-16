@@ -1,0 +1,16 @@
+.git
+.github
+.idea
+.playwright-cli
+.vscode
+jte-classes
+node_modules
+output
+storage
+target
+test-results
+*.log
+*.png
+*.jpg
+*.jpeg
+*.zip
