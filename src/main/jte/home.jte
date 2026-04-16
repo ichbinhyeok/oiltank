@@ -9,8 +9,8 @@
             <h1>
                 <span class="hero__title-line">Buried Oil Tank</span>
                 <span class="hero__title-line"><span class="hero__accent">Before Closing</span></span>
-                <span class="hero__title-line">What Buyers and Sellers</span>
-                <span class="hero__title-line">Should Do Next</span>
+                <span class="hero__title-line">Next Steps for</span>
+                <span class="hero__title-line hero__title-line--lead">Buyers and Sellers</span>
             </h1>
             <p class="hero__lede">For buyers and sellers dealing with a suspected buried residential heating-oil tank or missing records before closing.</p>
             <div class="hero__proofline">
