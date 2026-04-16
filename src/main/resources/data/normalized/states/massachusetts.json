@@ -1,0 +1,62 @@
+{
+  "name": "Massachusetts",
+  "slug": "massachusetts",
+  "abbreviation": "MA",
+  "marketPriorityScore": 84,
+  "launchReady": false,
+  "regulatoryOwner": "Massachusetts cleanup and homeowner guidance",
+  "delegatedLocalAuthorities": "Massachusetts answers often depend on homeowner cleanup guidance and closure assessment documents rather than a single tank FAQ page.",
+  "buyerSellerSummary": "Massachusetts is still transaction-relevant, but the strongest official support sits closer to closure assessment and cleanup guidance than a simple buyer-seller checklist.",
+  "recordLookupSummary": "Records matter because the same property may shift quickly from a paperwork question into a closure assessment or cleanup question.",
+  "sweepFirstSummary": "A sweep may still be the cleanest first move when there are site clues but no clear closure history.",
+  "removalVsAbandonmentSummary": "Closure decisions depend on tank condition, contamination assessment, and the state's homeowner cleanup framework.",
+  "leakReportingSummary": "A leak concern can become a site assessment issue rather than a simple contractor routing problem.",
+  "insuranceCleanupSummary": "Cleanup direction and homeowner obligations may become more important than a raw contractor quote.",
+  "quickAnswer": "In Massachusetts, keep the route narrow: verify the records and tank status first, then decide whether the case is still a transaction question or a cleanup question.",
+  "commonTriggers": [
+    "There is no clean closure file before a sale.",
+    "A property history suggests oil heat but the tank status is uncertain.",
+    "The parties need to know whether this is still a verification case or already a cleanup case."
+  ],
+  "cautions": [
+    "Do not assume Massachusetts is as simple as a single tank FAQ workflow.",
+    "Do not treat a potential release as ordinary removal work.",
+    "Do not overstate cost before the closure path is clear."
+  ],
+  "strongestTriggerStates": [
+    "The transaction question may really be a closure-assessment or cleanup question once the paperwork is read closely.",
+    "There is no clean closure file, but site clues suggest prior oil heat and possible remaining tank infrastructure.",
+    "The parties need to know whether they are still only verifying presence or already dealing with assessment-level facts."
+  ],
+  "firstMoves": [
+    "Pull homeowner cleanup and closure-assessment documents before treating Massachusetts like a simple buyer-seller checklist state.",
+    "Use a sweep or locate only after the paper file fails to resolve whether the tank is still present.",
+    "If records mention contamination assessment, switch early from transaction framing to cleanup framing."
+  ],
+  "documentTargets": [
+    "Homeowner cleanup correspondence, closure-assessment paperwork, and any contractor closure record.",
+    "Fuel conversion records, prior site-work invoices, and disclosures explaining when oil heat ended.",
+    "Any contamination assessment, release documentation, or related site-cleanup language tied to the property."
+  ],
+  "escalationSignals": [
+    "Any assessment or cleanup document showing the issue is already beyond a simple missing-record route.",
+    "Odor, staining, excavation findings, or contractor notes that raise release concern.",
+    "A confirmed tank plus contamination language that changes the route from transaction timing to site-assessment timing."
+  ],
+  "sourceStack": [
+    {
+      "id": "mass-homeowner-cleanup-guide",
+      "title": "Massachusetts Site Cleanup for Homeowners",
+      "url": "https://www.mass.gov/guides/site-cleanup-for-homeowners",
+      "kind": "state homeowner cleanup guidance"
+    },
+    {
+      "id": "mass-residential-uht-assessment",
+      "title": "Assessing Contamination at Residential Underground Heating Oil Tank Closures",
+      "url": "https://www.mass.gov/doc/assessing-contamination-at-residential-underground-heating-oil-tank-closures-0/download",
+      "kind": "state closure assessment guidance"
+    }
+  ],
+  "verifiedOn": "2026-04-13",
+  "nextReviewOn": "2026-05-28"
+}

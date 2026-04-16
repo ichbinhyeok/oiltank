@@ -1,0 +1,58 @@
+{
+  "slug": "oil-tank-removal-cost",
+  "title": "Oil tank removal cost direction",
+  "summary": "Cross-state guide for directional cost talk after the trigger state and route are already clear.",
+  "quickAnswer": "Cost direction only becomes honest after the route is clear enough to separate sweep, closure, removal, and cleanup.",
+  "stateEntryPrompt": "Choose a state route for cost direction.",
+  "primaryScenario": "removal_decision",
+  "primaryPartnerType": "closure_or_removal",
+  "primaryRouteFamily": "cost-direction",
+  "indexable": true,
+  "introPoints": [
+    "Keep cost directional and tied to a clear scenario.",
+    "Use state guidance before treating a market article as authoritative.",
+    "Move back to verification routes when the facts are still thin."
+  ],
+  "whatNotToAssume": [
+    "Do not treat a broad range as a quote.",
+    "Do not assume the same cost logic applies to sweep, removal, and cleanup.",
+    "Do not use cost direction to skip verification."
+  ],
+  "bestFor": [
+    "The route is already narrow enough that the user needs directional cost, not a generic article.",
+    "Tank presence, closure path, or cleanup path is clearer than it was at the first trigger.",
+    "The user can already separate sweep, closure, removal, and cleanup scenarios."
+  ],
+  "beforeYouCall": [
+    "Lock the scenario first: sweep, closure, removal, or cleanup.",
+    "Pull any state cost reference or fund guidance before treating a contractor number as the whole answer.",
+    "Keep the range directional until the record stack and site facts are stronger."
+  ],
+  "documentsThatMatter": [
+    "State cost references, fund guidance, and any official closure or cleanup benchmark.",
+    "Sweep, closure, removal, or site-assessment records showing which scenario actually applies.",
+    "Any contamination or access fact that materially widens the range."
+  ],
+  "whenToEscalate": [
+    "Move back to sweep-first or records-first if the scenario is still not verified.",
+    "Move to leak-and-cleanup when contamination concern, remediation, or reporting language appears.",
+    "Stay state-specific because the same range logic does not travel cleanly across states."
+  ],
+  "stateSlugs": [
+    "new-jersey",
+    "new-york",
+    "connecticut",
+    "massachusetts",
+    "maine"
+  ],
+  "sourceStack": [
+    {
+      "id": "nj-ust-fund-cost-guide",
+      "title": "NJDEP UST Fund Cost Guide",
+      "url": "https://www.nj.gov/dep/srp/finance/ustfund/ustf_costguide.htm",
+      "kind": "state cost-direction reference"
+    }
+  ],
+  "verifiedOn": "2026-04-13",
+  "nextReviewOn": "2026-05-28"
+}

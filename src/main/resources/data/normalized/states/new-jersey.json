@@ -1,0 +1,62 @@
+{
+  "name": "New Jersey",
+  "slug": "new-jersey",
+  "abbreviation": "NJ",
+  "marketPriorityScore": 95,
+  "launchReady": true,
+  "regulatoryOwner": "New Jersey Department of Environmental Protection",
+  "delegatedLocalAuthorities": "Certified closure contractors and NJDEP cleanup workflows drive the answer, even when local records are thin.",
+  "buyerSellerSummary": "A missing heating-oil tank record during a sale may keep real transaction risk open until the parties verify tank presence or closure paperwork.",
+  "recordLookupSummary": "Start with permits, closure documents, and prior heating-fuel history before treating silence as proof that no tank exists.",
+  "sweepFirstSummary": "A sweep is often the honest first step when old fill or vent evidence appears but the file does not close the question.",
+  "removalVsAbandonmentSummary": "The disposition path depends on confirmed tank conditions, site access, and the NJDEP heating-oil tank workflow.",
+  "leakReportingSummary": "A suspected release may move the case from ordinary closure into reporting, remediation, and no-further-action review.",
+  "insuranceCleanupSummary": "Cleanup and reimbursement questions may follow a different timeline from simple locate or closure work.",
+  "quickAnswer": "In New Jersey, buyers and sellers usually need to verify records and likely tank presence before debating price or removal.",
+  "commonTriggers": [
+    "Old fill or vent pipes appear before closing.",
+    "Seller paperwork is silent on prior oil heat or closure history.",
+    "Inspection notes raise a buried tank question without confirming a tank."
+  ],
+  "cautions": [
+    "Do not assume a missing record proves there is no tank.",
+    "Do not blur a routine closure question with a release or remediation question.",
+    "Do not jump to firm cost talk before a sweep or document review."
+  ],
+  "strongestTriggerStates": [
+    "The buyer or seller has no closure document, but old oil-heat evidence is still visible on site.",
+    "An inspection note or sweep result suggests a tank while the closing timeline is still live.",
+    "The file starts as a transaction question, then release language or cleanup history appears."
+  ],
+  "firstMoves": [
+    "Pull seller disclosure, prior oil-heat conversion records, and any closure paperwork before talking about credits or removal.",
+    "If old fill or vent evidence remains, use a sweep or locate to decide whether the route is still only suspicion.",
+    "If the file mentions a release, fund claim, or no-further-action review, tighten the route around cleanup facts rather than generic removal talk."
+  ],
+  "documentTargets": [
+    "Seller disclosure packet, permits, and contractor closure records tied to prior oil heat.",
+    "Any NJDEP case reference, fund paperwork, or no-further-action language.",
+    "Fuel conversion records, removal invoices, or transfer files that explain when the system changed."
+  ],
+  "escalationSignals": [
+    "Odor, staining, or excavation history suggesting the case is no longer only a missing-record problem.",
+    "Any state paperwork that references a release, remediation, or no-further-action decision.",
+    "A contractor or inspection note that confirms tank presence or questions contamination, not just tank age."
+  ],
+  "sourceStack": [
+    {
+      "id": "njdep-uhot",
+      "title": "NJDEP Unregulated Heating Oil Tanks",
+      "url": "https://dep.nj.gov/srp/unregulated/",
+      "kind": "state environmental guidance"
+    },
+    {
+      "id": "nj-ust-fund-cost-guide",
+      "title": "NJDEP UST Fund Cost Guide",
+      "url": "https://www.nj.gov/dep/srp/finance/ustfund/ustf_costguide.htm",
+      "kind": "state cost-direction reference"
+    }
+  ],
+  "verifiedOn": "2026-04-13",
+  "nextReviewOn": "2026-05-28"
+}

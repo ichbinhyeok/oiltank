@@ -1,0 +1,56 @@
+{
+  "name": "Maine",
+  "slug": "maine",
+  "abbreviation": "ME",
+  "marketPriorityScore": 82,
+  "launchReady": true,
+  "regulatoryOwner": "Maine Department of Environmental Protection",
+  "delegatedLocalAuthorities": "Maine's plain-language homeowner guidance gives enough clarity to keep the launch wedge transaction-first and evidence-first.",
+  "buyerSellerSummary": "Maine supports buyer-risk and owner-risk framing when tank status is uncertain and records are incomplete.",
+  "recordLookupSummary": "Use any closure paperwork, prior fuel evidence, and property history before assuming the question is resolved.",
+  "sweepFirstSummary": "A sweep-first route helps keep the answer honest when old tank infrastructure is suspected but not proven.",
+  "removalVsAbandonmentSummary": "Tank disposition depends on what is confirmed on site and whether contamination concern changes the route.",
+  "leakReportingSummary": "Leak concern may widen the case from simple tank handling into documentation and cleanup review.",
+  "insuranceCleanupSummary": "Cleanup direction may matter more than price once the route moves beyond a locate question.",
+  "quickAnswer": "In Maine, start with evidence and official homeowner guidance before assuming the tank question is settled.",
+  "commonTriggers": [
+    "A buyer needs confidence before closing on an older home.",
+    "The seller cannot show clear closure paperwork.",
+    "There are clues of prior oil heat but the tank status is uncertain."
+  ],
+  "cautions": [
+    "Do not assume the file is clean just because the property is old.",
+    "Do not move straight to removal talk without confirming the route.",
+    "Do not treat a leak concern as identical to ordinary closure."
+  ],
+  "strongestTriggerStates": [
+    "An older home shows prior oil-heat clues, but there is no clean closure paperwork before closing.",
+    "The buyer wants confidence on tank status before turning the issue into a price or removal fight.",
+    "Plain-language guidance supports verification first, but the record stack is still thin."
+  ],
+  "firstMoves": [
+    "Pull homeowner paperwork, prior fuel history, and any closure record before widening the route.",
+    "Use a sweep or locate if visible clues are stronger than the file.",
+    "If the documents point to contamination or cleanup review, stop treating the route as ordinary closure."
+  ],
+  "documentTargets": [
+    "Prior fuel-delivery, conversion, or burner-replacement records showing when the system changed.",
+    "Closure paperwork, contractor invoices, and any DEP-related homeowner guidance tied to the property.",
+    "Any cleanup, spill, or no-further-action-style document that changes the route."
+  ],
+  "escalationSignals": [
+    "Odor, staining, or excavation history suggesting contamination concern.",
+    "Contractor or inspection notes that confirm a tank or mention possible release conditions.",
+    "Any document trail showing the case already moved into cleanup review."
+  ],
+  "sourceStack": [
+    {
+      "id": "maine-plain-talk-heating-oil-tanks",
+      "title": "Maine DEP Plain Talk on Heating Oil Tanks",
+      "url": "https://www.maine.gov/dep/waste/ust/documents/plaintalkonheatingoil.pdf",
+      "kind": "state homeowner guidance"
+    }
+  ],
+  "verifiedOn": "2026-04-13",
+  "nextReviewOn": "2026-05-28"
+}

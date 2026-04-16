@@ -1,0 +1,56 @@
+{
+  "name": "Connecticut",
+  "slug": "connecticut",
+  "abbreviation": "CT",
+  "marketPriorityScore": 90,
+  "launchReady": true,
+  "regulatoryOwner": "Connecticut Department of Energy and Environmental Protection",
+  "delegatedLocalAuthorities": "State DEEP guidance anchors the answer, while transaction context determines whether the first move is records, sweep, or leak review.",
+  "buyerSellerSummary": "Connecticut has clear homeowner and buyer-seller framing, which makes the transaction route especially important when records are thin.",
+  "recordLookupSummary": "Use closure records, property history, and fuel evidence before assuming an absent file closes the issue.",
+  "sweepFirstSummary": "A sweep-first route is often cleaner than removal talk when the site shows clues but the tank is not confirmed.",
+  "removalVsAbandonmentSummary": "The proper closure path depends on what is actually there, what records exist, and whether the state process escalates beyond simple closure.",
+  "leakReportingSummary": "If the question shifts from tank presence to a possible release, cleanup workflow may matter more than contractor scheduling.",
+  "insuranceCleanupSummary": "Insurance and cleanup direction only becomes useful after the route is clear and evidence is stronger than suspicion.",
+  "quickAnswer": "In Connecticut, start with the transaction question and the evidence stack before deciding whether this is a sweep, closure, or cleanup case.",
+  "commonTriggers": [
+    "A buyer or seller needs clarity before closing.",
+    "Property history suggests prior oil heat but paperwork is incomplete.",
+    "The parties need to separate suspicion from confirmed leak concern."
+  ],
+  "cautions": [
+    "Do not overstate contamination from a general page.",
+    "Do not treat old heating history as proof of a current tank.",
+    "Do not skip records review when the transaction is still live."
+  ],
+  "strongestTriggerStates": [
+    "Buyer-seller timing is live and the parties still do not know if this is suspicion, a confirmed tank, or a leak concern.",
+    "Old oil-heat history appears in the property file, but closure proof is thin.",
+    "Transaction urgency is pushing the parties toward quotes before the evidence stack is clear."
+  ],
+  "firstMoves": [
+    "Start with DEEP guidance, seller paperwork, and prior fuel history before widening the route into removal or cleanup.",
+    "Use a sweep when the site shows clues but the record stack does not confirm the tank.",
+    "Separate tank-presence questions from release questions so the next call matches the actual route."
+  ],
+  "documentTargets": [
+    "Seller disclosure language, DEEP-related closure paperwork, and any prior contractor record.",
+    "Fuel conversion or burner replacement documents that help date the move away from oil heat.",
+    "Any cleanup, spill, or no-further-action document showing the issue already moved beyond ordinary closure."
+  ],
+  "escalationSignals": [
+    "Odor, sheen, stained soil, or contractor notes suggesting release concern rather than simple verification.",
+    "A file that references cleanup, spill response, or environmental review.",
+    "Facts confirming the tank is still in place and changing the route from suspicion to closure planning."
+  ],
+  "sourceStack": [
+    {
+      "id": "ctdeep-residential-heating-oil-faq",
+      "title": "Connecticut DEEP Residential Home Heating Oil Tanks FAQ",
+      "url": "https://portal.ct.gov/DEEP/Emergency-Response-and-Spill-Prevention/Residential-Tanks/Residential-Home-Heating-Oil-Tanks---FAQs",
+      "kind": "state environmental guidance"
+    }
+  ],
+  "verifiedOn": "2026-04-13",
+  "nextReviewOn": "2026-05-28"
+}

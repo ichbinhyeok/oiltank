@@ -1,0 +1,64 @@
+{
+  "slug": "oil-tank-sweep-before-buying-house",
+  "title": "Oil tank sweep before buying a house",
+  "summary": "Use this guide when the honest first question is whether you need a sweep before contractor quotes or negotiation talk.",
+  "quickAnswer": "A sweep may be the clean first move when a buyer sees clues of prior oil heat but the paperwork does not close the question.",
+  "stateEntryPrompt": "Choose a state route for sweep-first guidance.",
+  "primaryScenario": "sweep_first",
+  "primaryPartnerType": "sweep_or_locate",
+  "primaryRouteFamily": "sweep-and-locate",
+  "indexable": true,
+  "introPoints": [
+    "Use the sweep question to separate suspicion from confirmed tank presence.",
+    "Keep the route focused on evidence before turning it into a removal job.",
+    "Move into a state page once the trigger is clear."
+  ],
+  "whatNotToAssume": [
+    "Do not assume every old oil-heated home still has a buried tank.",
+    "Do not assume a sweep answer is the same thing as a closure decision.",
+    "Do not assume cost content can replace confirmation."
+  ],
+  "bestFor": [
+    "Site clues are real, but the paperwork does not prove a tank is still present.",
+    "A buyer wants evidence before making quote-first or negotiation-first decisions.",
+    "An older property has prior oil-heat history, but closure status is uncertain."
+  ],
+  "beforeYouCall": [
+    "Decide whether the route is still only suspicion or already a confirmed tank case.",
+    "Pull any closure paperwork before assuming the sweep result alone answers the whole problem.",
+    "Use the state page to check whether a local overlay changes what the contractor should document."
+  ],
+  "documentsThatMatter": [
+    "Inspection notes, site photos, prior fuel-use history, and old closure paperwork.",
+    "Survey or contractor notes that help distinguish pipes, abandoned lines, and actual tank evidence.",
+    "Any state or local document explaining what happens after a tank is located."
+  ],
+  "whenToEscalate": [
+    "Move to records-first if the file gap is still bigger than the physical evidence.",
+    "Move to removal-versus-abandon only after location and the state closure path are clear.",
+    "Move to leak-and-cleanup if the sweep or site visit raises release concern rather than simple location."
+  ],
+  "stateSlugs": [
+    "new-jersey",
+    "new-york",
+    "connecticut",
+    "massachusetts",
+    "maine"
+  ],
+  "sourceStack": [
+    {
+      "id": "njdep-uhot",
+      "title": "NJDEP Unregulated Heating Oil Tanks",
+      "url": "https://dep.nj.gov/srp/unregulated/",
+      "kind": "state closure workflow"
+    },
+    {
+      "id": "maine-plain-talk-heating-oil-tanks",
+      "title": "Maine DEP Plain Talk on Heating Oil Tanks",
+      "url": "https://www.maine.gov/dep/waste/ust/documents/plaintalkonheatingoil.pdf",
+      "kind": "state homeowner guidance"
+    }
+  ],
+  "verifiedOn": "2026-04-13",
+  "nextReviewOn": "2026-05-28"
+}

@@ -1,0 +1,7 @@
+scope,scenario,min_band,max_band,assumptions,confidence
+new-jersey,sweep,400,1200,Directional locate-first band before excavation or cleanup,0.4
+new-jersey,removal,2500,9000,Directional removal band without confirmed cleanup scope,0.4
+new-york,sweep,400,1200,Directional locate-first band before excavation or cleanup,0.35
+connecticut,sweep,400,1200,Directional locate-first band before excavation or cleanup,0.35
+massachusetts,removal,3000,10000,Directional closure or removal band before contamination assessment,0.3
+maine,sweep,350,1100,Directional locate-first band before excavation or cleanup,0.35

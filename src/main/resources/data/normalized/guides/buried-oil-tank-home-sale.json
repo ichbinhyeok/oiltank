@@ -1,0 +1,64 @@
+{
+  "slug": "buried-oil-tank-home-sale",
+  "title": "Buried oil tank home sale guide",
+  "summary": "Use this guide when a buried tank question appears before closing and the parties need the next step, not a generic article.",
+  "quickAnswer": "Treat a buried tank question during a sale as a verification problem first: records, sweep, and state process before price drama.",
+  "stateEntryPrompt": "Choose a state route for the transaction-specific answer.",
+  "primaryScenario": "buyer_seller",
+  "primaryPartnerType": "sweep_or_locate",
+  "primaryRouteFamily": "buyer-seller",
+  "indexable": true,
+  "introPoints": [
+    "Separate suspected, confirmed, and leak-concern cases before talking about disposition.",
+    "Use records and sweep work to tighten the facts while the transaction is still live.",
+    "Move to a state page before assuming the same answer applies everywhere."
+  ],
+  "whatNotToAssume": [
+    "Do not assume missing records prove there is no tank.",
+    "Do not assume the first quote is the right first step.",
+    "Do not assume the buyer-seller answer is identical in every state."
+  ],
+  "bestFor": [
+    "An active sale or near-term closing where buried tank suspicion is still unresolved.",
+    "A buyer, seller, or agent needs the next verification step before turning to credits or removal talk.",
+    "The paper file is incomplete and the parties need a state route that matches the actual facts."
+  ],
+  "beforeYouCall": [
+    "Separate suspected tank, confirmed tank, and leak concern before contacting contractors.",
+    "Pull seller disclosure and any closure paperwork before asking for a quote.",
+    "Keep the route narrow until the state page tells you whether local or cleanup overlays matter."
+  ],
+  "documentsThatMatter": [
+    "Seller disclosure, permits, closure records, and prior fuel-conversion history.",
+    "Inspection notes or sweep results that tighten whether the tank is only suspected or actually confirmed.",
+    "Any cleanup or release document that changes the route out of ordinary sale-side verification."
+  ],
+  "whenToEscalate": [
+    "Switch to removal-versus-abandon only after tank presence is confirmed.",
+    "Switch to leak-and-cleanup when odor, staining, release language, or cleanup paperwork appears.",
+    "Stay in the state page when local authority or state-specific process changes the answer."
+  ],
+  "stateSlugs": [
+    "new-jersey",
+    "new-york",
+    "connecticut",
+    "massachusetts",
+    "maine"
+  ],
+  "sourceStack": [
+    {
+      "id": "oregon-buying-selling-hot",
+      "title": "Oregon DEQ Buying or Selling Property with a Heating Oil Tank",
+      "url": "https://www.oregon.gov/deq/tanks/pages/hot-buying-or-selling.aspx",
+      "kind": "state buyer-seller workflow benchmark"
+    },
+    {
+      "id": "ctdeep-residential-heating-oil-faq",
+      "title": "Connecticut DEEP Residential Home Heating Oil Tanks FAQ",
+      "url": "https://portal.ct.gov/DEEP/Emergency-Response-and-Spill-Prevention/Residential-Tanks/Residential-Home-Heating-Oil-Tanks---FAQs",
+      "kind": "state transaction guidance"
+    }
+  ],
+  "verifiedOn": "2026-04-13",
+  "nextReviewOn": "2026-05-28"
+}

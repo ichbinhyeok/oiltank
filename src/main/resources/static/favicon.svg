@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-labelledby="faviconTitle">
+  <title id="faviconTitle">Buried Oil Tank Verdict</title>
+  <rect width="100" height="100" rx="18" fill="#07163c" />
+  <path
+    d="M27 37 L50 22 L73 37"
+    fill="none"
+    stroke="#ffffff"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="7"
+  />
+  <path
+    d="M32 37 V46 H68 V37"
+    fill="none"
+    stroke="#ffffff"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="7"
+  />
+  <line x1="18" y1="49" x2="82" y2="49" stroke="#dbe5ff" stroke-linecap="round" stroke-width="6" />
+  <rect x="23" y="56" width="54" height="17" rx="8.5" fill="#dbe5ff" />
+  <circle cx="30" cy="64.5" r="2.6" fill="#07163c" />
+  <circle cx="72" cy="73" r="12" fill="#1d6c45" />
+  <path
+    d="M66 73 L70 77 L78 68"
+    fill="none"
+    stroke="#ffffff"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="4.5"
+  />
+</svg>

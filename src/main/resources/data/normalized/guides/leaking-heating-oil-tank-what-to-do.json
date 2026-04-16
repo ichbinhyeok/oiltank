@@ -1,0 +1,64 @@
+{
+  "slug": "leaking-heating-oil-tank-what-to-do",
+  "title": "Leaking heating oil tank what to do",
+  "summary": "Cross-state guide for cases where a buried tank question may already be a release or cleanup problem.",
+  "quickAnswer": "A suspected leak may move the route from contractor coordination into reporting and cleanup workflow.",
+  "stateEntryPrompt": "Choose a state route for leak and cleanup guidance.",
+  "primaryScenario": "leak_concern",
+  "primaryPartnerType": "environmental_cleanup",
+  "primaryRouteFamily": "leak-and-cleanup",
+  "indexable": true,
+  "introPoints": [
+    "Separate a leak concern from a simple tank locate or closure question.",
+    "Use official state guidance before making certainty claims about contamination.",
+    "Escalate when the evidence suggests reporting or cleanup, not just ordinary contractor work."
+  ],
+  "whatNotToAssume": [
+    "Do not assume contamination certainty from a general guide.",
+    "Do not assume ordinary removal solves the reporting question.",
+    "Do not assume transaction timing overrides environmental process."
+  ],
+  "bestFor": [
+    "Odor, staining, release language, or site facts suggest the route may have moved beyond ordinary closure.",
+    "The tank is confirmed and the next question is whether reporting or cleanup workflow now matters.",
+    "A transaction question is being overtaken by possible contamination or remediation facts."
+  ],
+  "beforeYouCall": [
+    "Separate suspicion, confirmed tank, and actual release evidence before choosing the next professional.",
+    "Pull any closure, spill, or cleanup paperwork before treating the route as a generic emergency.",
+    "Use the state page to verify whether the answer is still homeowner routing or already environmental review."
+  ],
+  "documentsThatMatter": [
+    "Spill, cleanup, or remediation records tied to the property.",
+    "Closure paperwork, contractor notes, and any site-assessment language mentioning contamination.",
+    "Any fund, no-further-action, or state-case reference that narrows the route."
+  ],
+  "whenToEscalate": [
+    "Move back to records-first if the facts do not yet support a release route.",
+    "Move to removal-versus-abandon only if the issue is confirmed tank disposition without cleanup facts.",
+    "Stay in the state route when reporting or remediation language controls the next step."
+  ],
+  "stateSlugs": [
+    "new-jersey",
+    "new-york",
+    "connecticut",
+    "massachusetts",
+    "maine"
+  ],
+  "sourceStack": [
+    {
+      "id": "njdep-uhot",
+      "title": "NJDEP Unregulated Heating Oil Tanks",
+      "url": "https://dep.nj.gov/srp/unregulated/",
+      "kind": "state remediation workflow"
+    },
+    {
+      "id": "mass-homeowner-cleanup-guide",
+      "title": "Massachusetts Site Cleanup for Homeowners",
+      "url": "https://www.mass.gov/guides/site-cleanup-for-homeowners",
+      "kind": "state homeowner cleanup guidance"
+    }
+  ],
+  "verifiedOn": "2026-04-13",
+  "nextReviewOn": "2026-05-28"
+}

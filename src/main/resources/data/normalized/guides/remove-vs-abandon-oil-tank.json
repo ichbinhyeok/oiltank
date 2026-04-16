@@ -1,0 +1,64 @@
+{
+  "slug": "remove-vs-abandon-oil-tank",
+  "title": "Remove vs abandon oil tank",
+  "summary": "Cross-state guide for cases where the tank is confirmed and the next choice is disposition.",
+  "quickAnswer": "Removal versus abandonment is state-specific and should come after confirmation, not before.",
+  "stateEntryPrompt": "Choose a state route for disposition guidance.",
+  "primaryScenario": "removal_decision",
+  "primaryPartnerType": "closure_or_removal",
+  "primaryRouteFamily": "removal-vs-abandonment",
+  "indexable": true,
+  "introPoints": [
+    "Confirm the tank and the state process before comparing closure options.",
+    "Use records and leak indicators to avoid collapsing different routes into one.",
+    "Use this guide to compare the route only after the tank is confirmed and the state closure path is in view."
+  ],
+  "whatNotToAssume": [
+    "Do not assume removal is always required.",
+    "Do not assume abandonment in place is always allowed.",
+    "Do not assume this is still only a transaction question once a leak is suspected."
+  ],
+  "bestFor": [
+    "Tank presence is confirmed and the next decision is how the state allows closure to happen.",
+    "The route already moved past simple suspicion and now needs a state-specific disposition answer.",
+    "A contractor or record stack shows the question is no longer just buyer-seller timing."
+  ],
+  "beforeYouCall": [
+    "Confirm the tank and the state closure path before comparing disposition options.",
+    "Pull any closure, assessment, or site-condition document before asking whether removal is mandatory.",
+    "Keep leak concern separate from ordinary closure planning."
+  ],
+  "documentsThatMatter": [
+    "State or delegated-local closure guidance, contractor assessments, and tank-condition notes.",
+    "Any prior permit, closure record, or invoice showing earlier work on the tank.",
+    "Any leak, contamination, or cleanup document that limits the available options."
+  ],
+  "whenToEscalate": [
+    "Move to leak-and-cleanup when contamination concern appears or cleanup paperwork already exists.",
+    "Move back to records-first if the tank is still not actually confirmed.",
+    "Stay state-specific because one state's allowed closure path may not match another's."
+  ],
+  "stateSlugs": [
+    "new-jersey",
+    "new-york",
+    "connecticut",
+    "massachusetts",
+    "maine"
+  ],
+  "sourceStack": [
+    {
+      "id": "njdep-uhot",
+      "title": "NJDEP Unregulated Heating Oil Tanks",
+      "url": "https://dep.nj.gov/srp/unregulated/",
+      "kind": "state closure workflow"
+    },
+    {
+      "id": "mass-residential-uht-assessment",
+      "title": "Assessing Contamination at Residential Underground Heating Oil Tank Closures",
+      "url": "https://www.mass.gov/doc/assessing-contamination-at-residential-underground-heating-oil-tank-closures-0/download",
+      "kind": "state closure assessment guidance"
+    }
+  ],
+  "verifiedOn": "2026-04-13",
+  "nextReviewOn": "2026-05-28"
+}

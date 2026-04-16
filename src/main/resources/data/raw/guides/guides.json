@@ -1,0 +1,32 @@
+[
+  {
+    "slug": "buried-oil-tank-home-sale",
+    "routeFamily": "buyer-seller",
+    "indexable": true
+  },
+  {
+    "slug": "oil-tank-sweep-before-buying-house",
+    "routeFamily": "sweep-and-locate",
+    "indexable": true
+  },
+  {
+    "slug": "abandoned-oil-tank-records",
+    "routeFamily": "records-and-proof",
+    "indexable": true
+  },
+  {
+    "slug": "remove-vs-abandon-oil-tank",
+    "routeFamily": "removal-vs-abandonment",
+    "indexable": false
+  },
+  {
+    "slug": "leaking-heating-oil-tank-what-to-do",
+    "routeFamily": "leak-and-cleanup",
+    "indexable": false
+  },
+  {
+    "slug": "oil-tank-removal-cost",
+    "routeFamily": "cost-direction",
+    "indexable": false
+  }
+]

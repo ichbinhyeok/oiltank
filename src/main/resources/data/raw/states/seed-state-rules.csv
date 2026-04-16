@@ -1,0 +1,6 @@
+state_slug,state_name,market_priority_score,public_phase_1,regulatory_owner,verified_on,next_review_on
+new-jersey,New Jersey,95,true,New Jersey Department of Environmental Protection,2026-04-13,2026-05-28
+new-york,New York,93,true,New York State Department of Environmental Conservation,2026-04-13,2026-05-28
+connecticut,Connecticut,90,true,Connecticut Department of Energy and Environmental Protection,2026-04-13,2026-05-28
+massachusetts,Massachusetts,84,true,Massachusetts cleanup and homeowner guidance,2026-04-13,2026-05-28
+maine,Maine,82,true,Maine Department of Environmental Protection,2026-04-13,2026-05-28

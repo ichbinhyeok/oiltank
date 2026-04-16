@@ -1,0 +1,32 @@
+[
+  {
+    "id": "njdep-uhot",
+    "state": "new-jersey",
+    "url": "https://dep.nj.gov/srp/unregulated/",
+    "type": "state_environmental_guidance"
+  },
+  {
+    "id": "nydec-homeowner-guide",
+    "state": "new-york",
+    "url": "https://dec.ny.gov/environmental-protection/hazardous-substance-bulk-storage/underground-heating-oil-tanks-homeowner-guide",
+    "type": "state_environmental_guidance"
+  },
+  {
+    "id": "ctdeep-residential-heating-oil-faq",
+    "state": "connecticut",
+    "url": "https://portal.ct.gov/DEEP/Emergency-Response-and-Spill-Prevention/Residential-Tanks/Residential-Home-Heating-Oil-Tanks---FAQs",
+    "type": "state_environmental_guidance"
+  },
+  {
+    "id": "mass-homeowner-cleanup-guide",
+    "state": "massachusetts",
+    "url": "https://www.mass.gov/guides/site-cleanup-for-homeowners",
+    "type": "state_homeowner_cleanup_guidance"
+  },
+  {
+    "id": "maine-plain-talk-heating-oil-tanks",
+    "state": "maine",
+    "url": "https://www.maine.gov/dep/waste/ust/documents/plaintalkonheatingoil.pdf",
+    "type": "state_homeowner_guidance"
+  }
+]

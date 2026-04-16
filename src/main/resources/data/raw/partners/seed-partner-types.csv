@@ -1,0 +1,4 @@
+partner_type_slug,display_label,trigger_state,lead_priority
+sweep_or_locate,Tank sweep or locate specialist,records_missing_or_tank_suspected,1
+closure_or_removal,Closure or removal contractor,confirmed_tank_disposition_question,2
+environmental_cleanup,Environmental consultant or cleanup specialist,leak_or_cleanup_concern,3
