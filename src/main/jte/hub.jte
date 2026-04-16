@@ -27,17 +27,17 @@
             <div class="route-summary__card">
                 <span class="proof-chip__label">Public guides live</span>
                 <strong>${page.cards().size()} route guides</strong>
-                <p>Buyer-seller, sweep, records, disposition, leak, and cost each have a dedicated public path.</p>
+                <p>Home sale, records, sweep, removal, leak, and cost each have a dedicated guide.</p>
             </div>
             <div class="route-summary__card">
                 <span class="proof-chip__label">Working rule</span>
-                <strong>3 core routes. 3 support routes.</strong>
-                <p>Stay in core routes until confirmation or release facts make the file narrower.</p>
+                <strong>3 first-step guides. 3 later-step guides.</strong>
+                <p>Stay with paperwork and confirmation first. Open removal, leak, or cost pages only when the facts justify it.</p>
             </div>
             <div class="route-summary__card">
                 <span class="proof-chip__label">State handoff</span>
-                <strong>Move to a state page when agency language controls the next move.</strong>
-                <p>Once closure, reporting, or cleanup process turns state-specific, the guide should stop being the lead surface.</p>
+                <strong>Go to the state page when permits or agency rules decide the answer.</strong>
+                <p>Once closure, reporting, or cleanup language turns state-specific, the guide should stop being the lead page.</p>
             </div>
         </div>
     </section>

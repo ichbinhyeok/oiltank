@@ -3,7 +3,7 @@
 <section class="section section--contrast section--cta" id="case-checklist" data-cta-root>
     <div class="section__inner cta-box">
         <div class="cta-box__copy">
-            <div class="section__eyebrow section__eyebrow--inverse">File checklist</div>
+            <div class="section__eyebrow section__eyebrow--inverse">Next-step checklist</div>
             <h2>${cta.heading()}</h2>
             <p data-partner-helper>${cta.defaultPartnerType().helperText()}</p>
             <div class="cta-preview">
@@ -52,9 +52,9 @@
                 </select>
             </label>
             <label class="field">
-                <span>Role on the file</span>
+                <span>Your role in the deal</span>
                 <select name="userRole" required>
-                    <option value="" selected disabled>Choose the role that matches the deal</option>
+                    <option value="" selected disabled>Choose your role</option>
                     <option value="buyer">Buyer</option>
                     <option value="seller">Seller</option>
                     <option value="owner_prelisting">Owner preparing to list</option>
@@ -62,7 +62,7 @@
                 </select>
             </label>
             <label class="field">
-                <span>Tank status right now</span>
+                <span>What do you know right now?</span>
                 <select name="tankStatus" required>
                     <option value="" selected disabled>Choose the closest match</option>
                     <option value="suspected_tank">Suspected tank</option>
@@ -77,7 +77,7 @@
                     <input name="zipCode" type="text" inputmode="numeric" autocomplete="postal-code" placeholder="Optional">
                 </label>
                 <label class="field">
-                    <span>Deal clock</span>
+                    <span>Timing</span>
                     <select name="closingTimeline">
                         <option value="">Not tied to a closing date</option>
                         <option value="under_7_days">Under 7 days</option>
@@ -103,8 +103,8 @@
                 <span>Notes</span>
                 <textarea name="notes" rows="4"></textarea>
             </label>
-            <p class="form-note">Use the notes field for the missing record, closure proof gap, sweep result, disclosure language, and the deadline that matters first.</p>
-            <button class="button button--dark" type="submit">Send the file checklist</button>
+            <p class="form-note">Use notes for the missing permit, disclosure issue, visible pipes, sweep result, cleanup letter, or the deadline that matters most.</p>
+            <button class="button button--dark" type="submit">Get the checklist</button>
             <div class="form-status" data-form-status hidden></div>
         </form>
     </div>

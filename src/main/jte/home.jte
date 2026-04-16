@@ -5,43 +5,43 @@
     <div class="hero__inner hero__inner--home">
         <div class="hero__copy">
             <div class="hero__status">For live transactions</div>
-            <div class="section__eyebrow">Buried oil tank disclosure, records, and closing steps</div>
+            <div class="section__eyebrow">Buried oil tank paperwork, permits, and closing decisions</div>
             <h1>
                 <span class="hero__title-line">Buried Oil Tank</span>
-                <span class="hero__title-line"><span class="hero__accent">Before Closing</span></span>
-                <span class="hero__title-line">Next Steps for</span>
-                <span class="hero__title-line hero__title-line--lead">Buyers and Sellers</span>
+                <span class="hero__title-line"><span class="hero__accent">Questions</span> Before Closing</span>
+                <span class="hero__title-line">What Buyers and Sellers</span>
+                <span class="hero__title-line hero__title-line--lead">Should Check First</span>
             </h1>
-            <p class="hero__lede">For buyers and sellers dealing with a suspected buried residential heating-oil tank or missing records before closing.</p>
+            <p class="hero__lede">If an old heating-oil tank may be buried on the property, start with the disclosure, permit trail, and site clues before you argue about credits, removal, or cleanup.</p>
             <div class="hero__proofline">
-                <span>Official state source review</span>
-                <span>Launch coverage: NJ, NY, CT, ME</span>
+                <span>Official state guidance cited</span>
+                <span>Built for NJ, NY, CT, and ME</span>
             </div>
             <div class="hero__actions">
                 <a class="button" href="#states">Start with your state</a>
-                <a class="button button--secondary" href="/methodology/">See how the review works</a>
+                <a class="button button--secondary" href="/methodology/">How we verify pages</a>
             </div>
         </div>
         <div class="hero__aside hero__aside--home">
             <div class="hero__media hero__media--home">
                 <img class="hero__image" src="https://images.unsplash.com/photo-1618179131275-e90e3dfde775?auto=format&fit=crop&w=1400&q=80" alt="Historic residential house exterior in a dark editorial treatment" width="1400" height="1400" loading="eager" fetchpriority="high" decoding="async">
                 <div class="hero__stamp hero__stamp--dark">
-                    <strong>Start with records and evidence</strong>
-                    <span>Do not widen into removal or cleanup until the file, sweep result, and state process line up.</span>
+                    <strong>Start with the paperwork</strong>
+                    <span>Seller disclosure, permit history, and site clues should come before quotes or cleanup assumptions.</span>
                 </div>
             </div>
             <div class="hero__docket">
                 <div class="docket-row">
-                    <span class="docket-row__label">Order</span>
-                    <p>Verify first. Route second. Escalate only when the evidence changes.</p>
+                    <span class="docket-row__label">What comes first</span>
+                    <p>Paperwork, site clues, then the contractor or cleanup question.</p>
                 </div>
                 <div class="docket-row">
-                    <span class="docket-row__label">Who it serves</span>
-                    <p>Buyer, seller, owner, agent, or attorney carrying a live deal clock.</p>
+                    <span class="docket-row__label">Who this helps</span>
+                    <p>Buyers, sellers, owners, agents, and attorneys trying to keep a live deal on track.</p>
                 </div>
                 <div class="docket-row">
-                    <span class="docket-row__label">Keep separate</span>
-                    <p>Records, sweep, confirmed tank, and leak concern stay in separate routes.</p>
+                    <span class="docket-row__label">Do not mix these</span>
+                    <p>Suspected tank, confirmed tank, and leak concern each need a different next step.</p>
                 </div>
             </div>
         </div>
@@ -51,16 +51,16 @@
 <section class="section section--proof section--tight">
     <div class="section__inner proof-strip">
         <div class="proof-chip">
-            <span class="proof-chip__label">Current coverage</span>
+            <span class="proof-chip__label">Live coverage</span>
             <p>${page.states().size()} state pages and ${page.guideCards().size()} cross-state guides are live.</p>
         </div>
         <div class="proof-chip">
-            <span class="proof-chip__label">Primary sources tracked</span>
+            <span class="proof-chip__label">Official sources cited</span>
             <p>${page.trackedSourceCount()} official source references are mapped across public state and guide surfaces.</p>
         </div>
         <div class="proof-chip">
-            <span class="proof-chip__label">Page standard</span>
-            <p>Each state and route page shows a verified date, next review date, and source stack before the memo request opens.</p>
+            <span class="proof-chip__label">What every page shows</span>
+            <p>Review date, next review date, and official links appear before you ask for help.</p>
         </div>
     </div>
 </section>
@@ -76,7 +76,7 @@
         <div class="section__header">
             <div>
                 <div class="section__eyebrow">Current state coverage</div>
-                <h2>Start with the state that controls the next document request.</h2>
+                <h2>Start with the state that controls the permits, paperwork, and next call.</h2>
             </div>
             <a class="section__action" href="/states/">View all state pages</a>
         </div>
@@ -96,13 +96,13 @@
     </div>
 </section>
 
-@template.partials.audienceCards("Who this helps first", "Use the state page or route guide before the file widens into assumption.", page.audienceCards())
+@template.partials.audienceCards("Who this helps first", "Start with the state page or guide that matches what you actually know right now.", page.audienceCards())
 
 <section class="section">
     <div class="section__inner feature-split">
         <div class="feature-copy">
-                <div class="section__eyebrow">Use this when the deal is live</div>
-                <h2>Use this when disclosure, financing, or closing timing can slip.</h2>
+                <div class="section__eyebrow">If the deal clock is running</div>
+                <h2>Do these three things before you talk price, removal, or cleanup.</h2>
             <ol class="number-list">
                 @for (var i = 0; i < page.takeaways().size(); i++)
                     <li>
@@ -114,9 +114,9 @@
         </div>
         <div class="file-panel">
             <div class="file-panel__header">
-                <div class="section__eyebrow">Live file triage</div>
-                <h3>What the next request should pull into the file.</h3>
-                <p>Keep the first pass narrow enough to separate disclosure, records, sweep timing, and true escalation.</p>
+                <div class="section__eyebrow">Start with these requests today</div>
+                <h3>Ask for the documents that change the answer.</h3>
+                <p>Most buried-tank fights get expensive because the paperwork request happens too late.</p>
             </div>
             <div class="file-panel__list">
                 <div class="file-item">
@@ -152,7 +152,7 @@
         <div class="section__header section__header--spaced">
             <div>
                 <div class="section__eyebrow section__eyebrow--inverse">Route families</div>
-                <h2>Compare the route that matches the evidence on the file.</h2>
+                <h2>Choose the question that matches what you know right now.</h2>
             </div>
             <a class="section__action section__action--inverse" href="/routes/">View all route guides</a>
         </div>
@@ -168,7 +168,7 @@
         <div class="section__header section__header--spaced">
             <div>
                 <div class="section__eyebrow section__eyebrow--inverse">Support routes</div>
-                <h3>Use these only after the file is specific enough to justify them.</h3>
+                <h3>Open these only after the tank is confirmed or contamination is a real possibility.</h3>
             </div>
         </div>
         <div class="route-grid route-grid--secondary">
@@ -188,7 +188,7 @@
         <div class="case-layout__copy">
             <div class="section__eyebrow">Keep these cases separate</div>
             <h2>Keep these cases separate before anyone prices the wrong problem.</h2>
-            <p>Operational clarity comes from separating transaction friction from true cleanup escalation. Mix them together and the file gets slower, more expensive, and less honest.</p>
+            <p>Separate sale-side paperwork from confirmed tank work and from actual leak concerns. Mixing them together is how a manageable issue turns into a bigger one.</p>
         </div>
         <div class="case-grid">
             @for (var i = 0; i < page.caseSeparationRules().size(); i++)
@@ -206,7 +206,7 @@
         <div class="section__header">
             <div>
                 <div class="section__eyebrow">Cross-state guides</div>
-                <h2>Use the national guide when the state page is not the first honest surface yet.</h2>
+                <h2>Use a national guide when you still need the first smart move before the state page gets specific.</h2>
             </div>
             <a class="section__action" href="/guides/">View all guides</a>
         </div>
@@ -227,7 +227,7 @@
         <div class="trust-band__copy">
             <div class="section__eyebrow section__eyebrow--inverse">Trust boundary</div>
             <h2>Official guidance first. Transaction support after the record is clear.</h2>
-            <p>This surface starts with state language, disclosure records, and evidence. Contractor, cleanup, or pricing decisions come after the route is clear.</p>
+            <p>Start with permits, disclosure records, and state guidance. Bring in contractor, removal, or cleanup decisions only after the facts are clearer.</p>
             <div class="hero__actions trust-band__actions">
                 <a class="button button--secondary button--inverse" href="/methodology/">View methodology</a>
                 <a class="button" href="/states/">Find your state</a>

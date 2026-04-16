@@ -64,7 +64,7 @@ public class SitePageService {
                         List.of(
                                 "Assemble every permit, closure, and prior oil-heat record you can find.",
                                 "Separate suspected tank risk from confirmed tank facts before you price the problem.",
-                                "Use the state route to decide whether records, sweep, or disclosure language comes first."
+                                "Use the state page to decide whether records, a sweep, or disclosure questions come first."
                         )
                 ),
                 new PageModels.AudienceCard(
@@ -188,21 +188,21 @@ public class SitePageService {
                 states,
                 guideCards,
                 List.of(
-                        "Suspected tank: stay in buyer-seller, sweep, or records routes until the evidence gets stronger.",
-                        "Confirmed tank: switch to disposition planning only after location and basic condition are real facts.",
-                        "Leak concern: narrow quickly into reporting or cleanup workflow instead of treating it like ordinary closure."
+                        "Suspected tank: ask for paperwork and site clues before anyone prices removal.",
+                        "Confirmed tank: compare closure options only after location and basic condition are real facts.",
+                        "Leak concern: move quickly into reporting or cleanup guidance instead of treating it like ordinary tank work."
                 ),
                 List.of(
-                        "This site may help you verify the next step, but it does not diagnose tank presence from a webpage.",
-                        "Missing records may still leave real transaction risk on the table.",
-                        "Official state guidance and paid contractor routing stay separate.",
-                        "The public front door stays narrow so the site does not drift into generic heating-oil advice."
+                        "This site can help you choose the next step, but it cannot prove a property is tank-free.",
+                        "Missing paperwork can still mean real sale risk.",
+                        "Official state guidance and paid service recommendations are kept separate.",
+                        "The public pages stay narrow so they stay useful under deadline."
                 ),
                 audienceCards,
                 List.of(
-                        "The next action to take before disclosure language, price talk, or cleanup anxiety widens the file.",
-                        "The document request to send today so closing, financing, or attorney review does not drift on assumption.",
-                        "The route that matches the evidence you actually have: records, sweep, buyer-seller, or escalation."
+                        "What to request before anyone argues about credits, price, or tank removal.",
+                        "Which document or site check matters first.",
+                        "Whether you should stay in records, order a sweep, or move into cleanup."
                 ),
                 trackedSourceCount
         );
@@ -226,13 +226,13 @@ public class SitePageService {
                             )
                     ),
                     "What this site is for",
-                    "Buried Oil Tank Verdict focuses on the next likely step after a buried or abandoned residential heating oil tank trigger.",
+                    "Buried Oil Tank Verdict helps buyers, sellers, owners, and advisors figure out the next practical step after a buried heating-oil tank concern.",
                             List.of(
-                                    "We are built for hot states like under-contract sales, missing records, suspected tanks, and emerging leak concern.",
-                                    "We keep the public scope narrow: buyer-seller risk, sweep first, and records first.",
-                                    "We route by state because process, reporting, and cleanup language may differ.",
-                                    "We do not present ourselves as a government source or a legal substitute.",
-                                    "Pages are pressure-tested by internal editorial review standards for routing, source review, and risk boundaries."
+                                    "It is built for live situations: under-contract sales, missing permits, suspected tanks, and possible leak signals.",
+                                    "It focuses on the first useful questions: paperwork, disclosure, sweep timing, and state rules.",
+                                    "It organizes pages by state because closure, reporting, and cleanup rules can change.",
+                                    "It is not a government office, law firm, or environmental consultant.",
+                                    "Each page is checked against current public sources and kept inside clear limits."
                             ),
                             breadcrumbs("About", "/about/"),
                             null
@@ -246,20 +246,20 @@ public class SitePageService {
                             breadcrumbPageSchemas(
                                     breadcrumbs("Methodology", "/methodology/"),
                                     webpageSchema(
-                                            "Methodology for Buried Oil Tank Pages",
-                                            "How state-first buried oil tank routes, source stacks, and evidence-first guidance are separated from service routing.",
+                            "Methodology for Buried Oil Tank Pages",
+                            "How state-first buried oil tank pages are built from public sources and kept inside clear scope limits.",
                                             "/methodology/"
                                     )
                             )
                     ),
-                    "How we build each route",
-                    "Every public page starts with official state guidance, then layers scenario-specific routing without overstating certainty.",
+                    "How we build each page",
+                    "Every public page starts with the state source, then narrows into the question a buyer, seller, or owner actually has.",
                     List.of(
-                            "We keep suspected, confirmed, and leak-concern cases separate because the next honest step changes with evidence.",
-                            "The site follows a verify, route, then escalate sequence instead of jumping straight to removal or cleanup.",
-                            "State environmental and cleanup sources outrank every secondary source.",
-                            "Pages stay directional and scenario-bound, especially on cost and cleanup questions.",
-                            "Each page goes through routing review, source review, and a boundary check before it stays public."
+                            "We separate suspected tank, confirmed tank, and leak concern because they do not have the same next step.",
+                            "We start with permits, disclosure, and site facts before talking removal, cleanup, or cost.",
+                            "State environmental and homeowner guidance outrank every secondary source.",
+                            "Cost and cleanup pages stay directional unless the public documents support more.",
+                            "Every page gets a source check, review date, and scope check before it stays public."
                     ),
                     breadcrumbs("Methodology", "/methodology/"),
                     null
@@ -280,12 +280,12 @@ public class SitePageService {
                             )
                     ),
                     "Contact",
-                    "Use the file checklist on a scenario page for route-specific help, and use this page for editorial corrections, source updates, or launch questions.",
+                    "Use a scenario page for next-step help. Use this page for source corrections, stale links, or launch questions.",
                     List.of(
                             "Email shinhyeok22@gmail.com for source corrections, stale links, or launch questions.",
-                            "Flag any outdated state source or PDF.",
-                            "Point out where a county or delegated authority materially changes the answer.",
-                            "Use route-level submissions when a live file needs file-specific next steps."
+                            "Send state source updates, stale PDFs, or broken links.",
+                            "Flag any county, town, or local agency rule that changes the answer.",
+                            "Use scenario-page forms when you need the next document request or first action on a live property."
                     ),
                     breadcrumbs("Contact", "/contact/"),
                     CONTACT_EMAIL
@@ -293,23 +293,23 @@ public class SitePageService {
             case "privacy" -> new PageModels.StaticPageModel(
                     meta(
                             "Privacy | Buried Oil Tank Verdict",
-                            "How file checklist requests and event data are stored in the first release.",
+                            "How next-step checklist requests and event data are stored in the first release.",
                             "/privacy/",
                             true,
                             breadcrumbPageSchemas(
                                     breadcrumbs("Privacy", "/privacy/"),
                                     webpageSchema(
                                             "Privacy",
-                                            "How file checklist requests and event data are stored in the first release.",
+                            "How next-step checklist requests and event data are stored in the first release.",
                                             "/privacy/"
                                     )
                             )
                     ),
                     "Privacy",
-                    "This release stores lead submissions and event logs in file-backed storage so the team can review routing quality without a user account system.",
+                    "This release stores checklist requests and event logs in simple file-backed storage. There are no user accounts.",
                     List.of(
                             "Lead capture is email-first and does not require a phone number.",
-                            "Event logging keeps route, state, and scenario context for QA and promotion review.",
+                            "Event logging keeps page, state, and scenario context so the team can improve the guidance.",
                             "This release does not include user accounts or a broad provider marketplace."
                     ),
                     breadcrumbs("Privacy", "/privacy/"),
@@ -331,11 +331,11 @@ public class SitePageService {
                             )
                     ),
                     "Terms",
-                    "The site is informational and decision-support focused. It may help you identify the next likely step, but it does not replace licensed professionals or legal advice.",
+                    "The site is informational. It can help you choose the next step, but it does not replace licensed professionals or legal advice.",
                     List.of(
                             "Use licensed contractors, environmental professionals, or attorneys where the scenario requires it.",
                             "Do not treat a general page as proof that a property is clean or tank-free.",
-                            "Verify current state guidance when the route depends on reporting or cleanup obligations."
+                            "Verify current state guidance when reporting, permits, or cleanup obligations may apply."
                     ),
                     breadcrumbs("Terms", "/terms/"),
                     null
@@ -358,9 +358,9 @@ public class SitePageService {
                     "Not government affiliated",
                     "Buried Oil Tank Verdict is an independent editorial decision-support site. It is not a state agency, cleanup fund, or municipal program.",
                     List.of(
-                            "Official source links appear on public pages so users can verify the underlying rule or process.",
-                            "Commercial CTAs are scenario-specific and stay separate from source stacks.",
-                            "Where the state source is unclear, the page should stay narrower or remain held."
+                            "Official links appear on public pages so you can confirm the underlying rule yourself.",
+                            "Paid help and editorial guidance are kept separate.",
+                            "When the public source is thin or unclear, the page stays narrower."
                     ),
                     breadcrumbs("Not government affiliated", "/not-government-affiliated/"),
                     null
@@ -399,15 +399,15 @@ public class SitePageService {
                 "states",
                 "State pages",
                 "Buried oil tank state pages for disclosure, records, and closing steps",
-                "Use the state page when disclosure language, missing records, or a sweep decision depends on the state's process. Current public coverage is limited to NJ, NY, CT, and ME.",
+                "Use the state page when disclosure, missing paperwork, or a sweep decision depends on the state's rules. Public launch coverage is NJ, NY, CT, and ME.",
                 "Current launch states",
-                "Choose the state that controls the next document request.",
+                "Choose the state that controls the next permit search or document request.",
                 cards,
                 "How to use these pages",
                 List.of(
                         "Coverage is currently limited to NJ, NY, CT, and ME public state pages.",
-                        "Each state page shows the official source stack, verified date, and next review date before you open the file checklist.",
-                        "Use a state page when disclosure language, records requests, or a sweep decision depends on local agency process."
+                        "Every state page shows review dates and official links before the checklist opens.",
+                        "Use a state page when permits, local practice, or agency language may change the next step."
                 ),
                 breadcrumbs
         );
@@ -443,15 +443,15 @@ public class SitePageService {
                 "guides",
                 "Cross-state guides",
                 "Buried oil tank guides for records, sweep, removal, leak, and cost questions",
-                "Use a guide when the file is still too early for a state-specific answer, but the next move still depends on records, disclosure, sweep timing, cleanup risk, or budget direction.",
+                "Use a guide when you still need the first smart move before permits, local rules, or agency language make the answer state-specific.",
                 "Public route guides",
-                "Start with the guide that matches the question on the file.",
+                "Start with the guide that matches the question in front of you.",
                 cards,
                 "What belongs in guides first",
                 List.of(
-                        "Guides answer cross-state questions before the file is narrow enough for a single state route.",
-                        "Support guides for removal, leak, and cost are public, but they still point back to state pages as soon as state closure or reporting language controls the answer.",
-                        "Move from a guide into a state page as soon as the evidence, location, or agency process becomes specific."
+                        "Guides answer cross-state questions before a single state page can carry the whole answer.",
+                        "Removal, leak, and cost guides stay public, but they still send you back to the state page as soon as state rules take over.",
+                        "Move from a guide into a state page as soon as location, permits, or reporting language becomes specific."
                 ),
                 breadcrumbs
         );
@@ -479,15 +479,15 @@ public class SitePageService {
                 "routes",
                 "Route guides",
                 "Buried oil tank route guides for disclosure, records, sweep, removal, leak, and cost direction",
-                "Use this hub when you already know the question family but still need the cross-state guide before the file narrows into a single state answer.",
+                "Use this hub when you already know the question family and need the right first page before the answer turns state-specific.",
                 "Route families",
-                "Choose the route family that matches the evidence on the file.",
+                "Choose the question family that matches what you know.",
                 cards,
                 "How these routes work",
                 List.of(
-                        "Core routes handle buyer-seller pressure, sweep timing, and missing records before the file widens.",
-                        "Support routes handle removal, leak, and cost questions only after the evidence is strong enough to justify them.",
-                        "Every route guide should send you into a state page as soon as agency language, local authority, or cleanup process controls the next move."
+                        "First-step guides focus on sale pressure, sweep timing, and missing paperwork.",
+                        "Later-step guides cover removal, leak, and cost only after the facts justify them.",
+                        "Go to the state page as soon as permits, local rules, or cleanup language control the next step."
                 ),
                 breadcrumbs
         );
@@ -544,7 +544,7 @@ public class SitePageService {
                         state.freshnessStatus(today),
                         state.verifiedOn(),
                         state.nextReviewOn(),
-                        state.name() + " state route"
+                        state.name() + " state page"
                 )
         );
     }
@@ -622,9 +622,9 @@ public class SitePageService {
         List<PageModels.LinkCard> routeLinks = stateEntries.stream()
                 .map(stateCard -> new PageModels.LinkCard(
                         stateCard.name() + " " + guide.primaryRouteFamily().displayLabel(),
-                        "Move from the scenario guide into the state-specific next step.",
+                        "Move from the guide into the state-specific next step.",
                         stateCard.entryPath(),
-                        "State route"
+                        "State page"
                 ))
                 .toList();
 
@@ -924,12 +924,12 @@ public class SitePageService {
 
     private PageModels.CtaModel ctaFor(String pageId, String path, RouteFamily family, List<PageModels.StateOption> states) {
         return new PageModels.CtaModel(
-                "Request the file checklist for the next step on this property",
-                "Start the file checklist",
+                "Get the next-step checklist for this property",
+                "Get the checklist",
                 family.defaultPartnerType().helperText(),
-                "Use the checklist to frame the next document request, route choice, and deadline pressure on the file.",
+                "Use the checklist to decide what to request next, whether a sweep belongs, and who needs the facts first.",
                 ctaPreviewItems(family),
-                "Email is required. Phone is optional. The checklist response is informational and may point you back to official state sources or licensed professionals. It is not legal advice, environmental clearance, or proof that a property is tank-free.",
+                "Email is required. Phone is optional. The checklist is informational and may point you back to official state sources or licensed professionals. It does not confirm that a property is tank-free, cleared, or legally compliant.",
                 pageId,
                 path,
                 family.isOverview() ? RouteFamily.BUYER_SELLER.slug() : family.slug(),
@@ -951,34 +951,34 @@ public class SitePageService {
     private static List<String> ctaPreviewItems(RouteFamily family) {
         return switch (family) {
             case OVERVIEW -> List.of(
-                    "Which deadline controls the next move on the file.",
-                    "Which document request or sweep question belongs first.",
-                    "Which route should own the next call if the evidence changes."
+                    "Which deadline matters first.",
+                    "Which document request or sweep question should happen first.",
+                    "Whether you should stay in paperwork review, order a sweep, or move into cleanup."
             );
             case BUYER_SELLER -> List.of(
-                    "The document request to send before credits, price, or disclosure language widens the issue.",
-                    "What still needs verification before anyone treats the tank question as confirmed.",
-                    "When the file should stay in buyer-seller triage versus switch to records or sweep work."
+                    "What to request before credits, price, or disclosure language harden into a story.",
+                    "What still needs proof before anyone treats the tank question as confirmed.",
+                    "Whether you should stay in sale-side triage or move into records or sweep work."
             );
             case SWEEP_AND_LOCATE -> List.of(
-                    "What site clue or record gap actually justifies a sweep or locate.",
+                    "What site clue or paperwork gap actually justifies a sweep or locate.",
                     "What to capture before you book field work.",
-                    "Which result would keep the route narrow and which result would widen it."
+                    "Which result keeps this in verification and which result changes the next step."
             );
             case RECORDS_AND_PROOF -> List.of(
-                    "Which permit, closure record, or conversion document matters most first.",
-                    "What missing proof keeps the file open today.",
-                    "Which record language would force a route change."
+                    "Which permit, closure record, or oil-to-gas document matters most first.",
+                    "What missing proof still leaves the property unresolved.",
+                    "Which record language would change the next step."
             );
             case REMOVAL_VS_ABANDONMENT -> List.of(
                     "What facts have to be confirmed before removal or abandonment is a real choice.",
                     "Which state rule or closure path controls the decision.",
-                    "What signal would move the file out of closure planning and into cleanup review."
+                    "What signal would move this out of closure planning and into cleanup review."
             );
             case LEAK_AND_CLEANUP -> List.of(
-                    "What leak or contamination signal actually changed the case.",
+                    "What leak or contamination signal actually changed the situation.",
                     "Which reporting or remediation step may now control the timeline.",
-                    "Who needs the facts first before the file widens any further."
+                    "Who needs the facts first before the problem gets any wider."
             );
             case COST_DIRECTION -> List.of(
                     "Which scenario is actually being priced: sweep, closure, removal, or cleanup.",
@@ -1003,12 +1003,12 @@ public class SitePageService {
     private static String routeQuickAnswer(StateRecord state, RouteFamily family) {
         return switch (family) {
             case OVERVIEW -> state.quickAnswer();
-            case BUYER_SELLER -> "In " + state.name() + ", a missing tank record or disclosure gap during a sale usually means verify first, request the missing documents, then negotiate from evidence.";
-            case SWEEP_AND_LOCATE -> "In " + state.name() + ", a sweep is often the honest first move when you need to verify whether a buried tank is actually on the site.";
-            case RECORDS_AND_PROOF -> "In " + state.name() + ", silence in the file is not the same as proof that no tank exists, especially when the record stack and disclosure language stay incomplete.";
+            case BUYER_SELLER -> "In " + state.name() + ", a buried-tank issue during a sale usually means: get the paperwork first, confirm what is actually known, and only then talk credits or removal.";
+            case SWEEP_AND_LOCATE -> "In " + state.name() + ", a sweep often makes sense when site clues are stronger than the paperwork.";
+            case RECORDS_AND_PROOF -> "In " + state.name() + ", missing paperwork is a reason to verify more, not proof that no tank exists.";
             case REMOVAL_VS_ABANDONMENT -> "In " + state.name() + ", removal versus abandonment depends on confirmed tank conditions and the state closure path.";
             case LEAK_AND_CLEANUP -> "In " + state.name() + ", leak concern may shift the case from routine contractor work into reporting and cleanup workflow.";
-            case COST_DIRECTION -> "In " + state.name() + ", cost ranges only make sense after the trigger state and route are verified.";
+            case COST_DIRECTION -> "In " + state.name() + ", cost ranges only help after you know whether this is a sweep, closure, removal, or cleanup case.";
         };
     }
 
@@ -1119,8 +1119,8 @@ public class SitePageService {
     private static List<String> costAndTimelineNotes(StateRecord state, RouteFamily family) {
         return switch (family) {
             case OVERVIEW, BUYER_SELLER, SWEEP_AND_LOCATE, RECORDS_AND_PROOF -> List.of(
-                    "Keep the first move focused on verification, not the broadest possible quote.",
-                    "Use the state source stack before assuming the closing timeline forces a removal decision.",
+                    "Start with paperwork and verification, not the biggest quote you can find.",
+                    "Use the state sources before assuming the timeline forces a removal decision.",
                     firstOrFallback(state.firstMoves(), state.recordLookupSummary())
             );
             case REMOVAL_VS_ABANDONMENT -> List.of(
@@ -1135,7 +1135,7 @@ public class SitePageService {
             );
             case COST_DIRECTION -> List.of(
                     "Ranges stay directional because the same state may have very different numbers for sweep, closure, removal, and cleanup.",
-                    "Use route-specific verification first so the cost question stays honest.",
+                    "Use verification first so the cost question stays honest.",
                     firstOrFallback(state.documentTargets(), state.recordLookupSummary())
             );
         };
@@ -1146,29 +1146,29 @@ public class SitePageService {
                 new PageModels.AudienceCard(
                         "Buyer",
                         "Buyer under contract in " + state.name(),
-                        "Use the state route to protect diligence before this turns into an argument about price or removal.",
+                        "Use this page to protect diligence before anyone turns uncertainty into a price fight.",
                         List.of(
-                                "Ask for every tank, permit, closure, and fuel-conversion record tied to the property.",
-                                "Use the first move in this state before you let anyone collapse the issue into one quote.",
+                                "Ask for every disclosure, permit, closure record, and oil-to-gas invoice tied to the property.",
+                                "Use the first practical step in this state before anyone collapses the issue into one quote.",
                                 firstOrFallback(state.firstMoves(), state.quickAnswer())
                         )
                 ),
                 new PageModels.AudienceCard(
                         "Seller",
                         "Seller trying to avoid closing delay",
-                        "Get the file cleaner than the buyer expects so you are not negotiating from missing facts.",
+                        "Bring more paperwork to the table than the buyer expects so you are not negotiating from gaps.",
                         List.of(
                                 "Separate suspected tank risk from confirmed tank facts before credits get discussed.",
                                 firstOrFallback(state.documentTargets(), "Gather the state records that change the answer first."),
-                                "Use the state route family that matches the actual evidence, not the loudest fear."
+                                "Use the page that matches the facts, not the loudest fear."
                         )
                 ),
                 new PageModels.AudienceCard(
                         "Advisor",
                         "Agent or attorney trying to keep the file moving",
-                        "Use the state page to choose the next call before the transaction widens into delay, credits, or cleanup fear.",
+                        "Use the state page to decide the next call before the sale turns into delay, credits, or cleanup panic.",
                         List.of(
-                                "Figure out whether the file belongs in records work, a sweep question, or a confirmed tank case.",
+                                "Figure out whether the issue belongs in paperwork review, a sweep question, or confirmed tank work.",
                                 secondOrFallback(state.documentTargets(), "Check whether local or delegated records add missing proof."),
                                 "Carry one clear document request into the next negotiation or attorney-review call."
                         )
@@ -1190,11 +1190,11 @@ public class SitePageService {
                     new PageModels.AudienceCard(
                             "Buyer",
                             "Buyer with a live contingency clock",
-                            "Keep the negotiation attached to evidence so the file does not outrun the facts.",
+                            "Keep the negotiation attached to paperwork and proof so the story does not outrun the facts.",
                             List.of(
                                     "Pull the disclosure, permits, and closure proof before discussing credits.",
                                     "Separate suspected tank, confirmed tank, and leak concern in writing.",
-                                    "Use this route to decide whether records or a sweep should happen first."
+                                    "Use this page to decide whether records or a sweep should happen first."
                             )
                     ),
                     new PageModels.AudienceCard(
@@ -1210,11 +1210,11 @@ public class SitePageService {
                     new PageModels.AudienceCard(
                             "Advisor",
                             "Agent or attorney trying to keep negotiation honest",
-                            "Use the buyer-seller route to hold the file inside evidence while the contract clock is still live.",
+                            "Use this page to hold the sale inside proof while the contract clock is still live.",
                             List.of(
                                     "Package the exact document request before the next call with the other side.",
                                     "Resolve weak records or uncertain closure proof before credits harden into narrative.",
-                                    "If the file is thin, move next into records or sweep instead of quote collection."
+                                    "If the paperwork is thin, move next into records or sweep instead of quote collection."
                             )
                     )
             );
@@ -1226,7 +1226,7 @@ public class SitePageService {
                             List.of(
                                     "Book a locate or sweep before treating the case as confirmed removal work.",
                                     "Save every visible clue: pipes, patched walls, old lines, inspection notes.",
-                                    "Use the sweep result to decide whether the route stays transactional or widens."
+                                    "Use the sweep result to decide whether this stays a verification problem or becomes something bigger."
                             )
                     ),
                     new PageModels.AudienceCard(
@@ -1242,7 +1242,7 @@ public class SitePageService {
                     new PageModels.AudienceCard(
                             "Advisor",
                             "Agent or attorney settling the buried-tank theory",
-                            "Use the sweep route when the file needs confirmation before the next negotiation or diligence call.",
+                            "Use this page when the property needs confirmation before the next negotiation or diligence call.",
                             List.of(
                                     "Do the confirmation work before the contract timeline gets filled with assumptions.",
                                     "Do not let one old pipe decide the whole story without verification.",
@@ -1254,11 +1254,11 @@ public class SitePageService {
                     new PageModels.AudienceCard(
                             "Buyer",
                             "Buyer who needs the paper trail",
-                            "This route is for record silence, weak closure proof, and missing history during diligence.",
+                            "This page is for missing permits, weak closure proof, and thin history during diligence.",
                             List.of(
                                     "Request permits, closure paperwork, and conversion records together.",
-                                    "Treat missing files as unresolved risk until the evidence closes the gap.",
-                                    "Use this route before you jump to pricing or remediation logic."
+                                    "Treat missing paperwork as unresolved risk until the documents close the gap.",
+                                    "Use this page before you jump to pricing or remediation logic."
                             )
                     ),
                     new PageModels.AudienceCard(
@@ -1274,7 +1274,7 @@ public class SitePageService {
                     new PageModels.AudienceCard(
                             "Advisor",
                             "Agent or attorney rebuilding the proof trail",
-                            "Use this route when the deal is live but the record stack is too thin to support the next call.",
+                            "Use this page when the deal is live but the paperwork is too thin to support the next call.",
                             List.of(
                                     "Know which missing document changes the answer most in this state.",
                                     "Request the record stack before anyone prices the risk from assumption.",
@@ -1306,7 +1306,7 @@ public class SitePageService {
                     new PageModels.AudienceCard(
                             "Advisor",
                             "Agent or advisor guiding the transaction",
-                            "Use this route to stop the file from sliding from confirmed tank into assumed contamination.",
+                            "Use this page to stop the conversation from sliding from confirmed tank into assumed contamination.",
                             List.of(
                                     "Confirm whether the route is still closure planning or already cleanup review.",
                                     "Keep the state closure path in the middle of every conversation.",
@@ -1330,7 +1330,7 @@ public class SitePageService {
                             "Seller whose issue may now involve remediation",
                             "The goal is to separate ordinary contractor work from a reporting or cleanup workflow.",
                             List.of(
-                                    "Treat any release signal as a routing problem first, not a pricing problem.",
+                                    "Treat any release signal as a process problem first, not a pricing problem.",
                                     "Preserve the timeline: what was found, when, and by whom.",
                                     firstOrFallback(state.escalationSignals(), state.leakReportingSummary())
                             )
@@ -1370,7 +1370,7 @@ public class SitePageService {
                     new PageModels.AudienceCard(
                             "Advisor",
                             "Advisor translating cost into the deal file",
-                            "Your job is to keep cost attached to evidence, not to fear or internet averages.",
+                            "Your job is to keep cost attached to facts, not fear or internet averages.",
                             List.of(
                                     "Make clear which facts are known and which still need verification.",
                                     "Separate ordinary closure cost from leak or remediation cost.",
@@ -1387,12 +1387,12 @@ public class SitePageService {
             case OVERVIEW -> List.of(
                     "Write down the deadline that matters first: inspection, attorney review, financing, or closing.",
                     firstOrFallback(state.firstMoves(), state.quickAnswer()),
-                    "Pull the file stack before you widen into contractor or cleanup conversations."
+                    "Pull the paperwork first before you widen into contractor or cleanup conversations."
             );
             case BUYER_SELLER -> List.of(
                     "Write down the controlling deadline: inspection, attorney review, closing, or listing date.",
                     "Request every disclosure, permit, closure, and fuel-conversion document in one shot.",
-                    "Decide whether the next move is records work or a sweep before price talk widens."
+                    "Decide whether the next move is paperwork review or a sweep before price talk widens."
             );
             case SWEEP_AND_LOCATE -> List.of(
                     "Book or identify a locate path so you can verify whether a tank is on the site before you ask for removal pricing.",
@@ -1417,7 +1417,7 @@ public class SitePageService {
             case COST_DIRECTION -> List.of(
                     "Lock the scenario first: sweep, closure, removal, or cleanup.",
                     "List the facts that move the range before you compare numbers.",
-                    "Use cost direction as a planning tool, not as a substitute for route verification."
+                    "Use cost direction as a planning tool, not as a substitute for verification."
             );
         };
     }
@@ -1464,11 +1464,11 @@ public class SitePageService {
                     new PageModels.AudienceCard(
                             "Buyer",
                             "Buyer with a live deal",
-                            "Use this guide to keep the transaction attached to records, evidence, and the next honest step.",
+                            "Use this guide to keep the sale tied to paperwork and proof, not panic.",
                             List.of(
-                                    "Use the guide before price talk outruns the facts.",
-                                    "Pull the file stack and separate suspicion from confirmation.",
-                                    "Move into the state route that matches the evidence."
+                                    "Use the guide before price talk runs ahead of the facts.",
+                                    "Pull the paperwork and separate suspicion from confirmation.",
+                                    "Move into the state page that matches the facts."
                             )
                     ),
                     new PageModels.AudienceCard(
@@ -1476,9 +1476,9 @@ public class SitePageService {
                             "Seller trying to de-risk the file",
                             "Use this guide to answer the buried-tank question before the buyer answers it for you.",
                             List.of(
-                                    "Prepare the record stack first.",
-                                    "Use the state route to see whether records or a sweep comes next.",
-                                    "Keep the issue narrow until the facts widen it."
+                                    "Prepare the paperwork first.",
+                                    "Use the state page to see whether records or a sweep comes next.",
+                                    "Keep the issue narrow until the facts make it bigger."
                             )
                     ),
                     new PageModels.AudienceCard(
@@ -1486,7 +1486,7 @@ public class SitePageService {
                             "Agent or attorney carrying the next call",
                             "Use this guide to keep the deal inside proof, not theory, before the next negotiation widens the issue.",
                             List.of(
-                                    "Get clear on which route belongs first.",
+                                    "Get clear on which question belongs first.",
                                     "Send the document request before the next contract-side call.",
                                     "Carry a tighter story into buyer, seller, and attorney conversations."
                             )
@@ -1499,7 +1499,7 @@ public class SitePageService {
                             "Use this guide when the paperwork and the site clues are telling different stories.",
                             List.of(
                                     "Learn when a sweep belongs before a quote request.",
-                                    "Use state routes after the locate result lands.",
+                                    "Use the state page after the locate result lands.",
                                     "Keep confirmation separate from cleanup fear."
                             )
                     ),
@@ -1510,7 +1510,7 @@ public class SitePageService {
                             List.of(
                                     "Use physical verification to narrow uncertainty.",
                                     "Avoid jumping straight to removal talk.",
-                                    "Carry the result into the state route."
+                                    "Carry the result into the state page."
                             )
                     ),
                     new PageModels.AudienceCard(
@@ -1528,21 +1528,21 @@ public class SitePageService {
                     new PageModels.AudienceCard(
                             "Buyer",
                             "Buyer or seller in a live transaction",
-                            "Use this guide to narrow the route before you widen into quotes, cleanup talk, or delay.",
+                            "Use this guide to narrow the question before you widen into quotes, cleanup talk, or delay.",
                             List.of(
-                                    "Keep the evidence stack in front of the conversation.",
-                                    "Use the state route when the answer depends on local process.",
-                                    "Do not let a generic article replace the file."
+                                    "Keep the paperwork and site facts in front of the conversation.",
+                                    "Use the state page when the answer depends on local process.",
+                                    "Do not let a generic article replace the property details."
                             )
                     ),
                     new PageModels.AudienceCard(
                             "Advisor",
                             "Agent or attorney carrying the file",
-                            "This guide should help you move from uncertainty into the right state-specific route before delay hardens.",
+                            "This guide should help you move from uncertainty into the right state-specific page before delay hardens.",
                             List.of(
                                     "Clarify what is known, missing, and still only suspected.",
                                     "Collect the documents that matter before the next call.",
-                                    "Switch routes once the evidence earns it."
+                                    "Switch pages once the evidence earns it."
                             )
                     )
             );
@@ -1552,14 +1552,14 @@ public class SitePageService {
     private static List<String> guideTakeaways(GuideRecord guide) {
         return switch (guide.primaryRouteFamily()) {
             case BUYER_SELLER -> List.of(
-                    "A cleaner way to frame the issue before credits, price, or delay become the whole conversation.",
+                    "How to frame the issue before credits, price, or delay take over.",
                     "The first documents and proof requests to send today.",
-                    "The state route that should own the next move once the evidence is clearer."
+                    "Which state page should own the next move once the facts are clearer."
             );
             case SWEEP_AND_LOCATE -> List.of(
                     "When a locate belongs before quotes or removal talk.",
                     "What physical clues matter and what they do not prove yet.",
-                    "Which state route should own the case after the locate result."
+                    "Which state page should own the case after the locate result."
             );
             case RECORDS_AND_PROOF -> List.of(
                     "The record stack to request before silence gets mistaken for proof.",
@@ -1567,7 +1567,7 @@ public class SitePageService {
                     "When weak records mean you should switch into sweep or cleanup review."
             );
             default -> List.of(
-                    "The next route that best matches the facts on the property file.",
+                    "The next page that best matches the facts on the property.",
                     "The questions to ask before you widen the issue.",
                     "The source-backed boundaries for what this guide can and cannot tell you."
             );
@@ -1584,8 +1584,8 @@ public class SitePageService {
                 ? "Source check due"
                 : "Within review window";
         String note = freshnessStatus == SourceFreshnessStatus.STALE
-                ? label + " is outside the planned review window. Verify the official source stack before using it to steer a live transaction."
-                : label + " is inside the current review window. Use the source stack when the next move depends on agency language or a closing deadline.";
+                ? label + " is outside the planned review window. Recheck the official links before you rely on this page."
+                : label + " is inside the current review window. Use the official links when the next step depends on agency language or a closing deadline.";
         return new PageModels.SourceReviewModel(
                 statusLabel,
                 formatDate(verifiedOn),
@@ -1618,7 +1618,7 @@ public class SitePageService {
             case RECORDS_AND_PROOF -> List.of(
                     firstOrFallback(state.documentTargets(), state.recordLookupSummary()),
                     secondOrFallback(state.documentTargets(), "Look for prior fuel-use and closure history before assuming the file is clean."),
-                    "If the records point to a leak or cleanup file, switch to the narrower route that matches that evidence."
+                    "If the records point to a leak or cleanup file, switch to the narrower page that matches that evidence."
             );
             case REMOVAL_VS_ABANDONMENT -> List.of(
                     firstOrFallback(state.firstMoves(), state.removalVsAbandonmentSummary()),

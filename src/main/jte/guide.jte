@@ -5,11 +5,11 @@
     <div class="hero__inner hero__inner--detail">
         <div class="hero__copy hero__copy--detail prose">
             @template.partials.breadcrumbs(page.breadcrumbs())
-            <div class="section__eyebrow">Cross-state guide</div>
+            <div class="section__eyebrow">Cross-state starting point</div>
             <h1>${page.heading()}</h1>
             <p class="hero__lede">${page.guide().quickAnswer()}</p>
             <div class="hero__actions hero__actions--detail">
-                <a class="button" href="#case-checklist" data-primary-cta>Open the file checklist</a>
+                <a class="button" href="#case-checklist" data-primary-cta>Open the next-step checklist</a>
             </div>
         </div>
         <div class="hero__aside">
@@ -29,12 +29,12 @@
 </section>
 
 @template.partials.sourceReview(page.sourceReview())
-@template.partials.audienceCards("Who this guide helps first", "Use the guide to tighten a live deal before you drop into a state route.", page.audienceCards())
+@template.partials.audienceCards("Who this guide helps first", "Use this guide when you need the first smart move before the answer turns state-specific.", page.audienceCards())
 
 <section class="section section--soft">
     <div class="section__inner two-column">
         <div class="support-panel">
-            <div class="section__eyebrow">How to use this guide</div>
+            <div class="section__eyebrow">Start here</div>
             <ul class="guardrail-list">
                 @for (var point : page.guide().introPoints())
                     <li>${point}</li>
@@ -56,8 +56,8 @@
     <div class="section__inner">
         <div class="section__header">
             <div>
-                <div class="section__eyebrow">Use this guide when</div>
-                <h2>Use the guide first when the state-specific route is still too early.</h2>
+                <div class="section__eyebrow">When this guide is useful</div>
+                <h2>Start here when you still need a clean first move.</h2>
             </div>
         </div>
         <div class="two-column">
@@ -69,7 +69,7 @@
                 </ul>
             </div>
             <div class="support-panel">
-                <div class="section__eyebrow">Before you ask for quotes</div>
+                <div class="section__eyebrow">Before you call a contractor</div>
                 <ul class="guardrail-list">
                     @for (var point : page.guide().beforeYouCall())
                         <li>${point}</li>
@@ -106,7 +106,7 @@
         <div class="section__header">
             <div>
                 <div class="section__eyebrow">${page.guide().stateEntryPrompt()}</div>
-                <h2>Drop into the state page once the evidence narrows the answer.</h2>
+                <h2>Go to the state page once the paperwork or site clues make the answer specific.</h2>
             </div>
         </div>
         <div class="card-grid">
@@ -129,8 +129,8 @@
     <div class="section__inner">
         <div class="section__header">
             <div>
-                <div class="section__eyebrow section__eyebrow--inverse">State route links</div>
-                <h2>Use these route surfaces after the file is specific enough.</h2>
+                <div class="section__eyebrow section__eyebrow--inverse">State-specific next steps</div>
+                <h2>Open these once permits, local rules, or cleanup language start controlling the answer.</h2>
             </div>
         </div>
         <div class="route-grid route-grid--secondary">

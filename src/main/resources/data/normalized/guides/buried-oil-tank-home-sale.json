@@ -1,42 +1,42 @@
 {
   "slug": "buried-oil-tank-home-sale",
   "title": "Buried oil tank home sale guide",
-  "summary": "Use this guide when a buried tank question appears before closing and the parties need the next step, not a generic article.",
-  "quickAnswer": "Treat a buried tank question during a sale as a verification problem first: records, sweep, and state process before price drama.",
-  "stateEntryPrompt": "Choose a state route for the transaction-specific answer.",
+  "summary": "Use this guide when a buried-tank question shows up during a sale and you need the first smart move, not a generic article.",
+  "quickAnswer": "Treat a buried-tank issue during a sale as a paperwork-and-proof problem first. Get the documents, decide whether a sweep belongs, then talk price.",
+  "stateEntryPrompt": "Then go to your state page for disclosure rules, permits, and the next call.",
   "primaryScenario": "buyer_seller",
   "primaryPartnerType": "sweep_or_locate",
   "primaryRouteFamily": "buyer-seller",
   "indexable": true,
   "introPoints": [
-    "Separate suspected, confirmed, and leak-concern cases before talking about disposition.",
-    "Use records and sweep work to tighten the facts while the transaction is still live.",
-    "Move to a state page before assuming the same answer applies everywhere."
+    "Separate suspected tank, confirmed tank, and leak concern before you ask anyone for a number.",
+    "Use paperwork and site clues to tighten the facts while the sale is still live.",
+    "Move to the state page before assuming the same answer applies everywhere."
   ],
   "whatNotToAssume": [
     "Do not assume missing records prove there is no tank.",
     "Do not assume the first quote is the right first step.",
-    "Do not assume the buyer-seller answer is identical in every state."
+    "Do not assume every buyer-seller answer is the same in every state."
   ],
   "bestFor": [
-    "An active sale or near-term closing where buried tank suspicion is still unresolved.",
+    "An active sale or near-term closing where buried-tank suspicion is still unresolved.",
     "A buyer, seller, or agent needs the next verification step before turning to credits or removal talk.",
-    "The paper file is incomplete and the parties need a state route that matches the actual facts."
+    "The paperwork is incomplete and the parties need a state-specific answer."
   ],
   "beforeYouCall": [
-    "Separate suspected tank, confirmed tank, and leak concern before contacting contractors.",
-    "Pull seller disclosure and any closure paperwork before asking for a quote.",
-    "Keep the route narrow until the state page tells you whether local or cleanup overlays matter."
+    "Separate suspected tank, confirmed tank, and leak concern before you contact contractors.",
+    "Pull the seller disclosure and any closure paperwork before you ask for pricing.",
+    "Keep the question narrow until the state page tells you whether local or cleanup overlays matter."
   ],
   "documentsThatMatter": [
     "Seller disclosure, permits, closure records, and prior fuel-conversion history.",
-    "Inspection notes or sweep results that tighten whether the tank is only suspected or actually confirmed.",
-    "Any cleanup or release document that changes the route out of ordinary sale-side verification."
+    "Inspection notes or sweep results showing whether the tank is only suspected or actually confirmed.",
+    "Any cleanup or release document that changes the question from ordinary sale-side verification."
   ],
   "whenToEscalate": [
     "Switch to removal-versus-abandon only after tank presence is confirmed.",
-    "Switch to leak-and-cleanup when odor, staining, release language, or cleanup paperwork appears.",
-    "Stay in the state page when local authority or state-specific process changes the answer."
+    "Switch to leak-and-cleanup when odor, staining, spill language, or cleanup paperwork appears.",
+    "Stay on the state page when local authority or state-specific process changes the answer."
   ],
   "stateSlugs": [
     "new-jersey",

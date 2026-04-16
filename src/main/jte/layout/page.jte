@@ -54,7 +54,7 @@
                     <a class="${("guide".equals(activeNav) || "guides".equals(activeNav)) ? "site-nav__link site-nav__link--active" : "site-nav__link"}" href="/guides/">Guides</a>
                     <a class="${"static".equals(activeNav) ? "site-nav__link site-nav__link--active" : "site-nav__link"}" href="/methodology/">Methodology</a>
                 </nav>
-                <a class="site-header__action" href="${("state".equals(activeNav) || "route".equals(activeNav) || "guide".equals(activeNav)) ? "#case-checklist" : "/states/"}">${("state".equals(activeNav) || "route".equals(activeNav) || "guide".equals(activeNav)) ? "File checklist" : "Find your state"}</a>
+                <a class="site-header__action" href="${("state".equals(activeNav) || "route".equals(activeNav) || "guide".equals(activeNav)) ? "#case-checklist" : "/states/"}">${("state".equals(activeNav) || "route".equals(activeNav) || "guide".equals(activeNav)) ? "Next-step checklist" : "Find your state"}</a>
             </div>
         @endif
     </div>

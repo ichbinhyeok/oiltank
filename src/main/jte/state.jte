@@ -5,34 +5,34 @@
     <div class="hero__inner hero__inner--detail">
         <div class="hero__copy hero__copy--detail">
             @template.partials.breadcrumbs(page.breadcrumbs())
-            <div class="section__eyebrow">${page.state().abbreviation()} disclosure, records, and sweep</div>
+            <div class="section__eyebrow">${page.state().abbreviation()} paperwork, permits, and next steps</div>
             <h1>${page.heading()}</h1>
             <p class="hero__lede">${page.state().quickAnswer()}</p>
-            <p>Use this state page when disclosure language, missing records, or a sweep decision depends on ${page.state().name()} process.</p>
+            <p>Use this page when disclosure, missing paperwork, or a sweep decision depends on ${page.state().name()} rules.</p>
             <div class="status-row">
-                <span class="badge">State hub</span>
+                <span class="badge">State page</span>
                 <span class="badge">${page.sourceReview().freshnessStatus()}</span>
                 <span class="badge">${page.state().abbreviation()}</span>
             </div>
             <div class="hero__actions hero__actions--detail">
-                <a class="button" href="#case-checklist" data-primary-cta>Open the file checklist</a>
+                <a class="button" href="#case-checklist" data-primary-cta>Open the next-step checklist</a>
             </div>
         </div>
         <div class="hero__aside hero__aside--detail">
             <div class="hero__media hero__media--detail">
                 <img class="hero__image" src="https://images.unsplash.com/photo-1768119997334-bc76e6f60e7d?auto=format&fit=crop&w=1400&q=80" alt="Rows of filing cabinets used to symbolize state records and archives" width="1400" height="1167" loading="eager" fetchpriority="high" decoding="async">
                 <div class="hero__stamp hero__stamp--dark">
-                    <strong>Regulatory owner</strong>
+                    <strong>Primary agency source</strong>
                     <span>${page.state().regulatoryOwner()}</span>
                 </div>
             </div>
             <div class="info-cluster info-cluster--detail">
                 <div class="info-card">
-                    <span class="info-card__label">Regulatory owner</span>
+                    <span class="info-card__label">Who sets the rule</span>
                     <strong>${page.state().regulatoryOwner()}</strong>
                 </div>
                 <div class="info-card">
-                    <span class="info-card__label">Delegated local authorities</span>
+                    <span class="info-card__label">What may change locally</span>
                     <p>${page.state().delegatedLocalAuthorities()}</p>
                 </div>
             </div>
@@ -41,15 +41,15 @@
     <div class="section__inner">
         <div class="detail-grid detail-grid--hero">
             <div class="detail-card">
-                <span class="detail-card__label">Source window</span>
+                <span class="detail-card__label">Review status</span>
                 <p><strong>${page.sourceReview().freshnessStatus()}</strong> official review status</p>
             </div>
             <div class="detail-card">
-                <span class="detail-card__label">Best first move</span>
+                <span class="detail-card__label">Best first step</span>
                 <p>${page.state().firstMoves().get(0)}</p>
             </div>
             <div class="detail-card">
-                <span class="detail-card__label">Document control point</span>
+                <span class="detail-card__label">Ask for this first</span>
                 <p>${page.state().documentTargets().get(0)}</p>
             </div>
         </div>
@@ -57,12 +57,12 @@
 </section>
 
 @template.partials.sourceReview(page.sourceReview())
-@template.partials.audienceCards("Who should use this state page", "Use the state hub to choose the next route before the deal file widens into delay.", page.audienceCards())
+@template.partials.audienceCards("Who should use this state page", "Use the state page to decide what to request next and who needs the facts first.", page.audienceCards())
 
 <section class="section section--soft">
     <div class="section__inner two-column">
         <div class="support-panel">
-            <div class="section__eyebrow">What usually puts this state on the clock</div>
+            <div class="section__eyebrow">Common sale-side situations in this state</div>
             <ul class="guardrail-list">
                 @for (var item : page.state().strongestTriggerStates())
                     <li>${item}</li>
@@ -85,7 +85,7 @@
         <div class="section__header">
             <div>
                 <div class="section__eyebrow">Questions to send today</div>
-                <h2>Move the file with document requests that change the answer.</h2>
+                <h2>Move the sale with document requests that change the answer.</h2>
             </div>
         </div>
         <ul class="guardrail-list guardrail-list--dense">
@@ -101,7 +101,7 @@
         <div class="section__header">
             <div>
                 <div class="section__eyebrow section__eyebrow--inverse">Route families</div>
-                <h2>Choose the route that matches the evidence on the file.</h2>
+                <h2>Choose the page that matches what you know right now.</h2>
             </div>
         </div>
         <div class="route-grid">
@@ -115,11 +115,11 @@
         </div>
         <div class="support-note">
             @if (page.state().launchReady())
-                <strong>Advanced support stays contextual.</strong>
-                <p>Removal, leak, and cost routes stay off the main state hub until the records or locate result make them the honest next step.</p>
+                <strong>Keep the first step narrow.</strong>
+                <p>Do not jump into removal, leak, or cost pages until the paperwork or locate result gives you a reason.</p>
             @else
-                <strong>Public scope stays narrow.</strong>
-                <p>This state page stays intentionally narrow while source coverage is still tighter. Use the core verification routes first, and only widen into cleanup or closure support when the evidence justifies it.</p>
+                <strong>Public coverage stays narrower here.</strong>
+                <p>Start with paperwork, disclosure, and confirmation. Move into cleanup or closure detail only after the documents justify it.</p>
             @endif
         </div>
     </div>
@@ -136,7 +136,7 @@
             </ul>
         </div>
         <div class="support-panel">
-            <div class="section__eyebrow">When this stops being a simple transaction question</div>
+            <div class="section__eyebrow">Signs this may be more than a paperwork problem</div>
             <ul class="guardrail-list">
                 @for (var item : page.state().escalationSignals())
                     <li>${item}</li>
@@ -157,7 +157,7 @@
             </ul>
         </div>
         <div class="support-panel">
-            <div class="section__eyebrow">State cautions</div>
+            <div class="section__eyebrow">Easy mistakes</div>
             <ul class="guardrail-list">
                 @for (var caution : page.state().cautions())
                     <li>${caution}</li>

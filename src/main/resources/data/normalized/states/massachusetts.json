@@ -4,44 +4,44 @@
   "abbreviation": "MA",
   "marketPriorityScore": 84,
   "launchReady": false,
-  "regulatoryOwner": "Massachusetts cleanup and homeowner guidance",
-  "delegatedLocalAuthorities": "Massachusetts answers often depend on homeowner cleanup guidance and closure assessment documents rather than a single tank FAQ page.",
-  "buyerSellerSummary": "Massachusetts is still transaction-relevant, but the strongest official support sits closer to closure assessment and cleanup guidance than a simple buyer-seller checklist.",
-  "recordLookupSummary": "Records matter because the same property may shift quickly from a paperwork question into a closure assessment or cleanup question.",
-  "sweepFirstSummary": "A sweep may still be the cleanest first move when there are site clues but no clear closure history.",
-  "removalVsAbandonmentSummary": "Closure decisions depend on tank condition, contamination assessment, and the state's homeowner cleanup framework.",
-  "leakReportingSummary": "A leak concern can become a site assessment issue rather than a simple contractor routing problem.",
-  "insuranceCleanupSummary": "Cleanup direction and homeowner obligations may become more important than a raw contractor quote.",
-  "quickAnswer": "In Massachusetts, keep the route narrow: verify the records and tank status first, then decide whether the case is still a transaction question or a cleanup question.",
+  "regulatoryOwner": "MassDEP homeowner cleanup and closure assessment guidance",
+  "delegatedLocalAuthorities": "Massachusetts often runs through homeowner cleanup guidance, closure assessment paperwork, and local records rather than one simple tank FAQ.",
+  "buyerSellerSummary": "In Massachusetts, a buried-tank question can turn into a site-assessment issue faster than people expect, so the paperwork matters early.",
+  "recordLookupSummary": "Start with any tank closure assessment, MassDEP correspondence, and oil-to-gas paperwork before you call it a simple records problem.",
+  "sweepFirstSummary": "A sweep can still be the clean first move when the site shows old oil clues but no one can produce reliable closure proof.",
+  "removalVsAbandonmentSummary": "Closure choices depend on the tank condition, site access, and whether the paperwork already points toward assessment or cleanup.",
+  "leakReportingSummary": "If assessment or spill language appears, the issue may no longer be a simple contractor question.",
+  "insuranceCleanupSummary": "Budget and liability conversations become more important once the paperwork points toward assessment or cleanup instead of simple closure.",
+  "quickAnswer": "In Massachusetts, verify the paperwork first. Then decide whether this is still a sale-side tank question or already a cleanup and assessment issue.",
   "commonTriggers": [
-    "There is no clean closure file before a sale.",
-    "A property history suggests oil heat but the tank status is uncertain.",
-    "The parties need to know whether this is still a verification case or already a cleanup case."
+    "The seller cannot produce a clean closure file before closing.",
+    "The property history suggests oil heat, but the tank status is still uncertain.",
+    "The parties need to know whether this is still a paperwork issue or already a site-assessment issue."
   ],
   "cautions": [
-    "Do not assume Massachusetts is as simple as a single tank FAQ workflow.",
-    "Do not treat a potential release as ordinary removal work.",
-    "Do not overstate cost before the closure path is clear."
+    "Do not assume Massachusetts works like a one-page homeowner FAQ state.",
+    "Do not treat a possible release as ordinary removal work.",
+    "Do not let a broad cost number replace the assessment question."
   ],
   "strongestTriggerStates": [
-    "The transaction question may really be a closure-assessment or cleanup question once the paperwork is read closely.",
-    "There is no clean closure file, but site clues suggest prior oil heat and possible remaining tank infrastructure.",
-    "The parties need to know whether they are still only verifying presence or already dealing with assessment-level facts."
+    "The sale-side question may actually be a closure-assessment or cleanup question once the paperwork is read closely.",
+    "No one can produce a clean closure file, but site clues suggest prior oil heat and possible remaining tank infrastructure.",
+    "The parties need to know whether they are still verifying tank presence or already dealing with assessment-level facts."
   ],
   "firstMoves": [
-    "Pull homeowner cleanup and closure-assessment documents before treating Massachusetts like a simple buyer-seller checklist state.",
-    "Use a sweep or locate only after the paper file fails to resolve whether the tank is still present.",
-    "If records mention contamination assessment, switch early from transaction framing to cleanup framing."
+    "Pull any homeowner cleanup guidance, closure-assessment paperwork, and oil-to-gas records before you treat Massachusetts like a simple buyer-seller checklist state.",
+    "Use a sweep or locate only after the paper trail fails to answer whether a tank is still there.",
+    "If the paperwork mentions contamination assessment, switch early from sale-side framing to cleanup framing."
   ],
   "documentTargets": [
-    "Homeowner cleanup correspondence, closure-assessment paperwork, and any contractor closure record.",
+    "MassDEP homeowner cleanup correspondence, closure-assessment paperwork, and contractor invoices tied to the tank or furnace conversion.",
     "Fuel conversion records, prior site-work invoices, and disclosures explaining when oil heat ended.",
-    "Any contamination assessment, release documentation, or related site-cleanup language tied to the property."
+    "Any contamination assessment, spill, or cleanup document tied to the property."
   ],
   "escalationSignals": [
-    "Any assessment or cleanup document showing the issue is already beyond a simple missing-record route.",
+    "Assessment or cleanup paperwork showing the issue is already beyond a simple missing-record route.",
     "Odor, staining, excavation findings, or contractor notes that raise release concern.",
-    "A confirmed tank plus contamination language that changes the route from transaction timing to site-assessment timing."
+    "A confirmed tank plus contamination language that changes the sale-side question into a site-assessment question."
   ],
   "sourceStack": [
     {

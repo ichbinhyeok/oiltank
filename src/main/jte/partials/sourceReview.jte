@@ -4,8 +4,8 @@
     <div class="section__inner">
         <div class="section__header">
             <div>
-                <div class="section__eyebrow">Source review status</div>
-                <h2>Reviewed against current official sources.</h2>
+                <div class="section__eyebrow">Source status</div>
+                <h2>Checked against current public guidance.</h2>
             </div>
         </div>
         <div class="review-panel">

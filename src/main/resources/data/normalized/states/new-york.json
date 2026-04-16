@@ -5,43 +5,43 @@
   "marketPriorityScore": 93,
   "launchReady": true,
   "regulatoryOwner": "New York State Department of Environmental Conservation",
-  "delegatedLocalAuthorities": "Some counties and local authorities may materially change the process, so state guidance is the floor rather than the whole answer.",
-  "buyerSellerSummary": "A sale-side tank question in New York usually starts with homeowner responsibility, local authority differences, and proof of closure.",
-  "recordLookupSummary": "Look for local permits, old heating records, and any closure or cleanup file before treating a quiet file as a clean answer.",
-  "sweepFirstSummary": "A sweep-first path may keep the transaction focused on evidence when the property history is older than the available record stack.",
-  "removalVsAbandonmentSummary": "Removal versus abandonment depends on location, local authority overlay, and whether the tank is confirmed or leaking.",
-  "leakReportingSummary": "Leak concern may trigger a separate response path from ordinary tank location or closure work.",
-  "insuranceCleanupSummary": "Cleanup and insurance questions may widen once a release is suspected, especially where local authority requirements differ.",
-  "quickAnswer": "In New York, a buried tank question often stays unresolved until records, local authority rules, and evidence of tank presence line up.",
+  "delegatedLocalAuthorities": "Town, county, fire, or building records can materially change the answer in New York, so state guidance is only the starting point.",
+  "buyerSellerSummary": "In New York, buried-tank questions during a sale often turn on local records, closure proof, and whether the site still shows oil infrastructure.",
+  "recordLookupSummary": "Start with local permit files, tank test or closure paperwork, and oil-to-gas records before you call the file clean.",
+  "sweepFirstSummary": "A sweep can be the right first move when the house history is older than the paperwork and site clues still point toward a tank.",
+  "removalVsAbandonmentSummary": "Removal versus abandonment depends on location, local overlays, and whether the tank is merely present or already part of a spill story.",
+  "leakReportingSummary": "If spill or remediation language appears, the next call may be about reporting and cleanup rather than ordinary tank work.",
+  "insuranceCleanupSummary": "Insurance and cleanup questions often widen once a release is suspected, especially where local rules or DEC records complicate the answer.",
+  "quickAnswer": "In New York, get the local permit record, closure proof, and site clues straight before you assume the problem is solved.",
   "commonTriggers": [
-    "A buyer sees old oil infrastructure but no closure paperwork.",
-    "The seller cannot show a permit or contractor record.",
-    "A local authority may have stricter follow-up than the general state summary suggests."
+    "A buyer sees old oil infrastructure, but the seller has no closure paperwork.",
+    "No local permit or contractor record explains what happened to the tank.",
+    "The state summary seems simple, but the town or county may require more follow-up."
   ],
   "cautions": [
-    "Do not assume statewide guidance answers every county or local variation.",
+    "Do not assume statewide guidance answers every local variation.",
     "Do not treat a quote request as a substitute for confirmation.",
-    "Do not treat a missing file as clean proof."
+    "Do not treat a quiet paper trail as proof that the tank issue is closed."
   ],
   "strongestTriggerStates": [
-    "A local authority or county overlay may matter, but the file does not say which rule set actually applies.",
+    "A local building, fire, or county overlay may matter, but the paperwork does not show which rule set actually applies.",
     "The seller cannot show closure proof and old oil infrastructure still appears during diligence.",
-    "The homeowner guide points one way while local permitting or cleanup facts point another."
+    "The homeowner guide points one way while local permit or spill facts point another."
   ],
   "firstMoves": [
-    "Verify whether local permitting, fire, or environmental follow-up materially changes the state-level answer before promising a closing plan.",
-    "Pull homeowner records, fuel conversion history, and any closure document before asking for disposition quotes.",
-    "Use a sweep or locate when the site clues are stronger than the paper file."
+    "Check whether local permitting, fire, or environmental follow-up changes the state-level answer before you promise a closing plan.",
+    "Ask for local permit files, oil-to-gas records, and any tank closure paperwork before you request removal pricing.",
+    "Use a sweep when the site clues are stronger than the paper trail."
   ],
   "documentTargets": [
-    "Local permit file, fire or building record, and any county-level closure reference.",
-    "Old fuel delivery or burner conversion records that date the move away from oil heat.",
-    "Contractor invoices, tank test records, or cleanup documents showing whether the tank was closed, removed, or escalated."
+    "Local building or fire permit file and any county-level closure record tied to the property.",
+    "Oil-delivery history, burner conversion records, or invoices showing when the home moved away from oil heat.",
+    "Contractor invoices, tank test reports, or DEC spill and cleanup documents showing whether the tank was closed, removed, or escalated."
   ],
   "escalationSignals": [
-    "Conflicting local and state signals that mean this is no longer a straight homeowner-guide answer.",
-    "Any release language, spill response reference, or remediation paperwork.",
-    "A confirmed tank or excavation note that turns the issue from suspicion into a closure or cleanup path."
+    "Conflicting local and state signals showing this is no longer a simple homeowner-guide answer.",
+    "Any spill, release, remediation, or cleanup paperwork.",
+    "A confirmed tank or excavation note that turns the issue from suspicion into closure or cleanup planning."
   ],
   "sourceStack": [
     {

@@ -119,7 +119,7 @@ function bindCta(root) {
     form.dataset.collapsed = "false";
     openButton.hidden = true;
     statusNode.hidden = false;
-    statusNode.textContent = "Your file checklist was recorded.";
+    statusNode.textContent = "Your next-step checklist was recorded.";
   } else if (query.get("lead") === "busy") {
     form.dataset.collapsed = "false";
     openButton.hidden = true;

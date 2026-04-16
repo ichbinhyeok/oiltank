@@ -1,16 +1,16 @@
 {
   "slug": "oil-tank-sweep-before-buying-house",
   "title": "Oil tank sweep before buying a house",
-  "summary": "Use this guide when the honest first question is whether you need a sweep before contractor quotes or negotiation talk.",
-  "quickAnswer": "A sweep may be the clean first move when a buyer sees clues of prior oil heat but the paperwork does not close the question.",
-  "stateEntryPrompt": "Choose a state route for sweep-first guidance.",
+  "summary": "Use this guide when the real question is whether you need a sweep before you ask for quotes or negotiate with the seller.",
+  "quickAnswer": "A sweep can be the right first move when the house shows oil-heat clues but the paperwork still does not prove whether a tank remains.",
+  "stateEntryPrompt": "Then go to your state page for what to do after a locate result.",
   "primaryScenario": "sweep_first",
   "primaryPartnerType": "sweep_or_locate",
   "primaryRouteFamily": "sweep-and-locate",
   "indexable": true,
   "introPoints": [
     "Use the sweep question to separate suspicion from confirmed tank presence.",
-    "Keep the route focused on evidence before turning it into a removal job.",
+    "Keep the conversation focused on verification before you turn it into a removal job.",
     "Move into a state page once the trigger is clear."
   ],
   "whatNotToAssume": [
@@ -24,8 +24,8 @@
     "An older property has prior oil-heat history, but closure status is uncertain."
   ],
   "beforeYouCall": [
-    "Decide whether the route is still only suspicion or already a confirmed tank case.",
-    "Pull any closure paperwork before assuming the sweep result alone answers the whole problem.",
+    "Decide whether the question is still only suspicion or already a confirmed tank case.",
+    "Pull any closure paperwork before you assume the sweep result alone answers the whole problem.",
     "Use the state page to check whether a local overlay changes what the contractor should document."
   ],
   "documentsThatMatter": [
@@ -34,7 +34,7 @@
     "Any state or local document explaining what happens after a tank is located."
   ],
   "whenToEscalate": [
-    "Move to records-first if the file gap is still bigger than the physical evidence.",
+    "Move to records-first if the paperwork gap is still bigger than the physical evidence.",
     "Move to removal-versus-abandon only after location and the state closure path are clear.",
     "Move to leak-and-cleanup if the sweep or site visit raises release concern rather than simple location."
   ],

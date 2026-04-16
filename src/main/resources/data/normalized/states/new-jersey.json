@@ -5,43 +5,43 @@
   "marketPriorityScore": 95,
   "launchReady": true,
   "regulatoryOwner": "New Jersey Department of Environmental Protection",
-  "delegatedLocalAuthorities": "Certified closure contractors and NJDEP cleanup workflows drive the answer, even when local records are thin.",
-  "buyerSellerSummary": "A missing heating-oil tank record during a sale may keep real transaction risk open until the parties verify tank presence or closure paperwork.",
-  "recordLookupSummary": "Start with permits, closure documents, and prior heating-fuel history before treating silence as proof that no tank exists.",
-  "sweepFirstSummary": "A sweep is often the honest first step when old fill or vent evidence appears but the file does not close the question.",
-  "removalVsAbandonmentSummary": "The disposition path depends on confirmed tank conditions, site access, and the NJDEP heating-oil tank workflow.",
-  "leakReportingSummary": "A suspected release may move the case from ordinary closure into reporting, remediation, and no-further-action review.",
-  "insuranceCleanupSummary": "Cleanup and reimbursement questions may follow a different timeline from simple locate or closure work.",
-  "quickAnswer": "In New Jersey, buyers and sellers usually need to verify records and likely tank presence before debating price or removal.",
+  "delegatedLocalAuthorities": "NJDEP guidance and certified closure contractors matter fast in New Jersey, especially when the seller cannot produce clean closure paperwork.",
+  "buyerSellerSummary": "In New Jersey, a buried-tank question during a sale usually turns on seller disclosure, closure proof, and whether the tank is still actually there.",
+  "recordLookupSummary": "Start with the seller disclosure, any tank closure permit or invoice, and oil-to-gas paperwork before you treat silence as proof.",
+  "sweepFirstSummary": "A sweep is often the right first move when old fill or vent pipes remain and no one can prove the tank was handled correctly.",
+  "removalVsAbandonmentSummary": "Closure choices depend on confirmed tank conditions, site access, and the NJDEP closure path tied to the property.",
+  "leakReportingSummary": "If anyone mentions a release, a fund claim, or a no-further-action letter, the issue stops being simple closure and starts becoming cleanup review.",
+  "insuranceCleanupSummary": "Cleanup and reimbursement questions often run on a different track from a simple locate or closure job.",
+  "quickAnswer": "In New Jersey, get the disclosure, closure paperwork, and tank evidence straight before you talk credits, removal, or cleanup.",
   "commonTriggers": [
-    "Old fill or vent pipes appear before closing.",
-    "Seller paperwork is silent on prior oil heat or closure history.",
-    "Inspection notes raise a buried tank question without confirming a tank."
+    "Old fill or vent pipes show up before closing.",
+    "The seller cannot produce a closure permit, invoice, or clean disclosure.",
+    "Inspection notes raise the buried-tank issue without confirming whether the tank is still there."
   ],
   "cautions": [
-    "Do not assume a missing record proves there is no tank.",
-    "Do not blur a routine closure question with a release or remediation question.",
-    "Do not jump to firm cost talk before a sweep or document review."
+    "Do not assume missing paperwork proves there is no tank.",
+    "Do not blur ordinary closure with spill or remediation questions.",
+    "Do not jump to hard cost talk before the paperwork or sweep result is in hand."
   ],
   "strongestTriggerStates": [
-    "The buyer or seller has no closure document, but old oil-heat evidence is still visible on site.",
-    "An inspection note or sweep result suggests a tank while the closing timeline is still live.",
-    "The file starts as a transaction question, then release language or cleanup history appears."
+    "The buyer or seller has no clean closure document, but old oil-heat evidence is still visible on site.",
+    "An inspection note or sweep result suggests a tank while the sale timeline is still live.",
+    "Someone mentions an NJDEP case, fund claim, or cleanup history before the facts are sorted."
   ],
   "firstMoves": [
-    "Pull seller disclosure, prior oil-heat conversion records, and any closure paperwork before talking about credits or removal.",
-    "If old fill or vent evidence remains, use a sweep or locate to decide whether the route is still only suspicion.",
-    "If the file mentions a release, fund claim, or no-further-action review, tighten the route around cleanup facts rather than generic removal talk."
+    "Ask for the seller disclosure form, any closure permit or contractor invoice, and oil-to-gas paperwork in one request.",
+    "If old fill or vent pipes remain, order a sweep before you let the issue turn into a removal quote.",
+    "If anyone mentions an NJDEP case number, fund claim, or no-further-action letter, switch quickly into cleanup facts."
   ],
   "documentTargets": [
-    "Seller disclosure packet, permits, and contractor closure records tied to prior oil heat.",
-    "Any NJDEP case reference, fund paperwork, or no-further-action language.",
-    "Fuel conversion records, removal invoices, or transfer files that explain when the system changed."
+    "Seller disclosure form, tank closure permit or contractor invoice, and oil-to-gas conversion paperwork.",
+    "Any NJDEP case number, fund paperwork, or no-further-action letter tied to the property.",
+    "Removal invoices, transfer documents, or inspection records explaining when the system changed."
   ],
   "escalationSignals": [
-    "Odor, staining, or excavation history suggesting the case is no longer only a missing-record problem.",
-    "Any state paperwork that references a release, remediation, or no-further-action decision.",
-    "A contractor or inspection note that confirms tank presence or questions contamination, not just tank age."
+    "Odor, staining, excavation history, or paperwork showing this is more than a missing-record problem.",
+    "Any NJDEP document that references a release, remediation, or no-further-action decision.",
+    "A contractor or inspection note confirming tank presence and raising contamination concern."
   ],
   "sourceStack": [
     {

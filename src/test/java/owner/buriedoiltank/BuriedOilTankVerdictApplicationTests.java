@@ -68,15 +68,15 @@ class BuriedOilTankVerdictApplicationTests {
 		mockMvc.perform(get("/"))
 				.andExpect(status().isOk())
 				.andExpect(content().string(containsString("Buried Oil Tank")))
-				.andExpect(content().string(containsString("<span class=\"hero__accent\">Before Closing</span>")))
-				.andExpect(content().string(containsString("Next Steps for")))
-				.andExpect(content().string(containsString("Buyers and Sellers")))
-				.andExpect(content().string(containsString("suspected buried residential heating-oil tank or missing records before closing")))
-				.andExpect(content().string(containsString("Use the state page or route guide before the file widens into assumption.")))
+				.andExpect(content().string(containsString("<span class=\"hero__accent\">Questions</span> Before Closing")))
+				.andExpect(content().string(containsString("What Buyers and Sellers")))
+				.andExpect(content().string(containsString("Should Check First")))
+				.andExpect(content().string(containsString("start with the disclosure, permit trail, and site clues")))
+				.andExpect(content().string(containsString("Start with the state page or guide that matches what you actually know right now.")))
 				.andExpect(content().string(containsString("Support routes")))
 				.andExpect(content().string(containsString("Keep these cases separate")))
 				.andExpect(content().string(containsString("Current state coverage")))
-				.andExpect(content().string(containsString("Editorial standard")))
+				.andExpect(content().string(containsString("Why this page is trustworthy")))
 				.andExpect(content().string(containsString("Official guidance first. Transaction support after the record is clear.")))
 				.andExpect(content().string(containsString("property=\"og:image\"")))
 				.andExpect(content().string(containsString("application/ld+json")))
@@ -91,20 +91,20 @@ class BuriedOilTankVerdictApplicationTests {
 				.andExpect(status().isOk())
 				.andExpect(content().string(containsString("Buried oil tank state pages for disclosure, records, and closing steps")))
 				.andExpect(content().string(containsString("Current launch states")))
-				.andExpect(content().string(containsString("Choose the state that controls the next document request.")))
+				.andExpect(content().string(containsString("Choose the state that controls the next permit search or document request.")))
 				.andExpect(content().string(containsString("application/ld+json")));
 
 		mockMvc.perform(get("/guides/"))
 				.andExpect(status().isOk())
 				.andExpect(content().string(containsString("Buried oil tank guides for records, sweep, removal, leak, and cost questions")))
 				.andExpect(content().string(containsString("Public route guides")))
-				.andExpect(content().string(containsString("Start with the guide that matches the question on the file.")))
+				.andExpect(content().string(containsString("Start with the guide that matches the question in front of you.")))
 				.andExpect(content().string(containsString("application/ld+json")));
 
 		mockMvc.perform(get("/routes/"))
 				.andExpect(status().isOk())
 				.andExpect(content().string(containsString("Buried oil tank route guides for disclosure, records, sweep, removal, leak, and cost direction")))
-				.andExpect(content().string(containsString("Choose the route family that matches the evidence on the file.")))
+				.andExpect(content().string(containsString("Choose the question family that matches what you know.")))
 				.andExpect(content().string(containsString("href=\"/guides/remove-vs-abandon-oil-tank/\"")))
 				.andExpect(content().string(containsString("href=\"/guides/leaking-heating-oil-tank-what-to-do/\"")))
 				.andExpect(content().string(containsString("href=\"/guides/oil-tank-removal-cost/\"")))
@@ -116,10 +116,10 @@ class BuriedOilTankVerdictApplicationTests {
 					.andExpect(status().isOk())
 					.andExpect(content().string(containsString("http://localhost:8080/states/" + state + "/")))
 					.andExpect(content().string(containsString("application/ld+json")))
-					.andExpect(content().string(containsString("Source review status")))
+					.andExpect(content().string(containsString("Source status")))
 					.andExpect(content().string(containsString("Documents that change the answer")))
-					.andExpect(content().string(containsString("Advanced support stays contextual")))
-					.andExpect(content().string(containsString("Open the file checklist")))
+					.andExpect(content().string(containsString("Keep the first step narrow.")))
+					.andExpect(content().string(containsString("Open the next-step checklist")))
 					.andExpect(content().string(not(containsString("/states/" + state + "/cost-direction/"))))
 					.andExpect(content().string(not(containsString("/states/" + state + "/leak-and-cleanup/"))))
 					.andExpect(content().string(not(containsString("/states/" + state + "/removal-vs-abandonment/"))));
@@ -132,7 +132,7 @@ class BuriedOilTankVerdictApplicationTests {
 						.andExpect(content().string(containsString("Start here in this state")))
 						.andExpect(content().string(containsString("Do this in the next 24 hours")))
 						.andExpect(content().string(containsString("Questions to send today")))
-						.andExpect(content().string(containsString("Open the file checklist")));
+						.andExpect(content().string(containsString("Open the next-step checklist")));
 			}
 
 			for (String heldRoute : List.of("removal-vs-abandonment", "leak-and-cleanup", "cost-direction")) {
@@ -145,7 +145,7 @@ class BuriedOilTankVerdictApplicationTests {
 		mockMvc.perform(get("/states/massachusetts/"))
 				.andExpect(status().isOk())
 				.andExpect(content().string(containsString("<meta name=\"robots\" content=\"noindex,follow\">")))
-				.andExpect(content().string(containsString("Public scope stays narrow")))
+				.andExpect(content().string(containsString("Public coverage stays narrower here.")))
 				.andExpect(content().string(not(containsString("/states/massachusetts/cost-direction/"))));
 
 		mockMvc.perform(get("/states/massachusetts/buyer-seller/"))
@@ -154,9 +154,9 @@ class BuriedOilTankVerdictApplicationTests {
 
 		mockMvc.perform(get("/guides/abandoned-oil-tank-records/"))
 				.andExpect(status().isOk())
-				.andExpect(content().string(containsString("Choose a state route for record and proof guidance.")))
+				.andExpect(content().string(containsString("Then go to your state page for permits, agency rules, and the right next call.")))
 				.andExpect(content().string(containsString("What this guide gives you")))
-				.andExpect(content().string(containsString("Before you ask for quotes")))
+				.andExpect(content().string(containsString("Before you call a contractor")))
 				.andExpect(content().string(containsString("How to Find Abandoned Oil Tank Records Before Closing")))
 				.andExpect(content().string(not(containsString("Massachusetts"))));
 
@@ -164,14 +164,14 @@ class BuriedOilTankVerdictApplicationTests {
 			mockMvc.perform(get("/guides/" + guide + "/"))
 					.andExpect(status().isOk())
 					.andExpect(content().string(not(containsString("<meta name=\"robots\" content=\"noindex,follow\">"))))
-					.andExpect(content().string(containsString("Editorial standard")))
+					.andExpect(content().string(containsString("Why this page is trustworthy")))
 					.andExpect(content().string(containsString("application/ld+json")));
 		}
 
 		mockMvc.perform(get("/methodology/"))
 				.andExpect(status().isOk())
-				.andExpect(content().string(containsString("verify, route, then escalate sequence")))
-				.andExpect(content().string(containsString("routing review, source review, and a boundary check")));
+				.andExpect(content().string(containsString("We start with permits, disclosure, and site facts before talking removal, cleanup, or cost.")))
+				.andExpect(content().string(containsString("Every page gets a source check, review date, and scope check before it stays public.")));
 
 		mockMvc.perform(get("/contact/"))
 				.andExpect(status().isOk())
@@ -180,11 +180,11 @@ class BuriedOilTankVerdictApplicationTests {
 
 		mockMvc.perform(get("/states/new-jersey/"))
 				.andExpect(status().isOk())
-				.andExpect(content().string(containsString("Any NJDEP case reference, fund paperwork, or no-further-action language.")));
+				.andExpect(content().string(containsString("Any NJDEP case number, fund paperwork, or no-further-action letter tied to the property.")));
 
 		mockMvc.perform(get("/states/new-jersey/buyer-seller/"))
 				.andExpect(status().isOk())
-				.andExpect(content().string(containsString("Pull seller disclosure, prior oil-heat conversion records, and any closure paperwork before talking about credits or removal.")));
+				.andExpect(content().string(containsString("Ask for the seller disclosure form, any closure permit or contractor invoice, and oil-to-gas paperwork in one request.")));
 
 		mockMvc.perform(get("/sitemap.xml"))
 				.andExpect(status().isOk())

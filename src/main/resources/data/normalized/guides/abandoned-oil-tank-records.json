@@ -1,42 +1,42 @@
 {
   "slug": "abandoned-oil-tank-records",
   "title": "Abandoned oil tank records guide",
-  "summary": "Use this guide when the problem is not a confirmed tank but a weak record stack that still leaves transaction risk open.",
-  "quickAnswer": "Missing records are a trigger to verify, not proof that no tank exists.",
-  "stateEntryPrompt": "Choose a state route for record and proof guidance.",
+  "summary": "Use this guide when the paperwork is the problem: no closure permit, weak seller disclosure, or old oil history with no clean paper trail.",
+  "quickAnswer": "Missing records are a reason to verify more, not proof that the property is tank-free.",
+  "stateEntryPrompt": "Then go to your state page for permits, agency rules, and the right next call.",
   "primaryScenario": "records_first",
   "primaryPartnerType": "sweep_or_locate",
   "primaryRouteFamily": "records-and-proof",
   "indexable": true,
   "introPoints": [
-    "Start with permits, closure paperwork, and prior fuel records.",
-    "Use the file gap to frame the next move, not to overstate certainty.",
-    "Treat state-specific process as part of the answer."
+    "Start with the seller disclosure, permit history, and any oil-to-gas paperwork.",
+    "Look for the one missing document that changes the answer.",
+    "Go state-specific as soon as local files or agency language matter."
   ],
   "whatNotToAssume": [
-    "Do not assume the county file is complete.",
-    "Do not assume silence proves the property is clean.",
-    "Do not assume a sale deadline changes the underlying facts."
+    "Do not assume a county or town file is complete.",
+    "Do not assume seller memory replaces paperwork.",
+    "Do not assume a closing deadline changes what is true."
   ],
   "bestFor": [
-    "Missing or thin records are the main reason the transaction is stalled.",
+    "Missing or weak paperwork is the main reason the sale is stalled.",
     "The parties need to know which documents matter before calling the wrong contractor.",
     "Prior oil heat is plausible, but tank presence is not yet confirmed."
   ],
   "beforeYouCall": [
-    "Start with the paper trail before asking for price or closure opinions.",
+    "Start with the paper trail before you ask anyone for price or closure opinions.",
     "Keep county silence and seller silence separate from actual proof.",
-    "Move to the state page before assuming the same file standard applies everywhere."
+    "Move to the state page before you assume the same paperwork standard applies everywhere."
   ],
   "documentsThatMatter": [
     "Seller disclosure, permit history, closure paperwork, and prior fuel-use records.",
-    "Contractor invoices, burner-conversion records, and transfer files that explain when oil heat ended.",
-    "Any cleanup, spill, or no-further-action language that changes the route materially."
+    "Contractor invoices, burner-conversion records, and transfer files explaining when oil heat ended.",
+    "Any spill, cleanup, or no-further-action language that changes the next step."
   ],
   "whenToEscalate": [
-    "Switch to sweep-first when the paper file stays thin but site clues remain strong.",
-    "Switch to buyer-seller when the issue is mainly negotiation timing around verification.",
-    "Switch to leak-and-cleanup when the documents point to release, remediation, or site assessment."
+    "Switch to sweep-first when the paperwork stays thin but site clues remain strong.",
+    "Switch to buyer-seller guidance when the main problem is timing and negotiation around verification.",
+    "Switch to leak-and-cleanup when the documents point to a release, remediation, or site assessment."
   ],
   "stateSlugs": [
     "new-jersey",
