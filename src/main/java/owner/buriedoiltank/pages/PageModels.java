@@ -20,7 +20,8 @@ public final class PageModels {
             boolean indexable,
             List<String> structuredDataJson,
             String socialImageUrl,
-            String socialImageAlt
+            String socialImageAlt,
+            String analyticsMeasurementId
         ) {
     }
 

@@ -8,6 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class SiteProperties {
     private URI baseUrl = URI.create("http://localhost:8080");
     private Path storageRoot = Path.of("storage");
+    private String analyticsMeasurementId = "";
 
     public URI getBaseUrl() {
         return baseUrl;
@@ -23,5 +24,13 @@ public class SiteProperties {
 
     public void setStorageRoot(Path storageRoot) {
         this.storageRoot = storageRoot;
+    }
+
+    public String getAnalyticsMeasurementId() {
+        return analyticsMeasurementId;
+    }
+
+    public void setAnalyticsMeasurementId(String analyticsMeasurementId) {
+        this.analyticsMeasurementId = analyticsMeasurementId;
     }
 }

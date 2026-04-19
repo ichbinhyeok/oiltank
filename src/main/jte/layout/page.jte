@@ -21,6 +21,16 @@
     <meta name="twitter:title" content="${meta.title()}">
     <meta name="twitter:description" content="${meta.description()}">
     <meta name="twitter:image" content="${meta.socialImageUrl()}">
+    @if (!"admin".equals(activeNav) && meta.analyticsMeasurementId() != null && !meta.analyticsMeasurementId().isBlank())
+        <script async src="https://www.googletagmanager.com/gtag/js?id=${meta.analyticsMeasurementId()}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            window.gtag = window.gtag || gtag;
+            gtag('js', new Date());
+            gtag('config', '${meta.analyticsMeasurementId()}');
+        </script>
+    @endif
     @if (!meta.indexable())
         <meta name="robots" content="noindex,follow">
     @endif

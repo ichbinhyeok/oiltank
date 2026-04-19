@@ -91,7 +91,8 @@ public class AdminService {
                         false,
                         List.of(),
                         baseUrl.resolve("/og-default.png").toString(),
-                        "Buried Oil Tank Verdict site preview"
+                        "Buried Oil Tank Verdict site preview",
+                        ""
                 ),
                 metrics,
                 partnerMetrics,

@@ -28,6 +28,7 @@ public class SitePageService {
     private final ContentRepository repository;
     private final RouteInventoryService routeInventoryService;
     private final URI baseUrl;
+    private final String analyticsMeasurementId;
     private final Clock clock;
     private final ObjectMapper objectMapper;
 
@@ -41,6 +42,7 @@ public class SitePageService {
         this.repository = repository;
         this.routeInventoryService = routeInventoryService;
         this.baseUrl = siteProperties.getBaseUrl();
+        this.analyticsMeasurementId = siteProperties.getAnalyticsMeasurementId();
         this.clock = clock;
         this.objectMapper = objectMapper;
     }
@@ -672,7 +674,8 @@ public class SitePageService {
                 indexable,
                 structuredDataJson,
                 baseUrl.resolve("/og-default.png").toString(),
-                "Buried Oil Tank Verdict site preview"
+                "Buried Oil Tank Verdict site preview",
+                analyticsMeasurementId
         );
     }
 

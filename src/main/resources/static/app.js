@@ -21,6 +21,18 @@ const scenarioPartnerMap = {
   }
 };
 
+function pushAnalyticsEvent(name, params = {}) {
+  if (typeof window.gtag !== "function") {
+    return;
+  }
+
+  window.gtag("event", name, {
+    page_title: document.title,
+    page_path: window.location.pathname,
+    ...params
+  });
+}
+
 function postEvent(data) {
   const body = new URLSearchParams(data);
   fetch("/api/leads/event", {
@@ -31,6 +43,18 @@ function postEvent(data) {
     body,
     keepalive: true
   }).catch(() => {});
+}
+
+function buildAnalyticsPayload(data) {
+  return {
+    page_id: data.pageId,
+    page_path: data.pagePath,
+    route_family: data.routeFamily || "",
+    scenario: data.scenario || "",
+    partner_type: data.partnerType || "",
+    state_slug: data.stateSlug || "",
+    element: data.element || ""
+  };
 }
 
 function bindAnchors() {
@@ -66,6 +90,18 @@ function bindAnchors() {
   });
 }
 
+function bindPrimaryCtas() {
+  document.querySelectorAll("[data-primary-cta]").forEach((cta) => {
+    cta.addEventListener("click", () => {
+      pushAnalyticsEvent("primary_cta_click", {
+        element: "primary-cta",
+        link_text: cta.textContent?.trim() || "",
+        destination: cta.getAttribute("href") || ""
+      });
+    });
+  });
+}
+
 function bindCta(root) {
   const openButton = root.querySelector("[data-cta-open]");
   const form = root.querySelector("[data-lead-form]");
@@ -78,6 +114,18 @@ function bindCta(root) {
   if (!openButton || !form || !scenarioInput || !partnerInput || !partnerHelper) {
     return;
   }
+
+  const buildPayload = (eventType, element) => ({
+    eventType,
+    pageId: openButton.dataset.pageId,
+    pagePath: openButton.dataset.pagePath,
+    routeFamily: openButton.dataset.routeFamily,
+    scenario: scenarioInput.value,
+    partnerType: partnerInput.value,
+    stateSlug: stateInput ? stateInput.value : "",
+    element,
+    referrer: document.referrer
+  });
 
   const syncPartnerType = () => {
     const next = scenarioPartnerMap[scenarioInput.value];
@@ -96,23 +144,23 @@ function bindCta(root) {
     if (firstField) {
       firstField.focus();
     }
-    const payload = {
-      eventType: "lead_open",
-      pageId: openButton.dataset.pageId,
-      pagePath: openButton.dataset.pagePath,
-      routeFamily: openButton.dataset.routeFamily,
-      scenario: scenarioInput.value,
-      partnerType: partnerInput.value,
-      stateSlug: stateInput ? stateInput.value : "",
-      element: "lead-form-toggle",
-      referrer: document.referrer
-    };
-    postEvent({ ...payload, eventType: "cta_click" });
-    postEvent(payload);
+    const leadOpenPayload = buildPayload("lead_open", "lead-form-toggle");
+    const ctaClickPayload = { ...leadOpenPayload, eventType: "cta_click" };
+
+    postEvent(ctaClickPayload);
+    postEvent(leadOpenPayload);
+    pushAnalyticsEvent("cta_click", buildAnalyticsPayload(ctaClickPayload));
+    pushAnalyticsEvent("lead_open", buildAnalyticsPayload(leadOpenPayload));
   });
 
   scenarioInput.addEventListener("change", syncPartnerType);
   syncPartnerType();
+
+  form.addEventListener("submit", () => {
+    syncPartnerType();
+    const submitPayload = buildPayload("lead_submit", "lead-form-submit");
+    pushAnalyticsEvent("lead_submit", buildAnalyticsPayload(submitPayload));
+  });
 
   const query = new URLSearchParams(window.location.search);
   if (query.get("lead") === "success") {
@@ -120,20 +168,33 @@ function bindCta(root) {
     openButton.hidden = true;
     statusNode.hidden = false;
     statusNode.textContent = "Your next-step checklist was recorded.";
+    pushAnalyticsEvent("lead_submit_result", {
+      ...buildAnalyticsPayload(buildPayload("lead_submit_result", "lead-form-submit")),
+      result: "success"
+    });
   } else if (query.get("lead") === "busy") {
     form.dataset.collapsed = "false";
     openButton.hidden = true;
     statusNode.hidden = false;
     statusNode.textContent = "The checklist is busy right now. Wait a minute and send it again.";
+    pushAnalyticsEvent("lead_submit_result", {
+      ...buildAnalyticsPayload(buildPayload("lead_submit_result", "lead-form-submit")),
+      result: "busy"
+    });
   } else if (query.get("lead") === "error") {
     form.dataset.collapsed = "false";
     openButton.hidden = true;
     statusNode.hidden = false;
     statusNode.textContent = "Check the file details and try again.";
+    pushAnalyticsEvent("lead_submit_result", {
+      ...buildAnalyticsPayload(buildPayload("lead_submit_result", "lead-form-submit")),
+      result: "error"
+    });
   } else {
     form.dataset.collapsed = "true";
   }
 }
 
 bindAnchors();
+bindPrimaryCtas();
 document.querySelectorAll("[data-cta-root]").forEach(bindCta);
