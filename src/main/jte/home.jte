@@ -4,70 +4,77 @@
 <section class="hero hero--home">
     <div class="hero__inner hero__inner--home">
         <div class="hero__copy">
-            <div class="hero__status">For live transactions</div>
-            <div class="section__eyebrow">Buried oil tank paperwork, permits, and closing decisions</div>
+            <div class="hero__status">Start here</div>
+            <div class="section__eyebrow">For buyers, sellers, and agents trying to keep a deal on track</div>
             <h1>
-                <span class="hero__title-line">Buried Oil Tank</span>
-                <span class="hero__title-line"><span class="hero__accent">Questions</span> Before Closing</span>
-                <span class="hero__title-line">What Buyers and Sellers</span>
-                <span class="hero__title-line hero__title-line--lead">Should Check First</span>
+                <span class="hero__title-line">Figure out the</span>
+                <span class="hero__title-line"><span class="hero__accent">next step</span></span>
+                <span class="hero__title-line hero__title-line--lead">before closing</span>
             </h1>
-            <p class="hero__lede">If an old heating-oil tank may be buried on the property, start with the disclosure, permit trail, and site clues before you argue about credits, removal, or cleanup.</p>
-            <div class="hero__proofline">
-                <span>Official state guidance cited</span>
-                <span>Built for NJ, NY, CT, and ME</span>
-            </div>
+            <p class="hero__lede">If a buried heating-oil tank might be on the property, start by figuring out whether you need records, a tank sweep, or a confirmed-tank path. This site is built to help you make that call quickly.</p>
             <div class="hero__actions">
-                <a class="button" href="#states">Start with your state</a>
-                <a class="button button--secondary" href="/methodology/">How we verify pages</a>
+                <a class="button" href="#start-here">Choose your situation</a>
+                <a class="button button--secondary" href="#states">Browse state pages</a>
             </div>
         </div>
         <div class="hero__aside hero__aside--home">
             <div class="hero__media hero__media--home">
                 <img class="hero__image" src="https://images.unsplash.com/photo-1618179131275-e90e3dfde775?auto=format&fit=crop&w=1400&q=80" alt="Historic residential house exterior in a dark editorial treatment" width="1400" height="1400" loading="eager" fetchpriority="high" decoding="async">
                 <div class="hero__stamp hero__stamp--dark">
-                    <strong>Start with the paperwork</strong>
-                    <span>Seller disclosure, permit history, and site clues should come before quotes or cleanup assumptions.</span>
+                    <strong>Start with the smallest useful question</strong>
+                    <span>Do you need records, a sweep, or a confirmed-tank decision? Answer that first.</span>
                 </div>
             </div>
             <div class="hero__docket">
                 <div class="docket-row">
-                    <span class="docket-row__label">What comes first</span>
-                    <p>Paperwork, site clues, then the contractor or cleanup question.</p>
+                    <span class="docket-row__label">What you get</span>
+                    <p>A fast path to the next action instead of a long oil-tank explainer.</p>
                 </div>
                 <div class="docket-row">
                     <span class="docket-row__label">Who this helps</span>
                     <p>Buyers, sellers, owners, agents, and attorneys trying to keep a live deal on track.</p>
                 </div>
                 <div class="docket-row">
-                    <span class="docket-row__label">Do not mix these</span>
-                    <p>Suspected tank, confirmed tank, and leak concern each need a different next step.</p>
+                    <span class="docket-row__label">What to avoid</span>
+                    <p>Jumping into quotes or cleanup talk before you know which path this property is actually on.</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="section section--proof section--tight">
-    <div class="section__inner proof-strip">
-        <div class="proof-chip">
-            <span class="proof-chip__label">Live coverage</span>
-            <p>${page.states().size()} state pages and ${page.guideCards().size()} cross-state guides are live.</p>
-        </div>
-        <div class="proof-chip">
-            <span class="proof-chip__label">Official sources cited</span>
-            <p>${page.trackedSourceCount()} official source references are mapped across public state and guide surfaces.</p>
-        </div>
-        <div class="proof-chip">
-            <span class="proof-chip__label">What every page shows</span>
-            <p>Review date, next review date, and official links appear before you ask for help.</p>
-        </div>
-    </div>
-</section>
-
-<section class="section section--tight">
+<section id="start-here" class="section section--contrast">
     <div class="section__inner">
-        @template.partials.editorialTeam()
+        <div class="section__header section__header--spaced">
+            <div>
+                <div class="section__eyebrow section__eyebrow--inverse">Start here</div>
+                <h2>Choose the situation that matches what you know right now.</h2>
+            </div>
+        </div>
+        <div class="route-grid">
+            @for (var card : page.scenarioCards())
+                <a class="route-card" href="${card.href()}">
+                    <span class="route-card__badge">${card.badge()}</span>
+                    <strong>${card.title()}</strong>
+                    <p>${card.description()}</p>
+                </a>
+            @endfor
+        </div>
+        <div class="section__header section__header--spaced">
+            <div>
+                <div class="section__eyebrow section__eyebrow--inverse">Then go deeper</div>
+                <h3>Use these once you already know the lane you are in.</h3>
+            </div>
+        </div>
+        <div class="route-grid route-grid--secondary">
+            @for (var card : page.decisionPathCards())
+                <a class="route-card route-card--secondary" href="${card.href()}">
+                    <span class="route-card__badge">${card.badge()}</span>
+                    <strong>${card.title()}</strong>
+                    <p>${card.description()}</p>
+                </a>
+            @endfor
+        </div>
     </div>
 </section>
 
@@ -95,8 +102,6 @@
         </div>
     </div>
 </section>
-
-@template.partials.audienceCards("Who this helps first", "Start with the state page or guide that matches what you actually know right now.", page.audienceCards())
 
 <section class="section">
     <div class="section__inner feature-split">
@@ -143,42 +148,6 @@
                     <li>Price talk before the record stack is clear.</li>
                 </ul>
             </div>
-        </div>
-    </div>
-</section>
-
-<section id="routes" class="section section--contrast">
-    <div class="section__inner">
-        <div class="section__header section__header--spaced">
-            <div>
-                <div class="section__eyebrow section__eyebrow--inverse">Route families</div>
-                <h2>Choose the question that matches what you know right now.</h2>
-            </div>
-            <a class="section__action section__action--inverse" href="/routes/">View all route guides</a>
-        </div>
-        <div class="route-grid">
-            @for (var card : page.scenarioCards())
-                <a class="route-card" href="${card.href()}">
-                    <span class="route-card__badge">${card.badge()}</span>
-                    <strong>${card.title()}</strong>
-                    <p>${card.description()}</p>
-                </a>
-            @endfor
-        </div>
-        <div class="section__header section__header--spaced">
-            <div>
-                <div class="section__eyebrow section__eyebrow--inverse">Support routes</div>
-                <h3>Open these only after the tank is confirmed or contamination is a real possibility.</h3>
-            </div>
-        </div>
-        <div class="route-grid route-grid--secondary">
-            @for (var card : page.decisionPathCards())
-                <a class="route-card route-card--secondary" href="${card.href()}">
-                    <span class="route-card__badge">${card.badge()}</span>
-                    <strong>${card.title()}</strong>
-                    <p>${card.description()}</p>
-                </a>
-            @endfor
         </div>
     </div>
 </section>
@@ -241,6 +210,12 @@
                 </div>
             @endfor
         </div>
+    </div>
+</section>
+
+<section class="section section--tight">
+    <div class="section__inner">
+        @template.partials.editorialTeam()
     </div>
 </section>
 `)

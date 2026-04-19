@@ -3,9 +3,9 @@
 <section class="section section--contrast section--cta" id="case-checklist" data-cta-root>
     <div class="section__inner cta-box">
         <div class="cta-box__copy">
-            <div class="section__eyebrow section__eyebrow--inverse">Next-step checklist</div>
+            <div class="section__eyebrow section__eyebrow--inverse">Optional worksheet</div>
             <h2>${cta.heading()}</h2>
-            <p data-partner-helper>${cta.defaultPartnerType().helperText()}</p>
+            <p data-partner-helper>${cta.helperText()}</p>
             <div class="cta-preview">
                 <span class="cta-preview__label">${cta.previewTitle()}</span>
                 <ul class="guardrail-list guardrail-list--dense">
@@ -104,7 +104,7 @@
                 <textarea name="notes" rows="4"></textarea>
             </label>
             <p class="form-note">Use notes for the missing permit, disclosure issue, visible pipes, sweep result, cleanup letter, or the deadline that matters most.</p>
-            <button class="button button--dark" type="submit">Get the checklist</button>
+            <button class="button button--dark" type="submit">Email the worksheet</button>
             <div class="form-status" data-form-status hidden></div>
         </form>
     </div>

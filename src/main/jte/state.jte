@@ -15,7 +15,7 @@
                 <span class="badge">${page.state().abbreviation()}</span>
             </div>
             <div class="hero__actions hero__actions--detail">
-                <a class="button" href="#case-checklist" data-primary-cta>Open the next-step checklist</a>
+                <a class="button" href="#first-steps" data-primary-cta>Jump to first steps</a>
             </div>
         </div>
         <div class="hero__aside hero__aside--detail">
@@ -59,7 +59,7 @@
 @template.partials.sourceReview(page.sourceReview())
 @template.partials.audienceCards("Who should use this state page", "Use the state page to decide what to request next and who needs the facts first.", page.audienceCards())
 
-<section class="section section--soft">
+<section id="first-steps" class="section section--soft">
     <div class="section__inner two-column">
         <div class="support-panel">
             <div class="section__eyebrow">Common sale-side situations in this state</div>

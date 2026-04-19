@@ -49,7 +49,10 @@
 <body class="${"admin".equals(activeNav) ? "page page--admin" : "page"}">
 <header class="${"admin".equals(activeNav) ? "site-header site-header--admin" : "site-header"}">
     <div class="site-header__inner">
-        <a class="brand" href="/">Buried Oil Tank Verdict</a>
+        <a class="brand" href="/">
+            <span class="brand__title">Oil Tank Verdict</span>
+            <span class="brand__tag">Buried tank next steps</span>
+        </a>
         @if ("admin".equals(activeNav))
             <div class="admin-toolbar" aria-label="Admin">
                 <span class="admin-toolbar__label">Protected dashboard</span>
@@ -58,13 +61,10 @@
         @else
             <div class="site-header__rail">
                 <nav class="site-nav" aria-label="Primary">
-                    <a class="${"home".equals(activeNav) ? "site-nav__link site-nav__link--active" : "site-nav__link"}" href="/">Overview</a>
+                    <a class="${"home".equals(activeNav) ? "site-nav__link site-nav__link--active" : "site-nav__link"}" href="/">Start</a>
                     <a class="${("state".equals(activeNav) || "states".equals(activeNav)) ? "site-nav__link site-nav__link--active" : "site-nav__link"}" href="/states/">States</a>
-                    <a class="${("route".equals(activeNav) || "routes".equals(activeNav)) ? "site-nav__link site-nav__link--active" : "site-nav__link"}" href="/routes/">Routes</a>
                     <a class="${("guide".equals(activeNav) || "guides".equals(activeNav)) ? "site-nav__link site-nav__link--active" : "site-nav__link"}" href="/guides/">Guides</a>
-                    <a class="${"static".equals(activeNav) ? "site-nav__link site-nav__link--active" : "site-nav__link"}" href="/methodology/">Methodology</a>
                 </nav>
-                <a class="site-header__action" href="${("state".equals(activeNav) || "route".equals(activeNav) || "guide".equals(activeNav)) ? "#case-checklist" : "/states/"}">${("state".equals(activeNav) || "route".equals(activeNav) || "guide".equals(activeNav)) ? "Next-step checklist" : "Find your state"}</a>
             </div>
         @endif
     </div>
@@ -80,6 +80,7 @@
                 <span>Built for live files, missing records, sweep-first questions, and contract-side timing pressure.</span>
             </div>
             <div class="site-footer__links">
+                <a href="/methodology/">Methodology</a>
                 <a href="/contact/">Contact</a>
                 <a href="/privacy/">Privacy</a>
                 <a href="/terms/">Terms</a>

@@ -83,22 +83,22 @@ public class SitePageService {
 
         List<PageModels.LinkCard> scenarioCards = List.of(
                 new PageModels.LinkCard(
-                        "Buyer or seller risk",
-                        "Start with what is missing from the file before price or removal talk.",
+                        "I think there may be a tank",
+                        "Start with the first checks before anyone jumps into quotes, credits, or cleanup talk.",
                         "/guides/buried-oil-tank-home-sale/",
-                        "Deal file"
+                        "Suspected tank"
                 ),
                 new PageModels.LinkCard(
-                        "Sweep first",
-                        "Use a locate or sweep when site clues and paperwork do not line up.",
-                        "/guides/oil-tank-sweep-before-buying-house/",
-                        "Site evidence"
-                ),
-                new PageModels.LinkCard(
-                        "Records first",
-                        "Treat missing records as a trigger to verify, not proof that no tank exists.",
+                        "The records are missing",
+                        "Use this when closure proof, permit history, or fuel-conversion paperwork is unclear or absent.",
                         "/guides/abandoned-oil-tank-records/",
-                        "Paper trail"
+                        "Missing records"
+                ),
+                new PageModels.LinkCard(
+                        "There may be a leak",
+                        "Use this when odor, staining, release language, or cleanup history is starting to control the answer.",
+                        "/guides/leaking-heating-oil-tank-what-to-do/",
+                        "Leak concern"
                 )
         );
 
@@ -112,22 +112,22 @@ public class SitePageService {
 
         List<PageModels.LinkCard> decisionPathCards = List.of(
                 new PageModels.LinkCard(
-                        "Removal or abandonment",
-                        "Use this only after the tank is confirmed and the state closure path is clear.",
+                        "Should I order a tank sweep?",
+                        "Use this when site clues and paperwork do not line up and you need to know whether field work belongs yet.",
+                        "/guides/oil-tank-sweep-before-buying-house/",
+                        "Site check"
+                ),
+                new PageModels.LinkCard(
+                        "The tank is confirmed",
+                        "Use this after the tank is real and the question becomes closure path, removal, or abandonment.",
                         "/guides/remove-vs-abandon-oil-tank/",
-                        "Disposition"
+                        "Confirmed tank"
                 ),
                 new PageModels.LinkCard(
-                        "Leak and cleanup",
-                        "Use this when odor, staining, release language, or cleanup facts overtake ordinary sale-side routing.",
-                        "/guides/leaking-heating-oil-tank-what-to-do/",
-                        "Escalation"
-                ),
-                new PageModels.LinkCard(
-                        "Cost direction",
-                        "Use this once the route is narrow enough that sweep, closure, removal, and cleanup are no longer being mixed together.",
+                        "When should I think about cost?",
+                        "Use this only after the scope is narrow enough that sweep, closure, removal, and cleanup are not being mixed together.",
                         "/guides/oil-tank-removal-cost/",
-                        "Budget range"
+                        "Cost direction"
                 )
         );
 
@@ -927,12 +927,12 @@ public class SitePageService {
 
     private PageModels.CtaModel ctaFor(String pageId, String path, RouteFamily family, List<PageModels.StateOption> states) {
         return new PageModels.CtaModel(
-                "Get the next-step checklist for this property",
-                "Get the checklist",
-                family.defaultPartnerType().helperText(),
-                "Use the checklist to decide what to request next, whether a sweep belongs, and who needs the facts first.",
+                "Email yourself the next-step worksheet for this property",
+                "Email me the worksheet",
+                worksheetHelperText(family),
+                "The page above already gives the main guidance. Use the worksheet if you want the same prompts in one place to share or save.",
                 ctaPreviewItems(family),
-                "Email is required. Phone is optional. The checklist is informational and may point you back to official state sources or licensed professionals. It does not confirm that a property is tank-free, cleared, or legally compliant.",
+                "This is optional. Email is required only if you want a copy sent to you. Phone is optional. The worksheet is informational and may point you back to official state sources or licensed professionals. It does not confirm that a property is tank-free, cleared, or legally compliant.",
                 pageId,
                 path,
                 family.isOverview() ? RouteFamily.BUYER_SELLER.slug() : family.slug(),
@@ -941,6 +941,17 @@ public class SitePageService {
                 states,
                 List.of(Scenario.BUYER_SELLER, Scenario.SWEEP_FIRST, Scenario.RECORDS_FIRST, Scenario.REMOVAL_DECISION, Scenario.LEAK_CONCERN)
         );
+    }
+
+    private static String worksheetHelperText(RouteFamily family) {
+        return switch (family) {
+            case OVERVIEW, BUYER_SELLER -> "Useful when you want the main records, sweep, and next-step prompts in one shareable list.";
+            case SWEEP_AND_LOCATE -> "Useful when you need to decide whether site clues actually justify a sweep or locate.";
+            case RECORDS_AND_PROOF -> "Useful when the paperwork trail is thin and you want a cleaner request list before anyone assumes too much.";
+            case REMOVAL_VS_ABANDONMENT -> "Useful once the tank is confirmed and you are comparing closure paths.";
+            case LEAK_AND_CLEANUP -> "Useful once odor, staining, or release evidence makes this more than a paperwork issue.";
+            case COST_DIRECTION -> "Useful once the scope is narrow enough that cost can be discussed without mixing different problems together.";
+        };
     }
 
     private static String routeLinkBadge(RouteInventoryEntry entry) {

@@ -1,23 +1,23 @@
 const scenarioPartnerMap = {
   buyer_seller: {
     partner: "sweep_or_locate",
-    helper: "Start with locate or sweep work when records and physical clues do not line up."
+    helper: "Useful when you want the main records, sweep, and next-step prompts in one shareable list."
   },
   sweep_first: {
     partner: "sweep_or_locate",
-    helper: "Use a locate or sweep when site clues and records conflict."
+    helper: "Useful when you need to decide whether site clues actually justify a sweep or locate."
   },
   records_first: {
     partner: "sweep_or_locate",
-    helper: "Start with permits, closure paperwork, and prior fuel records before treating silence as proof."
+    helper: "Useful when the paperwork trail is thin and you want a cleaner request list before anyone assumes too much."
   },
   removal_decision: {
     partner: "closure_or_removal",
-    helper: "Use a closure or removal contractor when the tank is confirmed and the next choice is disposition."
+    helper: "Useful once the tank is confirmed and you are comparing closure paths."
   },
   leak_concern: {
     partner: "environmental_cleanup",
-    helper: "Use an environmental specialist when a suspected leak or spill moves beyond ordinary contractor scope."
+    helper: "Useful once odor, staining, or release evidence makes this more than a paperwork issue."
   }
 };
 
@@ -167,7 +167,7 @@ function bindCta(root) {
     form.dataset.collapsed = "false";
     openButton.hidden = true;
     statusNode.hidden = false;
-    statusNode.textContent = "Your next-step checklist was recorded.";
+    statusNode.textContent = "Your worksheet request was recorded.";
     pushAnalyticsEvent("lead_submit_result", {
       ...buildAnalyticsPayload(buildPayload("lead_submit_result", "lead-form-submit")),
       result: "success"
@@ -176,7 +176,7 @@ function bindCta(root) {
     form.dataset.collapsed = "false";
     openButton.hidden = true;
     statusNode.hidden = false;
-    statusNode.textContent = "The checklist is busy right now. Wait a minute and send it again.";
+    statusNode.textContent = "The worksheet is busy right now. Wait a minute and send it again.";
     pushAnalyticsEvent("lead_submit_result", {
       ...buildAnalyticsPayload(buildPayload("lead_submit_result", "lead-form-submit")),
       result: "busy"

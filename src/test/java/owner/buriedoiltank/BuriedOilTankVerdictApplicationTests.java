@@ -67,13 +67,12 @@ class BuriedOilTankVerdictApplicationTests {
 	void launchRoutesRenderWithMetadataAndSitemapRules() throws Exception {
 		mockMvc.perform(get("/"))
 				.andExpect(status().isOk())
-				.andExpect(content().string(containsString("Buried Oil Tank")))
-				.andExpect(content().string(containsString("<span class=\"hero__accent\">Questions</span> Before Closing")))
-				.andExpect(content().string(containsString("What Buyers and Sellers")))
-				.andExpect(content().string(containsString("Should Check First")))
-				.andExpect(content().string(containsString("start with the disclosure, permit trail, and site clues")))
-				.andExpect(content().string(containsString("Start with the state page or guide that matches what you actually know right now.")))
-				.andExpect(content().string(containsString("Support routes")))
+				.andExpect(content().string(containsString("Oil Tank Verdict")))
+				.andExpect(content().string(containsString("<span class=\"hero__accent\">next step</span>")))
+				.andExpect(content().string(containsString("Choose your situation")))
+				.andExpect(content().string(containsString("whether you need records, a tank sweep, or a confirmed-tank path")))
+				.andExpect(content().string(containsString("Choose the situation that matches what you know right now.")))
+				.andExpect(content().string(containsString("Then go deeper")))
 				.andExpect(content().string(containsString("Keep these cases separate")))
 				.andExpect(content().string(containsString("Current state coverage")))
 				.andExpect(content().string(containsString("Why this page is trustworthy")))
@@ -81,7 +80,6 @@ class BuriedOilTankVerdictApplicationTests {
 				.andExpect(content().string(containsString("property=\"og:image\"")))
 				.andExpect(content().string(containsString("application/ld+json")))
 				.andExpect(content().string(containsString("href=\"/states/\"")))
-				.andExpect(content().string(containsString("href=\"/routes/\"")))
 				.andExpect(content().string(containsString("href=\"/guides/\"")))
 				.andExpect(content().string(containsString("href=\"/contact/\"")))
 				.andExpect(content().string(not(containsString("href=\"/admin/\""))))
@@ -119,7 +117,8 @@ class BuriedOilTankVerdictApplicationTests {
 					.andExpect(content().string(containsString("Source status")))
 					.andExpect(content().string(containsString("Documents that change the answer")))
 					.andExpect(content().string(containsString("Keep the first step narrow.")))
-					.andExpect(content().string(containsString("Open the next-step checklist")))
+					.andExpect(content().string(containsString("Jump to first steps")))
+					.andExpect(content().string(containsString("Optional worksheet")))
 					.andExpect(content().string(not(containsString("/states/" + state + "/cost-direction/"))))
 					.andExpect(content().string(not(containsString("/states/" + state + "/leak-and-cleanup/"))))
 					.andExpect(content().string(not(containsString("/states/" + state + "/removal-vs-abandonment/"))));
@@ -132,7 +131,8 @@ class BuriedOilTankVerdictApplicationTests {
 						.andExpect(content().string(containsString("Start here in this state")))
 						.andExpect(content().string(containsString("Do this in the next 24 hours")))
 						.andExpect(content().string(containsString("Questions to send today")))
-						.andExpect(content().string(containsString("Open the next-step checklist")));
+						.andExpect(content().string(containsString("Jump to first steps")))
+						.andExpect(content().string(containsString("Optional worksheet")));
 			}
 
 			for (String heldRoute : List.of("removal-vs-abandonment", "leak-and-cleanup", "cost-direction")) {

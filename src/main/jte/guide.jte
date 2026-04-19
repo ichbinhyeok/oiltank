@@ -9,7 +9,7 @@
             <h1>${page.heading()}</h1>
             <p class="hero__lede">${page.guide().quickAnswer()}</p>
             <div class="hero__actions hero__actions--detail">
-                <a class="button" href="#case-checklist" data-primary-cta>Open the next-step checklist</a>
+                <a class="button" href="#first-steps" data-primary-cta>Jump to first steps</a>
             </div>
         </div>
         <div class="hero__aside">
@@ -31,7 +31,7 @@
 @template.partials.sourceReview(page.sourceReview())
 @template.partials.audienceCards("Who this guide helps first", "Use this guide when you need the first smart move before the answer turns state-specific.", page.audienceCards())
 
-<section class="section section--soft">
+<section id="first-steps" class="section section--soft">
     <div class="section__inner two-column">
         <div class="support-panel">
             <div class="section__eyebrow">Start here</div>
