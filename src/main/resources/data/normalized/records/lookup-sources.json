@@ -1,0 +1,38 @@
+[
+  {
+    "stateSlug": "new-jersey",
+    "title": "NJDEP DataMiner",
+    "agency": "New Jersey Department of Environmental Protection",
+    "url": "https://njems.nj.gov/DataMiner",
+    "searchBy": ["Property address", "Program or case identifier", "Municipality and county"],
+    "usefulFor": ["Finding NJDEP case and site records", "Checking whether a known incident or remediation file exists", "Getting identifiers for the next document search"],
+    "caveat": "No result is not proof that a tank never existed. Search spelling, local permit files, and older paper records can still matter."
+  },
+  {
+    "stateSlug": "new-jersey",
+    "title": "NJDEP Document Search (DocMiner)",
+    "agency": "New Jersey Department of Environmental Protection",
+    "url": "https://njems.nj.gov/DocMiner/",
+    "searchBy": ["NJDEP program interest or case number", "Document category", "Known site identifiers"],
+    "usefulFor": ["Opening available agency documents", "Locating correspondence and closure-related records", "Checking the document trail behind a case number"],
+    "caveat": "Document availability varies. A local construction or fire permit may live outside NJDEP."
+  },
+  {
+    "stateSlug": "new-jersey",
+    "title": "NJDEP Unregulated Heating Oil Tank Program",
+    "agency": "New Jersey Department of Environmental Protection",
+    "url": "https://dep.nj.gov/srp/unregulated/",
+    "searchBy": ["Program guidance", "No Further Action process", "Heating-oil tank remediation requirements"],
+    "usefulFor": ["Understanding what an NFA letter means", "Separating closure paperwork from remediation proof", "Checking current program instructions"],
+    "caveat": "Program guidance explains the process; it does not certify a particular property."
+  },
+  {
+    "stateSlug": "new-york",
+    "title": "NYSDEC Spill Incidents Database",
+    "agency": "New York State Department of Environmental Conservation",
+    "url": "https://data.ny.gov/Energy-Environment/Spill-Incidents/u44d-k5fk",
+    "searchBy": ["County", "Spill date", "Material and source", "Spill number"],
+    "usefulFor": ["Finding reported spill incidents", "Comparing county-level incident volume", "Following a known spill number"],
+    "caveat": "A reported incident is not a parcel-level risk score, and absence from the dataset is not a tank-free certificate."
+  }
+]

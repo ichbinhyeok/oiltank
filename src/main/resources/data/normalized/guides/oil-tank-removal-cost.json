@@ -7,7 +7,7 @@
   "primaryScenario": "removal_decision",
   "primaryPartnerType": "closure_or_removal",
   "primaryRouteFamily": "cost-direction",
-  "indexable": true,
+  "indexable": false,
   "introPoints": [
     "Keep cost directional and tied to a clear scenario.",
     "Use state guidance before you treat a market article as authoritative.",

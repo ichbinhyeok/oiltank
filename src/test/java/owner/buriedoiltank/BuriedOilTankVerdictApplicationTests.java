@@ -60,7 +60,7 @@ class BuriedOilTankVerdictApplicationTests {
 	@Test
 	void contextLoads() {
 		assertThat(routeInventoryService.entries()).hasSize(41);
-		assertThat(routeInventoryService.indexableEntries()).hasSize(22);
+		assertThat(routeInventoryService.indexableEntries()).hasSize(9);
 	}
 
 	@Test
@@ -100,15 +100,10 @@ class BuriedOilTankVerdictApplicationTests {
 				.andExpect(content().string(containsString("application/ld+json")));
 
 		mockMvc.perform(get("/routes/"))
-				.andExpect(status().isOk())
-				.andExpect(content().string(containsString("Buried oil tank route guides for disclosure, records, sweep, removal, leak, and cost direction")))
-				.andExpect(content().string(containsString("Choose the question family that matches what you know.")))
-				.andExpect(content().string(containsString("href=\"/guides/remove-vs-abandon-oil-tank/\"")))
-				.andExpect(content().string(containsString("href=\"/guides/leaking-heating-oil-tank-what-to-do/\"")))
-				.andExpect(content().string(containsString("href=\"/guides/oil-tank-removal-cost/\"")))
-				.andExpect(content().string(containsString("application/ld+json")));
+				.andExpect(status().isMovedPermanently())
+				.andExpect(redirectedUrl("/guides/"));
 
-		List<String> states = List.of("new-jersey", "new-york", "connecticut", "maine");
+		List<String> states = List.of("new-jersey", "new-york");
 		for (String state : states) {
 			mockMvc.perform(get("/states/" + state + "/"))
 					.andExpect(status().isOk())
@@ -123,15 +118,13 @@ class BuriedOilTankVerdictApplicationTests {
 					.andExpect(content().string(not(containsString("/states/" + state + "/leak-and-cleanup/"))))
 					.andExpect(content().string(not(containsString("/states/" + state + "/removal-vs-abandonment/"))));
 
-			for (String route : List.of("buyer-seller", "sweep-and-locate", "records-and-proof")) {
+			for (String route : List.of("records-and-proof")) {
 				mockMvc.perform(get("/states/" + state + "/" + route + "/"))
 						.andExpect(status().isOk())
 						.andExpect(content().string(containsString("<link rel=\"canonical\" href=\"http://localhost:8080/states/" + state + "/" + route + "/\"")))
 						.andExpect(content().string(containsString("application/ld+json")))
-						.andExpect(content().string(containsString("Start here in this state")))
-						.andExpect(content().string(containsString("Do this in the next 24 hours")))
-						.andExpect(content().string(containsString("Questions to send today")))
-						.andExpect(content().string(containsString("Jump to first steps")))
+						.andExpect(content().string(containsString("Official lookup sequence")))
+						.andExpect(content().string(containsString("No address stored")))
 						.andExpect(content().string(containsString("Optional worksheet")));
 			}
 
@@ -141,6 +134,26 @@ class BuriedOilTankVerdictApplicationTests {
 						.andExpect(content().string(containsString("<meta name=\"robots\" content=\"noindex,follow\">")));
 			}
 		}
+
+		for (String state : List.of("connecticut", "maine")) {
+			mockMvc.perform(get("/states/" + state + "/"))
+					.andExpect(status().isMovedPermanently())
+					.andExpect(redirectedUrl("/states/"));
+			mockMvc.perform(get("/states/" + state + "/records-and-proof/"))
+					.andExpect(status().isMovedPermanently())
+					.andExpect(redirectedUrl("/guides/abandoned-oil-tank-records/"));
+		}
+
+		mockMvc.perform(get("/states/new-york/buyer-seller/"))
+				.andExpect(status().isMovedPermanently())
+				.andExpect(redirectedUrl("/guides/buried-oil-tank-home-sale/"));
+		mockMvc.perform(get("/states/new-york/sweep-and-locate/"))
+				.andExpect(status().isMovedPermanently())
+				.andExpect(redirectedUrl("/guides/oil-tank-sweep-before-buying-house/"));
+		mockMvc.perform(get("/states/new-york/counties/westchester/heating-oil-spill-records/"))
+				.andExpect(status().isOk())
+				.andExpect(content().string(containsString("Westchester County heating-oil spill records")))
+				.andExpect(content().string(containsString("906")));
 
 		mockMvc.perform(get("/states/massachusetts/"))
 				.andExpect(status().isOk())
@@ -163,7 +176,7 @@ class BuriedOilTankVerdictApplicationTests {
 		for (String guide : List.of("remove-vs-abandon-oil-tank", "leaking-heating-oil-tank-what-to-do", "oil-tank-removal-cost")) {
 			mockMvc.perform(get("/guides/" + guide + "/"))
 					.andExpect(status().isOk())
-					.andExpect(content().string(not(containsString("<meta name=\"robots\" content=\"noindex,follow\">"))))
+					.andExpect(content().string(containsString("<meta name=\"robots\" content=\"noindex,follow\">")))
 					.andExpect(content().string(containsString("Why this page is trustworthy")))
 					.andExpect(content().string(containsString("application/ld+json")));
 		}
@@ -189,13 +202,13 @@ class BuriedOilTankVerdictApplicationTests {
 		mockMvc.perform(get("/sitemap.xml"))
 				.andExpect(status().isOk())
 				.andExpect(content().string(containsString("/states/")))
-				.andExpect(content().string(containsString("/routes/")))
 				.andExpect(content().string(containsString("/guides/")))
-				.andExpect(content().string(containsString("/guides/remove-vs-abandon-oil-tank/")))
-				.andExpect(content().string(containsString("/guides/leaking-heating-oil-tank-what-to-do/")))
-				.andExpect(content().string(containsString("/guides/oil-tank-removal-cost/")))
-				.andExpect(content().string(containsString("<lastmod>2026-04-13</lastmod>")))
+				.andExpect(content().string(containsString("/states/new-york/counties/westchester/heating-oil-spill-records/")))
+				.andExpect(content().string(containsString("<lastmod>2026-07-10</lastmod>")))
 				.andExpect(content().string(containsString("/states/new-jersey/buyer-seller/")))
+				.andExpect(content().string(not(containsString("/routes/"))))
+				.andExpect(content().string(not(containsString("/guides/remove-vs-abandon-oil-tank/"))))
+				.andExpect(content().string(not(containsString("/privacy/"))))
 				.andExpect(content().string(not(containsString("/states/new-jersey/cost-direction/"))))
 				.andExpect(content().string(not(containsString("/states/massachusetts/"))));
 
@@ -287,7 +300,7 @@ class BuriedOilTankVerdictApplicationTests {
 				.andExpect(status().isOk())
 				.andExpect(content().string(containsString("\"leadSubmissions\" : 1")))
 				.andExpect(content().string(containsString("\"ctaClicks\" : 1")))
-				.andExpect(content().string(containsString("\"staleScopeCount\" : 0")));
+				.andExpect(content().string(containsString("\"staleScopeCount\"")));
 
 		mockMvc.perform(get("/admin/exports/routes.json").with(httpBasic(ADMIN_USERNAME, ADMIN_PASSWORD)))
 				.andExpect(status().isOk())

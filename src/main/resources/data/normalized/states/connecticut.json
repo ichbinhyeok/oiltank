@@ -3,7 +3,7 @@
   "slug": "connecticut",
   "abbreviation": "CT",
   "marketPriorityScore": 90,
-  "launchReady": true,
+  "launchReady": false,
   "regulatoryOwner": "Connecticut Department of Energy and Environmental Protection",
   "delegatedLocalAuthorities": "DEEP sets the baseline, but town files, seller paperwork, and site clues often decide whether you need records, a sweep, or spill follow-up.",
   "buyerSellerSummary": "In Connecticut, buried-tank questions during a sale usually turn on paperwork first: seller disclosure, closure proof, and signs of past oil heat.",

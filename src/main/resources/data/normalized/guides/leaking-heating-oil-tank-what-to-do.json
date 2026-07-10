@@ -7,7 +7,7 @@
   "primaryScenario": "leak_concern",
   "primaryPartnerType": "environmental_cleanup",
   "primaryRouteFamily": "leak-and-cleanup",
-  "indexable": true,
+  "indexable": false,
   "introPoints": [
     "Separate a leak concern from a simple tank locate or closure question.",
     "Use official state guidance before you make certainty claims about contamination.",

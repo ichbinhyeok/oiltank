@@ -8,6 +8,8 @@ import owner.buriedoiltank.data.Scenario;
 import owner.buriedoiltank.data.SourceReference;
 import owner.buriedoiltank.data.StateRecord;
 import owner.buriedoiltank.data.GuideRecord;
+import owner.buriedoiltank.data.IncidentAggregate;
+import owner.buriedoiltank.data.RecordLookupSource;
 
 public final class PageModels {
     private PageModels() {
@@ -221,6 +223,23 @@ public final class PageModels {
             List<AudienceCard> audienceCards,
             List<String> takeaways,
             SourceReviewModel sourceReview
+    ) {
+    }
+
+    public record RecordsNavigatorPageModel(
+            PageMeta meta,
+            String heading,
+            String eyebrow,
+            String intro,
+            String stateName,
+            String stateSlug,
+            List<RecordLookupSource> lookupSources,
+            List<IncidentAggregate> incidentAggregates,
+            List<String> checklist,
+            List<String> limits,
+            CtaModel cta,
+            List<Breadcrumb> breadcrumbs,
+            String countyName
     ) {
     }
 

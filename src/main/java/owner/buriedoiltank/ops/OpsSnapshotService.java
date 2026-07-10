@@ -43,6 +43,7 @@ public class OpsSnapshotService {
             "last_28_day_impressions",
             "last_28_day_clicks",
             "last_28_day_ctr",
+            "last_28_day_position",
             "last_28_day_cta_clicks",
             "last_28_day_lead_opens",
             "last_28_day_lead_submissions",
@@ -57,6 +58,7 @@ public class OpsSnapshotService {
     private final RouteInventoryService routeInventoryService;
     private final LeadService leadService;
     private final EventLogService eventLogService;
+    private final SearchMetricsRepository searchMetricsRepository;
     private final ObjectMapper objectMapper;
     private final Clock clock;
     private final Path opsRoot;
@@ -67,6 +69,7 @@ public class OpsSnapshotService {
             RouteInventoryService routeInventoryService,
             LeadService leadService,
             EventLogService eventLogService,
+            SearchMetricsRepository searchMetricsRepository,
             ObjectMapper objectMapper,
             Clock clock,
             SiteProperties siteProperties
@@ -75,6 +78,7 @@ public class OpsSnapshotService {
         this.routeInventoryService = routeInventoryService;
         this.leadService = leadService;
         this.eventLogService = eventLogService;
+        this.searchMetricsRepository = searchMetricsRepository;
         this.objectMapper = objectMapper;
         this.clock = clock;
         this.opsRoot = siteProperties.getStorageRoot().resolve("ops");
@@ -165,9 +169,10 @@ public class OpsSnapshotService {
                     row.phase(),
                     row.indexStatus(),
                     row.sourceFreshnessStatus(),
-                    Long.toString(row.last28DayImpressions()),
-                    Long.toString(row.last28DayClicks()),
-                    Double.toString(row.last28DayCtr()),
+                    valueOrBlank(row.last28DayImpressions()),
+                    valueOrBlank(row.last28DayClicks()),
+                    valueOrBlank(row.last28DayCtr()),
+                    valueOrBlank(row.last28DayPosition()),
                     Long.toString(row.last28DayCtaClicks()),
                     Long.toString(row.last28DayLeadOpens()),
                     Long.toString(row.last28DayLeadSubmissions()),
@@ -216,6 +221,7 @@ public class OpsSnapshotService {
         long leadSubmissions = countLeadsForPage(recentLeads, entry.id());
         PromotionRecommendation recommendation = dynamicRecommendation(entry, ctaClicks, leadOpens, leadSubmissions);
         String recommendationReason = dynamicRecommendationReason(entry, recommendation, ctaClicks, leadOpens, leadSubmissions);
+        SearchMetricRow searchMetric = searchMetricsRepository.currentForPath(entry.path()).orElse(null);
 
         return new OpsSnapshots.RouteStatusSnapshot(
                 entry.id(),
@@ -225,9 +231,10 @@ public class OpsSnapshotService {
                 entry.phase().slug(),
                 entry.indexStatus().slug(),
                 entry.sourceFreshnessStatus().slug(),
-                0,
-                0,
-                0.0d,
+                searchMetric == null ? null : searchMetric.impressions(),
+                searchMetric == null ? null : searchMetric.clicks(),
+                searchMetric == null ? null : searchMetric.ctr(),
+                searchMetric == null ? null : searchMetric.position(),
                 ctaClicks,
                 leadOpens,
                 leadSubmissions,
@@ -491,5 +498,9 @@ public class OpsSnapshotService {
             return "\"" + sanitized.replace("\"", "\"\"") + "\"";
         }
         return sanitized;
+    }
+
+    private static String valueOrBlank(Object value) {
+        return value == null ? "" : value.toString();
     }
 }

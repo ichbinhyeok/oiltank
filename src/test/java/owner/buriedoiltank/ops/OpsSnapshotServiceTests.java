@@ -33,11 +33,13 @@ class OpsSnapshotServiceTests {
         };
         EventLogService eventLogService = new EventLogService(siteProperties, csvStore, fixedClock, eventPublisher);
         LeadService leadService = new LeadService(siteProperties, csvStore, fixedClock, eventLogService);
+        SearchMetricsRepository searchMetricsRepository = new SearchMetricsRepository(csvStore, siteProperties, fixedClock);
         OpsSnapshotService opsSnapshotService = new OpsSnapshotService(
                 contentRepository,
                 routeInventoryService,
                 leadService,
                 eventLogService,
+                searchMetricsRepository,
                 objectMapper,
                 fixedClock,
                 siteProperties
@@ -45,14 +47,15 @@ class OpsSnapshotServiceTests {
 
         OpsSnapshots.SnapshotBundle snapshotBundle = opsSnapshotService.snapshotBundle();
 
-        assertThat(snapshotBundle.sourceFreshnessReviewSnapshot().staleScopeCount()).isEqualTo(11);
-        assertThat(snapshotBundle.sourceFreshnessReviewSnapshot().freshScopeCount()).isZero();
-        assertThat(snapshotBundle.sourceFreshnessReviewSnapshot().staleRouteCount()).isEqualTo(41);
-        assertThat(snapshotBundle.adminMetricsSnapshot().staleScopeCount()).isEqualTo(11);
-        assertThat(snapshotBundle.adminMetricsSnapshot().staleRouteCount()).isEqualTo(41);
+        assertThat(snapshotBundle.sourceFreshnessReviewSnapshot().staleScopeCount()).isEqualTo(6);
+        assertThat(snapshotBundle.sourceFreshnessReviewSnapshot().freshScopeCount()).isEqualTo(5);
+        assertThat(snapshotBundle.sourceFreshnessReviewSnapshot().staleRouteCount()).isEqualTo(24);
+        assertThat(snapshotBundle.adminMetricsSnapshot().staleScopeCount()).isEqualTo(6);
+        assertThat(snapshotBundle.adminMetricsSnapshot().staleRouteCount()).isEqualTo(24);
         assertThat(snapshotBundle.sourceFreshnessReviewSnapshot().scopes())
+                .filteredOn(scope -> "stale".equals(scope.sourceFreshnessStatus()))
                 .allMatch(scope -> scope.daysUntilReview() < 0);
         assertThat(snapshotBundle.promotionReviewSnapshot().blockers())
-                .anySatisfy(blocker -> assertThat(blocker).contains("Source review overdue for New Jersey"));
+                .anySatisfy(blocker -> assertThat(blocker).contains("Source review overdue for Connecticut"));
     }
 }

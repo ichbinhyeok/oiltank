@@ -102,6 +102,52 @@ function bindPrimaryCtas() {
   });
 }
 
+function researchEventPayload(element, eventType) {
+  const root = element.closest("[data-page-id]");
+  return {
+    eventType,
+    pageId: root?.dataset.pageId || document.body.dataset.pageId || `research:${window.location.pathname}`,
+    pagePath: window.location.pathname,
+    routeFamily: "records-and-proof",
+    scenario: "records_first",
+    partnerType: "sweep_or_locate",
+    stateSlug: window.location.pathname.includes("new-jersey") ? "new-jersey" : "new-york",
+    element: element.dataset.sourceTitle || element.textContent?.trim() || eventType,
+    referrer: document.referrer
+  };
+}
+
+function bindResearchEvents() {
+  document.querySelectorAll("[data-analytics-event]").forEach((element) => {
+    element.addEventListener("click", () => {
+      const eventType = element.dataset.analyticsEvent;
+      const payload = researchEventPayload(element, eventType);
+      postEvent(payload);
+      pushAnalyticsEvent(eventType, buildAnalyticsPayload(payload));
+    });
+  });
+
+  document.querySelectorAll("[data-analytics-view]").forEach((element) => {
+    const eventType = element.dataset.analyticsView;
+    const payload = researchEventPayload(element, eventType);
+    postEvent(payload);
+    pushAnalyticsEvent(eventType, buildAnalyticsPayload(payload));
+  });
+
+  document.querySelectorAll("[data-records-checklist]").forEach((checklist) => {
+    const checks = [...checklist.querySelectorAll("[data-records-check]")];
+    checks.forEach((check) => check.addEventListener("change", () => {
+      if (checklist.dataset.completed === "true" || !checks.every((item) => item.checked)) {
+        return;
+      }
+      checklist.dataset.completed = "true";
+      const payload = researchEventPayload(checklist, "records_checklist_complete");
+      postEvent(payload);
+      pushAnalyticsEvent("records_checklist_complete", buildAnalyticsPayload(payload));
+    }));
+  });
+}
+
 function bindCta(root) {
   const openButton = root.querySelector("[data-cta-open]");
   const form = root.querySelector("[data-lead-form]");
@@ -154,12 +200,28 @@ function bindCta(root) {
   });
 
   scenarioInput.addEventListener("change", syncPartnerType);
+  if (stateInput && openButton.dataset.routeFamily === "records-and-proof") {
+    stateInput.addEventListener("change", () => {
+      const payload = buildPayload("records_state_select", "records-state-select");
+      postEvent(payload);
+      pushAnalyticsEvent("records_state_select", buildAnalyticsPayload(payload));
+    });
+  }
   syncPartnerType();
 
   form.addEventListener("submit", () => {
     syncPartnerType();
     const submitPayload = buildPayload("lead_submit", "lead-form-submit");
     pushAnalyticsEvent("lead_submit", buildAnalyticsPayload(submitPayload));
+    if (openButton.dataset.routeFamily === "records-and-proof") {
+      const recordsPayload = buildPayload("result_email_submit", "records-result-email");
+      postEvent(recordsPayload);
+      pushAnalyticsEvent("result_email_submit", buildAnalyticsPayload(recordsPayload));
+    } else if (openButton.dataset.routeFamily === "sweep-and-locate") {
+      const sweepPayload = buildPayload("sweep_readiness_complete", "sweep-readiness-form");
+      postEvent(sweepPayload);
+      pushAnalyticsEvent("sweep_readiness_complete", buildAnalyticsPayload(sweepPayload));
+    }
   });
 
   const query = new URLSearchParams(window.location.search);
@@ -197,4 +259,5 @@ function bindCta(root) {
 
 bindAnchors();
 bindPrimaryCtas();
+bindResearchEvents();
 document.querySelectorAll("[data-cta-root]").forEach(bindCta);

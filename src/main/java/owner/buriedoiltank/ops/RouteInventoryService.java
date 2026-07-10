@@ -31,8 +31,9 @@ public class RouteInventoryService {
         for (StateRecord state : repository.states()) {
             for (RouteFamily family : RouteFamily.values()) {
                 SourceFreshnessStatus freshness = state.freshnessStatus(today);
-                IndexStatus indexStatus = state.launchReady() ? family.defaultIndexStatus() : IndexStatus.NOINDEX;
-                RoutePhase phase = state.launchReady() ? family.phase() : RoutePhase.HELD_SUPPORT;
+                boolean consolidated = isConsolidated(state.slug(), family);
+                IndexStatus indexStatus = state.launchReady() && !consolidated ? family.defaultIndexStatus() : IndexStatus.NOINDEX;
+                RoutePhase phase = state.launchReady() && !consolidated ? family.phase() : RoutePhase.HELD_SUPPORT;
                 builtEntries.add(new RouteInventoryEntry(
                         state.slug() + ":" + family.slug(),
                         state.name() + " " + family.displayLabel(),
@@ -113,11 +114,10 @@ public class RouteInventoryService {
                 "/methodology/",
                 "/contact/",
                 "/states/",
-                "/routes/",
                 "/guides/",
-                "/not-government-affiliated/",
-                "/privacy/",
-                "/terms/"
+                "/states/new-york/counties/westchester/heating-oil-spill-records/",
+                "/states/new-york/counties/nassau/heating-oil-spill-records/",
+                "/states/new-york/counties/suffolk/heating-oil-spill-records/"
         );
         List<String> dynamicPaths = indexableEntries().stream()
                 .map(RouteInventoryEntry::path)
@@ -168,6 +168,14 @@ public class RouteInventoryService {
             return PromotionRecommendation.HOLD;
         }
         return PromotionRecommendation.HOLD;
+    }
+
+    private static boolean isConsolidated(String stateSlug, RouteFamily family) {
+        if ("connecticut".equals(stateSlug) || "maine".equals(stateSlug)) {
+            return true;
+        }
+        return "new-york".equals(stateSlug)
+                && (family == RouteFamily.BUYER_SELLER || family == RouteFamily.SWEEP_AND_LOCATE);
     }
 
     private static String buildRecommendationReason(StateRecord state, RouteFamily family, SourceFreshnessStatus freshness) {

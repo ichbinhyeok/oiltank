@@ -13,6 +13,8 @@ import owner.buriedoiltank.config.SiteProperties;
 import owner.buriedoiltank.data.ContentRepository;
 import owner.buriedoiltank.data.GuideRecord;
 import owner.buriedoiltank.data.RouteFamily;
+import owner.buriedoiltank.data.RecordsDataRepository;
+import owner.buriedoiltank.data.IncidentAggregate;
 import owner.buriedoiltank.data.RouteInventoryEntry;
 import owner.buriedoiltank.data.Scenario;
 import owner.buriedoiltank.data.SourceReference;
@@ -27,6 +29,7 @@ public class SitePageService {
 
     private final ContentRepository repository;
     private final RouteInventoryService routeInventoryService;
+    private final RecordsDataRepository recordsDataRepository;
     private final URI baseUrl;
     private final String analyticsMeasurementId;
     private final Clock clock;
@@ -35,12 +38,14 @@ public class SitePageService {
     public SitePageService(
             ContentRepository repository,
             RouteInventoryService routeInventoryService,
+            RecordsDataRepository recordsDataRepository,
             SiteProperties siteProperties,
             Clock clock,
             ObjectMapper objectMapper
     ) {
         this.repository = repository;
         this.routeInventoryService = routeInventoryService;
+        this.recordsDataRepository = recordsDataRepository;
         this.baseUrl = siteProperties.getBaseUrl();
         this.analyticsMeasurementId = siteProperties.getAnalyticsMeasurementId();
         this.clock = clock;
@@ -297,7 +302,7 @@ public class SitePageService {
                             "Privacy | Buried Oil Tank Verdict",
                             "How next-step checklist requests and event data are stored in the first release.",
                             "/privacy/",
-                            true,
+                            false,
                             breadcrumbPageSchemas(
                                     breadcrumbs("Privacy", "/privacy/"),
                                     webpageSchema(
@@ -322,7 +327,7 @@ public class SitePageService {
                             "Terms | Buried Oil Tank Verdict",
                             "Use conditions for this informational buried oil tank decision-support product.",
                             "/terms/",
-                            true,
+                            false,
                             breadcrumbPageSchemas(
                                     breadcrumbs("Terms", "/terms/"),
                                     webpageSchema(
@@ -347,7 +352,7 @@ public class SitePageService {
                             "Not Government Affiliated | Buried Oil Tank Verdict",
                             "Why this buried oil tank site separates official guidance from editorial routing and current coverage limits.",
                             "/not-government-affiliated/",
-                            true,
+                            false,
                             breadcrumbPageSchemas(
                                     breadcrumbs("Not government affiliated", "/not-government-affiliated/"),
                                     webpageSchema(
@@ -602,6 +607,93 @@ public class SitePageService {
                 next24Hours(state, family),
                 todayQuestions(state, family),
                 sourceReview(route.sourceFreshnessStatus(), route.verifiedOn(), route.nextReviewOn(), route.title())
+        );
+    }
+
+    public PageModels.RecordsNavigatorPageModel recordsNavigatorPage(String stateSlug) {
+        StateRecord state = repository.requireState(stateSlug);
+        if (!List.of("new-jersey", "new-york").contains(stateSlug)) {
+            throw new IllegalArgumentException("Records navigator is not available for " + stateSlug);
+        }
+        String path = "/states/" + stateSlug + "/records-and-proof/";
+        List<PageModels.Breadcrumb> breadcrumbs = breadcrumbs(state.name(), "/states/" + stateSlug + "/", "Records and proof", path);
+        boolean isNewJersey = "new-jersey".equals(stateSlug);
+        String heading = isNewJersey
+                ? "Find New Jersey oil tank records and closure proof"
+                : "Search New York heating-oil spill records by county";
+        String intro = isNewJersey
+                ? "Use the official NJDEP systems in order. Keep the case numbers and documents you find; this site does not collect or store a property address."
+                : "Use the official NYSDEC incident data to understand reported activity, then follow a known spill number. County totals are context, not a property risk score.";
+        return new PageModels.RecordsNavigatorPageModel(
+                meta(heading + " | Oil Tank Verdict", intro, path, true,
+                        breadcrumbPageSchemas(breadcrumbs, webpageSchema(heading, intro, path))),
+                heading,
+                isNewJersey ? "NJDEP record lookup workflow" : "NYSDEC incident navigator",
+                intro,
+                state.name(),
+                stateSlug,
+                recordsDataRepository.lookupSources(stateSlug),
+                recordsDataRepository.incidentAggregates(stateSlug),
+                isNewJersey ? List.of(
+                        "Search DataMiner by address and record the program or case identifiers returned.",
+                        "Use those identifiers in DocMiner and save the available documents.",
+                        "Look specifically for closure evidence, remediation correspondence, and any No Further Action letter.",
+                        "Request municipal building and fire files when the NJDEP trail does not answer what happened to the tank."
+                ) : List.of(
+                        "Search the NYSDEC dataset by county, address terms, or a known spill number.",
+                        "Confirm that the source and material match a residential heating-oil question.",
+                        "Open the incident record and note the status, date, spill number, and agency contact shown.",
+                        "Check town or county permit files separately; the state spill dataset is not a complete tank registry."
+                ),
+                List.of(
+                        "No search result proves that a property is tank-free.",
+                        "A county total cannot determine the condition of an individual property.",
+                        "Records can justify a sweep or a professional review, but they do not replace either one."
+                ),
+                ctaFor(stateSlug + ":records-and-proof", path, RouteFamily.RECORDS_AND_PROOF,
+                        List.of(new PageModels.StateOption(state.slug(), state.name()))),
+                breadcrumbs,
+                null
+        );
+    }
+
+    public PageModels.RecordsNavigatorPageModel countyIncidentPage(String countySlug) {
+        IncidentAggregate aggregate = recordsDataRepository.requireCounty("new-york", countySlug);
+        String path = "/states/new-york/counties/" + countySlug + "/heating-oil-spill-records/";
+        String heading = aggregate.countyName() + " County heating-oil spill records";
+        String intro = "Official NYSDEC data records " + aggregate.incidentCount()
+                + " private-dwelling fuel-oil incidents in the selected 2024–2026 window. Use this as search context, not a parcel-level risk score.";
+        List<PageModels.Breadcrumb> breadcrumbs = List.of(
+                new PageModels.Breadcrumb("Home", "/"),
+                new PageModels.Breadcrumb("New York", "/states/new-york/"),
+                new PageModels.Breadcrumb("Records and proof", "/states/new-york/records-and-proof/"),
+                new PageModels.Breadcrumb(aggregate.countyName() + " County", path)
+        );
+        return new PageModels.RecordsNavigatorPageModel(
+                meta(heading + " | Oil Tank Verdict", intro, path, true,
+                        breadcrumbPageSchemas(breadcrumbs, webpageSchema(heading, intro, path))),
+                heading,
+                "County incident evidence",
+                intro,
+                "New York",
+                "new-york",
+                recordsDataRepository.lookupSources("new-york"),
+                List.of(aggregate),
+                List.of(
+                        "Open the official dataset and filter the county before searching an address or spill number.",
+                        "Check the incident source, material, status, and reported date instead of relying on a keyword alone.",
+                        "Save the spill number and follow the agency contact trail when a plausible record appears.",
+                        "Request local permit and fire records separately if the sale file is missing closure proof."
+                ),
+                List.of(
+                        "This total counts reported incidents, not tanks or affected homes.",
+                        "Multiple incidents can relate to one location, and a tank can exist without a reported spill.",
+                        "The page never accepts a property address and does not issue a property score."
+                ),
+                ctaFor("new-york:county:" + countySlug, path, RouteFamily.RECORDS_AND_PROOF,
+                        List.of(new PageModels.StateOption("new-york", "New York"))),
+                breadcrumbs,
+                aggregate.countyName()
         );
     }
 

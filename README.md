@@ -137,16 +137,23 @@ OCI deploy defaults:
   - `OCI_KEY`
   - `APP_ADMIN_USERNAME`
   - `APP_ADMIN_PASSWORD`
+Search Console metrics use a directly reviewed snapshot bundled at `data/normalized/search/gsc-route-metrics.csv`. A newer `storage/ops/gsc-route-metrics.csv` can override it without an app restart. Missing, malformed, or more than fourteen-day-old metrics are shown as unavailable instead of zero; no GitHub Actions credential is required.
+
+New York county aggregates use the reviewed bundled snapshot and can be refreshed manually with `ops/fetch_ny_incidents.py`. The runtime reads `storage/records/new-york-counties.json` when present and falls back safely if the override is missing or malformed.
+
+Run the same fetch locally with:
+
+```bash
+python ops/fetch_gsc_metrics.py --credentials path/to/service-account.json
+```
 
 ## Recommended launch cohort
-Start with four public states where the topic is both real and monetizable:
+The focused public cohort is:
 
 - `New Jersey`
 - `New York`
-- `Connecticut`
-- `Maine`
 
-Keep `Massachusetts` in launch reserve until the source depth is strong enough to justify indexable transaction pages.
+New Jersey keeps its state, buyer/seller, sweep, and records routes. New York keeps its state and records routes, plus Westchester, Nassau, and Suffolk incident pages; its buyer/seller and sweep URLs consolidate into the national guides. Connecticut and Maine consolidate into the state or national guide hubs. Massachusetts remains in launch reserve.
 
 Reason:
 
@@ -166,14 +173,11 @@ Reason:
 - evergreen national trust guides
 
 ## Phase 1 launch families
-- state hub
-- state buyer-seller guide
-- state tank sweep guide
-- state records and disclosure guide
-- evergreen guides tied to home sale and missing records
+- New Jersey state, buyer/seller, sweep, and records pages
+- New York state, records, and top-three county incident pages
+- evergreen records, home-sale, and sweep guides
 
-Everything else should start as support-layer or `noindex` inventory until the first wedge proves traction.
-State hubs should foreground only the three core public routes so the front door stays narrow and transaction-first.
+Removal, leak, and cost guides remain `noindex,follow` support inventory until the first wedge proves traction.
 
 ## Recommended monetization order
 1. Tank sweep / locate leads

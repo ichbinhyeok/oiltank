@@ -7,7 +7,7 @@
   "primaryScenario": "removal_decision",
   "primaryPartnerType": "closure_or_removal",
   "primaryRouteFamily": "removal-vs-abandonment",
-  "indexable": true,
+  "indexable": false,
   "introPoints": [
     "Confirm the tank and the state closure process before you compare options.",
     "Use paperwork and leak indicators to avoid collapsing different problems into one decision.",

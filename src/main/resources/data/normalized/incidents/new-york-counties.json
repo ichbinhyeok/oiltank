@@ -1,0 +1,7 @@
+[
+  {"stateSlug":"new-york","countySlug":"westchester","countyName":"Westchester","windowStart":"2024-01-01","windowEnd":"2026-07-10","incidentCount":906,"stateRank":1,"sourceTitle":"NYSDEC Spill Incidents","sourceUrl":"https://data.ny.gov/Energy-Environment/Spill-Incidents/u44d-k5fk","updatedOn":"2026-07-10"},
+  {"stateSlug":"new-york","countySlug":"nassau","countyName":"Nassau","windowStart":"2024-01-01","windowEnd":"2026-07-10","incidentCount":890,"stateRank":2,"sourceTitle":"NYSDEC Spill Incidents","sourceUrl":"https://data.ny.gov/Energy-Environment/Spill-Incidents/u44d-k5fk","updatedOn":"2026-07-10"},
+  {"stateSlug":"new-york","countySlug":"suffolk","countyName":"Suffolk","windowStart":"2024-01-01","windowEnd":"2026-07-10","incidentCount":731,"stateRank":3,"sourceTitle":"NYSDEC Spill Incidents","sourceUrl":"https://data.ny.gov/Energy-Environment/Spill-Incidents/u44d-k5fk","updatedOn":"2026-07-10"},
+  {"stateSlug":"new-york","countySlug":"orange","countyName":"Orange","windowStart":"2024-01-01","windowEnd":"2026-07-10","incidentCount":287,"stateRank":4,"sourceTitle":"NYSDEC Spill Incidents","sourceUrl":"https://data.ny.gov/Energy-Environment/Spill-Incidents/u44d-k5fk","updatedOn":"2026-07-10"},
+  {"stateSlug":"new-york","countySlug":"dutchess","countyName":"Dutchess","windowStart":"2024-01-01","windowEnd":"2026-07-10","incidentCount":158,"stateRank":5,"sourceTitle":"NYSDEC Spill Incidents","sourceUrl":"https://data.ny.gov/Energy-Environment/Spill-Incidents/u44d-k5fk","updatedOn":"2026-07-10"}
+]
