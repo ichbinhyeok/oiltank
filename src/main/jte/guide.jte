@@ -14,7 +14,7 @@
         </div>
         <div class="hero__aside">
             <div class="hero__media hero__media--detail">
-                <img class="hero__image" src="https://images.unsplash.com/photo-1457298483369-0a95d2b17fcd?auto=format&fit=crop&w=1400&q=80" alt="Close-up of a fountain pen nib on paper" width="1400" height="1167" loading="eager" fetchpriority="high" decoding="async">
+                @template.partials.tankDiagram()
             </div>
             <div class="info-card">
                 <span class="info-card__label">What this guide gives you</span>

@@ -20,9 +20,25 @@ public final class OpsSnapshots {
             long ctaClicks,
             long leadOpens,
             long leadSubmissions,
+            long approvedLeads,
+            long rejectedLeads,
+            long pendingLeads,
+            long approvedPayoutCents,
             Map<String, Long> leadsByPartnerType,
             Map<String, Long> ctaClicksByRouteFamily,
+            List<ToolFunnelSnapshot> toolFunnels,
             List<String> staleScopes
+    ) {
+    }
+
+    public record ToolFunnelSnapshot(
+            String toolId,
+            long starts,
+            long completes,
+            long resultViews,
+            long commercialTriggers,
+            long resultCtaClicks,
+            long leadSubmissions
     ) {
     }
 

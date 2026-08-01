@@ -1,8 +1,10 @@
 package owner.buriedoiltank.web;
 
 import java.util.List;
+import jakarta.servlet.http.HttpServletRequest;
 import owner.buriedoiltank.data.RouteFamily;
 import owner.buriedoiltank.ops.AdminService;
+import owner.buriedoiltank.pages.ProductPageService;
 import owner.buriedoiltank.pages.SitePageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -10,22 +12,46 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.server.ResponseStatusException;
 
 @Controller
 public class SiteController {
     private final SitePageService sitePageService;
+    private final ProductPageService productPageService;
     private final AdminService adminService;
 
-    public SiteController(SitePageService sitePageService, AdminService adminService) {
+    public SiteController(SitePageService sitePageService, ProductPageService productPageService, AdminService adminService) {
         this.sitePageService = sitePageService;
+        this.productPageService = productPageService;
         this.adminService = adminService;
     }
 
     @GetMapping({"/", ""})
     public String home(Model model) {
-        model.addAttribute("page", sitePageService.homePage());
-        return "home";
+        model.addAttribute("page", productPageService.homePage());
+        return "product";
+    }
+
+    @GetMapping({
+            "/heating-oil-tank", "/heating-oil-tank/",
+            "/heating-oil-tank-sizes-dimensions", "/heating-oil-tank-sizes-dimensions/",
+            "/275-gallon-oil-tank", "/275-gallon-oil-tank/",
+            "/heating-oil-tank-charts", "/heating-oil-tank-charts/",
+            "/oil-tank-gauge-calculator", "/oil-tank-gauge-calculator/",
+            "/heating-oil-delivery-check", "/heating-oil-delivery-check/",
+            "/heating-oil-usage-calculator", "/heating-oil-usage-calculator/",
+            "/oil-tank-capacity-calculator", "/oil-tank-capacity-calculator/",
+            "/heating-oil-tank-sludge-cleaning", "/heating-oil-tank-sludge-cleaning/",
+            "/oil-tank-replacement-planner", "/oil-tank-replacement-planner/",
+            "/oil-tank-replacement-cost", "/oil-tank-replacement-cost/",
+            "/heating-oil-tank-installation-cost", "/heating-oil-tank-installation-cost/",
+            "/basement-oil-tank-removal", "/basement-oil-tank-removal/"
+    })
+    public String productPage(HttpServletRequest request, Model model) {
+        String slug = request.getRequestURI().replaceAll("^/|/$", "");
+        model.addAttribute("page", productPageService.corePage(slug));
+        return "product";
     }
 
     @GetMapping({"/about", "/about/"})
@@ -142,8 +168,10 @@ public class SiteController {
     }
 
     @GetMapping({"/admin", "/admin/"})
-    public String admin(Model model) {
+    public String admin(Model model, CsrfToken csrfToken) {
         model.addAttribute("page", adminService.buildPage());
+        model.addAttribute("csrfParameterName", csrfToken.getParameterName());
+        model.addAttribute("csrfToken", csrfToken.getToken());
         return "admin";
     }
 

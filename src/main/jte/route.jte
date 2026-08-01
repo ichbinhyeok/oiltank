@@ -19,7 +19,7 @@
         </div>
         <div class="hero__aside hero__aside--detail">
             <div class="hero__media hero__media--detail">
-                <img class="hero__image" src="https://images.unsplash.com/photo-1772732414979-f2f48b908fbe?auto=format&fit=crop&w=1400&q=80" alt="Topographic terrain model used to symbolize site verification" width="1400" height="1167" loading="eager" fetchpriority="high" decoding="async">
+                @template.partials.tankDiagram()
                 <div class="hero__stamp hero__stamp--dark">
                     <strong>Before you spend money</strong>
                     <span>Check the paperwork, site clues, and state rules before you treat this like removal or cleanup.</span>

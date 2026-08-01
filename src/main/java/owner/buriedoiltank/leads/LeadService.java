@@ -5,6 +5,7 @@ import java.time.Clock;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import owner.buriedoiltank.config.SiteProperties;
 import owner.buriedoiltank.data.PartnerType;
 import owner.buriedoiltank.data.Scenario;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class LeadService {
     private static final List<String> HEADERS = List.of(
+            "lead_id",
             "timestamp",
             "page_id",
             "page_path",
@@ -28,7 +30,12 @@ public class LeadService {
             "name",
             "email",
             "phone",
-            "notes"
+            "notes",
+            "tool_id",
+            "tank_type",
+            "risk_band",
+            "commercial_intent",
+            "result_summary"
     );
 
     private final Path leadsPath;
@@ -50,6 +57,7 @@ public class LeadService {
                 ? scenario.defaultPartnerType()
                 : PartnerType.fromSlug(request.getPartnerType());
         csvStore.append(leadsPath, HEADERS, List.of(
+                UUID.randomUUID().toString(),
                 OffsetDateTime.now(clock).toString(),
                 request.getPageId(),
                 request.getPagePath(),
@@ -64,7 +72,12 @@ public class LeadService {
                 blankIfNull(request.getName()),
                 request.getEmail(),
                 blankIfNull(request.getPhone()),
-                blankIfNull(request.getNotes())
+                blankIfNull(request.getNotes()),
+                blankIfNull(request.getToolId()),
+                blankIfNull(request.getTankType()),
+                blankIfNull(request.getRiskBand()),
+                blankIfNull(request.getCommercialIntent()),
+                blankIfNull(request.getResultSummary())
         ));
 
         LeadEventRequest event = new LeadEventRequest();
@@ -76,6 +89,7 @@ public class LeadService {
         event.setScenario(scenario.slug());
         event.setPartnerType(partnerType.slug());
         event.setElement("lead-form");
+        event.setToolId(request.getToolId());
         eventLogService.recordEvent(event);
     }
 

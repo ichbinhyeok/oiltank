@@ -1,0 +1,148 @@
+{
+  "surface": "report",
+  "manifest": {
+    "version": 1,
+    "surface": "report",
+    "title": "Oil Tank Route v1 유입 가능성",
+    "description": "현재 v1 페이지가 일 50~100 organic clicks를 만들 수 있는지에 대한 순위 민감도 분석",
+    "generatedAt": "2026-08-01T23:45:00+09:00",
+    "blocks": [
+      {
+        "id": "title",
+        "type": "markdown",
+        "body": "# Oil Tank Route v1 유입 가능성"
+      },
+      {
+        "id": "summary",
+        "type": "markdown",
+        "body": "## Executive Summary\n\n- **현재 페이지 그대로 일 50 클릭은 가능하지만 base case가 아니다.** 중복을 제거한 utility 검색 풀이 월 14.1k에 가깝고, 사이트가 관련 검색어 전반에서 평균 1~2위를 확보해야 한다.\n- **일 100 클릭은 현재 v1 검색 풀로는 현실적이지 않다.** 월 14.1k 검색 풀에서도 21.3%의 blended CTR이 필요해 일반적인 1위 CTR benchmark를 넘어선다.\n- **현실적인 성숙 구간은 일 9~17 클릭이다.** 현재 utility 검색 풀에서 평균 3위 수준을 달성했을 때의 추정치다. 평균 2위까지 올라가면 약 22~43 클릭/일이다.\n- **따라서 지금의 우선순위는 유입 검증이 맞다.** 구매자 확대보다 먼저 신규 6개 URL이 10k impressions, 500 clicks, 평균 순위 개선을 만드는지 확인해야 한다."
+      },
+      {
+        "id": "finding-current",
+        "type": "markdown",
+        "body": "## 50 클릭은 top-2 성과가 있어야 열린다\n\n현재 v1이 직접 겨냥하는 핵심 검색 풀은 heating-oil tank, 275-gallon, sizes/dimensions, gauge/capacity 계열이다. 분석 자료의 의미 중복 제거 범위인 월 7.3k~14.1k를 적용하면 평균 3위에서 일 9~17 클릭, 평균 2위에서 일 22~43 클릭이 예상된다.\n\n**일 50 클릭은 높은 검색 풀과 약 10.6% blended CTR이 동시에 필요하다.** 이는 일부 키워드 1위가 아니라 핵심 cluster 전반에서 평균 1~2위권을 요구한다."
+      },
+      {
+        "id": "chart-block",
+        "type": "chart",
+        "chartId": "rank-sensitivity"
+      },
+      {
+        "id": "chart-interpretation",
+        "type": "markdown",
+        "body": "차트는 검색 풀의 낮은 경계와 높은 경계에 공개 CTR benchmark를 적용한 민감도다. 현재 24개 sitemap URL의 개수 자체보다, 신규 6개 utility URL이 몇 개의 cluster에서 top 3를 확보하는지가 결과를 좌우한다. 높은 검색 풀에서도 평균 1위 추정치는 약 69 클릭/일이므로 100 클릭/일은 현재 surface의 상단을 넘는다."
+      },
+      {
+        "id": "evidence-now",
+        "type": "markdown",
+        "body": "## 아직 50 클릭을 forecast할 현장 증거는 없다\n\n기존 Search Console snapshot은 28일간 208 impressions와 0 clicks였다. 신규 utility 페이지 출시 전 데이터라 새 v1의 실패 증거는 아니지만, 도메인이 이미 top-3 authority를 갖췄다는 증거도 아니다.\n\n**현재 합리적인 forecast 순서는 1~5 클릭/일 → 10~20 클릭/일 → 25~50 클릭/일이다.** 각 단계는 실제 노출과 순위로 승급해야 하며, 50을 초기 약속으로 두면 콘텐츠 확장 판단이 왜곡된다."
+      },
+      {
+        "id": "next-steps",
+        "type": "markdown",
+        "body": "## 다음 90일은 유입 증명에 집중한다\n\n1. 신규 6개 URL을 Search Console에서 별도 cohort로 추적한다.\n2. 먼저 합계 10k impressions와 500 clicks를 통과하는지 본다.\n3. impressions가 생기고 평균 순위 4~10인 query에만 표·설명·내부 링크를 보강한다.\n4. 275, sizes/dimensions, gauge cluster 중 두 개 이상이 top 5에 진입하기 전에는 50 클릭/일을 forecast로 승격하지 않는다.\n5. utility cluster가 월 1k clicks를 증명한 뒤에 basement removal, heating-oil removal, replacement 같은 별도 money page를 확장한다."
+      },
+      {
+        "id": "questions",
+        "type": "markdown",
+        "body": "## 다음 판단을 바꿀 질문\n\n- 신규 6개 URL은 첫 8~12주에 몇 개 query cluster에서 impressions를 얻는가?\n- 높은 검색 풀 14.1k가 실제 close-variant 중복을 제거한 뒤에도 유지되는가?\n- 평균 순위 4~10에 들어오는 query가 현재 페이지 의도와 일치하는가, 아니면 별도 troubleshooting/removal URL이 필요한가?"
+      },
+      {
+        "id": "caveats",
+        "type": "markdown",
+        "body": "## Caveats and Assumptions\n\n검색량은 Google Ads의 넓은 범위와 의미 중복 제거 추정치다. CTR은 일반 공개 benchmark이며 실제 모바일 SERP, featured snippets, 지역성, 브랜드 인지도에 따라 달라진다. 현재 GSC snapshot은 신규 product URL 출시 전 기간이므로 초기 authority의 하한 증거로만 사용했다. 이 보고서는 순위 가능성을 보장하지 않으며, 실제 GSC query/page 데이터가 쌓이면 즉시 대체해야 한다."
+      }
+    ],
+    "charts": [
+      {
+        "id": "rank-sensitivity",
+        "title": "Utility 검색 풀의 순위별 예상 organic clicks",
+        "subtitle": "월 7.3k~14.1k 검색 풀, 공개 CTR benchmark 적용, 값은 clicks/day",
+        "showDescription": true,
+        "intent": "comparison",
+        "question": "현재 utility 검색 풀에서 순위와 수요 경계가 일 클릭을 얼마나 바꾸는가?",
+        "rationale": "여덟 개의 이산 시나리오를 비교하므로 정렬된 수평 막대가 가장 직접적이다.",
+        "comparisonContext": {
+          "baseline": "50 clicks/day 운영 목표",
+          "denominator": "중복 제거 utility 검색 풀의 월 검색량",
+          "grain": "검색 풀 경계 × blended average position",
+          "unit": "organic clicks/day"
+        },
+        "type": "bar",
+        "dataset": "rank_sensitivity",
+        "sourceId": "traffic-model",
+        "encodings": {
+          "x": {"field": "scenario", "type": "nominal", "label": "Scenario"},
+          "y": {"field": "clicks_per_day", "type": "quantitative", "format": "number", "label": "Clicks/day"},
+          "tooltip": [
+            {"field": "monthly_search_pool", "type": "quantitative", "format": "number", "label": "Monthly searches"},
+            {"field": "ctr", "type": "quantitative", "format": "percent", "label": "CTR"},
+            {"field": "clicks_per_month", "type": "quantitative", "format": "number", "label": "Clicks/month"},
+            {"field": "clicks_per_day", "type": "quantitative", "format": "number", "label": "Clicks/day"}
+          ]
+        },
+        "xAxisTitle": "Search pool and average rank",
+        "yAxisTitle": "Organic clicks/day",
+        "valueFormat": "number",
+        "unit": "clicks/day",
+        "layout": "full",
+        "palette": {"kind": "sequential", "name": "blue"},
+        "settings": {"orientation": "vertical", "sort": "ascending", "showValues": false, "categoryLabelPolicy": "truncate"},
+        "surface": {"surface": "card", "showControls": false, "viewMode": "visualization"}
+      }
+    ],
+    "sources": [
+      {
+        "id": "traffic-model",
+        "label": "Oil Tank Route traffic ceiling and utility expansion analyses",
+        "path": "analysis/traffic_ceiling_assessment_2026-08-01.md",
+        "query": {
+          "engine": "reviewed-local-analysis",
+          "language": "formula",
+          "sql": "WITH pools(demand_band, monthly_search_pool) AS (\n  VALUES ('low', 7300), ('high', 14100)\n), ctrs(average_position, ctr) AS (\n  VALUES (4, 0.0151), (3, 0.0366), (2, 0.0924), (1, 0.1461)\n)\nSELECT\n  demand_band || ' pool · position ' || average_position AS scenario,\n  demand_band, average_position, monthly_search_pool, ctr,\n  monthly_search_pool * ctr AS clicks_per_month,\n  monthly_search_pool * ctr / 30.0 AS clicks_per_day,\n  monthly_search_pool * ctr / 30.0 / 50.0 AS target_50_share\nFROM pools CROSS JOIN ctrs\nORDER BY clicks_per_day;",
+          "description": "Deduplicated utility search-pool bounds multiplied by public rank CTR benchmarks.",
+          "filters": ["United States", "residential heating-oil tank intent", "utility cluster only", "30-day month"],
+          "metric_definitions": ["clicks_per_month = monthly_search_pool × CTR", "clicks_per_day = clicks_per_month ÷ 30"],
+          "tables_used": ["analysis/utility_expansion_2026-08-01.md", "analysis/traffic_ceiling_assessment_2026-08-01.md"]
+        }
+      },
+      {
+        "id": "gsc-baseline",
+        "label": "Bundled Search Console route metrics snapshot",
+        "path": "src/main/resources/data/normalized/search/gsc-route-metrics.csv",
+        "query": {
+          "engine": "csv-snapshot",
+          "language": "aggregation",
+          "description": "Sum of clicks and impressions across the reviewed June 11 to July 8, 2026 route snapshot.",
+          "filters": ["2026-06-11 through 2026-07-08", "nine legacy routes"],
+          "metric_definitions": ["total impressions = sum(impressions)", "total clicks = sum(clicks)"],
+          "tables_used": ["src/main/resources/data/normalized/search/gsc-route-metrics.csv"]
+        }
+      }
+    ]
+  },
+  "snapshot": {
+    "version": 1,
+    "generatedAt": "2026-08-01T23:45:00+09:00",
+    "status": "ready",
+    "datasets": {
+      "rank_sensitivity": [
+        {"scenario": "Low · P4", "demand_band": "low", "average_position": 4, "monthly_search_pool": 7300, "ctr": 0.0151, "clicks_per_month": 110.2, "clicks_per_day": 3.7, "target_50_share": 0.074},
+        {"scenario": "High · P4", "demand_band": "high", "average_position": 4, "monthly_search_pool": 14100, "ctr": 0.0151, "clicks_per_month": 212.9, "clicks_per_day": 7.1, "target_50_share": 0.142},
+        {"scenario": "Low · P3", "demand_band": "low", "average_position": 3, "monthly_search_pool": 7300, "ctr": 0.0366, "clicks_per_month": 267.2, "clicks_per_day": 8.9, "target_50_share": 0.178},
+        {"scenario": "High · P3", "demand_band": "high", "average_position": 3, "monthly_search_pool": 14100, "ctr": 0.0366, "clicks_per_month": 516.1, "clicks_per_day": 17.2, "target_50_share": 0.344},
+        {"scenario": "Low · P2", "demand_band": "low", "average_position": 2, "monthly_search_pool": 7300, "ctr": 0.0924, "clicks_per_month": 674.5, "clicks_per_day": 22.5, "target_50_share": 0.45},
+        {"scenario": "High · P2", "demand_band": "high", "average_position": 2, "monthly_search_pool": 14100, "ctr": 0.0924, "clicks_per_month": 1302.8, "clicks_per_day": 43.4, "target_50_share": 0.868},
+        {"scenario": "Low · P1", "demand_band": "low", "average_position": 1, "monthly_search_pool": 7300, "ctr": 0.1461, "clicks_per_month": 1066.5, "clicks_per_day": 35.6, "target_50_share": 0.712},
+        {"scenario": "High · P1", "demand_band": "high", "average_position": 1, "monthly_search_pool": 14100, "ctr": 0.1461, "clicks_per_month": 2060.0, "clicks_per_day": 68.7, "target_50_share": 1.374}
+      ],
+      "gsc_baseline": [
+        {"window_start": "2026-06-11", "window_end": "2026-07-08", "route_count": 9, "impressions": 208, "clicks": 0}
+      ]
+    }
+  },
+  "sources": [
+    {"id": "traffic-model", "label": "Oil Tank Route traffic model", "path": "analysis/traffic_ceiling_assessment_2026-08-01.md"},
+    {"id": "gsc-baseline", "label": "Bundled Search Console snapshot", "path": "src/main/resources/data/normalized/search/gsc-route-metrics.csv"}
+  ]
+}

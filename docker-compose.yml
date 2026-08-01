@@ -6,7 +6,7 @@ services:
     container_name: oiltankroute
     restart: unless-stopped
     ports:
-      - "8097:8080"
+      - "127.0.0.1:8097:8080"
     mem_limit: 512m
     environment:
       SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-prod}

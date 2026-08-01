@@ -11,6 +11,7 @@ import owner.buriedoiltank.data.ContentRepository;
 import owner.buriedoiltank.data.GuideRecord;
 import owner.buriedoiltank.data.IndexStatus;
 import owner.buriedoiltank.data.PageType;
+import owner.buriedoiltank.data.ProductRoute;
 import owner.buriedoiltank.data.PromotionRecommendation;
 import owner.buriedoiltank.data.RouteFamily;
 import owner.buriedoiltank.data.RouteInventoryEntry;
@@ -74,6 +75,27 @@ public class RouteInventoryService {
                     buildGuideReason(guide, freshness),
                     guide.verifiedOn(),
                     guide.nextReviewOn()
+            ));
+        }
+
+        for (ProductRoute route : ProductRoute.CORE) {
+            builtEntries.add(new RouteInventoryEntry(
+                    route.id(),
+                    route.title(),
+                    route.path(),
+                    PageType.PRODUCT,
+                    "Oil Tank Route product",
+                    null,
+                    null,
+                    IndexStatus.INDEX,
+                    RoutePhase.PHASE_1_PUBLIC,
+                    SourceFreshnessStatus.FRESH,
+                    route.scenario(),
+                    route.partnerType(),
+                    PromotionRecommendation.HOLD,
+                    "Core product route; review search and tool-funnel evidence before changing scope.",
+                    LocalDate.of(2026, 8, 1),
+                    LocalDate.of(2027, 2, 1)
             ));
         }
 

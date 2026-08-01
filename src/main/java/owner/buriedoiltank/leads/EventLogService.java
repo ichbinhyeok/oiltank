@@ -5,6 +5,7 @@ import java.time.Clock;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import owner.buriedoiltank.config.SiteProperties;
 import owner.buriedoiltank.data.PartnerType;
 import owner.buriedoiltank.data.Scenario;
@@ -15,6 +16,24 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EventLogService {
+    private static final Set<String> ALLOWED_EVENT_TYPES = Set.of(
+            "commercial_trigger",
+            "county_incident_view",
+            "cta_click",
+            "lead_open",
+            "lead_submit",
+            "lead_submit_result",
+            "official_lookup_click",
+            "primary_cta_click",
+            "records_checklist_complete",
+            "records_state_select",
+            "result_cta_click",
+            "result_email_submit",
+            "result_view",
+            "sweep_readiness_complete",
+            "tool_complete",
+            "tool_start"
+    );
     private static final List<String> HEADERS = List.of(
             "timestamp",
             "event_type",
@@ -25,7 +44,8 @@ public class EventLogService {
             "scenario",
             "partner_type",
             "element",
-            "referrer"
+            "referrer",
+            "tool_id"
     );
 
     private final Path eventsPath;
@@ -47,6 +67,9 @@ public class EventLogService {
     }
 
     public void recordEvent(LeadEventRequest request) {
+        if (!ALLOWED_EVENT_TYPES.contains(request.getEventType())) {
+            throw new IllegalArgumentException("Unsupported analytics event type");
+        }
         Scenario scenario = Scenario.fromSlug(request.getScenario());
         PartnerType partnerType = request.getPartnerType() == null || request.getPartnerType().isBlank()
                 ? scenario.defaultPartnerType()
@@ -61,7 +84,8 @@ public class EventLogService {
                 scenario.slug(),
                 partnerType.slug(),
                 blankIfNull(request.getElement()),
-                blankIfNull(request.getReferrer())
+                blankIfNull(request.getReferrer()),
+                blankIfNull(request.getToolId())
         ));
         eventPublisher.publishEvent(new OpsRefreshRequestedEvent("lead-event-recorded"));
     }

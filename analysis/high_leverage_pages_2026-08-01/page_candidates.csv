@@ -1,0 +1,9 @@
+candidate,route_action,demand_score,serp_opportunity,reuse_score,intent_distinctness,commercial_alignment,evidence_summary,recommendation
+Heating oil usage calculator,new URL,3,5,5,5,1,"Two 100-1k calculator terms; directly chains gauge-chart gallons into days remaining",build now
+Basement oil tank removal,new URL,3,5,2,5,5,"Two 100-1k basement-removal terms; mixed regional and forum-heavy SERP",build now
+Oil tank removal cost,promote existing URL,4,3,3,4,5,"Several 100-1k removal/disposal/service terms; existing guide is noindex",build now
+Oil tank replacement cost,new URL,5,1,4,4,5,"Two 1k-10k replacement terms plus 100-1k supporting terms; national cost publishers dominate",build after source pack
+Leaking heating oil tank,promote existing URL,2,3,3,5,5,"Oil tank leak is 100-1k; safety-critical intent; existing guide is noindex",build now
+Tank lifespan and repair-or-replace,expand existing planner,2,4,5,2,4,"How long do oil tanks last and repair terms are 100-1k but overlap the planner",absorb into planner
+Gauge replacement and troubleshooting,expand existing gauge page,2,4,4,3,2,"Gauge replacement is 100-1k but the SERP is ambiguous and manufacturer compatibility is missing",absorb then measure
+Oil tank monitor buyer guide,defer,2,2,2,5,2,"Oil tank monitor is 100-1k but mixes residential and industrial intent and requires product upkeep",defer

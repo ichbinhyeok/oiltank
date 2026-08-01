@@ -171,7 +171,7 @@ public class SitePageService {
 
         return new PageModels.HomePageModel(
                 meta(
-                        "Buried Oil Tank Before Closing: Next Steps for Buyers and Sellers | Buried Oil Tank Verdict",
+                        "Buried Oil Tank Before Closing: Next Steps for Buyers and Sellers | Oil Tank Route",
                         "Buried oil tank disclosure, records, sweep, and next-step guidance for buyers, sellers, agents, and attorneys before closing.",
                         "/",
                         true,
@@ -219,21 +219,21 @@ public class SitePageService {
         return switch (slug) {
             case "about" -> new PageModels.StaticPageModel(
                     meta(
-                            "About Buried Oil Tank Verdict | Buried Oil Tank Verdict",
+                            "About Oil Tank Route | Oil Tank Route",
                             "What this buried oil tank decision-support site does, what it does not do, and how current coverage is limited.",
                             "/about/",
                             true,
                             breadcrumbPageSchemas(
                                     breadcrumbs("About", "/about/"),
                                     webpageSchema(
-                                            "About Buried Oil Tank Verdict",
+                                            "About Oil Tank Route",
                                             "What this buried oil tank decision-support site does, what it does not do, and how current coverage is limited.",
                                             "/about/"
                                     )
                             )
                     ),
                     "What this site is for",
-                    "Buried Oil Tank Verdict helps buyers, sellers, owners, and advisors figure out the next practical step after a buried heating-oil tank concern.",
+                    "Oil Tank Route helps buyers, sellers, owners, and advisors figure out the next practical step after a residential heating-oil tank concern.",
                             List.of(
                                     "It is built for live situations: under-contract sales, missing permits, suspected tanks, and possible leak signals.",
                                     "It focuses on the first useful questions: paperwork, disclosure, sweep timing, and state rules.",
@@ -246,7 +246,7 @@ public class SitePageService {
             );
             case "methodology" -> new PageModels.StaticPageModel(
                     meta(
-                            "Methodology for Buried Oil Tank Pages | Buried Oil Tank Verdict",
+                            "Methodology for Residential Oil Tank Pages | Oil Tank Route",
                             "How state-first buried oil tank routes, source stacks, and evidence-first guidance are separated from service routing.",
                             "/methodology/",
                             true,
@@ -273,14 +273,14 @@ public class SitePageService {
             );
             case "contact" -> new PageModels.StaticPageModel(
                     meta(
-                            "Contact Buried Oil Tank Verdict | Buried Oil Tank Verdict",
+                            "Contact Oil Tank Route | Oil Tank Route",
                             "How to send buried oil tank source corrections, route feedback, and editorial updates.",
                             "/contact/",
                             true,
                             breadcrumbPageSchemas(
                                     breadcrumbs("Contact", "/contact/"),
                                     webpageSchema(
-                                            "Contact Buried Oil Tank Verdict",
+                                            "Contact Oil Tank Route",
                                             "How to send buried oil tank source corrections, route feedback, and editorial updates.",
                                             "/contact/"
                                     )
@@ -299,7 +299,7 @@ public class SitePageService {
             );
             case "privacy" -> new PageModels.StaticPageModel(
                     meta(
-                            "Privacy | Buried Oil Tank Verdict",
+                            "Privacy | Oil Tank Route",
                             "How next-step checklist requests and event data are stored in the first release.",
                             "/privacy/",
                             false,
@@ -324,7 +324,7 @@ public class SitePageService {
             );
             case "terms" -> new PageModels.StaticPageModel(
                     meta(
-                            "Terms | Buried Oil Tank Verdict",
+                            "Terms | Oil Tank Route",
                             "Use conditions for this informational buried oil tank decision-support product.",
                             "/terms/",
                             false,
@@ -349,7 +349,7 @@ public class SitePageService {
             );
             case "not-government-affiliated" -> new PageModels.StaticPageModel(
                     meta(
-                            "Not Government Affiliated | Buried Oil Tank Verdict",
+                            "Not Government Affiliated | Oil Tank Route",
                             "Why this buried oil tank site separates official guidance from editorial routing and current coverage limits.",
                             "/not-government-affiliated/",
                             false,
@@ -363,7 +363,7 @@ public class SitePageService {
                             )
                     ),
                     "Not government affiliated",
-                    "Buried Oil Tank Verdict is an independent editorial decision-support site. It is not a state agency, cleanup fund, or municipal program.",
+                    "Oil Tank Route is an independent editorial decision-support site. It is not a state agency, cleanup fund, or municipal program.",
                     List.of(
                             "Official links appear on public pages so you can confirm the underlying rule yourself.",
                             "Paid help and editorial guidance are kept separate.",
@@ -389,7 +389,7 @@ public class SitePageService {
         List<PageModels.Breadcrumb> breadcrumbs = breadcrumbs("States", "/states/");
         return new PageModels.HubPageModel(
                 meta(
-                        "Buried Oil Tank State Pages | Buried Oil Tank Verdict",
+                        "Buried Oil Tank State Resources | Oil Tank Route",
                         "State-specific buried oil tank disclosure, records, sweep, and closing guidance for NJ, NY, CT, and ME.",
                         "/states/",
                         true,
@@ -433,7 +433,7 @@ public class SitePageService {
         List<PageModels.Breadcrumb> breadcrumbs = breadcrumbs("Guides", "/guides/");
         return new PageModels.HubPageModel(
                 meta(
-                        "Buried Oil Tank Guides | Buried Oil Tank Verdict",
+                        "Buried Oil Tank Guides | Oil Tank Route",
                         "Buried oil tank guides for home sale, records, sweep, removal, leak, and cost questions before closing.",
                         "/guides/",
                         true,
@@ -469,7 +469,7 @@ public class SitePageService {
         List<PageModels.Breadcrumb> breadcrumbs = breadcrumbs("Routes", "/routes/");
         return new PageModels.HubPageModel(
                 meta(
-                        "Buried Oil Tank Route Guides | Buried Oil Tank Verdict",
+                        "Buried Oil Tank Route Guides | Oil Tank Route",
                         "Buried oil tank route guides for disclosure, records, sweep, removal, leak, and cost questions before closing.",
                         "/routes/",
                         true,
@@ -625,7 +625,7 @@ public class SitePageService {
                 ? "Use the official NJDEP systems in order. Keep the case numbers and documents you find; this site does not collect or store a property address."
                 : "Use the official NYSDEC incident data to understand reported activity, then follow a known spill number. County totals are context, not a property risk score.";
         return new PageModels.RecordsNavigatorPageModel(
-                meta(heading + " | Oil Tank Verdict", intro, path, true,
+                meta(heading + " | Oil Tank Route", intro, path, true,
                         breadcrumbPageSchemas(breadcrumbs, webpageSchema(heading, intro, path))),
                 heading,
                 isNewJersey ? "NJDEP record lookup workflow" : "NYSDEC incident navigator",
@@ -670,7 +670,7 @@ public class SitePageService {
                 new PageModels.Breadcrumb(aggregate.countyName() + " County", path)
         );
         return new PageModels.RecordsNavigatorPageModel(
-                meta(heading + " | Oil Tank Verdict", intro, path, true,
+                meta(heading + " | Oil Tank Route", intro, path, true,
                         breadcrumbPageSchemas(breadcrumbs, webpageSchema(heading, intro, path))),
                 heading,
                 "County incident evidence",
@@ -728,7 +728,7 @@ public class SitePageService {
 
         return new PageModels.GuidePageModel(
                 meta(
-                        guideHeading(guide) + " | Buried Oil Tank Verdict",
+                        guideHeading(guide) + " | Oil Tank Route",
                         guideMetaDescription(guide),
                         "/guides/" + guide.slug() + "/",
                         guide.indexable(),
@@ -766,7 +766,7 @@ public class SitePageService {
                 indexable,
                 structuredDataJson,
                 baseUrl.resolve("/og-default.png").toString(),
-                "Buried Oil Tank Verdict site preview",
+                "Oil Tank Route field-instrument preview",
                 analyticsMeasurementId
         );
     }
@@ -791,7 +791,7 @@ public class SitePageService {
     }
 
     private static String stateMetaTitle(StateRecord state) {
-        return state.name() + " buried oil tank disclosure and next steps | Buried Oil Tank Verdict";
+        return state.name() + " buried oil tank disclosure and next steps | Oil Tank Route";
     }
 
     private static String stateMetaDescription(StateRecord state) {
@@ -811,7 +811,7 @@ public class SitePageService {
     }
 
     private static String routeMetaTitle(StateRecord state, RouteFamily family) {
-        return routeHeading(state, family) + " | Buried Oil Tank Verdict";
+        return routeHeading(state, family) + " | Oil Tank Route";
     }
 
     private static String routeMetaDescription(StateRecord state, RouteFamily family) {
@@ -887,15 +887,23 @@ public class SitePageService {
 
     private String jsonLd(Map<String, Object> schema) {
         try {
-            return objectMapper.writeValueAsString(schema);
+            return escapeEmbeddedJson(objectMapper.writeValueAsString(schema));
         } catch (JsonProcessingException exception) {
             throw new IllegalStateException("Unable to render JSON-LD", exception);
         }
     }
 
+    private static String escapeEmbeddedJson(String json) {
+        return json.replace("&", "\\u0026")
+                .replace("<", "\\u003c")
+                .replace(">", "\\u003e")
+                .replace("\u2028", "\\u2028")
+                .replace("\u2029", "\\u2029");
+    }
+
     private Map<String, Object> siteSchema() {
         Map<String, Object> schema = baseSchema("WebSite");
-        schema.put("name", "Buried Oil Tank Verdict");
+        schema.put("name", "Oil Tank Route");
         schema.put("url", baseUrl.resolve("/").toString());
         schema.put("description", "Buried oil tank disclosure, records, sweep, and next-step guidance before closing.");
         schema.put("publisher", siteOrganization());
@@ -922,7 +930,7 @@ public class SitePageService {
         schema.put("publisher", siteOrganization());
         schema.put("isPartOf", Map.of(
                 "@type", "WebSite",
-                "name", "Buried Oil Tank Verdict",
+                "name", "Oil Tank Route",
                 "url", baseUrl.resolve("/").toString()
         ));
         return schema;
@@ -942,7 +950,7 @@ public class SitePageService {
         }
         schema.put("isPartOf", Map.of(
                 "@type", "WebSite",
-                "name", "Buried Oil Tank Verdict",
+                "name", "Oil Tank Route",
                 "url", baseUrl.resolve("/").toString()
         ));
         return schema;
@@ -994,7 +1002,7 @@ public class SitePageService {
     private Map<String, Object> siteOrganization() {
         return Map.of(
                 "@type", "Organization",
-                "name", "Buried Oil Tank Verdict",
+                "name", "Oil Tank Route",
                 "url", baseUrl.resolve("/").toString(),
                 "email", "mailto:" + CONTACT_EMAIL,
                 "description", "Editorial decision-support product for buried and abandoned residential heating oil tank questions before closing."
@@ -1004,7 +1012,7 @@ public class SitePageService {
     private static Map<String, Object> routingDesk() {
         return Map.of(
                 "@type", "Organization",
-                "name", "Buried Oil Tank Verdict Routing Desk",
+                "name", "Oil Tank Route Routing Desk",
                 "description", "Virtual editorial desk that drafts scenario routing, query framing, and next-step structure."
         );
     }
@@ -1012,7 +1020,7 @@ public class SitePageService {
     private static Map<String, Object> sourceReviewDesk() {
         return Map.of(
                 "@type", "Organization",
-                "name", "Buried Oil Tank Verdict Source Review Desk",
+                "name", "Oil Tank Route Source Review Desk",
                 "description", "Virtual editorial desk that checks official state sources, review dates, and overreach risk before publication."
         );
     }

@@ -22,11 +22,11 @@
   {
     "slug": "leaking-heating-oil-tank-what-to-do",
     "routeFamily": "leak-and-cleanup",
-    "indexable": false
+    "indexable": true
   },
   {
     "slug": "oil-tank-removal-cost",
     "routeFamily": "cost-direction",
-    "indexable": false
+    "indexable": true
   }
 ]

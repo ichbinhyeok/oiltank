@@ -5,6 +5,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -18,10 +21,38 @@ public class CsvStore {
             Files.createDirectories(path.getParent());
             if (Files.notExists(path)) {
                 Files.writeString(path, String.join(",", headers) + System.lineSeparator(), StandardCharsets.UTF_8);
+                return;
+            }
+            List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
+            if (!lines.isEmpty() && !split(lines.getFirst()).equals(headers)) {
+                migrateHeaders(path, headers, lines);
             }
         } catch (IOException exception) {
             throw new IllegalStateException("Failed to initialize CSV file " + path, exception);
         }
+    }
+
+    private static void migrateHeaders(Path path, List<String> newHeaders, List<String> lines) throws IOException {
+        List<String> oldHeaders = lines.isEmpty() ? List.of() : split(lines.getFirst());
+        String stamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+        Path backup = path.resolveSibling(path.getFileName() + ".backup-" + stamp);
+        Files.copy(path, backup, StandardCopyOption.COPY_ATTRIBUTES);
+
+        StringBuilder migrated = new StringBuilder(String.join(",", newHeaders)).append(System.lineSeparator());
+        for (int rowIndex = 1; rowIndex < lines.size(); rowIndex++) {
+            if (lines.get(rowIndex).isBlank()) {
+                continue;
+            }
+            List<String> oldValues = split(lines.get(rowIndex));
+            Map<String, String> row = new LinkedHashMap<>();
+            for (int index = 0; index < oldHeaders.size(); index++) {
+                row.put(oldHeaders.get(index), index < oldValues.size() ? oldValues.get(index) : "");
+            }
+            migrated.append(newHeaders.stream().map(header -> escape(row.getOrDefault(header, "")))
+                    .reduce((left, right) -> left + "," + right).orElse(""));
+            migrated.append(System.lineSeparator());
+        }
+        Files.writeString(path, migrated.toString(), StandardCharsets.UTF_8, StandardOpenOption.TRUNCATE_EXISTING);
     }
 
     public synchronized void append(Path path, List<String> headers, List<String> values) {

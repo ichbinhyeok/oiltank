@@ -1,10 +1,32 @@
-# Buried Oil Tank Verdict
+# Oil Tank Route
+
+Oil Tank Route is a server-rendered residential heating-oil tank utility and commercial-routing product. The August 2026 pivot replaces the old buried-tank blog front door with shared tank identification, verified size data, gauge interpolation, delivery-ticket cross-checking, private tank history, shape-based capacity estimation, and condition/transaction routing. Existing state and buried-tank guides remain available as supporting resources.
+
+Business target: 40 approved leads per month at $25 each ($1,000/month), with 100 organic clicks/day treated as the success ceiling rather than the base forecast.
 
 Working internal project: `BuriedOilTankVerdict`  
 Suggested package root: `owner.buriedoiltank`
 
-**Date:** 2026-04-13 (Asia/Seoul)  
-**Purpose:** This folder now contains both the design packet and a working US-focused **buried or abandoned residential heating oil tank decision site** centered on home-sale, inspection, records, and next-action workflows.
+**Date:** 2026-08-02 (Asia/Seoul)
+**Purpose:** Working U.S.-focused **residential heating-oil tank field utility** with a supporting buried/unknown-tank transaction resource library.
+
+## Current product routes
+
+- `/heating-oil-tank/` - identification start
+- `/heating-oil-tank-sizes-dimensions/` - one verified size comparison
+- `/275-gallon-oil-tank/` - 275-gallon model and chart distinctions
+- `/heating-oil-tank-charts/` - official manufacturer chart library
+- `/oil-tank-gauge-calculator/` - chart-interpolated gauge/stick result
+- `/heating-oil-delivery-check/` - before/after chart range, ticket comparison, and local Tank Passport
+- `/heating-oil-usage-calculator/` - household-rate fuel runway
+- `/oil-tank-capacity-calculator/` - shape formula and measurement range
+- `/heating-oil-tank-sludge-cleaning/` - service, corrosion, and possible-release router
+- `/oil-tank-replacement-planner/` - information, inspection, transaction, or urgent routing
+- `/oil-tank-replacement-cost/` - replacement quote-scope comparator
+- `/heating-oil-tank-installation-cost/` - installation quote-scope comparator
+- `/basement-oil-tank-removal/` - routine indoor removal scope versus release response
+
+All public pages use JTE SSR. Calculator behavior is dependency-free ES module JavaScript, and results never require an email. See `DESIGN.md` for the Modern Field Instrument system.
 
 ## What you are building
 A state-first decision site for buyers, sellers, homeowners, and agents who already have a buried-tank trigger:
@@ -81,8 +103,10 @@ Build a **post-trigger transaction and remediation decision engine** for people 
 
 ## Current implementation state
 - Spring Boot plus `jte` application scaffold is live under `owner.buriedoiltank`
-- Runtime route inventory is generated from normalized state and guide records
+- Runtime route inventory contains 54 records: 41 supporting state/guide records plus 13 first-class product routes
 - Lead capture and event logging persist to `storage/leads`
+- Approval/rejection decisions and payout cents use an append-only audit log, leaving original lead rows unchanged
+- The admin dashboard reports progress toward 40 approved leads and $1,000 in 28 days, plus per-tool start-to-lead funnels
 - Ops snapshots persist to `storage/ops` and `storage/derived`
 - Admin exports are available under `/admin/exports/*`
 - Packaged runtime now uses generated `jte` template classes, so `java -jar` is deployable without template recompilation at runtime
@@ -90,7 +114,9 @@ Build a **post-trigger transaction and remediation decision engine** for people 
 ## Production persistence notes
 - Lead submissions are stored in `leads.csv`
 - CTA and lead funnel events are stored in `lead_events.csv`
+- Lead approval, rejection, payout, and decision notes are stored in `lead-dispositions.csv`
 - Admin shows aggregate metrics and exports raw CSV plus JSON snapshots under `/admin/exports/*`
+- Gauge calculations read the same server-rendered `TankSpec` data used by the SSR tables; verified Granby 138-, 275-, and 330-gallon vertical charts are supported
 - On production deploys, do not keep `buried-oil-tank.storage-root` inside the release directory
 - For Oracle VM plus GitHub Actions deploys, point storage to a stable path such as `/var/lib/buried-oil-tank-verdict`
 - The app now supports this through `BURIED_OIL_TANK_STORAGE_ROOT` and a `prod` profile default
@@ -128,7 +154,7 @@ Production host policy:
 OCI deploy defaults:
 
 - Docker image: `shinhyeok22/oiltank`
-- Local OCI container port mapping: `8097 -> 8080`
+- Local-only OCI container port mapping: `127.0.0.1:8097 -> 8080`; the public reverse proxy must terminate the client connection and replace forwarded headers
 - Required GitHub secrets:
   - `DOCKERHUB_USERNAME`
   - `DOCKERHUB_TOKEN`
@@ -177,7 +203,7 @@ Reason:
 - New York state, records, and top-three county incident pages
 - evergreen records, home-sale, and sweep guides
 
-Removal, leak, and cost guides remain `noindex,follow` support inventory until the first wedge proves traction.
+The leak-response and removal-cost guides are indexable because they now have distinct, source-backed intent. The overlapping remove-versus-abandon guide remains `noindex,follow` support inventory until it earns a distinct query role.
 
 ## Recommended monetization order
 1. Tank sweep / locate leads

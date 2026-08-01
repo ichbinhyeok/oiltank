@@ -1,5 +1,7 @@
 @import owner.buriedoiltank.pages.PageModels.AdminPageModel
 @param AdminPageModel page
+@param String csrfParameterName
+@param String csrfToken
 @template.layout.page(meta = page.meta(), activeNav = "admin", content = @`
 <section class="section admin-shell">
     <div class="section__inner admin-shell__inner">
@@ -63,6 +65,10 @@
                     <strong>Lead events CSV</strong>
                     <p>Raw CTA click, lead-open, and lead-submit event log for funnel review.</p>
                 </a>
+                <a class="admin-export-card" href="/admin/exports/lead-dispositions.csv">
+                    <strong>Lead disposition CSV</strong>
+                    <p>Append-only approval, rejection, payout, and decision-note audit log.</p>
+                </a>
             </div>
         </div>
         <div class="admin-panel">
@@ -82,6 +88,57 @@
                 </div>
             </div>
         </div>
+    </div>
+</section>
+
+<section class="section" id="lead-review">
+    <div class="section__inner">
+        <div class="section__eyebrow">Lead qualification</div>
+        <h2>Review approval and payout</h2>
+        <p>Approved leads default to $25. Every change appends a decision record; the original lead submission remains unchanged.</p>
+        @if (page.leadRows().isEmpty())
+            <div class="callout"><p>No reviewable leads have been submitted yet.</p></div>
+        @else
+            <div class="lead-review-list">
+                @for (var lead : page.leadRows())
+                    <article class="lead-review-row">
+                        <div class="lead-review-row__summary">
+                            <span class="badge ${lead.disposition().equals("approved") ? "badge--approved" : lead.disposition().equals("rejected") ? "badge--alert" : ""}">${lead.disposition()}</span>
+                            <strong>${lead.email()}</strong>
+                            <span class="measure">${lead.submittedAt()}</span>
+                            <p>${lead.toolId().isBlank() ? "legacy route" : lead.toolId()} / ${lead.riskBand().isBlank() ? "unbanded" : lead.riskBand()} / ${lead.commercialIntent().isBlank() ? "no intent" : lead.commercialIntent()}</p>
+                            @if (!lead.resultSummary().isBlank())<p>${lead.resultSummary()}</p>@endif
+                        </div>
+                        <form class="lead-decision-form" action="/admin/leads/decision" method="post">
+                            <input type="hidden" name="${csrfParameterName}" value="${csrfToken}">
+                            <input type="hidden" name="leadId" value="${lead.leadId()}">
+                            <label>Status<select name="disposition">
+                                <option value="${lead.disposition()}" selected>${lead.disposition()}</option>
+                                @if (!lead.disposition().equals("pending"))<option value="pending">Pending</option>@endif
+                                @if (!lead.disposition().equals("approved"))<option value="approved">Approved</option>@endif
+                                @if (!lead.disposition().equals("rejected"))<option value="rejected">Rejected</option>@endif
+                            </select></label>
+                            <label>Payout cents<input name="payoutCents" type="number" min="0" max="100000" step="1" value="${lead.payoutCents() == 0 ? 2500 : lead.payoutCents()}"></label>
+                            <label>Decision note<input name="notes" maxlength="300" value="${lead.decisionNotes()}"></label>
+                            <button class="button" type="submit">Save decision</button>
+                        </form>
+                    </article>
+                @endfor
+            </div>
+        @endif
+    </div>
+</section>
+
+<section class="section section--muted">
+    <div class="section__inner">
+        <div class="section__eyebrow">Tool funnel / 28 days</div>
+        @if (page.toolFunnels().isEmpty())
+            <div class="callout"><p>No tool activity is recorded in the current window.</p></div>
+        @else
+            <div class="table-wrap"><table class="data-table data-table--admin"><thead><tr><th>Tool</th><th>Starts</th><th>Completes</th><th>Results</th><th>Commercial triggers</th><th>CTA clicks</th><th>Leads</th></tr></thead><tbody>
+                @for (var row : page.toolFunnels())<tr><td>${row.toolId()}</td><td>${row.starts()}</td><td>${row.completes()}</td><td>${row.resultViews()}</td><td>${row.commercialTriggers()}</td><td>${row.ctaClicks()}</td><td>${row.leadSubmissions()}</td></tr>@endfor
+            </tbody></table></div>
+        @endif
     </div>
 </section>
 

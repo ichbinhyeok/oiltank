@@ -1,58 +1,67 @@
 {
   "slug": "oil-tank-removal-cost",
-  "title": "Oil tank removal cost direction",
-  "summary": "Use this guide for rough budgeting only after you know whether you are dealing with a sweep, closure, removal, or cleanup case.",
-  "quickAnswer": "Cost talk is only honest after the scenario is clear. A sweep, closure job, tank removal, and cleanup are not the same price conversation.",
-  "stateEntryPrompt": "Then go to your state page for state-specific cost and closure context.",
+  "title": "Oil tank removal cost: what changes the quote",
+  "summary": "Build a useful residential heating-oil tank removal scope before comparing quotes. Access, remaining fuel, tank location, permits, and release evidence change the job.",
+  "quickAnswer": "There is no responsible national flat price. First separate an accessible indoor tank removal from underground closure and from a release cleanup; then compare written scopes that cover the same work.",
+  "stateEntryPrompt": "Use your state resource next for permits, closure records, spill reporting, and any financial-assistance rules.",
   "primaryScenario": "removal_decision",
   "primaryPartnerType": "closure_or_removal",
   "primaryRouteFamily": "cost-direction",
-  "indexable": false,
+  "indexable": true,
   "introPoints": [
-    "Keep cost directional and tied to a clear scenario.",
-    "Use state guidance before you treat a market article as authoritative.",
-    "Move back to verification pages when the facts are still thin."
+    "Classify the tank as indoor aboveground, outdoor aboveground, or underground before asking for a number.",
+    "Tell bidders whether fuel or sludge remains and describe the full access route, including doors, stairs, and finished surfaces.",
+    "Keep routine removal and contamination response as separate scopes unless release evidence is found.",
+    "Make pump-out, reusable-fuel transfer, unusable product, sludge, tank cleaning, transport, and disposal separate visible line items instead of one vague removal allowance."
   ],
   "whatNotToAssume": [
-    "Do not treat a broad range as a quote.",
-    "Do not assume the same cost logic applies to sweep, removal, and cleanup.",
-    "Do not use cost direction to skip verification."
+    "Do not compare a tank-only price with a quote that includes pumping, cleaning, permits, piping, disposal, and documentation.",
+    "Do not assume an underground closure price includes soil sampling or cleanup.",
+    "Do not let a broad web range substitute for an on-site scope and local requirements."
   ],
   "bestFor": [
-    "The scenario is narrow enough that you need directional cost, not a generic article.",
-    "Tank presence, closure path, or cleanup path is clearer than it was at the first trigger.",
-    "You can already separate sweep, closure, removal, and cleanup."
+    "You know where the residential heating-oil tank is and want comparable contractor quotes.",
+    "A heating conversion, home sale, condition concern, or space project has made removal relevant.",
+    "You need to know which facts create scope and cost differences before making calls."
   ],
   "beforeYouCall": [
-    "Lock the scenario first: sweep, closure, removal, or cleanup.",
-    "Pull any state cost reference or fund guidance before you treat a contractor number as the whole answer.",
-    "Keep the range directional until the paperwork and site facts are stronger."
+    "Photograph the tank, label, fill and vent lines, supports, access route, and any staining without opening or disturbing the system.",
+    "Record whether the tank is active, when it was last filled, and whether the fuel level is known; do not drain it yourself.",
+    "Ask whether reusable fuel can be transferred to another approved tank and who owns, transports, or credits it; do not assume pump-out means disposal.",
+    "Ask each bidder to itemize pump-out, unusable fuel and sludge handling, tank cleaning, removal method, fill and vent disposition, permits, waste transport, disposal proof, and the change-order process if staining is discovered."
   ],
   "documentsThatMatter": [
-    "State cost references, fund guidance, and any official closure or cleanup benchmark.",
-    "Sweep, closure, removal, or site-assessment records showing which scenario actually applies.",
-    "Any contamination or access fact that materially widens the range."
+    "A written scope identifying the tank location, access assumptions, exclusions, permits, and final documentation.",
+    "Fuel-transfer record showing destination and quantity when reusable product is moved to another approved tank.",
+    "Waste profile, transporter receipt, sludge or unusable-product disposal record, tank disposal record, inspection, and closure documents produced by the job.",
+    "Any prior tank registration, abandonment, spill, site-assessment, or no-further-action record tied to the property."
   ],
   "whenToEscalate": [
-    "Move back to sweep-first or records-first if the scenario is still not verified.",
-    "Move to leak-and-cleanup when contamination concern, remediation, or reporting language appears.",
-    "Stay state-specific because one range does not travel cleanly across states."
+    "Use leak response first when there is strong odor, visible oil, fresh staining, sheen, or seepage.",
+    "Use records and locate work before pricing removal when an underground tank is suspected but not confirmed.",
+    "Use the basement removal planner when the tank is indoors and you need a quote-ready access and fuel scope."
   ],
-  "stateSlugs": [
-    "new-jersey",
-    "new-york",
-    "connecticut",
-    "massachusetts",
-    "maine"
-  ],
+  "stateSlugs": ["new-jersey", "new-york", "connecticut", "massachusetts", "maine"],
   "sourceStack": [
     {
-      "id": "nj-ust-fund-cost-guide",
-      "title": "NJDEP UST Fund Cost Guide",
-      "url": "https://www.nj.gov/dep/srp/finance/ustfund/ustf_costguide.htm",
-      "kind": "state cost-direction reference"
+      "id": "nj-dca-bulletin-95-1b",
+      "title": "New Jersey DCA Bulletin 95-1B: Removal or Abandonment of Heating Oil Tanks",
+      "url": "https://www.nj.gov/dca/codes/publications/pdf_bulletins/b_95_1B.pdf",
+      "kind": "official removal and closure procedure"
+    },
+    {
+      "id": "pa-residential-heating-oil",
+      "title": "Pennsylvania DEP Residential Heating Oil Tanks",
+      "url": "https://www.pa.gov/agencies/dep/programs-and-services/land/site-remediation/storage-tank-cleanup-program/residential-home-heating-oil",
+      "kind": "official homeowner contractor and cleanup guidance"
+    },
+    {
+      "id": "ny-homeowner-ust-guide",
+      "title": "New York DEC Underground Heating Oil Tanks: A Homeowner's Guide",
+      "url": "https://dec.ny.gov/environmental-protection/hazardous-substance-bulk-storage/underground-heating-oil-tanks-homeowner-guide",
+      "kind": "official underground tank removal context"
     }
   ],
-  "verifiedOn": "2026-04-13",
-  "nextReviewOn": "2026-05-28"
+  "verifiedOn": "2026-08-02",
+  "nextReviewOn": "2027-02-02"
 }

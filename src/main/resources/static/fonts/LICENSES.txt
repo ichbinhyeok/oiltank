@@ -1,0 +1,31 @@
+Oil Tank Route bundled webfont notices
+======================================
+
+General Sans
+------------
+Copyright Indian Type Foundry / Fontshare.
+Licensed under the ITF Free Font License 1.0 (20 January 2021).
+The license grants free personal and commercial use, including Web and embedding.
+Original distribution and complete terms:
+https://www.fontshare.com/fonts/general-sans
+https://www.fontshare.com/licenses/itf-ffl
+
+These files are unmodified WOFF2 files delivered by Fontshare's official API/CDN.
+
+Source Sans 3
+-------------
+Copyright 2010-2023 Adobe (http://www.adobe.com/), with Reserved Font Name
+"Source".
+Licensed under the SIL Open Font License, Version 1.1.
+Source and complete license:
+https://github.com/adobe-fonts/source-sans
+
+IBM Plex Mono
+-------------
+Copyright IBM Corp. 2017.
+Licensed under the SIL Open Font License, Version 1.1.
+Source and complete license:
+https://github.com/IBM/plex
+
+SIL Open Font License 1.1:
+https://openfontlicense.org/open-font-license-official-text/

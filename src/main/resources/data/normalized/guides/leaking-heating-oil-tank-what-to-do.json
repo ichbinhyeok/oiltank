@@ -1,64 +1,64 @@
 {
   "slug": "leaking-heating-oil-tank-what-to-do",
-  "title": "Leaking heating oil tank what to do",
-  "summary": "Use this guide when a buried-tank question may already be a spill, reporting, or cleanup problem.",
-  "quickAnswer": "If the concern is odor, stained soil, sheen, or spill language, stop treating it like ordinary tank paperwork.",
-  "stateEntryPrompt": "Then go to your state page for spill, reporting, and cleanup rules.",
+  "title": "Leaking heating oil tank: what to do next",
+  "summary": "Recognize residential heating-oil release warning signs, protect people and property, and move to the correct local spill and cleanup route without disturbing the tank.",
+  "quickAnswer": "Strong petroleum odor, visible oil, fresh staining, sheen, unexplained fuel loss, or seepage changes the job. Avoid ignition sources, do not touch or test the tank, and contact the applicable emergency or spill authority and a qualified response professional.",
+  "stateEntryPrompt": "Then use your state resource to confirm reporting contacts, cleanup oversight, records, and any homeowner assistance path.",
   "primaryScenario": "leak_concern",
   "primaryPartnerType": "environmental_cleanup",
   "primaryRouteFamily": "leak-and-cleanup",
-  "indexable": false,
+  "indexable": true,
   "introPoints": [
-    "Separate a leak concern from a simple tank locate or closure question.",
-    "Use official state guidance before you make certainty claims about contamination.",
-    "Escalate when the facts suggest reporting or cleanup, not just ordinary contractor work."
+    "Treat an active or suspected release as a safety and environmental response, not a routine removal estimate.",
+    "Keep people away from the affected area, remove ignition sources only when it is safe to do so, and avoid spreading the oil.",
+    "Use the local fire department or environmental spill contact when an active release or immediate hazard may be present."
   ],
   "whatNotToAssume": [
-    "Do not assume contamination certainty from a general guide.",
-    "Do not assume ordinary removal solves the reporting question.",
-    "Do not assume a sale deadline overrides environmental process."
+    "Do not open, drain, move, cut, pressure-test, or repair the tank yourself.",
+    "Do not wash oil into a drain, soil, sump, or waterway and do not cover the odor with household chemicals.",
+    "Do not assume replacing or removing the tank by itself closes reporting, assessment, or cleanup obligations."
   ],
   "bestFor": [
-    "Odor, staining, sheen, spill language, or site facts suggest this may be more than ordinary closure.",
-    "The tank is confirmed and the next question is whether reporting or cleanup workflow now matters.",
-    "A sale-side question is being overtaken by possible contamination or remediation facts."
+    "You smell heating oil, see wet or stained material, find visible oil or sheen, or notice unexplained consumption.",
+    "A basement tank, fuel line, outdoor tank, or underground tank may be releasing product.",
+    "You need to distinguish immediate response from later inspection, removal, insurance, and documentation work."
   ],
   "beforeYouCall": [
-    "Separate suspicion, confirmed tank, and actual release evidence before you choose the next professional.",
-    "Pull any closure, spill, or cleanup paperwork before treating the issue as a generic emergency.",
-    "Use the state page to verify whether the answer is still homeowner routing or already environmental review."
+    "From a safe location, note the time, odor, visible signs, tank location, and whether oil is moving toward a drain, soil, or water.",
+    "Have the property address, heating-oil supplier, tank type if known, and any prior tank or spill records ready.",
+    "Ask the responder what immediate containment, reporting, assessment, cleanup, and written documentation are in scope."
   ],
   "documentsThatMatter": [
-    "Spill, cleanup, or remediation records tied to the property.",
-    "Closure paperwork, contractor notes, and any site-assessment language mentioning contamination.",
-    "Any fund, no-further-action, or state-case reference that narrows the next step."
+    "Incident or spill numbers, fire-department notes, agency correspondence, and contractor response reports.",
+    "Tank, line, soil, groundwater, cleanup, waste-disposal, and laboratory records created during the response.",
+    "Insurance notices, invoices, closure documentation, and any agency completion or no-further-action letter."
   ],
   "whenToEscalate": [
-    "Move back to records-first if the facts do not yet support a release route.",
-    "Move to removal-versus-abandon only if the issue is confirmed tank disposition without cleanup facts.",
-    "Stay on the state page when reporting or remediation language controls what happens next."
+    "Call emergency services for fire, fumes affecting occupants, a rapidly spreading release, or another immediate danger.",
+    "Use a qualified environmental cleanup route when oil has reached soil, a drain, a sump, groundwater, or building materials.",
+    "Return to ordinary inspection or replacement planning only after release warning signs have been ruled out."
   ],
-  "stateSlugs": [
-    "new-jersey",
-    "new-york",
-    "connecticut",
-    "massachusetts",
-    "maine"
-  ],
+  "stateSlugs": ["new-jersey", "new-york", "connecticut", "massachusetts", "maine"],
   "sourceStack": [
     {
-      "id": "njdep-uhot",
-      "title": "NJDEP Unregulated Heating Oil Tanks",
-      "url": "https://dep.nj.gov/srp/unregulated/",
-      "kind": "state remediation workflow"
+      "id": "pa-heating-oil-tips",
+      "title": "Pennsylvania DEP Tips for Residential Heating Oil Tank Owners",
+      "url": "https://www.pa.gov/agencies/dep/residents/my-water/private-wells/tips-for-residential-heating-oil-tank-owners",
+      "kind": "official leak warning and prevention guidance"
+    },
+    {
+      "id": "pa-residential-heating-oil",
+      "title": "Pennsylvania DEP Residential Heating Oil Tanks",
+      "url": "https://www.pa.gov/agencies/dep/programs-and-services/land/site-remediation/storage-tank-cleanup-program/residential-home-heating-oil",
+      "kind": "official residential release and cleanup guidance"
     },
     {
       "id": "mass-homeowner-cleanup-guide",
       "title": "Massachusetts Site Cleanup for Homeowners",
       "url": "https://www.mass.gov/guides/site-cleanup-for-homeowners",
-      "kind": "state homeowner cleanup guidance"
+      "kind": "official homeowner cleanup process"
     }
   ],
-  "verifiedOn": "2026-04-13",
-  "nextReviewOn": "2026-05-28"
+  "verifiedOn": "2026-08-02",
+  "nextReviewOn": "2027-02-02"
 }

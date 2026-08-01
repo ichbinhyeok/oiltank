@@ -2,30 +2,55 @@ package owner.buriedoiltank.leads;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 public class LeadCaptureRequest {
     @NotBlank
+    @Size(max = 160)
     private String pageId;
     @NotBlank
+    @Size(max = 512)
     private String pagePath;
     @NotBlank
+    @Size(max = 80)
     private String stateSlug;
+    @Size(max = 80)
     private String routeFamily;
     @NotBlank
+    @Size(max = 64)
     private String scenario;
+    @Size(max = 64)
     private String partnerType;
     @NotBlank
+    @Size(max = 64)
     private String userRole;
     @NotBlank
+    @Size(max = 80)
     private String tankStatus;
+    @Size(max = 16)
     private String zipCode;
+    @Size(max = 80)
     private String closingTimeline;
+    @Size(max = 120)
     private String name;
     @NotBlank
     @Email
+    @Size(max = 254)
     private String email;
+    @Size(max = 40)
     private String phone;
+    @Size(max = 2000)
     private String notes;
+    @Size(max = 80)
+    private String toolId;
+    @Size(max = 80)
+    private String tankType;
+    @Size(max = 40)
+    private String riskBand;
+    @Size(max = 80)
+    private String commercialIntent;
+    @Size(max = 240)
+    private String resultSummary;
 
     public String getPageId() {
         return pageId;
@@ -137,5 +162,45 @@ public class LeadCaptureRequest {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public String getToolId() {
+        return toolId;
+    }
+
+    public void setToolId(String toolId) {
+        this.toolId = toolId;
+    }
+
+    public String getTankType() {
+        return tankType;
+    }
+
+    public void setTankType(String tankType) {
+        this.tankType = tankType;
+    }
+
+    public String getRiskBand() {
+        return riskBand;
+    }
+
+    public void setRiskBand(String riskBand) {
+        this.riskBand = riskBand;
+    }
+
+    public String getCommercialIntent() {
+        return commercialIntent;
+    }
+
+    public void setCommercialIntent(String commercialIntent) {
+        this.commercialIntent = commercialIntent;
+    }
+
+    public String getResultSummary() {
+        return resultSummary;
+    }
+
+    public void setResultSummary(String resultSummary) {
+        this.resultSummary = resultSummary;
     }
 }
