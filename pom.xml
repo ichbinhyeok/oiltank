@@ -5,14 +5,14 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.5.6</version>
+		<version>3.5.16</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>owner</groupId>
 	<artifactId>buried-oil-tank-verdict</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>BuriedOilTankVerdict</name>
-	<description>Buried oil tank decision site</description>
+	<name>OilTankRoute</name>
+	<description>Residential heating-oil tank field tools and decision routing</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -30,6 +30,9 @@
 		<java.version>21</java.version>
 		<maven.compiler.release>${java.version}</maven.compiler.release>
 		<jte.version>3.2.3</jte.version>
+		<jackson-bom.version>2.21.5</jackson-bom.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 	<dependencies>
 		<dependency>

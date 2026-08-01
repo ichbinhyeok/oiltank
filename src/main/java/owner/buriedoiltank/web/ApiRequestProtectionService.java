@@ -18,6 +18,7 @@ public class ApiRequestProtectionService {
     private static final Duration EVENT_WINDOW = Duration.ofMinutes(5);
     private static final int LEAD_LIMIT = 8;
     private static final int EVENT_LIMIT = 90;
+    private static final int MAX_BUCKETS = 10_000;
 
     private final Origin expectedOrigin;
     private final Clock clock;
@@ -49,33 +50,51 @@ public class ApiRequestProtectionService {
         return tryConsumeBucket("event:" + clientIdentifier(request), EVENT_LIMIT, EVENT_WINDOW);
     }
 
-    private boolean tryConsumeBucket(String key, int limit, Duration window) {
-        Deque<Instant> bucket = requestBuckets.computeIfAbsent(key, ignored -> new ArrayDeque<>());
+    private synchronized boolean tryConsumeBucket(String key, int limit, Duration window) {
         Instant now = Instant.now(clock);
         Instant earliestAllowed = now.minus(window);
-
-        synchronized (bucket) {
-            while (!bucket.isEmpty() && bucket.peekFirst().isBefore(earliestAllowed)) {
-                bucket.removeFirst();
+        Deque<Instant> bucket = requestBuckets.get(key);
+        if (bucket != null) {
+            prune(bucket, earliestAllowed);
+            if (bucket.isEmpty()) {
+                requestBuckets.remove(key);
+                bucket = null;
             }
-            if (bucket.size() >= limit) {
+        }
+        if (bucket == null) {
+            if (requestBuckets.size() >= MAX_BUCKETS) {
+                purgeExpired(now);
+            }
+            if (requestBuckets.size() >= MAX_BUCKETS) {
                 return false;
             }
-            bucket.addLast(now);
-            if (bucket.isEmpty()) {
-                requestBuckets.remove(key, bucket);
-            }
-            return true;
+            bucket = new ArrayDeque<>();
+            requestBuckets.put(key, bucket);
+        }
+        if (bucket.size() >= limit) {
+            return false;
+        }
+        bucket.addLast(now);
+        return true;
+    }
+
+    private void purgeExpired(Instant now) {
+        requestBuckets.entrySet().removeIf(entry -> {
+            Duration window = entry.getKey().startsWith("lead:") ? LEAD_WINDOW : EVENT_WINDOW;
+            prune(entry.getValue(), now.minus(window));
+            return entry.getValue().isEmpty();
+        });
+    }
+
+    private static void prune(Deque<Instant> bucket, Instant earliestAllowed) {
+        while (!bucket.isEmpty() && bucket.peekFirst().isBefore(earliestAllowed)) {
+            bucket.removeFirst();
         }
     }
 
     private static String clientIdentifier(HttpServletRequest request) {
-        String forwardedFor = request.getHeader("X-Forwarded-For");
-        if (forwardedFor != null && !forwardedFor.isBlank()) {
-            int separator = forwardedFor.indexOf(',');
-            return separator >= 0 ? forwardedFor.substring(0, separator).trim() : forwardedFor.trim();
-        }
-        return request.getRemoteAddr();
+        String remoteAddress = request.getRemoteAddr();
+        return remoteAddress == null || remoteAddress.isBlank() ? "unknown" : remoteAddress;
     }
 
     private static String firstNonBlank(String first, String second) {

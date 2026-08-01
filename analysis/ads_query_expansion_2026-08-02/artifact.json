@@ -1,0 +1,195 @@
+{
+  "surface": "report",
+  "manifest": {
+    "version": 1,
+    "surface": "report",
+    "title": "Google Ads Query Expansion for Oil Tank Route",
+    "description": "A query-cluster recommendation based on the reviewed U.S. Google Ads Keyword Planner exports and the current route inventory.",
+    "generatedAt": "2026-08-02T02:10:00+09:00",
+    "blocks": [
+      {
+        "id": "title",
+        "type": "markdown",
+        "body": "# Google Ads Query Expansion for Oil Tank Route"
+      },
+      {
+        "id": "summary",
+        "type": "markdown",
+        "body": "## Executive Summary\n\n- **Replacement is the demand play; installation is the SEO honeypot.** Replacement owns two 1k-10k head terms but faces HomeAdvisor, Forbes, HomeGuide, and a direct niche competitor. Installation has six 100-1k variants, a KRW 37,694 maximum high bid, and a more fragmented U.S. result set.\n- **Both cost-scope routes are now justified, but not as price-list articles.** Official sources do not support one current national flat price, so the product should compare equipment, site, piping, permits, old-tank work, and contamination boundaries.\n- **The next net-new honeypot is sludge and cleaning.** Two 100-1k queries sit in a SERP mixed across DIY, industrial, U.K., and regional contractor results.\n- **Avoid URL multiplication.** Repair belongs inside the replacement planner first; pumping belongs inside removal cost; gauge replacement belongs inside the gauge calculator."
+      },
+      {
+        "id": "breadth-intro",
+        "type": "markdown",
+        "sourceId": "cluster-counts",
+        "body": "## The remaining demand is concentrated in a few lifecycle jobs\n\nThe chart counts reviewed keywords with at least 100 monthly searches; it does not add their overlapping search volumes. Installation has the broadest set of supporting variants, while replacement is the only remaining cluster here with two 1k-10k head terms. This is why breadth alone does not determine build order."
+      },
+      {
+        "id": "breadth-chart",
+        "type": "chart",
+        "chartId": "cluster-breadth"
+      },
+      {
+        "id": "honeypot",
+        "type": "markdown",
+        "sourceId": "serp-review",
+        "body": "## Installation is the current honeypot; sludge and cleaning is next\n\nInstallation combines six validated 100-1k query variants with the highest recorded high bid in the reviewed utility set. Its exact-intent SERP includes a weakly sourced U.S. pricing page and a strong U.K.-specific publisher, leaving room for a U.S. manufacturer-sourced scope tool. Replacement has more demand but substantially stronger national publishers.\n\nAfter both cost-scope routes ship, the next distinct page should be `/heating-oil-tank-sludge-cleaning/`: a non-DIY router that separates service/cleaning symptoms from corrosion inspection and leak/remediation signals."
+      },
+      {
+        "id": "replacement",
+        "type": "markdown",
+        "sourceId": "expanded-ads",
+        "body": "## Replacement cost is the clearest remaining demand gap\n\nThe reviewed U.S. export places both `oil tank replacement` and `oil tank replacement cost` in the **1k-10k monthly** band. Supporting variants `oil tank replacement near me`, `heating oil tank replacement`, and `heating oil tank replacement cost` each sit in **100-1k**. High bid values range from **KRW 9,221 to KRW 24,894**, confirming commercial competition, not organic attainability.\n\nTreat these as one route: `/oil-tank-replacement-cost/`. The page should answer cost components, repair-versus-replace thresholds, indoor versus outdoor scope, old-tank handling, quote checklist, and uncertainty by region."
+      },
+      {
+        "id": "removal",
+        "type": "markdown",
+        "sourceId": "expanded-ads",
+        "body": "## Removal demand should consolidate into the existing hub and guide\n\nThe **100-1k monthly** removal terms include `heating oil tank removal`, `oil tank removal service`, `oil tank removal company`, `oil tank disposal`, and `above ground oil tank removal cost`. Their high bids range from **KRW 9,784 to KRW 27,910**. `basement oil tank removal` is already served by a dedicated product route.\n\nDo not create company, service, disposal, and cost pages separately. Upgrade `/guides/oil-tank-removal-cost/` as the canonical national removal-cost asset and let `/basement-oil-tank-removal/` retain the access-specific indoor job."
+      },
+      {
+        "id": "lifecycle",
+        "type": "markdown",
+        "sourceId": "utility-ads",
+        "body": "## Installation, repair, and contamination form three follow-on jobs\n\n**Installation and price:** `oil tank installation`, `oil tank installation cost`, `heating oil tank installation`, `heating oil tank installation cost`, `275 gallon oil tank price`, and `new oil tank cost` are each in the **100-1k monthly** band. The strongest recorded high bid is **KRW 37,694**. Use one `/heating-oil-tank-installation-cost/` route.\n\n**Repair decision:** `oil tank repair` and `heating oil tank repair` are each **100-1k**, with `oil tank repair` reaching a **KRW 28,592** high bid. Expand the existing replacement planner first; split `/oil-tank-repair-or-replace/` only after Search Console shows independent impressions.\n\n**Sludge and cleaning:** `oil tank sludge` and `oil tank cleaning` are each **100-1k**; cleaning has a **KRW 13,355** high bid. They can support one maintenance-and-contractor-selection page after replacement and installation."
+      },
+      {
+        "id": "leak-monitor",
+        "type": "markdown",
+        "sourceId": "utility-ads",
+        "body": "## Leak is urgent and valuable; monitor is traffic without proven lead fit\n\n`oil tank leak` is **100-1k monthly** with a **KRW 14,148** high bid. The existing `/guides/leaking-heating-oil-tank-what-to-do/` should be promoted and rebuilt rather than replaced. It should route odor, wet soil, visible seepage, and active discharge separately.\n\n`oil tank monitor` is also **100-1k** with a **KRW 11,680** high bid, but this is primarily product-shopping intent and requires recurring review maintenance. Keep it deferred until the higher-fit lifecycle routes are shipped."
+      },
+      {
+        "id": "next",
+        "type": "markdown",
+        "body": "## Recommended next sequence\n\n1. Launch and index the replacement-cost and installation-cost scope tools.\n2. Use Search Console to compare installation versus replacement impressions and average position by page.\n3. Build one non-DIY sludge-and-cleaning decision route.\n4. Expand repair-versus-replace inside the current planner rather than creating a repair URL immediately.\n5. Absorb pumping into removal cost and gauge replacement into the gauge calculator."
+      },
+      {
+        "id": "questions",
+        "type": "markdown",
+        "body": "## Further Questions\n\n- Does the lead buyer accept replacement, installation, repair, and remediation intents at the same payout and geography?\n- Which regional or manufacturer sources can support cost components without publishing false national price precision?\n- After 8-12 weeks, does Search Console separate repair queries from replacement-planner queries strongly enough to justify another URL?"
+      },
+      {
+        "id": "caveats",
+        "type": "markdown",
+        "body": "## Caveats and Assumptions\n\nGoogle Ads values are broad monthly bands for the United States from July 2025 through June 2026. Close variants overlap, so band counts must not be summed as unique demand. Ad bids indicate advertiser value and competition; they do not predict organic ranking difficulty or approved-lead conversion. Current Search Console data does not yet validate the newly launched product routes."
+      }
+    ],
+    "charts": [
+      {
+        "id": "cluster-breadth",
+        "title": "Verified keywords with at least 100 monthly searches",
+        "subtitle": "United States, July 2025-June 2026; counts include overlapping close variants",
+        "showDescription": true,
+        "intent": "comparison",
+        "question": "How broadly does each remaining lifecycle cluster appear in the reviewed Google Ads exports?",
+        "rationale": "A sorted bar chart compares the number of validated query variants without pretending broad search-volume bands are additive point estimates.",
+        "comparisonContext": {
+          "baseline": "Reviewed, residential-fit query clusters not fully served by the current product surface",
+          "denominator": "Keywords in the 100-1k or 1k-10k monthly bands",
+          "grain": "One intent cluster",
+          "unit": "verified keywords"
+        },
+        "type": "bar",
+        "dataset": "cluster_counts",
+        "sourceId": "cluster-counts",
+        "encodings": {
+          "x": {"field": "cluster", "type": "nominal", "label": "Query cluster"},
+          "y": {"field": "verified_keywords", "type": "quantitative", "format": "number", "label": "Verified keywords"},
+          "tooltip": [
+            {"field": "head_terms_1k_10k", "type": "quantitative", "format": "number", "label": "1k-10k terms"},
+            {"field": "support_terms_100_1k", "type": "quantitative", "format": "number", "label": "100-1k terms"},
+            {"field": "max_high_bid_krw", "type": "quantitative", "format": "number", "label": "Highest recorded high bid, KRW"},
+            {"field": "route_treatment", "type": "nominal", "label": "Recommended treatment"}
+          ]
+        },
+        "xAxisTitle": "Query cluster",
+        "yAxisTitle": "Verified keywords",
+        "valueFormat": "number",
+        "unit": "keywords",
+        "layout": "full",
+        "palette": {"kind": "sequential", "name": "blue"},
+        "settings": {"orientation": "vertical", "sort": "descending", "showValues": true, "categoryLabelPolicy": "truncate"},
+        "surface": {"surface": "card", "showControls": false, "viewMode": "visualization"}
+      }
+    ],
+    "sources": [
+      {
+        "id": "cluster-counts",
+        "label": "Reviewed Google Ads query-cluster count model",
+        "path": "analysis/ads_query_expansion_2026-08-02/ads_cluster_counts.csv",
+        "query": {
+          "engine": "reviewed-csv-model",
+          "language": "sql",
+          "sql": "SELECT\n  cluster,\n  COUNT(*) AS verified_keywords,\n  SUM(is_head_term) AS head_terms_1k_10k,\n  SUM(is_support_term) AS support_terms_100_1k,\n  MAX(high_bid_krw) AS max_high_bid_krw\nFROM reviewed_ads_keywords\nWHERE monthly_range IN ('1000-10000', '100-1000')\nGROUP BY cluster;",
+          "description": "Counts reviewed query variants by lifecycle cluster without summing overlapping search-volume bands.",
+          "filters": ["United States", "July 2025 through June 2026", "monthly range at least 100", "residential heating-oil fit"],
+          "metric_definitions": ["verified_keywords = count of reviewed keywords in the 100-1k or 1k-10k Google Ads monthly band"],
+          "tables_used": ["analysis/google_ads_expanded_keyword_validation_us_2026-08-01.csv", "analysis/google_ads_utility_keywords_us_2026-08-01.csv"]
+        }
+      },
+      {
+        "id": "expanded-ads",
+        "label": "Google Ads expanded commercial keyword validation",
+        "path": "analysis/google_ads_expanded_keyword_validation_us_2026-08-01.csv"
+      },
+      {
+        "id": "utility-ads",
+        "label": "Google Ads utility keyword validation",
+        "path": "analysis/google_ads_utility_keywords_us_2026-08-01.csv"
+      },
+      {
+        "id": "route-inventory",
+        "label": "Current product route inventory",
+        "path": "src/main/java/owner/buriedoiltank/data/ProductRoute.java"
+      },
+      {
+        "id": "serp-review",
+        "label": "Installation, replacement, and sludge SERP review",
+        "path": "analysis/ads_query_expansion_2026-08-02/serp_review.md"
+      }
+    ]
+  },
+  "snapshot": {
+    "version": 1,
+    "generatedAt": "2026-08-02T02:10:00+09:00",
+    "status": "ready",
+    "datasets": {
+      "cluster_counts": [
+        {"cluster": "Installation", "verified_keywords": 6, "head_terms_1k_10k": 0, "support_terms_100_1k": 6, "max_high_bid_krw": 37694, "route_treatment": "new route"},
+        {"cluster": "Replacement", "verified_keywords": 5, "head_terms_1k_10k": 2, "support_terms_100_1k": 3, "max_high_bid_krw": 24894, "route_treatment": "new route"},
+        {"cluster": "Removal", "verified_keywords": 5, "head_terms_1k_10k": 0, "support_terms_100_1k": 5, "max_high_bid_krw": 27910, "route_treatment": "upgrade existing guide"},
+        {"cluster": "Repair", "verified_keywords": 2, "head_terms_1k_10k": 0, "support_terms_100_1k": 2, "max_high_bid_krw": 28592, "route_treatment": "expand planner first"},
+        {"cluster": "Cleaning", "verified_keywords": 2, "head_terms_1k_10k": 0, "support_terms_100_1k": 2, "max_high_bid_krw": 13355, "route_treatment": "later"},
+        {"cluster": "Leak", "verified_keywords": 1, "head_terms_1k_10k": 0, "support_terms_100_1k": 1, "max_high_bid_krw": 14148, "route_treatment": "upgrade existing guide"},
+        {"cluster": "Monitor", "verified_keywords": 1, "head_terms_1k_10k": 0, "support_terms_100_1k": 1, "max_high_bid_krw": 11680, "route_treatment": "defer"}
+      ]
+    }
+  },
+  "sources": [
+    {
+      "id": "cluster-counts",
+      "label": "Reviewed Google Ads query-cluster count model",
+      "path": "analysis/ads_query_expansion_2026-08-02/ads_cluster_counts.csv"
+    },
+    {
+      "id": "expanded-ads",
+      "label": "Google Ads expanded commercial keyword validation",
+      "path": "analysis/google_ads_expanded_keyword_validation_us_2026-08-01.csv"
+    },
+    {
+      "id": "utility-ads",
+      "label": "Google Ads utility keyword validation",
+      "path": "analysis/google_ads_utility_keywords_us_2026-08-01.csv"
+    },
+    {
+      "id": "route-inventory",
+      "label": "Current product route inventory",
+      "path": "src/main/java/owner/buriedoiltank/data/ProductRoute.java"
+    },
+    {
+      "id": "serp-review",
+      "label": "Installation, replacement, and sludge SERP review",
+      "path": "analysis/ads_query_expansion_2026-08-02/serp_review.md"
+    }
+  ]
+}

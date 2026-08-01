@@ -23,4 +23,8 @@ public record RouteInventoryEntry(
     public boolean isIndexable() {
         return indexStatus == IndexStatus.INDEX;
     }
+
+    public String routeFamilySlug() {
+        return routeFamily == null ? id : routeFamily.slug();
+    }
 }

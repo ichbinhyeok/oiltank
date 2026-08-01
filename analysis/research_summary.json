@@ -1,0 +1,256 @@
+{
+  "generated_at": "2026-07-10",
+  "census_release": {
+    "id": "acs2024_1yr",
+    "name": "ACS 2024 1-year",
+    "years": "2024"
+  },
+  "census_states": 51,
+  "autocomplete_seeds": 31,
+  "autocomplete_rows": 150,
+  "unique_suggestions": 104,
+  "autocomplete_intent_counts": [
+    [
+      "Removal & replacement",
+      53
+    ],
+    [
+      "Sweep & inspection",
+      16
+    ],
+    [
+      "General education",
+      11
+    ],
+    [
+      "Leak, cleanup & insurance",
+      11
+    ],
+    [
+      "Transaction & property risk",
+      9
+    ],
+    [
+      "Rules & records",
+      3
+    ],
+    [
+      "Cost & price",
+      1
+    ]
+  ],
+  "serp_queries": 36,
+  "serp_rows": 360,
+  "unique_serp_domains": 71,
+  "oiltankroute_serp_hits": 0,
+  "site_urls_crawled": 32,
+  "site_urls_ok": 32,
+  "site_urls_noindex": 0,
+  "site_avg_word_count": 971,
+  "site_missing_canonical": 0,
+  "site_missing_h1": 0,
+  "top_serp_domains": [
+    [
+      "oilprice.com",
+      36
+    ],
+    [
+      "support.microsoft.com",
+      19
+    ],
+    [
+      "zhihu.com",
+      18
+    ],
+    [
+      "opinet.co.kr",
+      18
+    ],
+    [
+      "tradingeconomics.com",
+      18
+    ],
+    [
+      "s-oil.com",
+      18
+    ],
+    [
+      "oil.picjjang.com",
+      18
+    ],
+    [
+      "investing.com",
+      18
+    ],
+    [
+      "oilpriceapi.com",
+      18
+    ],
+    [
+      "kr.investing.com",
+      18
+    ],
+    [
+      "oil.bodeum.me",
+      18
+    ],
+    [
+      "support.google.com",
+      17
+    ],
+    [
+      "history.com",
+      10
+    ],
+    [
+      "tw.news.yahoo.com",
+      8
+    ],
+    [
+      "github.com",
+      7
+    ],
+    [
+      "en.wikipedia.org",
+      6
+    ],
+    [
+      "moewalls.com",
+      6
+    ],
+    [
+      "tenforums.com",
+      5
+    ],
+    [
+      "answers.com",
+      5
+    ],
+    [
+      "blog.darkthread.net",
+      5
+    ],
+    [
+      "forum.lowyat.net",
+      5
+    ],
+    [
+      "answers.microsoft.com",
+      5
+    ],
+    [
+      "youtube.com",
+      4
+    ],
+    [
+      "microsoft.com",
+      3
+    ],
+    [
+      "xbox.com",
+      2
+    ]
+  ],
+  "top_repeated_suggestions": [
+    [
+      "oil tank sweep cost",
+      8
+    ],
+    [
+      "what is an oil tank sweep",
+      7
+    ],
+    [
+      "removing buried oil tank",
+      4
+    ],
+    [
+      "what is a buried oil tank",
+      4
+    ],
+    [
+      "oil tank leak cleanup cost",
+      4
+    ],
+    [
+      "underground oil tank removal massachusetts",
+      3
+    ],
+    [
+      "is oil tank leak covered by insurance",
+      3
+    ],
+    [
+      "oil tank removal new jersey cost",
+      3
+    ],
+    [
+      "oil tank removal cost",
+      3
+    ],
+    [
+      "oil tank removal cost massachusetts",
+      3
+    ],
+    [
+      "buried oil tanks new york state",
+      2
+    ],
+    [
+      "underground oil tank removal in new jersey",
+      2
+    ],
+    [
+      "do you have to remove underground oil tank in nj",
+      2
+    ],
+    [
+      "when did they stop burying oil tanks",
+      2
+    ],
+    [
+      "oil tank removal new hampshire",
+      2
+    ],
+    [
+      "oil tank removal new jersey",
+      2
+    ],
+    [
+      "oil tank removal new york",
+      2
+    ],
+    [
+      "oil tank removal cost nj",
+      2
+    ],
+    [
+      "oil tank removal cost ct",
+      2
+    ],
+    [
+      "underground oil tank removal cost ct",
+      2
+    ],
+    [
+      "how much does it cost to remove an old oil tank",
+      2
+    ],
+    [
+      "oil tank sweep near me",
+      2
+    ],
+    [
+      "underground oil tank removal cost nj",
+      2
+    ],
+    [
+      "underground oil tank removal ct",
+      2
+    ],
+    [
+      "abandoned oil tank removal cost",
+      1
+    ]
+  ]
+}

@@ -1,0 +1,151 @@
+{
+  "surface": "report",
+  "manifest": {
+    "version": 1,
+    "surface": "report",
+    "title": "High-Leverage Page Expansion for Oil Tank Route",
+    "description": "A traffic-first recommendation for expanding the current product surface without thin pages or intent cannibalization.",
+    "generatedAt": "2026-08-01T23:59:00+09:00",
+    "blocks": [
+      {
+        "id": "title",
+        "type": "markdown",
+        "body": "# High-Leverage Page Expansion for Oil Tank Route"
+      },
+      {
+        "id": "summary",
+        "type": "markdown",
+        "body": "## Executive Summary\n\n- **Yes, the site should grow beyond the current six core routes.** The right near-term surface is roughly 11-12 product and lifecycle entry pages, not 50 keyword pages.\n- **Build two net-new pages now:** a heating-oil usage calculator and a basement oil-tank removal page. They add distinct jobs and do not duplicate the current tools.\n- **Rebuild and index two existing guides:** removal cost and leaking heating-oil tank. Creating replacement URLs would waste existing route equity and introduce overlap.\n- **Hold the largest-demand replacement-cost page until its evidence pack is ready.** Demand is strong, but the current SERP is dominated by national cost publishers and unsupported price ranges would weaken trust."
+      },
+      {
+        "id": "finding-ranking",
+        "type": "markdown",
+        "body": "## Two new jobs create the best traffic leverage\n\nThe usage calculator wins because it reuses verified gauge-chart gallons and answers a new recurring question: how many days remain. Basement removal ranks second because two related terms sit in the 100-1k band and the result set remains fragmented across regional contractors, forums, and mixed-geography pages. The score weights traffic demand and SERP opportunity more heavily than commercial intent."
+      },
+      {
+        "id": "ranking-chart",
+        "type": "chart",
+        "chartId": "candidate-ranking"
+      },
+      {
+        "id": "ranking-interpretation",
+        "type": "markdown",
+        "body": "### Ranked opportunity score\n\n1. **Heating-oil usage calculator: 4.00**\n2. **Basement oil-tank removal: 3.80**\n3. **Oil-tank removal cost: 3.65**\n4. **Oil-tank replacement cost: 3.65**\n5. **Tank lifespan and repair-or-replace: 3.30**\n6. **Leaking heating-oil tank: 3.20**\n7. **Gauge replacement and troubleshooting: 3.05**\n8. **Oil-tank monitor buyer guide: 2.45**\n\nThe ranking is a prioritization aid, not a traffic forecast. Scores combine five reviewed 1-5 inputs: demand, SERP opportunity, reuse of the existing product model, distinct user intent, and commercial alignment."
+      },
+      {
+        "id": "route-treatment",
+        "type": "markdown",
+        "body": "## Grow the surface by adding jobs, promoting assets, and absorbing overlaps\n\n**Add:** `/heating-oil-usage-calculator/` and `/basement-oil-tank-removal/`.\n\n**Promote:** keep `/guides/oil-tank-removal-cost/` and `/guides/leaking-heating-oil-tank-what-to-do/`, rebuild them to product quality, and make them indexable.\n\n**Absorb first:** add lifespan and repair-or-replace coverage to the replacement planner; add gauge troubleshooting to the gauge calculator. Split only if Search Console later shows a separate query cluster.\n\n**Defer:** an oil-tank monitor buyer guide has mixed residential/industrial intent and creates ongoing product-review maintenance."
+      },
+      {
+        "id": "surface-size",
+        "type": "markdown",
+        "body": "## The practical first target is 11 product and lifecycle entries\n\nThe current product surface has seven entries including the homepage. Two new URLs plus two promoted guides create an 11-entry surface without duplicating a route. A reviewed replacement-cost page becomes entry 12. This is enough breadth to test whether the domain can earn traffic across identification, measurement, fuel planning, condition risk, leak response, and removal."
+      },
+      {
+        "id": "next-steps",
+        "type": "markdown",
+        "body": "## Recommended implementation order\n\n1. Build the usage calculator and pass gauge results through `sessionStorage`.\n2. Build basement removal around access, pump-out, sludge, cutting, disposal, spill evidence, and contractor type.\n3. Rebuild and index the existing leak and removal-cost guides.\n4. Expand the replacement planner with lifespan and repair-or-replace sections.\n5. Assemble reviewed regional cost evidence, then build one combined replacement-and-installation cost page."
+      },
+      {
+        "id": "questions",
+        "type": "markdown",
+        "body": "## Further questions\n\n- After 8-12 weeks, do gauge troubleshooting, lifespan, or repair queries earn impressions independently of their parent pages?\n- Can partner coverage support basement removal leads outside the current Northeast-heavy market?\n- Which reviewed cost sources can support a national replacement page without presenting false precision?"
+      },
+      {
+        "id": "caveats",
+        "type": "markdown",
+        "body": "## Caveats and Assumptions\n\nKeyword volumes are Google Ads ranges and close variants overlap, so they must not be summed as exact market size. SERP opportunity is a directional snapshot reviewed on August 1, 2026. The weighted score is deliberately traffic-first and is not a prediction of rank, clicks, or lead conversion. Search Console query data should replace these priors once the new product routes have accumulated meaningful impressions."
+      }
+    ],
+    "charts": [
+      {
+        "id": "candidate-ranking",
+        "title": "Weighted leverage score by page opportunity",
+        "subtitle": "Eight candidate treatments reviewed on August 1, 2026; 1-5 composite score",
+        "showDescription": true,
+        "intent": "ranking",
+        "question": "Which candidate page or route treatment offers the strongest next-build leverage?",
+        "rationale": "A sorted bar chart makes the relative priority of eight candidates immediately readable.",
+        "comparisonContext": {
+          "baseline": "Traffic-first expansion of the current product surface",
+          "denominator": "Five weighted 1-5 opportunity inputs",
+          "grain": "One candidate route treatment",
+          "unit": "weighted score"
+        },
+        "type": "bar",
+        "dataset": "candidate_scores",
+        "sourceId": "candidate-model",
+        "encodings": {
+          "x": {"field": "candidate_short", "type": "nominal", "label": "Candidate"},
+          "y": {"field": "weighted_score", "type": "quantitative", "format": "number", "label": "Weighted score"},
+          "tooltip": [
+            {"field": "candidate", "type": "nominal", "label": "Full candidate"},
+            {"field": "route_action", "type": "nominal", "label": "Route action"},
+            {"field": "demand_score", "type": "quantitative", "format": "number", "label": "Demand"},
+            {"field": "serp_opportunity", "type": "quantitative", "format": "number", "label": "SERP opportunity"},
+            {"field": "reuse_score", "type": "quantitative", "format": "number", "label": "Reuse"},
+            {"field": "intent_distinctness", "type": "quantitative", "format": "number", "label": "Intent distinctness"},
+            {"field": "commercial_alignment", "type": "quantitative", "format": "number", "label": "Commercial alignment"}
+          ]
+        },
+        "xAxisTitle": "Candidate",
+        "yAxisTitle": "Weighted leverage score",
+        "valueFormat": "number",
+        "unit": "score",
+        "layout": "full",
+        "palette": {"kind": "sequential", "name": "blue"},
+        "settings": {"orientation": "vertical", "sort": "descending", "showValues": true, "categoryLabelPolicy": "truncate"},
+        "surface": {"surface": "card", "showControls": false, "viewMode": "visualization"}
+      }
+    ],
+    "sources": [
+      {
+        "id": "candidate-model",
+        "label": "High-leverage page candidate scoring model",
+        "path": "analysis/high_leverage_pages_2026-08-01/page_candidates.csv",
+        "query": {
+          "engine": "reviewed-csv-model",
+          "language": "sql",
+          "sql": "SELECT candidate, route_action, demand_score, serp_opportunity, reuse_score, intent_distinctness, commercial_alignment, 0.30 * demand_score + 0.25 * serp_opportunity + 0.20 * reuse_score + 0.15 * intent_distinctness + 0.10 * commercial_alignment AS weighted_score FROM page_candidates ORDER BY weighted_score DESC;",
+          "description": "Weights eight candidate route treatments for traffic-first leverage.",
+          "filters": ["United States", "residential heating-oil tanks", "current v1 architecture", "reviewed 2026-08-01"],
+          "metric_definitions": ["weighted_score = demand 30% + SERP opportunity 25% + reuse 20% + intent distinctness 15% + commercial alignment 10%"],
+          "tables_used": ["analysis/high_leverage_pages_2026-08-01/page_candidates.csv"]
+        }
+      },
+      {
+        "id": "keyword-exports",
+        "label": "Google Ads utility and expanded keyword validation exports",
+        "path": "analysis/google_ads_utility_keywords_us_2026-08-01.csv"
+      },
+      {
+        "id": "route-inventory",
+        "label": "Current product and guide route inventory",
+        "path": "src/main/java/owner/buriedoiltank/data/ProductRoute.java"
+      }
+    ]
+  },
+  "snapshot": {
+    "version": 1,
+    "generatedAt": "2026-08-01T23:59:00+09:00",
+    "status": "ready",
+    "datasets": {
+      "candidate_scores": [
+        {"rank": 1, "candidate": "Heating oil usage calculator", "candidate_short": "Usage calc", "route_action": "new URL", "demand_score": 3, "serp_opportunity": 5, "reuse_score": 5, "intent_distinctness": 5, "commercial_alignment": 1, "weighted_score": 4.00},
+        {"rank": 2, "candidate": "Basement oil tank removal", "candidate_short": "Basement removal", "route_action": "new URL", "demand_score": 3, "serp_opportunity": 5, "reuse_score": 2, "intent_distinctness": 5, "commercial_alignment": 5, "weighted_score": 3.80},
+        {"rank": 3, "candidate": "Oil tank removal cost", "candidate_short": "Removal cost", "route_action": "promote existing URL", "demand_score": 4, "serp_opportunity": 3, "reuse_score": 3, "intent_distinctness": 4, "commercial_alignment": 5, "weighted_score": 3.65},
+        {"rank": 4, "candidate": "Oil tank replacement cost", "candidate_short": "Replacement cost", "route_action": "new URL", "demand_score": 5, "serp_opportunity": 1, "reuse_score": 4, "intent_distinctness": 4, "commercial_alignment": 5, "weighted_score": 3.65},
+        {"rank": 5, "candidate": "Tank lifespan and repair-or-replace", "candidate_short": "Lifespan / repair", "route_action": "expand existing planner", "demand_score": 2, "serp_opportunity": 4, "reuse_score": 5, "intent_distinctness": 2, "commercial_alignment": 4, "weighted_score": 3.30},
+        {"rank": 6, "candidate": "Leaking heating oil tank", "candidate_short": "Leak guide", "route_action": "promote existing URL", "demand_score": 2, "serp_opportunity": 3, "reuse_score": 3, "intent_distinctness": 5, "commercial_alignment": 5, "weighted_score": 3.20},
+        {"rank": 7, "candidate": "Gauge replacement and troubleshooting", "candidate_short": "Gauge help", "route_action": "expand existing gauge page", "demand_score": 2, "serp_opportunity": 4, "reuse_score": 4, "intent_distinctness": 3, "commercial_alignment": 2, "weighted_score": 3.05},
+        {"rank": 8, "candidate": "Oil tank monitor buyer guide", "candidate_short": "Monitor guide", "route_action": "defer", "demand_score": 2, "serp_opportunity": 2, "reuse_score": 2, "intent_distinctness": 5, "commercial_alignment": 2, "weighted_score": 2.45}
+      ]
+    }
+  },
+  "sources": [
+    {"id": "candidate-model", "label": "High-leverage page candidate scoring model", "path": "analysis/high_leverage_pages_2026-08-01/page_candidates.csv"},
+    {"id": "keyword-exports", "label": "Google Ads keyword exports", "path": "analysis/google_ads_utility_keywords_us_2026-08-01.csv"},
+    {"id": "route-inventory", "label": "Current product route inventory", "path": "src/main/java/owner/buriedoiltank/data/ProductRoute.java"}
+  ]
+}

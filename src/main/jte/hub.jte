@@ -12,9 +12,9 @@
         <div class="hero__aside">
             <div class="hero__media hero__media--detail">
                 @if ("states".equals(page.activeNav()))
-                    <img class="hero__image" src="https://images.unsplash.com/photo-1768119997334-bc76e6f60e7d?auto=format&fit=crop&w=1400&q=80" alt="Rows of filing cabinets used to symbolize state records and archives" width="1400" height="1167" loading="eager" fetchpriority="high" decoding="async">
+                    @template.partials.tankDiagram()
                 @else
-                    <img class="hero__image" src="https://images.unsplash.com/photo-1457298483369-0a95d2b17fcd?auto=format&fit=crop&w=1400&q=80" alt="Close-up of a fountain pen nib on paper" width="1400" height="1167" loading="eager" fetchpriority="high" decoding="async">
+                    @template.partials.tankDiagram()
                 @endif
             </div>
         </div>

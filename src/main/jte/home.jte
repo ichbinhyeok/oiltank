@@ -19,7 +19,7 @@
         </div>
         <div class="hero__aside hero__aside--home">
             <div class="hero__media hero__media--home">
-                <img class="hero__image" src="https://images.unsplash.com/photo-1618179131275-e90e3dfde775?auto=format&fit=crop&w=1400&q=80" alt="Historic residential house exterior in a dark editorial treatment" width="1400" height="1400" loading="eager" fetchpriority="high" decoding="async">
+                @template.partials.tankDiagram()
                 <div class="hero__stamp hero__stamp--dark">
                     <strong>Start with the smallest useful question</strong>
                     <span>Do you need records, a sweep, or a confirmed-tank decision? Answer that first.</span>

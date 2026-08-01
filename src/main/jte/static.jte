@@ -11,7 +11,7 @@
         </div>
         <div class="hero__aside">
             <div class="hero__media hero__media--detail">
-                <img class="hero__image" src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1400&q=80" alt="Property notes and paperwork on a desk" width="1400" height="933" loading="eager" fetchpriority="high" decoding="async">
+                @template.partials.tankDiagram()
             </div>
         </div>
     </div>

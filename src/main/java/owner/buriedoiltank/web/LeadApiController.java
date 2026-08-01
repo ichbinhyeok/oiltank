@@ -75,10 +75,12 @@ public class LeadApiController {
     }
 
     private static String sanitizeReturnPath(String path) {
-        if (path == null || path.isBlank() || !path.startsWith("/")) {
-            return "/";
-        }
-        if (path.startsWith("//")) {
+        if (path == null || path.isBlank()
+                || !path.matches("^/[A-Za-z0-9/_-]*$")
+                || path.startsWith("//")
+                || path.contains("//")
+                || path.contains("/../")
+                || path.endsWith("/..")) {
             return "/";
         }
         return path;

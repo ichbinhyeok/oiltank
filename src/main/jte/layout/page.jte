@@ -22,14 +22,7 @@
     <meta name="twitter:description" content="${meta.description()}">
     <meta name="twitter:image" content="${meta.socialImageUrl()}">
     @if (!"admin".equals(activeNav) && meta.analyticsMeasurementId() != null && !meta.analyticsMeasurementId().isBlank())
-        <script async src="https://www.googletagmanager.com/gtag/js?id=${meta.analyticsMeasurementId()}"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            window.gtag = window.gtag || gtag;
-            gtag('js', new Date());
-            gtag('config', '${meta.analyticsMeasurementId()}');
-        </script>
+        <meta name="otr-analytics-id" content="${meta.analyticsMeasurementId()}">
     @endif
     @if (!meta.indexable())
         <meta name="robots" content="noindex,follow">
@@ -37,21 +30,20 @@
     @for (var schema : meta.structuredDataJson())
         <script type="application/ld+json">$unsafe{schema}</script>
     @endfor
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,600;1,6..72,700&display=swap" rel="stylesheet">
+    <link rel="preload" href="/fonts/source-sans-3.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/general-sans-600.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml">
     <link rel="icon" href="/favicon.ico" sizes="32x32">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <script>document.documentElement.classList.add('js');</script>
     <link rel="stylesheet" href="/app.css">
 </head>
 <body class="${"admin".equals(activeNav) ? "page page--admin" : "page"}">
+<a class="skip-link" href="#main-content">Skip to main content</a>
 <header class="${"admin".equals(activeNav) ? "site-header site-header--admin" : "site-header"}">
     <div class="site-header__inner">
         <a class="brand" href="/">
-            <span class="brand__title">Oil Tank Verdict</span>
-            <span class="brand__tag">Buried tank next steps</span>
+            <svg class="brand__mark" viewBox="0 0 42 26" aria-hidden="true"><path d="M6 3h25a6 6 0 0 1 0 20H6z"/><path d="M15 3v20M24 3v20"/></svg>
+            <span><span class="brand__title">Oil Tank Route</span><span class="brand__tag">Residential field tools</span></span>
         </a>
         @if ("admin".equals(activeNav))
             <div class="admin-toolbar" aria-label="Admin">
@@ -61,26 +53,28 @@
         @else
             <div class="site-header__rail">
                 <nav class="site-nav" aria-label="Primary">
-                    <a class="${"home".equals(activeNav) ? "site-nav__link site-nav__link--active" : "site-nav__link"}" href="/">Start</a>
-                    <a class="${("state".equals(activeNav) || "states".equals(activeNav)) ? "site-nav__link site-nav__link--active" : "site-nav__link"}" href="/states/">States</a>
-                    <a class="${("guide".equals(activeNav) || "guides".equals(activeNav)) ? "site-nav__link site-nav__link--active" : "site-nav__link"}" href="/guides/">Guides</a>
+                    <a class="${"tools".equals(activeNav) ? "site-nav__link site-nav__link--active" : "site-nav__link"}" href="/oil-tank-gauge-calculator/">Tools</a>
+                    <a class="${("guide".equals(activeNav) || "guides".equals(activeNav)) ? "site-nav__link site-nav__link--active" : "site-nav__link"}" href="/heating-oil-tank/">Tank Guides</a>
+                    <a class="${"risk".equals(activeNav) ? "site-nav__link site-nav__link--active" : "site-nav__link"}" href="/oil-tank-replacement-planner/">Risk &amp; Replacement</a>
+                    <a class="${("state".equals(activeNav) || "states".equals(activeNav)) ? "site-nav__link site-nav__link--active" : "site-nav__link"}" href="/states/">State Resources</a>
                 </nav>
             </div>
         @endif
     </div>
 </header>
-<main class="site-main">
+<main class="site-main" id="main-content" tabindex="-1">
     ${content}
 </main>
 @if (!"admin".equals(activeNav))
     <footer class="site-footer">
         <div class="site-footer__inner">
             <div class="site-footer__brand">
-                <p>State-first next-action guidance for buried and abandoned residential heating oil tank triggers.</p>
-                <span>Built for live files, missing records, sweep-first questions, and contract-side timing pressure.</span>
+                <p>Residential heating-oil tank measurements, risk routing, and sourced next steps.</p>
+                <span>Results are planning information - not a substitute for a qualified inspection, delivery decision, or emergency response.</span>
             </div>
             <div class="site-footer__links">
                 <a href="/methodology/">Methodology</a>
+                <a href="/guides/">Resources</a>
                 <a href="/contact/">Contact</a>
                 <a href="/privacy/">Privacy</a>
                 <a href="/terms/">Terms</a>
@@ -90,5 +84,6 @@
     </footer>
 @endif
 <script src="/app.js"></script>
+<script type="module" src="/tools.js"></script>
 </body>
 </html>

@@ -122,6 +122,32 @@ public final class PageModels {
     ) {
     }
 
+    public record ToolFunnelMetric(
+            String toolId,
+            long starts,
+            long completes,
+            long resultViews,
+            long commercialTriggers,
+            long ctaClicks,
+            long leadSubmissions
+    ) {
+    }
+
+    public record LeadReviewRow(
+            String leadId,
+            String submittedAt,
+            String email,
+            String phone,
+            String toolId,
+            String riskBand,
+            String commercialIntent,
+            String resultSummary,
+            String disposition,
+            int payoutCents,
+            String decisionNotes
+    ) {
+    }
+
     public record FreshnessReviewRow(
             String scopeLabel,
             String scopeType,
@@ -248,6 +274,8 @@ public final class PageModels {
             List<MetricCard> metrics,
             List<PartnerMetric> partnerMetrics,
             List<RouteFamilyMetric> routeFamilyMetrics,
+            List<ToolFunnelMetric> toolFunnels,
+            List<LeadReviewRow> leadRows,
             List<RouteReviewRow> routeRows,
             List<FreshnessReviewRow> staleFreshnessRows,
             List<FreshnessReviewRow> freshnessRows,

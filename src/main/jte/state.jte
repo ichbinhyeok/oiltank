@@ -20,7 +20,7 @@
         </div>
         <div class="hero__aside hero__aside--detail">
             <div class="hero__media hero__media--detail">
-                <img class="hero__image" src="https://images.unsplash.com/photo-1768119997334-bc76e6f60e7d?auto=format&fit=crop&w=1400&q=80" alt="Rows of filing cabinets used to symbolize state records and archives" width="1400" height="1167" loading="eager" fetchpriority="high" decoding="async">
+                @template.partials.tankDiagram()
                 <div class="hero__stamp hero__stamp--dark">
                     <strong>Primary agency source</strong>
                     <span>${page.state().regulatoryOwner()}</span>

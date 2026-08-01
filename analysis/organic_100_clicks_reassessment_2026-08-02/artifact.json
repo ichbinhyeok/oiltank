@@ -1,0 +1,158 @@
+{
+  "surface": "report",
+  "manifest": {
+    "version": 1,
+    "surface": "report",
+    "title": "Oil Tank Route: 100 clicks/day 재평가",
+    "description": "검색 수요, 순위별 CTR, 현재 GSC 기준선을 결합한 데이터 기반 트래픽 가능성 평가",
+    "generatedAt": "2026-08-02T12:00:00+09:00",
+    "blocks": [
+      {
+        "id": "title",
+        "type": "markdown",
+        "body": "# Oil Tank Route: 100 clicks/day 재평가"
+      },
+      {
+        "id": "summary",
+        "type": "markdown",
+        "body": "## Executive Summary\n\n- **수요 천장은 생겼지만, 100 clicks/day가 검증된 것은 아니다.** Utility 27.1k와 commercial 23.1k를 합친 원시 base 수요는 월 50.2k다. 그러나 close variant 중복 전 수치다.\n- **중앙 민감도에서는 포트폴리오 평균 2위가 필요하다.** 의미 중복을 35%로 놓으면 월 32.6k 검색이다. 평균 2위 CTR 9.24%에서 100.5 clicks/day, 평균 3위 CTR 3.66%에서는 39.8/day다.\n- **현재 실적은 이 순위를 지지하지 않는다.** 보유 GSC 기준선은 28일간 208 impressions, 0 clicks이며 최선의 기존 URL도 평균 10.94위다. 새 product URL은 이 스냅샷 이후 출시되어 아직 성과 데이터가 없다.\n- **따라서 판정은 '기계적 가능, 사업계획 기준으로는 미검증'이다.** 현 데이터가 지지하는 계획값은 top-3 달성 시 약 31-49/day이며, 100/day는 top-2급 포트폴리오 성과가 확인된 뒤에만 forecast로 승격할 수 있다."
+      },
+      {
+        "id": "demand",
+        "type": "markdown",
+        "body": "## 검색 수요는 100/day의 수학적 천장을 열었다\n\nGoogle Ads의 미국·2025년 7월~2026년 6월 범위 자료에서 utility 50개 키워드는 geometric-midpoint 기준 월 27.1k, 기존 commercial universe는 23.1k였다. 합계 50.2k는 목표 3,000 clicks/month의 약 16.7배다. 따라서 예전 removal-only 구조와 달리, 현재 utility 확장은 수요 부족으로 목표가 즉시 기각되는 상태는 아니다.\n\n다만 이 합계는 `oil tank sizes`, `oil tank dimensions`, `275 gallon oil tank`처럼 같은 SERP와 사용자 작업을 공유하는 변형을 포함한다. Keyword Planner는 이 중복을 정확히 분리하지 않으므로 아래 결론은 중복률별 민감도로 읽어야 한다."
+      },
+      {
+        "id": "rank-requirement",
+        "type": "markdown",
+        "body": "## 100/day는 평균 top-2 포트폴리오 성과를 요구한다\n\n막대는 원시 base 수요 50.2k에 20%, 35%, 50%의 의미 중복을 적용한 뒤, 공개 순위별 CTR을 곱한 결과다. 모든 중복 시나리오에서 평균 3위는 30.6-49.0 clicks/day에 머문다. 35% 중복에서 평균 2위일 때만 100.5/day로 목표선을 막 넘는다.\n\n**의미:** 100/day는 한두 페이지의 히트가 아니라 sizes, dimensions, 275-gallon, gauge, replacement/removal 등 주소 가능한 수요의 대부분에서 평균 2위권을 확보해야 하는 목표다."
+      },
+      {
+        "id": "chart-block",
+        "type": "chart",
+        "chartId": "overlap-rank-sensitivity"
+      },
+      {
+        "id": "proof-gap",
+        "type": "markdown",
+        "body": "## 현재 데이터는 수요보다 실행 격차를 보여준다\n\n현재 저장소에는 20개 indexable route와 9개 core product route가 있다. 그러나 보유 GSC 스냅샷은 새 product URL 출시 전 9개 legacy route의 28일 자료이며, 208 impressions와 0 clicks다. 100/day에 필요한 월간 impressions는 CTR 9.24%라면 약 32.5k, CTR 3.66%라면 약 82.0k다. 현재 28일 노출을 월 환산한 약 223 impressions와 비교하면 각각 약 146배와 368배다.\n\n새 delivery-check 도구는 제품 차별화와 재방문에는 도움이 될 수 있지만, 검토된 Keyword Planner 파일에는 해당 작업의 검증된 검색량이 없다. 따라서 이번 acquisition 모델에는 증분 수요를 0으로 두었다. 경쟁 측면에서도 현재 SERP에는 탱크 차트·계산기·가이드를 한 도메인에 묶은 전용 사이트와 여러 계산기 사이트가 이미 존재한다."
+      },
+      {
+        "id": "next-steps",
+        "type": "markdown",
+        "body": "## 다음 투자는 순위가 아니라 수요 포착을 먼저 증명해야 한다\n\n1. 새 9개 core product route를 별도 GSC cohort로 묶고 출시 후 8-12주간 query, impressions, clicks, average position을 수집한다.\n2. 여섯 head cluster 중 최소 세 개가 top 5, 최소 한 개가 top 3에 진입하기 전에는 100/day를 운영 forecast로 사용하지 않는다.\n3. 월 30k impressions에 도달하면 실제 query-weighted CTR로 모델을 교체한다. 장기 100/day 증명선은 60k impressions/month at 5% CTR 또는 32.5k at 9.24% CTR이다.\n4. delivery-check는 GSC에서 별도 query가 나타날 때만 acquisition TAM에 추가한다. 그 전에는 retention/conversion lever로 취급한다."
+      },
+      {
+        "id": "questions",
+        "type": "markdown",
+        "body": "## 결론을 바꿀 수 있는 다음 질문\n\n- 출시 후 실제 close-variant 중복은 20%, 35%, 50% 중 어디에 가까운가?\n- utility query에서 AI Overview, 쇼핑, 로컬팩 때문에 실제 CTR이 공개 desktop benchmark보다 얼마나 낮은가?\n- 정보성 utility 방문이 승인 가능한 inspection, replacement, leak/remediation 리드로 전환되는가?\n- delivery-check가 독립 query demand를 만들거나 direct/repeat visit을 증가시키는가?"
+      },
+      {
+        "id": "caveats",
+        "type": "markdown",
+        "body": "## Caveats and Assumptions\n\nGoogle Ads 수치는 정확한 검색량이 아니라 넓은 band의 geometric midpoint다. 의미 중복률 20-50%는 관측값이 아니라 결과 민감도를 보여주는 가정이다. CTR은 2026년 5월 미국 desktop 공개 benchmark이며 query intent, device, 광고, AI Overview와 SERP feature에 따라 달라진다. GSC 스냅샷은 새 product surface를 평가하지 못하므로 현재 authority의 시작점으로만 사용했다. 승인 리드 전환 데이터가 없어 traffic 목표와 월 40 approved leads의 연결은 아직 계산할 수 없다."
+      }
+    ],
+    "charts": [
+      {
+        "id": "overlap-rank-sensitivity",
+        "title": "중복률과 평균 순위별 예상 organic clicks",
+        "subtitle": "월 50.2k 원시 base 수요, 30일 기준",
+        "showDescription": true,
+        "intent": "comparison",
+        "question": "의미 중복과 포트폴리오 평균 순위에 따라 일간 클릭이 어떻게 달라지는가?",
+        "rationale": "여섯 개 시나리오와 100 clicks/day 목표의 거리를 직접 비교한다.",
+        "comparisonContext": {
+          "baseline": "100 organic clicks/day",
+          "denominator": "중복 조정 월간 검색 수요",
+          "grain": "중복 시나리오 × 포트폴리오 평균 순위",
+          "unit": "organic clicks/day"
+        },
+        "type": "bar",
+        "dataset": "rank_sensitivity",
+        "sourceId": "traffic-model",
+        "encodings": {
+          "x": {"field": "scenario", "type": "nominal", "label": "Scenario"},
+          "y": {"field": "clicks_per_day", "type": "quantitative", "format": "number", "label": "Clicks/day"},
+          "tooltip": [
+            {"field": "monthly_search_pool", "type": "quantitative", "format": "number", "label": "Adjusted monthly searches"},
+            {"field": "ctr", "type": "quantitative", "format": "percent", "label": "CTR"},
+            {"field": "clicks_per_month", "type": "quantitative", "format": "number", "label": "Clicks/month"}
+          ]
+        },
+        "xAxisTitle": "Organic clicks/day",
+        "yAxisTitle": "Semantic overlap and average rank",
+        "valueFormat": "number",
+        "unit": "clicks/day",
+        "layout": "full",
+        "palette": {"kind": "sequential", "name": "blue"},
+        "settings": {"orientation": "horizontal", "sort": "ascending", "showValues": true, "categoryLabelPolicy": "truncate"},
+        "surface": {"surface": "card", "showControls": false, "viewMode": "visualization"}
+      }
+    ],
+    "sources": [
+      {
+        "id": "traffic-model",
+        "label": "Google Ads demand and rank-CTR sensitivity model",
+        "path": "analysis/traffic_ceiling_assessment_2026-08-01.md",
+        "query": {
+          "engine": "reviewed-local-analysis",
+          "language": "formula",
+          "sql": "WITH base(raw_monthly_searches) AS (\n  VALUES (50222)\n),\noverlaps(label, rate) AS (\n  VALUES ('20% overlap', 0.20),\n         ('35% overlap', 0.35),\n         ('50% overlap', 0.50)\n),\nctrs(rank_label, ctr) AS (\n  VALUES ('P2', 0.0924),\n         ('P3', 0.0366)\n)\nSELECT\n  label || ' / ' || rank_label AS scenario,\n  raw_monthly_searches * (1 - rate) AS monthly_search_pool,\n  ctr,\n  raw_monthly_searches * (1 - rate) * ctr AS clicks_per_month,\n  raw_monthly_searches * (1 - rate) * ctr / 30.0 AS clicks_per_day\nFROM base\nCROSS JOIN overlaps\nCROSS JOIN ctrs;",
+          "description": "Combined geometric-midpoint search demand adjusted by semantic-overlap sensitivity and multiplied by public position CTR benchmarks.",
+          "filters": ["United States", "July 2025 through June 2026 Keyword Planner period", "residential heating-oil tank intent", "30-day month"],
+          "metric_definitions": ["raw base demand = 27,100 utility + 23,122 commercial", "adjusted pool = raw base demand × (1 - overlap)", "clicks/day = adjusted pool × CTR ÷ 30"],
+          "tables_used": ["analysis/google_ads_utility_keywords_us_2026-08-01.csv", "analysis/google_ads_expanded_keyword_validation_us_2026-08-01.csv", "analysis/traffic_ceiling_assessment_2026-08-01.md"]
+        }
+      },
+      {
+        "id": "gsc-baseline",
+        "label": "Bundled Search Console route metrics snapshot",
+        "path": "src/main/resources/data/normalized/search/gsc-route-metrics.csv",
+        "query": {
+          "engine": "csv-snapshot",
+          "language": "aggregation",
+          "description": "Sum of clicks and impressions across the reviewed pre-pivot route snapshot.",
+          "filters": ["June 11 through July 8, 2026", "nine legacy routes"],
+          "metric_definitions": ["total impressions = sum(impressions)", "total clicks = sum(clicks)", "monthly-equivalent impressions = 208 × 30 ÷ 28"],
+          "tables_used": ["src/main/resources/data/normalized/search/gsc-route-metrics.csv"]
+        }
+      },
+      {
+        "id": "current-competition",
+        "label": "Current oil-tank chart and calculator SERP examples",
+        "url": "https://oiltankcharts.com/",
+        "query": {
+          "engine": "web-review",
+          "language": "inspection",
+          "description": "Current niche competitor surface containing tank charts, calculators, and guides.",
+          "filters": ["reviewed August 2, 2026"],
+          "tables_used": ["https://oiltankcharts.com/"]
+        }
+      }
+    ]
+  },
+  "snapshot": {
+    "version": 1,
+    "generatedAt": "2026-08-02T12:00:00+09:00",
+    "status": "ready",
+    "datasets": {
+      "rank_sensitivity": [
+        {"scenario": "20% · P3", "semantic_overlap": 0.20, "average_rank": 3, "monthly_search_pool": 40178, "ctr": 0.0366, "clicks_per_month": 1470.5, "clicks_per_day": 49.0},
+        {"scenario": "35% · P3", "semantic_overlap": 0.35, "average_rank": 3, "monthly_search_pool": 32644, "ctr": 0.0366, "clicks_per_month": 1194.8, "clicks_per_day": 39.8},
+        {"scenario": "50% · P3", "semantic_overlap": 0.50, "average_rank": 3, "monthly_search_pool": 25111, "ctr": 0.0366, "clicks_per_month": 919.1, "clicks_per_day": 30.6},
+        {"scenario": "20% · P2", "semantic_overlap": 0.20, "average_rank": 2, "monthly_search_pool": 40178, "ctr": 0.0924, "clicks_per_month": 3712.4, "clicks_per_day": 123.7},
+        {"scenario": "35% · P2", "semantic_overlap": 0.35, "average_rank": 2, "monthly_search_pool": 32644, "ctr": 0.0924, "clicks_per_month": 3016.3, "clicks_per_day": 100.5},
+        {"scenario": "50% · P2", "semantic_overlap": 0.50, "average_rank": 2, "monthly_search_pool": 25111, "ctr": 0.0924, "clicks_per_month": 2320.3, "clicks_per_day": 77.3}
+      ],
+      "gsc_baseline": [
+        {"window_start": "2026-06-11", "window_end": "2026-07-08", "route_count": 9, "impressions": 208, "clicks": 0, "best_average_position": 10.94}
+      ]
+    }
+  },
+  "sources": [
+    {"id": "traffic-model", "label": "Google Ads demand and CTR sensitivity model", "path": "analysis/traffic_ceiling_assessment_2026-08-01.md"},
+    {"id": "gsc-baseline", "label": "Bundled Search Console snapshot", "path": "src/main/resources/data/normalized/search/gsc-route-metrics.csv"},
+    {"id": "current-competition", "label": "OilTankCharts current competitor surface", "url": "https://oiltankcharts.com/"}
+  ]
+}

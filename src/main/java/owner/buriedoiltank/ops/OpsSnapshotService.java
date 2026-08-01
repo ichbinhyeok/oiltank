@@ -26,6 +26,7 @@ import owner.buriedoiltank.data.StateRecord;
 import owner.buriedoiltank.data.SourceFreshnessStatus;
 import owner.buriedoiltank.leads.EventLogService;
 import owner.buriedoiltank.leads.LeadService;
+import owner.buriedoiltank.leads.LeadDispositionService;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
@@ -57,6 +58,7 @@ public class OpsSnapshotService {
     private final ContentRepository contentRepository;
     private final RouteInventoryService routeInventoryService;
     private final LeadService leadService;
+    private final LeadDispositionService leadDispositionService;
     private final EventLogService eventLogService;
     private final SearchMetricsRepository searchMetricsRepository;
     private final ObjectMapper objectMapper;
@@ -68,6 +70,7 @@ public class OpsSnapshotService {
             ContentRepository contentRepository,
             RouteInventoryService routeInventoryService,
             LeadService leadService,
+            LeadDispositionService leadDispositionService,
             EventLogService eventLogService,
             SearchMetricsRepository searchMetricsRepository,
             ObjectMapper objectMapper,
@@ -77,6 +80,7 @@ public class OpsSnapshotService {
         this.contentRepository = contentRepository;
         this.routeInventoryService = routeInventoryService;
         this.leadService = leadService;
+        this.leadDispositionService = leadDispositionService;
         this.eventLogService = eventLogService;
         this.searchMetricsRepository = searchMetricsRepository;
         this.objectMapper = objectMapper;
@@ -94,6 +98,16 @@ public class OpsSnapshotService {
         List<Map<String, String>> recentEvents = eventLogService.events().stream()
                 .filter(withinLast28Days())
                 .toList();
+        Map<String, Map<String, String>> latestDispositions = leadDispositionService.latestByLeadId();
+        long approvedLeads = countDispositions(recentLeads, latestDispositions, "approved");
+        long rejectedLeads = countDispositions(recentLeads, latestDispositions, "rejected");
+        long pendingLeads = Math.max(0, recentLeads.size() - approvedLeads - rejectedLeads);
+        long approvedPayoutCents = recentLeads.stream()
+                .map(row -> latestDispositions.get(row.getOrDefault("lead_id", "")))
+                .filter(java.util.Objects::nonNull)
+                .filter(row -> "approved".equals(row.get("disposition")))
+                .mapToLong(row -> parseLong(row.get("payout_cents")))
+                .sum();
 
         Map<String, Long> leadsByPartner = recentLeads.stream()
                 .collect(Collectors.groupingBy(row -> row.getOrDefault("partner_type", "unknown"), LinkedHashMap::new, Collectors.counting()));
@@ -126,8 +140,13 @@ public class OpsSnapshotService {
                 recentEvents.stream().filter(row -> "cta_click".equals(row.get("event_type"))).count(),
                 recentEvents.stream().filter(row -> "lead_open".equals(row.get("event_type"))).count(),
                 recentLeads.size(),
+                approvedLeads,
+                rejectedLeads,
+                pendingLeads,
+                approvedPayoutCents,
                 leadsByPartner,
                 ctaClicksByRouteFamily,
+                buildToolFunnels(recentLeads, recentEvents),
                 staleScopes
         );
 
@@ -226,7 +245,7 @@ public class OpsSnapshotService {
         return new OpsSnapshots.RouteStatusSnapshot(
                 entry.id(),
                 entry.path(),
-                entry.routeFamily().slug(),
+                entry.routeFamilySlug(),
                 entry.scopeLabel(),
                 entry.phase().slug(),
                 entry.indexStatus().slug(),
@@ -467,6 +486,55 @@ public class OpsSnapshotService {
 
     private long countLeadsForPage(List<Map<String, String>> leads, String pageId) {
         return leads.stream().filter(row -> pageId.equals(row.get("page_id"))).count();
+    }
+
+    private List<OpsSnapshots.ToolFunnelSnapshot> buildToolFunnels(
+            List<Map<String, String>> recentLeads,
+            List<Map<String, String>> recentEvents
+    ) {
+        List<String> toolIds = java.util.stream.Stream.concat(
+                        recentEvents.stream().map(row -> row.getOrDefault("tool_id", "")),
+                        recentLeads.stream().map(row -> row.getOrDefault("tool_id", "")))
+                .filter(value -> !value.isBlank())
+                .distinct()
+                .sorted()
+                .toList();
+        return toolIds.stream().map(toolId -> new OpsSnapshots.ToolFunnelSnapshot(
+                toolId,
+                countToolEvents(recentEvents, toolId, "tool_start"),
+                countToolEvents(recentEvents, toolId, "tool_complete"),
+                countToolEvents(recentEvents, toolId, "result_view"),
+                countToolEvents(recentEvents, toolId, "commercial_trigger"),
+                countToolEvents(recentEvents, toolId, "result_cta_click"),
+                recentLeads.stream().filter(row -> toolId.equals(row.get("tool_id"))).count()
+        )).toList();
+    }
+
+    private long countToolEvents(List<Map<String, String>> events, String toolId, String eventType) {
+        return events.stream()
+                .filter(row -> toolId.equals(row.get("tool_id")))
+                .filter(row -> eventType.equals(row.get("event_type")))
+                .count();
+    }
+
+    private long countDispositions(
+            List<Map<String, String>> leads,
+            Map<String, Map<String, String>> latestDispositions,
+            String disposition
+    ) {
+        return leads.stream()
+                .map(row -> latestDispositions.get(row.getOrDefault("lead_id", "")))
+                .filter(java.util.Objects::nonNull)
+                .filter(row -> disposition.equals(row.get("disposition")))
+                .count();
+    }
+
+    private static long parseLong(String value) {
+        try {
+            return Long.parseLong(value);
+        } catch (Exception exception) {
+            return 0;
+        }
     }
 
     private Predicate<Map<String, String>> withinLast28Days() {

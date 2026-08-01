@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "buried-oil-tank.admin")
 public class AdminSecurityProperties {
     private String username = "admin";
-    private String password = "tlsgur3108";
+    private String password = "";
 
     public String getUsername() {
         return username;

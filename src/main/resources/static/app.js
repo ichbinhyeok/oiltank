@@ -1,3 +1,22 @@
+function initializeAnalytics() {
+  const measurementId = document.querySelector('meta[name="otr-analytics-id"]')?.content?.trim();
+  if (!measurementId || !/^G-[A-Z0-9]+$/.test(measurementId)) {
+    return;
+  }
+
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function gtag() {
+    window.dataLayer.push(arguments);
+  };
+  window.gtag("js", new Date());
+  window.gtag("config", measurementId);
+
+  const script = document.createElement("script");
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
+  document.head.append(script);
+}
+
 const scenarioPartnerMap = {
   buyer_seller: {
     partner: "sweep_or_locate",
@@ -82,6 +101,9 @@ function bindAnchors() {
       const top = Math.max(target.getBoundingClientRect().top + window.scrollY - offset, 0);
 
       window.history.pushState({}, "", url.hash);
+      if (anchor.classList.contains("skip-link") && typeof target.focus === "function") {
+        target.focus({ preventScroll: true });
+      }
       window.scrollTo({
         top,
         behavior: "smooth"
@@ -257,6 +279,7 @@ function bindCta(root) {
   }
 }
 
+initializeAnalytics();
 bindAnchors();
 bindPrimaryCtas();
 bindResearchEvents();

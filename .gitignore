@@ -38,3 +38,6 @@ jte-classes/
 output/
 storage/
 test-results/
+.gstack/
+.playwright-mcp/
+analysis/**/*.tmp-*
