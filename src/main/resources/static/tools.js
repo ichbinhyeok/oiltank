@@ -490,6 +490,57 @@ function bindCapacity(root) {
   });
 }
 
+function bindHeatingCost(root) {
+  const form = root.querySelector("[data-heating-cost-form]");
+  if (!form) return;
+  bindLifecycle(root, form);
+  const prior = loadSession(root.dataset.toolId);
+  if (prior?.localPrice) form.elements.localPrice.value = prior.localPrice;
+  if (prior?.gallons) form.elements.gallons.value = prior.gallons;
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const values = Object.fromEntries(new FormData(form));
+    const localPrice = Number(values.localPrice);
+    const gallons = Number(values.gallons);
+    const benchmark = Number(values.benchmark);
+    if (![localPrice, gallons, benchmark].every(Number.isFinite) || localPrice <= 0 || gallons <= 0) {
+      announceResult(root, "Check the quote inputs", "<p>Enter a positive per-gallon quote and order amount.</p>");
+      return;
+    }
+    const subtotal = localPrice * gallons;
+    const benchmarkSubtotal = benchmark * gallons;
+    const difference = subtotal - benchmarkSubtotal;
+    saveSession(root.dataset.toolId, values);
+    announceResult(root, "Calculated fuel subtotal", `<dl class="result-metrics"><div><dt>Supplier quote subtotal</dt><dd>$${subtotal.toFixed(2)}</dd></div><div><dt>Dated EIA comparison</dt><dd>$${benchmarkSubtotal.toFixed(2)}</dd></div><div><dt>Difference</dt><dd>${difference >= 0 ? "+" : "-"}$${Math.abs(difference).toFixed(2)}</dd></div></dl><p>The EIA comparison was observed March 30, 2026 and excludes taxes. Confirm taxes, fees, minimum delivery, payment terms, and the final delivered price with the supplier.</p>`);
+    finish(root);
+  });
+}
+
+function bindOrder(root) {
+  const form = root.querySelector("[data-order-form]");
+  if (!form) return;
+  bindLifecycle(root, form);
+  const prior = loadLastContext();
+  if (Number.isFinite(Number(prior?.nominalCapacityGallons))) form.elements.capacity.value = prior.nominalCapacityGallons;
+  if (Number.isFinite(Number(prior?.gallonsRemaining))) form.elements.currentGallons.value = prior.gallonsRemaining;
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const values = Object.fromEntries(new FormData(form));
+    const capacity = Number(values.capacity);
+    const current = Number(values.currentGallons);
+    const targetPercent = Number(values.targetPercent);
+    if (![capacity, current, targetPercent].every(Number.isFinite) || capacity <= 0 || current < 0 || current > capacity) {
+      announceResult(root, "Check the tank inputs", "<p>Enter a positive nominal capacity and current gallons between zero and that capacity.</p>");
+      return;
+    }
+    const targetGallons = capacity * targetPercent;
+    const space = Math.max(0, targetGallons - current);
+    saveSession(root.dataset.toolId, { ...values, planningSpaceGallons: Math.round(space * 10) / 10 });
+    announceResult(root, space > 0 ? "Estimated planning space" : "Already at or above the target", `<dl class="result-metrics"><div><dt>Current input</dt><dd>${current.toFixed(1)} gal</dd></div><div><dt>${Math.round(targetPercent * 100)}% target</dt><dd>${targetGallons.toFixed(1)} gal</dd></div><div><dt>Calculated space</dt><dd>${space.toFixed(1)} gal</dd></div></dl><p>This uses nominal capacity and a planning target, not the tank's certified safe-fill amount. Confirm the tank, venting, current reading, minimum order, and authorized delivery quantity with the supplier.</p>`);
+    finish(root);
+  });
+}
+
 function plannerOutcome(values) {
   if (values.leak || values.wetSoil || values.odor) return {
     band: "urgent", heading: "Stop and protect people and property",
@@ -767,6 +818,8 @@ document.querySelectorAll("[data-tool-root]").forEach((root) => {
   bindDelivery(root);
   bindUsage(root);
   bindCapacity(root);
+  bindHeatingCost(root);
+  bindOrder(root);
   bindSludge(root);
   bindPlanner(root);
   bindReplacementCost(root);

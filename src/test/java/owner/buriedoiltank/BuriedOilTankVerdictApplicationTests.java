@@ -60,8 +60,8 @@ class BuriedOilTankVerdictApplicationTests {
 
 	@Test
 	void contextLoads() {
-		assertThat(routeInventoryService.entries()).hasSize(54);
-		assertThat(routeInventoryService.indexableEntries()).hasSize(24);
+		assertThat(routeInventoryService.entries()).hasSize(61);
+		assertThat(routeInventoryService.indexableEntries()).hasSize(31);
 		assertThat(routeInventoryService.entries())
 				.filteredOn(entry -> entry.pageType() == owner.buriedoiltank.data.PageType.PRODUCT)
 				.extracting(owner.buriedoiltank.data.RouteInventoryEntry::path)
@@ -95,7 +95,7 @@ class BuriedOilTankVerdictApplicationTests {
 				.andExpect(status().isOk())
 				.andExpect(content().string(containsString("Oil Tank Route")))
 				.andExpect(content().string(containsString("Know the tank. Plan the next move.")))
-				.andExpect(content().string(containsString("A single data model. Thirteen useful routes.")))
+				.andExpect(content().string(containsString("A single data model. Twenty useful routes.")))
 				.andExpect(content().string(containsString("Heating-oil tank cross-section")))
 				.andExpect(content().string(containsString("Official source material")))
 				.andExpect(content().string(containsString("property=\"og:image\"")))
@@ -114,7 +114,14 @@ class BuriedOilTankVerdictApplicationTests {
 				"/oil-tank-gauge-calculator/",
 				"/heating-oil-delivery-check/",
 				"/heating-oil-usage-calculator/",
+				"/heating-oil-prices/",
+				"/heating-oil-cost-calculator/",
+				"/how-much-heating-oil-do-i-need/",
+				"/ran-out-of-heating-oil/",
 				"/oil-tank-capacity-calculator/",
+				"/how-long-do-oil-tanks-last/",
+				"/oil-tank-gauge-replacement/",
+				"/heating-oil-tank-repair/",
 				"/heating-oil-tank-sludge-cleaning/",
 				"/oil-tank-replacement-planner/",
 				"/oil-tank-replacement-cost/",
@@ -184,6 +191,51 @@ class BuriedOilTankVerdictApplicationTests {
 				.andExpect(content().string(containsString("Maine DEP: Check Your Tank, Prevent a Leak")))
 				.andExpect(content().string(containsString("This router does not provide DIY")))
 				.andExpect(content().string(containsString("data-commercial-route")));
+
+		mockMvc.perform(get("/how-long-do-oil-tanks-last/"))
+				.andExpect(content().string(containsString("How long do heating-oil tanks last?")))
+				.andExpect(content().string(containsString("Tank age starts the review. Condition decides the route.")))
+				.andExpect(content().string(containsString("Is there a standard age when every oil tank must be replaced?")))
+				.andExpect(content().string(containsString("New York State Department of Health")))
+				.andExpect(content().string(not(containsString("Request a qualified follow-up"))));
+
+		mockMvc.perform(get("/heating-oil-prices/"))
+				.andExpect(content().string(containsString("Latest published residential benchmark")))
+				.andExpect(content().string(containsString("2026-03-30")))
+				.andExpect(content().string(containsString("$5.535")))
+				.andExpect(content().string(containsString("collection is paused")))
+				.andExpect(content().string(not(containsString("Request a qualified follow-up"))));
+
+		mockMvc.perform(get("/heating-oil-cost-calculator/"))
+				.andExpect(content().string(containsString("data-heating-cost-form")))
+				.andExpect(content().string(containsString("EIA observation 2026-03-30")))
+				.andExpect(content().string(containsString("\"@type\":\"WebApplication\"")))
+				.andExpect(content().string(not(containsString("Request a qualified follow-up"))));
+
+		mockMvc.perform(get("/how-much-heating-oil-do-i-need/"))
+				.andExpect(content().string(containsString("data-order-form")))
+				.andExpect(content().string(containsString("planning space")))
+				.andExpect(content().string(containsString("\"@type\":\"WebApplication\"")))
+				.andExpect(content().string(not(containsString("Request a qualified follow-up"))));
+
+		mockMvc.perform(get("/ran-out-of-heating-oil/"))
+				.andExpect(content().string(containsString("Check once. Then call the right service.")))
+				.andExpect(content().string(containsString("do not reset again")))
+				.andExpect(content().string(containsString("Possible leak or spill")))
+				.andExpect(content().string(not(containsString("Request a qualified follow-up"))));
+
+		mockMvc.perform(get("/oil-tank-gauge-replacement/"))
+				.andExpect(content().string(containsString("Oil tank gauge replacement and troubleshooting")))
+				.andExpect(content().string(containsString("A bad reading does not identify the failed part.")))
+				.andExpect(content().string(containsString("Can I replace an oil tank gauge myself?")))
+				.andExpect(content().string(containsString("href=\"/oil-tank-gauge-calculator/\"")))
+				.andExpect(content().string(not(containsString("Request a qualified follow-up"))));
+
+		mockMvc.perform(get("/heating-oil-tank-repair/"))
+				.andExpect(content().string(containsString("Heating-oil tank repair: diagnose the failed layer first")))
+				.andExpect(content().string(containsString("Repair a service component. Review a distressed tank body.")))
+				.andExpect(content().string(containsString("Can a leaking oil tank be patched?")))
+				.andExpect(content().string(containsString("href=\"/guides/leaking-heating-oil-tank-what-to-do/\"")));
 
 		mockMvc.perform(get("/oil-tank-replacement-cost/"))
 				.andExpect(content().string(containsString("Oil tank replacement cost: compare the complete quote scope")))
@@ -347,6 +399,9 @@ class BuriedOilTankVerdictApplicationTests {
 				.andExpect(content().string(containsString("/heating-oil-tank-charts/")))
 				.andExpect(content().string(containsString("/heating-oil-delivery-check/")))
 				.andExpect(content().string(containsString("/heating-oil-usage-calculator/")))
+				.andExpect(content().string(containsString("/how-long-do-oil-tanks-last/")))
+				.andExpect(content().string(containsString("/oil-tank-gauge-replacement/")))
+				.andExpect(content().string(containsString("/heating-oil-tank-repair/")))
 				.andExpect(content().string(containsString("/heating-oil-tank-sludge-cleaning/")))
 				.andExpect(content().string(containsString("/oil-tank-replacement-cost/")))
 				.andExpect(content().string(containsString("/heating-oil-tank-installation-cost/")))

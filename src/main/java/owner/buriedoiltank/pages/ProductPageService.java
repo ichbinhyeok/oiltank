@@ -15,6 +15,7 @@ import owner.buriedoiltank.pages.ProductPageModels.FaqItem;
 import owner.buriedoiltank.pages.ProductPageModels.ProductPageModel;
 import owner.buriedoiltank.pages.ProductPageModels.SourceLink;
 import owner.buriedoiltank.data.ProductRoute;
+import owner.buriedoiltank.heating.HeatingOilPriceCatalog;
 import owner.buriedoiltank.tank.TankCatalog;
 import owner.buriedoiltank.tank.TankSpec;
 import org.springframework.stereotype.Service;
@@ -27,12 +28,15 @@ public class ProductPageService {
     private final URI baseUrl;
     private final String analyticsMeasurementId;
     private final ObjectMapper objectMapper;
+    private final HeatingOilPriceCatalog heatingOilPriceCatalog;
 
-    public ProductPageService(TankCatalog tankCatalog, SiteProperties siteProperties, ObjectMapper objectMapper) {
+    public ProductPageService(TankCatalog tankCatalog, SiteProperties siteProperties, ObjectMapper objectMapper,
+                              HeatingOilPriceCatalog heatingOilPriceCatalog) {
         this.tankCatalog = tankCatalog;
         this.baseUrl = siteProperties.getBaseUrl();
         this.analyticsMeasurementId = siteProperties.getAnalyticsMeasurementId();
         this.objectMapper = objectMapper;
+        this.heatingOilPriceCatalog = heatingOilPriceCatalog;
     }
 
     public ProductPageModel homePage() {
@@ -213,6 +217,60 @@ public class ProductPageService {
                     )),
                     usageSources(), linksExcept(slug), crumbs("Heating oil usage calculator")
             );
+            case "heating-oil-prices" -> page(
+                    slug, "/heating-oil-prices/", "tools", "Official seasonal benchmark",
+                    "Heating-oil prices: the latest official EIA benchmark",
+                    "Read the latest published federal residential heating-oil benchmark with its observation date, unit, and seasonal collection status. It is context for a local quote, not today's supplier price.",
+                    "prices", "Read the date before the dollar figure",
+                    List.of(
+                            "The latest EIA weekly observation available here is March 30, 2026; it excludes taxes and is not a live retail quote.",
+                            "EIA's residential heating-oil price collection runs during the heating season and is paused from April through September.",
+                            "Delivery size, payment terms, location, supplier, taxes, and service terms can make a local quote differ from a regional benchmark."
+                    ), List.of(),
+                    List.of(new FaqItem("Is this today's heating-oil price?", "No. It is the latest dated EIA residential benchmark available for the 2025-26 heating season. Ask local suppliers for a current delivered quote."),
+                            new FaqItem("Does the EIA price include taxes?", "No. The published series is in dollars per gallon excluding taxes.")),
+                    priceSources(), linksExcept(slug), crumbs("Heating oil prices")
+            );
+            case "heating-oil-cost-calculator" -> page(
+                    slug, "/heating-oil-cost-calculator/", "tools", "Quote cost instrument",
+                    "Heating-oil cost calculator",
+                    "Multiply a current supplier quote by an order amount, then compare it with a clearly dated EIA benchmark without confusing either number for a guaranteed delivered price.",
+                    "heating-cost", "Use the supplier's complete quote",
+                    List.of(
+                            "Enter the per-gallon price the supplier gave you, not an undated search snippet.",
+                            "Ask whether taxes, minimum delivery, emergency fees, service plans, or payment terms change the total.",
+                            "The federal benchmark is a dated reference point; the written supplier quote controls the actual purchase."
+                    ), List.of(),
+                    List.of(new FaqItem("How do I calculate the price of a heating-oil delivery?", "Multiply quoted dollars per gallon by delivered gallons, then add any disclosed taxes or fixed fees. This calculator shows the fuel subtotal separately.")),
+                    priceSources(), linksExcept(slug), crumbs("Heating oil cost calculator")
+            );
+            case "how-much-heating-oil-do-i-need" -> page(
+                    slug, "/how-much-heating-oil-do-i-need/", "tools", "Order-space calculator",
+                    "How much heating oil do I need?",
+                    "Estimate the gallons needed to reach a conservative target level from your current chart-based gallons. The result is planning space, not delivery authorization.",
+                    "order", "Separate tank capacity from delivery space",
+                    List.of(
+                            "Use a verified gauge-chart result for current gallons when the tank model and orientation are known.",
+                            "A nominal tank capacity is not a promise that the same number of gallons can be delivered; headspace and current fuel matter.",
+                            "Confirm the safe fill amount, minimum order, access, and delivery terms with the supplier before ordering."
+                    ), tankCatalog.withGaugeCharts(),
+                    List.of(new FaqItem("Can I order the exact number this calculator shows?", "No. It estimates space to a selected planning target. The supplier must confirm tank identity, current level, venting, safe fill, and delivery requirements.")),
+                    orderSources(), linksExcept(slug), crumbs("Heating oil order amount")
+            );
+            case "ran-out-of-heating-oil" -> page(
+                    slug, "/ran-out-of-heating-oil/", "tools", "No-heat response",
+                    "Ran out of heating oil? Check before restarting",
+                    "Confirm the tank reading and contact the fuel supplier or qualified oil-heat service provider. Do not repeatedly reset the burner or improvise fuel handling.",
+                    "ran-out", "A zero gauge reading and a no-heat call are not the same diagnosis",
+                    List.of(
+                            "Check the thermostat, service switch, circuit breaker, and tank gauge without opening or altering the tank.",
+                            "Tell the supplier or technician that the burner may have run dry; the fuel line or burner may require qualified service before normal operation.",
+                            "Oil odor, visible oil, wetness, or staining overrides the ordinary delivery route: avoid ignition sources and use the applicable spill-response path."
+                    ), List.of(),
+                    List.of(new FaqItem("Should I keep pressing the burner reset button?", "No. Repeated resets can create an unsafe condition. Follow the equipment instructions and contact a qualified oil-heat service professional."),
+                            new FaqItem("Can I put diesel fuel in the heating-oil tank?", "Do not improvise a fuel delivery or pour fuel into the tank. Confirm approved fuel and any restart service with the supplier and equipment professional.")),
+                    noHeatSources(), linksExcept(slug), crumbs("Ran out of heating oil")
+            );
             case "oil-tank-capacity-calculator" -> page(
                     slug, "/oil-tank-capacity-calculator/", "tools", "Shape-based estimator",
                     "Oil tank capacity calculator",
@@ -229,6 +287,78 @@ public class ProductPageService {
                             "Small dimension errors compound across a three-dimensional shape, and external measurements include material that is not liquid volume."
                     )),
                     commonSources(), linksExcept(slug), crumbs("Capacity calculator")
+            );
+            case "how-long-do-oil-tanks-last" -> page(
+                    slug, "/how-long-do-oil-tanks-last/", "risk", "Tank lifespan field guide",
+                    "How long do heating-oil tanks last?",
+                    "Use age as an inspection trigger, then decide from installation evidence, corrosion, supports, seepage, and release warning signs.",
+                    "lifespan", "Why one replacement age is not enough",
+                    List.of(
+                            "Official homeowner guidance does not establish one national service-life number for every steel, double-wall, indoor, outdoor, or underground tank.",
+                            "Installation quality, water and sludge, exterior moisture, piping, supports, impact, and inspection history change how a tank ages.",
+                            "An unknown installation date is a records problem first. Look for the label, permit, invoice, service record, and prior-owner documentation.",
+                            "Corrosion, wet seams, seepage, unstable legs, odor, visible oil, or unexplained fuel loss matters more than a calendar estimate."
+                    ),
+                    List.of(),
+                    List.of(new FaqItem(
+                            "Is there a standard age when every oil tank must be replaced?",
+                            "No single national age applies to every residential heating-oil tank. Tank type, installation, corrosion, water, supports, piping, inspection, and local requirements all matter."
+                    ), new FaqItem(
+                            "What if I do not know how old the oil tank is?",
+                            "Photograph the label and search property permits, installation invoices, service records, disclosures, and prior-owner files. Unknown age is a reason for qualified inspection, not proof of failure."
+                    ), new FaqItem(
+                            "Which signs should move replacement planning forward?",
+                            "Pitting, flaking corrosion, wet seams, seepage, unstable supports, a failing base, repeated unexplained loss, or an inspection finding should move the question beyond age alone."
+                    )),
+                    maintenanceSources(), linksExcept(slug), crumbs("Oil tank lifespan")
+            );
+            case "oil-tank-gauge-replacement" -> page(
+                    slug, "/oil-tank-gauge-replacement/", "tools", "Gauge service field guide",
+                    "Oil tank gauge replacement and troubleshooting",
+                    "Separate a coarse or stuck reading from a tank-match problem, connected-component fault, or possible heating-oil release before buying a part.",
+                    "gauge-service", "Start with the reading path",
+                    List.of(
+                            "A float gauge is approximate. A zero or unchanged reading does not prove the tank is empty or the gauge is the only failed part.",
+                            "Tank capacity alone is not enough to select a replacement. The model, fitting, gauge assembly, orientation, and manufacturer instructions must match.",
+                            "Do not force the float, strike the gauge, loosen fittings, or open the tank to troubleshoot it yourself.",
+                            "Odor, staining, seepage, visible oil, or rapid unexplained loss overrides ordinary gauge service and opens the leak-response route."
+                    ),
+                    List.of(),
+                    List.of(new FaqItem(
+                            "Why is my oil tank gauge stuck on full or empty?",
+                            "The float or linkage may be stuck, the dial may be damaged, the tank match may be wrong, or the reading may simply be coarse. A qualified technician should diagnose it."
+                    ), new FaqItem(
+                            "Can I replace an oil tank gauge myself?",
+                            "This page does not provide DIY tank-opening or fitting-removal instructions. Heating oil, leaks, incompatible parts, and tank condition make this qualified service work."
+                    ), new FaqItem(
+                            "Does a bad gauge mean I need a new tank?",
+                            "Not by itself. An isolated gauge problem may be serviceable. Corrosion, seepage, unstable supports, recurring condition problems, or release signs require a broader review."
+                    )),
+                    maintenanceSources(), linksExcept(slug), crumbs("Oil tank gauge replacement")
+            );
+            case "heating-oil-tank-repair" -> page(
+                    slug, "/heating-oil-tank-repair/", "risk", "Repair or replace field guide",
+                    "Heating-oil tank repair: diagnose the failed layer first",
+                    "Identify whether the problem is a service component, recurring fuel-quality symptom, distressed tank body, or possible release before comparing repair quotes.",
+                    "repair", "Four problems that should not share one quote",
+                    List.of(
+                            "A gauge, filter, valve, vent whistle, or accessible line problem may start with qualified heating-system service.",
+                            "Repeated filter plugging, water, or sludge needs diagnosis of the source and tank condition; cleaning does not restore corroded steel.",
+                            "Tank-body pitting, wet seams, seepage, unstable legs, or a failing base requires a condition inspection and replacement review.",
+                            "Strong odor, visible oil, staining, wet soil, or unexplained loss is a possible release, not an ordinary repair estimate."
+                    ),
+                    List.of(),
+                    List.of(new FaqItem(
+                            "What parts of a heating-oil system may be repairable?",
+                            "A qualified technician may service an isolated gauge, filter, valve, vent, whistle, or fuel-line problem and should identify the exact failed component."
+                    ), new FaqItem(
+                            "Can a leaking oil tank be patched?",
+                            "Do not assume a patch makes a distressed tank safe. Odor, visible oil, seepage, staining, or wet soil requires the applicable release-response route first."
+                    ), new FaqItem(
+                            "When should repair become a replacement review?",
+                            "Tank-body corrosion, pitting, wet seams, unstable supports, a failing base, recurring condition problems, or an inspection finding should move beyond component-only repair."
+                    )),
+                    maintenanceSources(), linksExcept(slug), crumbs("Heating oil tank repair")
             );
             case "heating-oil-tank-sludge-cleaning" -> page(
                     slug, "/heating-oil-tank-sludge-cleaning/", "risk", "Sludge and service routing",
@@ -376,7 +506,7 @@ public class ProductPageService {
         String title = heading + " | Oil Tank Route";
         List<String> schemas = new ArrayList<>();
         schemas.add(json(schema("charts".equals(toolKind) ? "CollectionPage" : "WebPage", heading, path, intro)));
-        if (List.of("gauge", "delivery", "usage", "capacity", "sludge", "planner", "removal", "identifier").contains(toolKind)) {
+        if (List.of("gauge", "delivery", "usage", "capacity", "sludge", "planner", "removal", "identifier", "heating-cost", "order").contains(toolKind)) {
             Map<String, Object> app = schema("WebApplication", heading, path, intro);
             app.put("applicationCategory", "UtilitiesApplication");
             app.put("operatingSystem", "Any");
@@ -405,7 +535,8 @@ public class ProductPageService {
                         "Oil Tank Route field-instrument diagram",
                         analyticsMeasurementId
                 ),
-                id, activeNav, eyebrow, heading, intro, toolKind, factsHeading, facts, specs, tankDataJson(specs), faqs, sources, nextLinks, breadcrumbs
+                id, activeNav, eyebrow, heading, intro, toolKind, factsHeading, facts, specs, tankDataJson(specs), faqs, sources, nextLinks, breadcrumbs,
+                heatingOilPriceCatalog.latest()
         );
     }
 
@@ -544,6 +675,76 @@ public class ProductPageService {
         );
     }
 
+    private List<SourceLink> maintenanceSources() {
+        return List.of(
+                new SourceLink(
+                        "New York State Department of Health: Maintaining Your Home Heating Oil Tank",
+                        "https://www.health.ny.gov/environmental/oil_spills/docs/oil_tank_maintenance.pdf",
+                        "Official annual inspection, gauge, valve, filter, fuel-line, support, corrosion, and spill-response checklist; reviewed 2026-08-02."
+                ),
+                new SourceLink(
+                        "Pennsylvania DEP: Tips for Residential Heating Oil Tank Owners",
+                        "https://www.pa.gov/agencies/dep/residents/my-water/private-wells/tips-for-residential-heating-oil-tank-owners",
+                        "Official guidance on tank type, corrosion, supports, unusual fuel use, inspection, and leak response; reviewed 2026-08-02."
+                ),
+                new SourceLink(
+                        "Maine DEP: Check Your Tank, Prevent a Leak",
+                        "https://www.maine.gov/dep/waste/publications/check-your-tank.html",
+                        "Official guidance connecting water, sludge, corrosion, inspection, and licensed oil-heat service; reviewed 2026-08-02."
+                ),
+                new SourceLink(
+                        "Granby UL-80 installation and maintenance guidelines",
+                        "https://www.granbyindustries.com/wp-content/uploads/2017/11/SI0015_Ea-UL-80-INSTALLATION-AND-MAINTENANCE-GUIDELINES.pdf",
+                        "Manufacturer-specific inspection, support, piping, and maintenance boundaries for listed Granby domestic aboveground tanks; reviewed 2026-08-02."
+                )
+        );
+    }
+
+    private List<SourceLink> priceSources() {
+        return List.of(
+                new SourceLink(
+                        "U.S. EIA: Weekly Heating Oil and Propane Prices",
+                        "https://www.eia.gov/dnav/pet/PET_PRI_WFR_A_EPD2F_PRS_DPGAL_W.htm",
+                        "Official weekly residential price table. Snapshot observed 2026-03-30 and released 2026-04-01; dollars per gallon excluding taxes."
+                ),
+                new SourceLink(
+                        "U.S. EIA: Heating Oil and Propane Update",
+                        "https://www.eia.gov/petroleum/heatingoilpropane/",
+                        "Official seasonal publication schedule and notice that weekly price collection returns in October 2026; reviewed 2026-08-02."
+                )
+        );
+    }
+
+    private List<SourceLink> orderSources() {
+        return List.of(
+                new SourceLink(
+                        "Granby U.S. vertical tank capacity chart",
+                        "https://www.granbyindustries.com/app/uploads/2026/04/GranbyInd_Capacity-Chart_VerticalTanks_USA_v1.pdf",
+                        "Manufacturer gallons-by-inch table used by the upstream gauge calculator; verified 2026-08-01."
+                ),
+                new SourceLink(
+                        "Maine Attorney General Consumer Law Guide: Heating Oil",
+                        "https://www.maine.gov/ag/dynld/documents/clg19.pdf",
+                        "Official consumer guidance on monitoring fuel level, requesting delivery, comparing quoted prices, and checking no-heat basics; reviewed 2026-08-02."
+                )
+        );
+    }
+
+    private List<SourceLink> noHeatSources() {
+        return List.of(
+                new SourceLink(
+                        "Maine Attorney General Consumer Law Guide: Heating Oil",
+                        "https://www.maine.gov/ag/dynld/documents/clg19.pdf",
+                        "Official no-heat checklist and warning not to reset the burner again when it runs briefly and stops; reviewed 2026-08-02."
+                ),
+                new SourceLink(
+                        "New York State Department of Health: Maintaining Your Home Heating Oil Tank",
+                        "https://www.health.ny.gov/environmental/oil_spills/docs/oil_tank_maintenance.pdf",
+                        "Official tank inspection, service, odor, leak, and spill-response guidance; reviewed 2026-08-02."
+                )
+        );
+    }
+
     private List<SourceLink> sludgeSources() {
         return List.of(
                 new SourceLink(
@@ -623,19 +824,26 @@ public class ProductPageService {
                 new LinkCard("Calculate a gauge reading", "Turn a fraction or stick depth into chart-based gallons.", "/oil-tank-gauge-calculator/", "05 / Gauge"),
                 new LinkCard("Check a delivery", "Compare the truck ticket with before-and-after chart readings and keep a private tank passport.", "/heating-oil-delivery-check/", "06 / Delivery"),
                 new LinkCard("Estimate days remaining", "Use your own consumption rate to turn gallons into a fuel runway.", "/heating-oil-usage-calculator/", "07 / Usage"),
-                new LinkCard("Estimate capacity", "Use shape-specific geometry and a measurement range.", "/oil-tank-capacity-calculator/", "08 / Capacity"),
-                new LinkCard("Route sludge symptoms", "Separate service and cleaning from corrosion review and possible release response.", "/heating-oil-tank-sludge-cleaning/", "09 / Sludge"),
-                new LinkCard("Plan replacement", "Separate routine monitoring from inspection, leak, and transaction routes.", "/oil-tank-replacement-planner/", "10 / Risk"),
-                new LinkCard("Compare replacement scope", "Build a complete quote checklist without a false national average.", "/oil-tank-replacement-cost/", "11 / Replace"),
-                new LinkCard("Scope installation cost", "Separate the tank price from site, piping, permit, and commissioning work.", "/heating-oil-tank-installation-cost/", "12 / Install"),
-                new LinkCard("Scope basement removal", "Separate routine indoor removal from leak response before requesting a quote.", "/basement-oil-tank-removal/", "13 / Remove")
+                new LinkCard("Read official heating-oil prices", "Compare a local quote with a dated EIA residential benchmark.", "/heating-oil-prices/", "08 / Price"),
+                new LinkCard("Calculate delivery cost", "Multiply a supplier quote by gallons without hiding the data date.", "/heating-oil-cost-calculator/", "09 / Cost"),
+                new LinkCard("Estimate an order amount", "Calculate planning space from current gallons to a conservative target.", "/how-much-heating-oil-do-i-need/", "10 / Order"),
+                new LinkCard("Handle a run-out", "Check the no-heat basics and know when qualified restart service is needed.", "/ran-out-of-heating-oil/", "11 / No heat"),
+                new LinkCard("Estimate capacity", "Use shape-specific geometry and a measurement range.", "/oil-tank-capacity-calculator/", "12 / Capacity"),
+                new LinkCard("Check tank lifespan", "Use age as a review trigger, then route from condition and records.", "/how-long-do-oil-tanks-last/", "13 / Lifespan"),
+                new LinkCard("Troubleshoot a tank gauge", "Separate a coarse or stuck reading from tank condition and release signs.", "/oil-tank-gauge-replacement/", "14 / Gauge service"),
+                new LinkCard("Decide repair or replace", "Identify the failed layer before requesting a repair quote.", "/heating-oil-tank-repair/", "15 / Repair"),
+                new LinkCard("Route sludge symptoms", "Separate service and cleaning from corrosion review and possible release response.", "/heating-oil-tank-sludge-cleaning/", "16 / Sludge"),
+                new LinkCard("Plan replacement", "Separate routine monitoring from inspection, leak, and transaction routes.", "/oil-tank-replacement-planner/", "17 / Risk"),
+                new LinkCard("Compare replacement scope", "Build a complete quote checklist without a false national average.", "/oil-tank-replacement-cost/", "18 / Replace"),
+                new LinkCard("Scope installation cost", "Separate the tank price from site, piping, permit, and commissioning work.", "/heating-oil-tank-installation-cost/", "19 / Install"),
+                new LinkCard("Scope basement removal", "Separate routine indoor removal from leak response before requesting a quote.", "/basement-oil-tank-removal/", "20 / Remove")
         );
     }
 
     private List<LinkCard> linksExcept(String slug) {
         return switch (slug) {
             case "oil-tank-gauge-calculator" -> linksFor(
-                    "/heating-oil-tank-charts/", "/heating-oil-delivery-check/", "/heating-oil-usage-calculator/"
+                    "/oil-tank-gauge-replacement/", "/heating-oil-delivery-check/", "/heating-oil-usage-calculator/"
             );
             case "heating-oil-tank-charts" -> linksFor(
                     "/275-gallon-oil-tank/", "/oil-tank-gauge-calculator/", "/heating-oil-tank-sizes-dimensions/"
@@ -647,12 +855,35 @@ public class ProductPageService {
                     "/oil-tank-gauge-calculator/", "/heating-oil-usage-calculator/", "/275-gallon-oil-tank/"
             );
             case "heating-oil-usage-calculator" -> linksFor(
-                    "/oil-tank-gauge-calculator/", "/275-gallon-oil-tank/", "/oil-tank-replacement-planner/"
+                    "/oil-tank-gauge-calculator/", "/how-much-heating-oil-do-i-need/", "/heating-oil-cost-calculator/"
+            );
+            case "heating-oil-prices" -> linksFor(
+                    "/heating-oil-cost-calculator/", "/how-much-heating-oil-do-i-need/", "/heating-oil-usage-calculator/"
+            );
+            case "heating-oil-cost-calculator" -> linksFor(
+                    "/heating-oil-prices/", "/how-much-heating-oil-do-i-need/", "/heating-oil-delivery-check/"
+            );
+            case "how-much-heating-oil-do-i-need" -> linksFor(
+                    "/oil-tank-gauge-calculator/", "/heating-oil-cost-calculator/", "/heating-oil-usage-calculator/"
+            );
+            case "ran-out-of-heating-oil" -> linksFor(
+                    "/oil-tank-gauge-calculator/", "/heating-oil-usage-calculator/", "/heating-oil-delivery-check/"
             );
             case "oil-tank-replacement-planner" -> List.of(
+                    coreLink("/how-long-do-oil-tanks-last/"),
                     coreLink("/oil-tank-replacement-cost/"),
-                    new LinkCard("Leak response guide", "Use odor, visible oil, seepage, or stained material to enter the safety route.", "/guides/leaking-heating-oil-tank-what-to-do/", "Safety"),
-                    coreLink("/heating-oil-tank-sizes-dimensions/")
+                    new LinkCard("Leak response guide", "Use odor, visible oil, seepage, or stained material to enter the safety route.", "/guides/leaking-heating-oil-tank-what-to-do/", "Safety")
+            );
+            case "how-long-do-oil-tanks-last" -> linksFor(
+                    "/oil-tank-replacement-planner/", "/heating-oil-tank-repair/", "/oil-tank-replacement-cost/"
+            );
+            case "oil-tank-gauge-replacement" -> linksFor(
+                    "/oil-tank-gauge-calculator/", "/heating-oil-tank-repair/", "/oil-tank-replacement-planner/"
+            );
+            case "heating-oil-tank-repair" -> List.of(
+                    coreLink("/oil-tank-gauge-replacement/"),
+                    coreLink("/heating-oil-tank-sludge-cleaning/"),
+                    new LinkCard("Possible heating-oil leak", "Use the safety route for odor, visible oil, seepage, staining, or wet soil.", "/guides/leaking-heating-oil-tank-what-to-do/", "Safety")
             );
             case "heating-oil-tank-sludge-cleaning" -> List.of(
                     coreLink("/oil-tank-replacement-planner/"),

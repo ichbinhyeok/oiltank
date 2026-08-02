@@ -23,14 +23,23 @@
                         <a class="otr-button" href="#cost-scope">Build the quote scope</a>
                         <a class="otr-text-link" href="#sources">Check sources <span aria-hidden="true">&darr;</span></a>
                     @else
-                        @if (page.isTool("gauge") || page.isTool("delivery") || page.isTool("usage") || page.isTool("capacity") || page.isTool("sludge") || page.isTool("planner") || page.isTool("removal") || page.isTool("identifier"))
+                        @if (page.isTool("gauge") || page.isTool("delivery") || page.isTool("usage") || page.isTool("capacity") || page.isTool("sludge") || page.isTool("planner") || page.isTool("removal") || page.isTool("identifier") || page.isTool("heating-cost") || page.isTool("order"))
                             <a class="otr-button" href="#tool">Start the tool</a>
                             <a class="otr-text-link" href="#sources">Check sources <span aria-hidden="true">&darr;</span></a>
                         @else
-                            @if (page.isTool("charts"))
-                                <a class="otr-button" href="#chart-library">Open verified charts</a>
+                            @if (page.isTool("lifespan") || page.isTool("gauge-service") || page.isTool("repair") || page.isTool("ran-out"))
+                                <a class="otr-button" href="#decision">Check the decision boundary</a>
+                                <a class="otr-text-link" href="#sources">Check sources <span aria-hidden="true">&darr;</span></a>
                             @else
-                                <a class="otr-button" href="#verified-data">Compare verified data</a>
+                                @if (page.isTool("prices"))
+                                    <a class="otr-button" href="#price-benchmark">Read the dated benchmark</a>
+                                @else
+                                    @if (page.isTool("charts"))
+                                        <a class="otr-button" href="#chart-library">Open verified charts</a>
+                                    @else
+                                        <a class="otr-button" href="#verified-data">Compare verified data</a>
+                                    @endif
+                                @endif
                             @endif
                         @endif
                     @endif
@@ -58,7 +67,7 @@
 @if (page.isTool("hub"))
 <section class="otr-section otr-section--instrument" aria-labelledby="route-heading">
     <div class="otr-shell">
-        <div class="otr-section__head otr-section__head--inverse"><p class="otr-kicker">Choose one job</p><h2 id="route-heading">A single data model. Thirteen useful routes.</h2></div>
+        <div class="otr-section__head otr-section__head--inverse"><p class="otr-kicker">Choose one job</p><h2 id="route-heading">A single data model. Twenty useful routes.</h2></div>
         <div class="route-list">
             @for (var link : page.nextLinks())
                 <a class="route-list__item" href="${link.href()}"><span class="route-list__index">${link.badge()}</span><span><strong>${link.title()}</strong><small>${link.description()}</small></span><span aria-hidden="true">&nearr;</span></a>
@@ -78,6 +87,101 @@
         </ol>
     </div>
 </section>
+
+@if (page.isTool("prices"))
+<section id="price-benchmark" class="otr-section otr-section--instrument" aria-labelledby="price-heading">
+    <div class="otr-shell">
+        <div class="otr-section__head otr-section__head--inverse"><p class="otr-kicker">EIA observation / ${page.priceSnapshot().observedOn().toString()}</p><h2 id="price-heading">Latest published residential benchmark</h2><p>${page.priceSnapshot().collectionStatus()} The next scheduled release is ${page.priceSnapshot().nextScheduledRelease().toString()}.</p></div>
+        <div class="table-wrap"><table class="spec-table"><thead><tr><th scope="col">Area</th><th scope="col">Price</th><th scope="col">Unit</th></tr></thead><tbody>
+            @for (var point : page.priceSnapshot().points())
+                <tr><th scope="row">${point.areaName()}</th><td class="numeric">$${point.dollarsPerGallon()}</td><td>${page.priceSnapshot().unit()}</td></tr>
+            @endfor
+        </tbody></table></div>
+        <p class="field-help">Observed ${page.priceSnapshot().observedOn().toString()}; EIA release ${page.priceSnapshot().releasedOn().toString()}. This is not a live supplier quote.</p>
+    </div>
+</section>
+@endif
+
+@if (page.isTool("heating-cost"))
+<section id="tool" class="otr-section otr-section--instrument" data-tool-root data-tool-id="heating-oil-cost" data-page-id="${page.pageId()}" data-page-path="/heating-oil-cost-calculator/">
+    <div class="otr-shell tool-grid">
+        <div class="tool-intro"><p class="otr-kicker">Cost / quote</p><h2>Calculate the fuel subtotal</h2><p>Use a current supplier quote. The selected EIA figure is only a dated comparison.</p></div>
+        <form class="instrument-form" data-heating-cost-form>
+            <div class="field-pair"><label>Supplier quote<input name="localPrice" type="number" inputmode="decimal" min="0.01" step="0.001" value="5.50" required><span class="field-help">dollars per gallon</span></label><label>Order amount<input name="gallons" type="number" inputmode="decimal" min="1" step="1" value="150" required><span class="field-help">gallons</span></label></div>
+            <label>Dated comparison benchmark<select name="benchmark">
+                @for (var point : page.priceSnapshot().points())
+                    <option value="${point.dollarsPerGallon()}">${point.areaName()} — $${point.dollarsPerGallon()}</option>
+                @endfor
+            </select><span class="field-help">EIA observation ${page.priceSnapshot().observedOn().toString()}, excluding taxes</span></label>
+            <button class="otr-button" type="submit">Calculate delivery subtotal</button>
+        </form>
+        <div class="instrument-result" data-tool-result hidden tabindex="-1" aria-live="polite"><p class="instrument-result__label">Calculated fuel subtotal</p><h3 data-result-heading>Quote total</h3><div data-result-body></div></div>
+    </div>
+</section>
+@endif
+
+@if (page.isTool("order"))
+<section id="tool" class="otr-section otr-section--instrument" data-tool-root data-tool-id="heating-oil-order" data-page-id="${page.pageId()}" data-page-path="/how-much-heating-oil-do-i-need/">
+    <div class="otr-shell tool-grid">
+        <div class="tool-intro"><p class="otr-kicker">Order / space</p><h2>Estimate room to a planning target</h2><p>If you just used the gauge calculator, its chart-based gallons transfer in this browser session.</p></div>
+        <form class="instrument-form" data-order-form>
+            <div class="field-pair"><label>Nominal tank capacity<input name="capacity" type="number" inputmode="decimal" min="1" step="1" value="275" required><span class="field-help">gallons</span></label><label>Current gallons<input name="currentGallons" type="number" inputmode="decimal" min="0" step="0.1" value="70" required><span class="field-help">prefer a verified chart result</span></label></div>
+            <label>Planning target<select name="targetPercent"><option value="0.80">80% of nominal capacity</option><option value="0.85">85% of nominal capacity</option><option value="0.90">90% of nominal capacity</option></select></label>
+            <button class="otr-button" type="submit">Estimate planning space</button>
+        </form>
+        <div class="instrument-result" data-tool-result hidden tabindex="-1" aria-live="polite"><p class="instrument-result__label">Planning estimate</p><h3 data-result-heading>Order space</h3><div data-result-body></div></div>
+    </div>
+</section>
+@endif
+
+@if (page.isTool("ran-out"))
+<section id="decision" class="otr-section otr-section--soft" aria-labelledby="no-heat-heading">
+    <div class="otr-shell scope-ledger"><div><p class="otr-kicker">No heat / safe sequence</p><h2 id="no-heat-heading">Check once. Then call the right service.</h2><p>A no-heat condition can be an empty tank, a failed gauge, loss of power, or an equipment fault.</p></div><ol class="field-notes"><li><span>01</span><p>Check thermostat setting, service switch, circuit breaker, and gauge without opening or changing the tank.</p></li><li><span>02</span><p>If one permitted reset runs only briefly and stops, do not reset again. Call the oil supplier or qualified burner service.</p></li><li><span>03</span><p>Tell them whether the gauge reads empty and whether the burner may have run dry so restart service can be planned.</p></li><li><span>04</span><p>For odor, oil, wetness, or staining, keep ignition sources away and open the leak-response guide instead of treating this as an ordinary run-out.</p></li></ol></div>
+    <div class="otr-shell otr-actions"><a class="otr-button" href="/heating-oil-prices/">Check the dated price benchmark</a><a class="otr-text-link" href="/guides/leaking-heating-oil-tank-what-to-do/">Possible leak or spill <span aria-hidden="true">&rarr;</span></a></div>
+</section>
+@endif
+
+@if (page.isTool("lifespan"))
+<section id="decision" class="otr-section otr-section--soft" aria-labelledby="lifespan-heading">
+    <div class="otr-shell scope-ledger">
+        <div><p class="otr-kicker">Condition clock</p><h2 id="lifespan-heading">Tank age starts the review. Condition decides the route.</h2><p>There is no single official national replacement age for every residential heating-oil tank. Record the installation evidence, then inspect the conditions that shorten service life.</p></div>
+        <ol class="scope-ledger__list">
+            <li><span>01</span><strong>Known age, sound condition</strong><p>Keep dated installation records and arrange qualified periodic inspection. Age alone does not prove the tank has failed.</p></li>
+            <li><span>02</span><strong>Unknown age or missing records</strong><p>Use the label, permits, invoices, prior owner records, and service history to establish a defensible range instead of guessing from appearance.</p></li>
+            <li><span>03</span><strong>Corrosion or unstable support</strong><p>Pitting, flaking rust, wet seams, leaning legs, or a failing base moves the question from lifespan to tank-condition inspection and replacement planning.</p></li>
+            <li><span>04</span><strong>Odor, oil, or unexplained loss</strong><p>Possible release signs override the age discussion. Avoid disturbing the tank and use the applicable spill-response route.</p></li>
+        </ol>
+    </div>
+</section>
+@endif
+
+@if (page.isTool("gauge-service"))
+<section id="decision" class="otr-section otr-section--soft" aria-labelledby="gauge-service-heading">
+    <div class="otr-shell scope-ledger">
+        <div><p class="otr-kicker">Gauge diagnosis</p><h2 id="gauge-service-heading">A bad reading does not identify the failed part.</h2><p>Do not force the float, open fittings, or buy a replacement gauge from tank capacity alone. A qualified oil-heat service provider should match the tank and diagnose the reading path.</p></div>
+        <ol class="scope-ledger__list">
+            <li><span>01</span><strong>Reading seems stuck</strong><p>Compare only with a safe, supported reading method and confirm the tank model and orientation. Do not strike or manipulate the gauge.</p></li>
+            <li><span>02</span><strong>Gauge and usage disagree</strong><p>Check delivery history, elapsed days, and the matching manufacturer chart before assuming a leak or ordering a part.</p></li>
+            <li><span>03</span><strong>Service scope</strong><p>Ask the technician to inspect the gauge assembly, tank fitting, vent and whistle, connected piping, and tank condition—not only the dial.</p></li>
+            <li><span>04</span><strong>Release warning</strong><p>Odor, staining, visible oil, seepage, or unexplained rapid loss is not a routine gauge-replacement job.</p></li>
+        </ol>
+    </div>
+</section>
+@endif
+
+@if (page.isTool("repair"))
+<section id="decision" class="otr-section otr-section--soft" aria-labelledby="repair-heading">
+    <div class="otr-shell scope-ledger">
+        <div><p class="otr-kicker">Repair boundary</p><h2 id="repair-heading">Repair a service component. Review a distressed tank body.</h2><p>The word “repair” can describe very different work. Separate burner-side service, connected components, structural tank condition, and possible release response before requesting a quote.</p></div>
+        <ol class="scope-ledger__list">
+            <li><span>01</span><strong>Service component</strong><p>A gauge, filter, valve, vent whistle, or accessible fuel-line issue may begin with qualified oil-heat service.</p></li>
+            <li><span>02</span><strong>Recurring fuel-quality symptom</strong><p>Repeated filter plugging, water, or sediment requires diagnosis of the source and tank condition; cleaning is not automatically a permanent repair.</p></li>
+            <li><span>03</span><strong>Tank body or supports</strong><p>Corrosion, pitting, wet seams, seepage, unstable legs, or a failing base requires inspection and a replacement review rather than a cosmetic patch assumption.</p></li>
+            <li><span>04</span><strong>Possible release</strong><p>Strong odor, visible oil, stained material, wet soil, or unexplained loss moves immediately to spill-response guidance.</p></li>
+        </ol>
+    </div>
+</section>
+@endif
 
 @if (page.isTool("identifier"))
 <section id="tool" class="otr-section otr-section--instrument" data-tool-root data-tool-id="tank-identifier" data-page-id="${page.pageId()}" data-page-path="/heating-oil-tank/">
