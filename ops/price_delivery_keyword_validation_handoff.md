@@ -84,15 +84,6 @@ Product expansion passes only when either:
 
 Price and delivery traffic must not be counted as approved removal leads unless the buyer explicitly accepts that intent.
 
-## Browser continuation
+## Completion record
 
-After the site-specific ad-block exception is active:
-
-1. Reload the open Google Ads Keyword Planner tab.
-2. Confirm the `Turn off ad blockers` dialog is gone.
-3. Open **Get search volume and forecasts**.
-4. Enter the exact 21-keyword batch above.
-5. Apply the settings above and retrieve historical metrics.
-6. Export and continue with the required outputs.
-
-The task is not complete until the raw export, deduplicated denominator, 3% CTR forecast, and pass/fail decision are all saved.
+All required rows, the deduplicated denominator, the 3% CTR forecast, and the pass/fail decision are saved. Future sessions should start from `analysis/price_delivery_volume_assessment_2026-08-02.md`; rerun this batch only when refreshing the dated Ads baseline.
