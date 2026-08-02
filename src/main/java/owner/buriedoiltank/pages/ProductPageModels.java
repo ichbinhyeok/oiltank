@@ -1,6 +1,7 @@
 package owner.buriedoiltank.pages;
 
 import java.util.List;
+import owner.buriedoiltank.heating.HeatingOilPriceSnapshot;
 import owner.buriedoiltank.tank.TankSpec;
 
 public final class ProductPageModels {
@@ -22,7 +23,8 @@ public final class ProductPageModels {
             List<FaqItem> faqs,
             List<SourceLink> sources,
             List<PageModels.LinkCard> nextLinks,
-            List<PageModels.Breadcrumb> breadcrumbs
+            List<PageModels.Breadcrumb> breadcrumbs,
+            HeatingOilPriceSnapshot priceSnapshot
     ) {
         public boolean isTool(String kind) {
             return toolKind.equals(kind);
