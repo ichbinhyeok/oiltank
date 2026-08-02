@@ -1,0 +1,166 @@
+{
+  "surface": "report",
+  "manifest": {
+    "version": 1,
+    "surface": "report",
+    "title": "Oil Tank Route SEO 분모 확장 검증",
+    "description": "순위 민감도와 인접 가격·배송 시장 검증",
+    "generatedAt": "2026-08-02T18:00:00+09:00",
+    "blocks": [
+      {
+        "id": "title",
+        "type": "markdown",
+        "body": "# Oil Tank Route SEO 분모 확장 검증"
+      },
+      {
+        "id": "executive-summary",
+        "type": "markdown",
+        "body": "## Executive Summary\n\n- **맞다. 평균 2위는 base case로 쓰면 안 된다.** 현재 중앙 중복조정 모수 32.6k에서만 평균 2위가 100.5 clicks/day를 만든다. 평균 3위면 39.8, 4위면 16.4, 5위면 12.7/day다.\n- **33페이지를 60페이지로 늘리는 것만으로는 해결되지 않는다.** 이미 계산한 tank size·chart·gauge·replacement·removal 변형 안에서 페이지를 추가하면 같은 검색수요를 나눌 가능성이 크다.\n- **평균 4위에서 100/day를 만들려면 월 198.7k의 중복 제거된 검색기회가 필요하다.** 현재 중앙 모수의 6.1배다. 평균 5위라면 256.4k, 7.9배가 필요하다.\n- **현재 확인된 유일한 대형 인접 후보는 heating-oil price + delivery decision engine이다.** 4.79M 가구, 공식 주간 가격 데이터, 반복·지역·구매 의도가 있지만 검색량은 아직 검증되지 않았고 기존 비교 사업자도 강하다. 따라서 지금은 페이지 제작이 아니라 Ads 모수 검증이 다음 단계다."
+      },
+      {
+        "id": "finding-rank",
+        "type": "markdown",
+        "body": "## Key finding: 현재 모수는 4~5위 전략으로 100/day를 만들 수 없다\n\n중앙 시나리오는 raw 50.2k에서 close-variant 중복 35%를 제외한 32.6k searches/month다. 아래 값은 이 모수 전체가 한 순위의 CTR을 얻는다는 낙관적 단순 모델이다. 실제로는 순위와 SERP 형태가 섞이므로 forecast가 아니라 민감도 경계로 봐야 한다."
+      },
+      {
+        "id": "rank-chart",
+        "type": "chart",
+        "chartId": "clicks-by-rank"
+      },
+      {
+        "id": "finding-denominator",
+        "type": "markdown",
+        "body": "## Key finding: 필요한 것은 페이지 수가 아니라 새 검색 분모다\n\n100 clicks/day, 즉 3,000 clicks/month를 만들기 위한 중복 제거 검색모수는 평균 2위에서 32.5k, 3위에서 82.0k, 4위에서 198.7k, 5위에서 256.4k다. 현재 중앙 모수 대비 각각 1.0배, 2.5배, 6.1배, 7.9배다. 기존 탱크 변형 페이지를 늘려서는 이 배수를 만들 근거가 없다."
+      },
+      {
+        "id": "finding-adjacent",
+        "type": "markdown",
+        "body": "## Key finding: 가격·배송은 후보지만 아직 검증된 정답은 아니다\n\nEIA는 2023–24 겨울 기준 약 4.79M 미국 가구가 heating oil을 주 난방연료로 사용했고 약 82%가 Northeast에 있다고 보고한다. EIA와 일부 주정부는 난방철에 주간 소매가격을 제공한다. 이는 공식 데이터 기반의 가격 벤치마크, 주문량 계산, 지역 공급자 탐색을 하나의 반복 사용 제품으로 묶을 수 있다는 뜻이다. 하지만 HomeHeat, CheapHeatingOil, CodFuel 같은 기존 비교·디렉터리 사업자가 이미 존재한다. 가구 수는 검색량이 아니므로 새 Ads export 전에는 트래픽을 수치로 약속할 수 없다."
+      },
+      {
+        "id": "recommendations",
+        "type": "markdown",
+        "body": "## Recommended next steps\n\n1. `keyword_validation_batch.csv`의 21개 price·delivery·order-sizing·emergency·conversion 쿼리를 미국 Google Ads Keyword Planner에 넣는다.\n2. close variants를 묶은 뒤 **100k searches/month 이상**, 또는 **50k 이상 + top-3 가능 SERP + lead buyer coverage**일 때만 제품 설계를 시작한다.\n3. 미국 SERP 20개 이상을 표본조사하고, 최소 30%에서 stale data·비미국 결과·얇은 directory·공식 benchmark 부재 같은 실질적 약점이 있어야 진행한다.\n4. 통과하면 전국 가격 허브 1개와 공식 데이터가 있는 주 페이지부터 만든다. 도시 modifier만으로 얇은 페이지를 만들지 않는다.\n5. 기존 33개 URL은 8–12주 동안 별도 GSC cohort로 추적한다. 30k impressions 전에는 실제 CTR 결론을 내리지 않는다."
+      },
+      {
+        "id": "questions",
+        "type": "markdown",
+        "body": "## Further questions\n\n- price/delivery cluster의 실제 미국 월 검색량과 close-variant 중복률은 얼마인가?\n- Northeast 주별로 공식 데이터가 연중 제공되는가, 난방철에만 제공되는가?\n- 공급자 또는 홈서비스 리드 구매자가 가격·배송 방문자를 수익화할 수 있는가?\n- local pack, 광고, AI Overview 이후 실제 organic CTR은 공개 benchmark보다 얼마나 낮은가?"
+      },
+      {
+        "id": "caveats",
+        "type": "markdown",
+        "body": "## Caveats and assumptions\n\n검색량은 Keyword Planner의 넓은 band를 geometric midpoint로 환산한 기존 모델이며, 35% semantic overlap은 관측값이 아니라 중앙 민감도 가정이다. CTR은 공개 desktop benchmark로 device, 광고, local pack, AI Overview를 반영하지 않는다. 가격·배송 시장은 가구 기반과 SERP 존재만 확인했으며 검색량은 미검증이다. EIA 주간 소매가격은 주로 October–March 난방철에 수집된다. 따라서 이 보고서는 가격·배송 제품의 구축 승인서가 아니라 검증 우선순위를 정하는 decision gate다."
+      }
+    ],
+    "charts": [
+      {
+        "id": "clicks-by-rank",
+        "title": "현재 중앙 검색모수의 평균 순위별 예상 organic clicks",
+        "subtitle": "32.6k adjusted searches/month · 30-day month · 공개 CTR benchmark",
+        "showDescription": true,
+        "intent": "comparison",
+        "question": "같은 검색모수에서 평균 순위가 바뀌면 일 클릭이 얼마나 달라지는가?",
+        "rationale": "100 clicks/day가 평균 2위 가정에 얼마나 의존하는지 직접 보여준다.",
+        "comparisonContext": {
+          "baseline": "100 organic clicks/day target",
+          "denominator": "32,644 adjusted monthly searches",
+          "grain": "average organic position benchmark",
+          "unit": "clicks/day"
+        },
+        "type": "bar",
+        "dataset": "rank_sensitivity",
+        "sourceId": "rank-model",
+        "encodings": {
+          "x": {"field": "rank_label", "type": "nominal", "label": "Average position"},
+          "y": {"field": "clicks_per_day", "type": "quantitative", "format": "number", "label": "Clicks/day"},
+          "tooltip": [
+            {"field": "ctr", "type": "quantitative", "format": "percent", "label": "Benchmark CTR"},
+            {"field": "required_searches_for_100_day", "type": "quantitative", "format": "number", "label": "Searches needed for 100/day"},
+            {"field": "multiple_of_current_pool", "type": "quantitative", "format": "number", "label": "Multiple of current pool"}
+          ]
+        },
+        "xAxisTitle": "Average organic position",
+        "yAxisTitle": "Estimated clicks/day",
+        "valueFormat": "number",
+        "unit": "clicks/day",
+        "layout": "full",
+        "palette": {"kind": "sequential", "name": "blue"},
+        "settings": {"orientation": "vertical", "sort": "none", "showValues": true, "categoryLabelPolicy": "show"},
+        "surface": {"surface": "card", "showControls": false, "viewMode": "visualization"}
+      }
+    ],
+    "sources": [
+      {
+        "id": "rank-model",
+        "label": "Google Ads demand and public rank-CTR sensitivity model",
+        "path": "analysis/traffic_ceiling_assessment_2026-08-01.md",
+        "query": {
+          "engine": "reviewed-local-analysis",
+          "language": "sql",
+          "sql": "WITH base(monthly_searches) AS (VALUES (32644)), ctrs(rank_label, average_rank, ctr) AS (VALUES ('P2',2,0.0924),('P3',3,0.0366),('P4',4,0.0151),('P5',5,0.0117),('P10',10,0.0053)) SELECT rank_label, average_rank, ctr, monthly_searches, monthly_searches * ctr / 30.0 AS clicks_per_day, 3000.0 / ctr AS required_searches_for_100_day, (3000.0 / ctr) / monthly_searches AS multiple_of_current_pool FROM base CROSS JOIN ctrs;",
+          "description": "Applies public position CTR benchmarks to the central semantic-overlap-adjusted monthly search pool.",
+          "filters": ["United States", "residential heating-oil tank intent", "35% semantic-overlap central case", "30-day month"],
+          "metric_definitions": ["clicks/day = adjusted monthly searches × CTR ÷ 30", "required searches for 100/day = 3,000 ÷ CTR", "central adjusted pool = 50,222 × (1 - 0.35)"],
+          "tables_used": ["analysis/google_ads_utility_keywords_us_2026-08-01.csv", "analysis/google_ads_expanded_keyword_validation_us_2026-08-01.csv", "analysis/traffic_ceiling_assessment_2026-08-01.md"]
+        }
+      },
+      {
+        "id": "eia-households",
+        "label": "U.S. EIA: Use of heating oil",
+        "url": "https://www.eia.gov/energyexplained/heating-oil/use-of-heating-oil.php",
+        "query": {
+          "engine": "web-review",
+          "language": "inspection",
+          "description": "Household count, geographic concentration, and heating-season context reviewed August 2, 2026.",
+          "filters": ["United States", "winter 2023-2024 household estimate"],
+          "tables_used": ["https://www.eia.gov/energyexplained/heating-oil/use-of-heating-oil.php"]
+        }
+      },
+      {
+        "id": "eia-prices",
+        "label": "U.S. EIA: Heating Oil and Propane Update",
+        "url": "https://www.eia.gov/petroleum/heatingoilpropane/",
+        "query": {
+          "engine": "web-review",
+          "language": "inspection",
+          "description": "Official weekly residential heating-oil price coverage and seasonal collection window reviewed August 2, 2026.",
+          "filters": ["October through March heating season"],
+          "tables_used": ["https://www.eia.gov/petroleum/heatingoilpropane/"]
+        }
+      },
+      {
+        "id": "market-competition",
+        "label": "Current U.S. heating-oil comparison surfaces",
+        "url": "https://www.gethomeheat.com/",
+        "query": {
+          "engine": "web-review",
+          "language": "inspection",
+          "description": "Observed supplier-comparison and dealer-directory competitors reviewed August 2, 2026.",
+          "filters": ["United States residential heating-oil price and supplier intent"],
+          "tables_used": ["https://www.gethomeheat.com/", "https://cheapheatingoil.com/find-a-dealer/", "https://www.codfuel.com/fuel/Main/Home.aspx"]
+        }
+      }
+    ]
+  },
+  "snapshot": {
+    "version": 1,
+    "generatedAt": "2026-08-02T18:00:00+09:00",
+    "status": "ready",
+    "datasets": {
+      "rank_sensitivity": [
+        {"rank_label": "P2", "average_rank": 2, "monthly_searches": 32644, "ctr": 0.0924, "clicks_per_month": 3016.3, "clicks_per_day": 100.5, "required_searches_for_100_day": 32468, "multiple_of_current_pool": 1.0},
+        {"rank_label": "P3", "average_rank": 3, "monthly_searches": 32644, "ctr": 0.0366, "clicks_per_month": 1194.8, "clicks_per_day": 39.8, "required_searches_for_100_day": 81967, "multiple_of_current_pool": 2.5},
+        {"rank_label": "P4", "average_rank": 4, "monthly_searches": 32644, "ctr": 0.0151, "clicks_per_month": 492.9, "clicks_per_day": 16.4, "required_searches_for_100_day": 198675, "multiple_of_current_pool": 6.1},
+        {"rank_label": "P5", "average_rank": 5, "monthly_searches": 32644, "ctr": 0.0117, "clicks_per_month": 381.9, "clicks_per_day": 12.7, "required_searches_for_100_day": 256410, "multiple_of_current_pool": 7.9},
+        {"rank_label": "P10", "average_rank": 10, "monthly_searches": 32644, "ctr": 0.0053, "clicks_per_month": 173.0, "clicks_per_day": 5.8, "required_searches_for_100_day": 566038, "multiple_of_current_pool": 17.3}
+      ]
+    }
+  },
+  "sources": [
+    {"id": "rank-model", "label": "Google Ads demand and public rank-CTR sensitivity model", "path": "analysis/traffic_ceiling_assessment_2026-08-01.md"},
+    {"id": "eia-households", "label": "U.S. EIA: Use of heating oil", "url": "https://www.eia.gov/energyexplained/heating-oil/use-of-heating-oil.php"},
+    {"id": "eia-prices", "label": "U.S. EIA: Heating Oil and Propane Update", "url": "https://www.eia.gov/petroleum/heatingoilpropane/"},
+    {"id": "market-competition", "label": "Current U.S. heating-oil comparison surfaces", "url": "https://www.gethomeheat.com/"}
+  ]
+}

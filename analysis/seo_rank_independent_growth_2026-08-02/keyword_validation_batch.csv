@@ -1,0 +1,23 @@
+cluster,keyword,why_validate,build_only_if
+price,heating oil prices,largest adjacent household decision query,cluster demand passes gate
+price,home heating oil prices,explicit residential fit,cluster demand passes gate
+price,heating oil price today,freshness and repeat-use intent,official data coverage exists
+price,heating oil prices near me,local commercial intent,supplier or lead routing is viable
+price,heating oil prices by state,official-data programmatic fit,state has official coverage
+price,heating oil prices by zip code,local comparison intent,credible local data is available
+price,average heating oil price,official benchmark intent,EIA or state series supports answer
+delivery,heating oil delivery,large adjacent transaction workflow,cluster demand passes gate
+delivery,heating oil delivery near me,local high-intent demand,lead buyer coverage exists
+delivery,emergency heating oil delivery,urgent commercial intent,safety-safe routing is available
+delivery,same day heating oil delivery,urgent local intent,supplier coverage is current
+delivery,cheap heating oil,price-shopping intent,comparison data can be kept current
+delivery,cash heating oil,regional price-shopping vocabulary,US demand is validated
+delivery,heating oil companies near me,supplier discovery intent,directory coverage is defensible
+delivery,heating oil suppliers near me,supplier discovery intent,directory coverage is defensible
+calculator,heating oil price calculator,utility plus purchase bridge,volume exceeds thin-tool threshold
+calculator,heating oil cost calculator,cost-estimation workflow,volume exceeds thin-tool threshold
+calculator,how much heating oil do i need,order sizing workflow,volume and SERP opening are validated
+emergency,ran out of heating oil,problem-solving workflow,volume and safe guidance fit are validated
+conversion,oil heat to heat pump conversion,high-value transition intent,US demand and buyer fit are validated
+conversion,oil heat vs heat pump cost,comparison calculator opportunity,US demand and buyer fit are validated
+

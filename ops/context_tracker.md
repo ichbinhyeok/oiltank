@@ -15,6 +15,8 @@
 - Source freshness review now persists as a first-class ops artifact with scope-level due dates, blocked-route counts, and source titles.
 - Launch-cohort state hubs and guide pages now carry richer transaction copy with state-specific trigger, first-move, document-target, and escalation sections.
 - Integration tests cover rendering, metadata, sitemap and robots rules, lead capture, event logging, and admin visibility.
+- The EIA price snapshot requires its next review on 2026-10-07; follow `ops/heating_oil_price_refresh.md`, then review weekly during the October-March heating season.
+- The 21-query U.S. Google Ads validation is complete. The combined central overlap-adjusted denominator is 107,772 searches/month, equal to 107.8 clicks/day at the owner's 3% blended CTR assumption; the 50% overlap sensitivity is 82.9/day.
 
 ## Latest decisions
 - Brand is `Oil Tank Route`; the product boundary is residential heating-oil tanks, not the broad industrial UST market.
@@ -63,6 +65,9 @@
 - Synthesized the persona-council conclusions into the home and methodology surfaces so the product now foregrounds hot trigger states, verify-route-escalate flow, and suspected-versus-confirmed-versus-leak separation.
 
 ## Next recommended tasks
+- Use `analysis/price_delivery_volume_assessment_2026-08-02.md` as the current SEO denominator. Prioritize the national price hub and a credible delivery workflow; do not turn state, ZIP, city, cheap-oil, or cash-oil modifiers into thin pages.
+- Track the price/delivery cohort separately in GSC. Replace the 3% model only after it has enough impressions to measure query-weighted CTR, and keep 100/day as a target rather than a forecast until rankings support it.
+- On or after 2026-10-07, run the EIA price refresh checklist in `ops/heating_oil_price_refresh.md`. Keep the last verified snapshot if the expected official release is unavailable.
 - Deploy behind the existing canonical host and verify production Core Web Vitals and event ingestion.
 - Add additional manufacturer models only after a current official dimension table and compatible gauge chart are reviewed.
 - Decide whether early local overlays should start with `NJ` counties once post-launch demand is visible.

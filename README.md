@@ -19,7 +19,14 @@ Suggested package root: `owner.buriedoiltank`
 - `/oil-tank-gauge-calculator/` - chart-interpolated gauge/stick result
 - `/heating-oil-delivery-check/` - before/after chart range, ticket comparison, and local Tank Passport
 - `/heating-oil-usage-calculator/` - household-rate fuel runway
+- `/heating-oil-prices/` - dated EIA residential price benchmark and seasonal-status hub
+- `/heating-oil-cost-calculator/` - local supplier quote subtotal and dated benchmark comparison
+- `/how-much-heating-oil-do-i-need/` - gauge-context order-space calculator
+- `/ran-out-of-heating-oil/` - no-heat checks, reset boundary, and qualified restart route
 - `/oil-tank-capacity-calculator/` - shape formula and measurement range
+- `/how-long-do-oil-tanks-last/` - evidence-led lifespan and condition boundary
+- `/oil-tank-gauge-replacement/` - gauge diagnosis and qualified-service boundary
+- `/heating-oil-tank-repair/` - component repair, tank condition, and release routing
 - `/heating-oil-tank-sludge-cleaning/` - service, corrosion, and possible-release router
 - `/oil-tank-replacement-planner/` - information, inspection, transaction, or urgent routing
 - `/oil-tank-replacement-cost/` - replacement quote-scope comparator
@@ -82,6 +89,8 @@ Build a **post-trigger transaction and remediation decision engine** for people 
 - `ops/persona_council_2026-04-13.md` - forced debate across demand, SERP, funnel, risk, and sponsor perspectives
 - `ops/promotion_review_system_2026-04-13.md` - how future agents should review metrics and recommend route promotion
 - `ops/route_promotion_board.md` - current held-route board and recommendation status
+- `ops/heating_oil_price_refresh.md` - EIA price refresh schedule, source boundary, update checklist, and completion log
+- `ops/price_delivery_keyword_validation_handoff.md` - completed 21-keyword Google Ads validation, settings, output files, and demand gate
 - `spec/00_strategy.md` - market thesis, positioning, wedge, and rollout philosophy
 - `spec/01_query_and_user_map.md` - jobs-to-be-done, trigger states, query families, and first user map
 - `spec/02_site_architecture.md` - canonical entities, URL graph, route families, and internal linking
@@ -103,7 +112,7 @@ Build a **post-trigger transaction and remediation decision engine** for people 
 
 ## Current implementation state
 - Spring Boot plus `jte` application scaffold is live under `owner.buriedoiltank`
-- Runtime route inventory contains 54 records: 41 supporting state/guide records plus 13 first-class product routes
+- Runtime route inventory contains 61 records: 41 supporting state/guide records plus 20 first-class product routes
 - Lead capture and event logging persist to `storage/leads`
 - Approval/rejection decisions and payout cents use an append-only audit log, leaving original lead rows unchanged
 - The admin dashboard reports progress toward 40 approved leads and $1,000 in 28 days, plus per-tool start-to-lead funnels
