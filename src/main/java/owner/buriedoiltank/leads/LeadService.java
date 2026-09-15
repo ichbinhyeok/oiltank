@@ -35,7 +35,13 @@ public class LeadService {
             "tank_type",
             "risk_band",
             "commercial_intent",
-            "result_summary"
+            "result_summary",
+            "property_address",
+            "county_municipality",
+            "primary_question",
+            "deadline",
+            "has_documents",
+            "submission_token"
     );
 
     private final Path leadsPath;
@@ -51,14 +57,26 @@ public class LeadService {
         this.csvStore.ensureFile(leadsPath, HEADERS);
     }
 
-    public void captureLead(LeadCaptureRequest request) {
+    public synchronized CapturedLead captureLead(LeadCaptureRequest request) {
+        String submissionToken = blankIfNull(request.getSubmissionToken()).trim();
+        if (!submissionToken.isBlank()) {
+            Map<String, String> existing = leads().stream()
+                    .filter(row -> submissionToken.equals(row.get("submission_token")))
+                    .findFirst()
+                    .orElse(null);
+            if (existing != null) {
+                return new CapturedLead(existing.get("lead_id"), existing.get("timestamp"), false);
+            }
+        }
         Scenario scenario = Scenario.fromSlug(request.getScenario());
         PartnerType partnerType = request.getPartnerType() == null || request.getPartnerType().isBlank()
                 ? scenario.defaultPartnerType()
                 : PartnerType.fromSlug(request.getPartnerType());
+        String leadId = UUID.randomUUID().toString();
+        String timestamp = OffsetDateTime.now(clock).toString();
         csvStore.append(leadsPath, HEADERS, List.of(
-                UUID.randomUUID().toString(),
-                OffsetDateTime.now(clock).toString(),
+                leadId,
+                timestamp,
                 request.getPageId(),
                 request.getPagePath(),
                 request.getStateSlug(),
@@ -77,11 +95,46 @@ public class LeadService {
                 blankIfNull(request.getTankType()),
                 blankIfNull(request.getRiskBand()),
                 blankIfNull(request.getCommercialIntent()),
-                blankIfNull(request.getResultSummary())
+                blankIfNull(request.getResultSummary()),
+                blankIfNull(request.getPropertyAddress()),
+                blankIfNull(request.getCountyMunicipality()),
+                blankIfNull(request.getPrimaryQuestion()),
+                blankIfNull(request.getDeadline()),
+                blankIfNull(request.getHasDocuments()),
+                submissionToken
         ));
 
+        recordStoredEvent("lead_submit", request, scenario, partnerType);
+        if ("record-research".equals(request.getRouteFamily())) {
+            recordStoredEvent("research_form_submit_success", request, scenario, partnerType);
+            if ("interpret_documents".equals(request.getPrimaryQuestion())) {
+                recordStoredEvent("document_interpretation_request", request, scenario, partnerType);
+            }
+            if (List.of("new-jersey", "new-york").contains(request.getStateSlug())) {
+                recordStoredEvent("qualified_case", request, scenario, partnerType);
+            }
+        }
+        return new CapturedLead(leadId, timestamp, true);
+    }
+
+    public List<Map<String, String>> leads() {
+        return csvStore.readAll(leadsPath);
+    }
+
+    public String leadsCsv() {
+        return csvStore.readRaw(leadsPath);
+    }
+
+    public Map<String, String> requireLead(String leadId) {
+        return leads().stream()
+                .filter(row -> leadId.equals(row.get("lead_id")))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Unknown lead ID"));
+    }
+
+    private void recordStoredEvent(String eventType, LeadCaptureRequest request, Scenario scenario, PartnerType partnerType) {
         LeadEventRequest event = new LeadEventRequest();
-        event.setEventType("lead_submit");
+        event.setEventType(eventType);
         event.setPageId(request.getPageId());
         event.setPagePath(request.getPagePath());
         event.setStateSlug(request.getStateSlug());
@@ -93,15 +146,10 @@ public class LeadService {
         eventLogService.recordEvent(event);
     }
 
-    public List<Map<String, String>> leads() {
-        return csvStore.readAll(leadsPath);
-    }
-
-    public String leadsCsv() {
-        return csvStore.readRaw(leadsPath);
-    }
-
     private static String blankIfNull(String value) {
         return value == null ? "" : value;
+    }
+
+    public record CapturedLead(String leadId, String timestamp, boolean newlyStored) {
     }
 }

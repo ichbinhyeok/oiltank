@@ -5,6 +5,11 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Arrays;
 
 public enum PartnerType {
+    RECORD_RESEARCH(
+            "record_research",
+            "Founder-led record research",
+            "Research the parcel, public record trail, agency route, supplied documents, and transaction next step."
+    ),
     SWEEP_LOCATE(
             "sweep_or_locate",
             "Tank sweep or locate specialist",

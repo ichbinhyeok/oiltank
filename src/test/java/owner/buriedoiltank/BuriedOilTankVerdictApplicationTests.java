@@ -3,7 +3,9 @@ package owner.buriedoiltank;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.matchesPattern;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -18,12 +20,15 @@ import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.List;
 import owner.buriedoiltank.ops.RouteInventoryService;
+import owner.buriedoiltank.web.ApiRequestProtectionService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.util.ReflectionTestUtils;
 
 @SpringBootTest(properties = {
 		"buried-oil-tank.storage-root=target/test-storage",
@@ -43,8 +48,12 @@ class BuriedOilTankVerdictApplicationTests {
 	@Autowired
 	private RouteInventoryService routeInventoryService;
 
+	@Autowired
+	private ApiRequestProtectionService apiRequestProtectionService;
+
 	@BeforeEach
 	void cleanStorage() throws IOException {
+		((java.util.Map<?, ?>) ReflectionTestUtils.getField(apiRequestProtectionService, "requestBuckets")).clear();
 		if (Files.exists(STORAGE_ROOT)) {
 			try (var walk = Files.walk(STORAGE_ROOT)) {
 				walk.sorted(Comparator.reverseOrder()).forEach(path -> {
@@ -60,8 +69,16 @@ class BuriedOilTankVerdictApplicationTests {
 
 	@Test
 	void contextLoads() {
-		assertThat(routeInventoryService.entries()).hasSize(61);
-		assertThat(routeInventoryService.indexableEntries()).hasSize(31);
+		assertThat(routeInventoryService.entries()).hasSize(92);
+		assertThat(routeInventoryService.indexableEntries()).hasSize(62);
+		assertThat(routeInventoryService.entries())
+				.filteredOn(entry -> entry.id().startsWith("service:"))
+				.extracting(owner.buriedoiltank.data.RouteInventoryEntry::path)
+				.containsExactlyInAnyOrder("/", "/how-it-works/", "/record-research/", "/sample-brief/", "/tools/");
+		assertThat(routeInventoryService.entries())
+				.filteredOn(entry -> "records-and-proof".equals(entry.routeFamilySlug()))
+				.extracting(owner.buriedoiltank.data.RouteInventoryEntry::partnerType)
+				.containsOnly(owner.buriedoiltank.data.PartnerType.RECORD_RESEARCH);
 		assertThat(routeInventoryService.entries())
 				.filteredOn(entry -> entry.pageType() == owner.buriedoiltank.data.PageType.PRODUCT)
 				.extracting(owner.buriedoiltank.data.RouteInventoryEntry::path)
@@ -73,10 +90,302 @@ class BuriedOilTankVerdictApplicationTests {
 		mockMvc.perform(get("/"))
 				.andExpect(status().isOk())
 				.andExpect(header().string("Content-Security-Policy", containsString("default-src 'self'")))
+				.andExpect(header().string("Content-Security-Policy", containsString("https://static.cloudflareinsights.com")))
 				.andExpect(header().string("Content-Security-Policy", containsString("object-src 'none'")))
 				.andExpect(header().string("Content-Security-Policy", containsString("frame-ancestors 'none'")))
+				.andExpect(header().string("Referrer-Policy", "same-origin"))
 				.andExpect(content().string(not(containsString("document.documentElement.classList"))))
 				.andExpect(content().string(not(containsString("window.dataLayer ="))));
+	}
+
+	@Test
+	void propertyResearchIntakeRequiresCaseFieldsAndStoresTheOperationalBriefInput() throws Exception {
+		mockMvc.perform(post("/api/leads/capture")
+						.contentType("application/x-www-form-urlencoded")
+						.header("Origin", "http://localhost:8080")
+						.param("pageId", "service:home")
+						.param("pagePath", "/")
+						.param("routeFamily", "record-research")
+						.param("scenario", "records_first")
+						.param("partnerType", "record_research")
+						.param("stateSlug", "new-jersey")
+						.param("userRole", "buyer")
+						.param("tankStatus", "unknown")
+						.param("email", "buyer@example.com"))
+				.andExpect(status().is3xxRedirection())
+				.andExpect(redirectedUrl("/?lead=error"));
+
+		mockMvc.perform(post("/api/leads/capture")
+						.contentType("application/x-www-form-urlencoded")
+						.header("Origin", "http://localhost:8080")
+						.param("pageId", "service:home")
+						.param("pagePath", "/")
+						.param("routeFamily", "record-research")
+						.param("scenario", "records_first")
+						.param("partnerType", "record_research")
+						.param("submissionToken", "research-case-1")
+						.param("propertyAddress", "197 N Fullerton Ave")
+						.param("stateSlug", "new-jersey")
+						.param("countyMunicipality", "Montclair, Essex County")
+						.param("userRole", "buyer")
+						.param("tankStatus", "unknown")
+						.param("primaryQuestion", "interpret_documents")
+						.param("deadline", "2026-09-30")
+						.param("hasDocuments", "yes")
+						.param("email", "buyer@example.com")
+						.param("notes", "Need the agency file explained"))
+				.andExpect(status().is3xxRedirection())
+				.andExpect(header().string("Location", matchesPattern("/\\?lead=success&receipt=OTR-[A-F0-9]{8}")));
+
+		String leadsCsv = Files.readString(STORAGE_ROOT.resolve("leads").resolve("leads.csv"));
+		assertThat(leadsCsv).contains("property_address,county_municipality,primary_question,deadline,has_documents,submission_token");
+		assertThat(leadsCsv).contains("197 N Fullerton Ave");
+		assertThat(leadsCsv).contains("Montclair, Essex County");
+		assertThat(leadsCsv).contains("interpret_documents");
+		assertThat(leadsCsv).contains("2026-09-30");
+		assertThat(leadsCsv).contains("record_research");
+		String eventsCsv = Files.readString(STORAGE_ROOT.resolve("leads").resolve("lead_events.csv"));
+		assertThat(eventsCsv).contains("research_form_submit_success");
+		assertThat(eventsCsv).contains("document_interpretation_request");
+		assertThat(eventsCsv).contains("qualified_case");
+		assertThat(Files.readString(STORAGE_ROOT.resolve("leads").resolve("notification-attempts.csv")))
+				.contains("disabled,notifications_disabled");
+		assertThat(Files.readString(STORAGE_ROOT.resolve("leads").resolve("customer-receipt-attempts.csv")))
+				.contains("disabled,notifications_disabled");
+	}
+
+	@Test
+	void propertyResearchIntakeAcceptsSameOriginRefererWhenBrowserOriginIsNull() throws Exception {
+		mockMvc.perform(post("/api/leads/capture")
+					.contentType("application/x-www-form-urlencoded")
+					.header("Origin", "null")
+					.header("Referer", "http://localhost:8080/sample-brief/")
+					.param("pageId", "service:sample-brief")
+					.param("pagePath", "/sample-brief/")
+					.param("routeFamily", "record-research")
+					.param("scenario", "records_first")
+					.param("partnerType", "record_research")
+					.param("propertyAddress", "197 N Fullerton Ave")
+					.param("stateSlug", "new-jersey")
+					.param("countyMunicipality", "Montclair, Essex County")
+					.param("userRole", "buyer")
+					.param("tankStatus", "documents_conflict")
+					.param("primaryQuestion", "interpret_documents")
+					.param("deadline", "2026-09-30")
+					.param("hasDocuments", "yes")
+					.param("email", "buyer.qa@example.com"))
+				.andExpect(status().is3xxRedirection())
+				.andExpect(header().string("Location", matchesPattern("/sample-brief/\\?lead=success&receipt=OTR-[A-F0-9]{8}")));
+	}
+
+	@Test
+	void duplicateResearchSubmissionTokenStoresAndCountsOnlyOneSuccessfulCase() throws Exception {
+		for (int attempt = 0; attempt < 2; attempt++) {
+			mockMvc.perform(post("/api/leads/capture")
+						.contentType("application/x-www-form-urlencoded")
+						.header("Origin", "http://localhost:8080")
+						.param("pageId", "service:record-research")
+						.param("pagePath", "/record-research/")
+						.param("routeFamily", "record-research")
+						.param("scenario", "records_first")
+						.param("partnerType", "record_research")
+						.param("submissionToken", "same-browser-submission")
+						.param("propertyAddress", "12 Duplicate Lane")
+						.param("stateSlug", "new-york")
+						.param("countyMunicipality", "Albany County")
+						.param("userRole", "owner")
+						.param("tankStatus", "unknown")
+						.param("primaryQuestion", "find_records")
+						.param("hasDocuments", "no")
+						.param("email", "duplicate@example.com"))
+					.andExpect(status().is3xxRedirection())
+					.andExpect(header().string("Location", matchesPattern("/record-research/\\?lead=success&receipt=OTR-[A-F0-9]{8}")));
+		}
+
+		assertThat(Files.readAllLines(STORAGE_ROOT.resolve("leads").resolve("leads.csv"))).hasSize(2);
+		List<String> events = Files.readAllLines(STORAGE_ROOT.resolve("leads").resolve("lead_events.csv"));
+		assertThat(events.stream().filter(line -> line.contains("research_form_submit_success")).count()).isEqualTo(1);
+		assertThat(events.stream().filter(line -> line.contains("qualified_case")).count()).isEqualTo(1);
+		assertThat(Files.readAllLines(STORAGE_ROOT.resolve("leads").resolve("notification-attempts.csv"))).hasSize(3);
+		assertThat(Files.readAllLines(STORAGE_ROOT.resolve("leads").resolve("customer-receipt-attempts.csv"))).hasSize(3);
+	}
+
+	@Test
+	void publicEventEndpointRejectsServerConfirmedSuccessEventsAndSanitizesReferrers() throws Exception {
+		mockMvc.perform(post("/api/leads/event")
+					.contentType("application/x-www-form-urlencoded")
+					.header("Origin", "http://localhost:8080")
+					.param("eventType", "research_form_submit_success")
+					.param("pageId", "service:home")
+					.param("pagePath", "/")
+					.param("scenario", "records_first")
+					.param("partnerType", "record_research"))
+				.andExpect(status().isBadRequest());
+
+		mockMvc.perform(post("/api/leads/event")
+					.contentType("application/x-www-form-urlencoded")
+					.header("Origin", "http://localhost:8080")
+					.param("eventType", "research_form_submit_attempt")
+					.param("pageId", "service:home")
+					.param("pagePath", "/")
+					.param("scenario", "records_first")
+					.param("partnerType", "record_research")
+					.param("referrer", "https://search.example/results?q=197+N+Fullerton&email=private@example.com"))
+				.andExpect(status().isAccepted());
+
+		String eventsCsv = Files.readString(STORAGE_ROOT.resolve("leads").resolve("lead_events.csv"));
+		assertThat(eventsCsv).contains("https://search.example");
+		assertThat(eventsCsv).doesNotContain("197+N+Fullerton", "private@example.com", "research_form_submit_success");
+	}
+
+	@Test
+	void adminShowsFullResearchCaseAndSupportsOperationalStatusAndNotificationRetry() throws Exception {
+		mockMvc.perform(post("/api/leads/capture")
+					.contentType("application/x-www-form-urlencoded")
+					.header("Origin", "http://localhost:8080")
+					.param("pageId", "service:sample-brief")
+					.param("pagePath", "/sample-brief/")
+					.param("routeFamily", "record-research")
+					.param("scenario", "records_first")
+					.param("partnerType", "record_research")
+					.param("submissionToken", "admin-case")
+					.param("propertyAddress", "197 N Fullerton Ave")
+					.param("stateSlug", "new-jersey")
+					.param("countyMunicipality", "Montclair, Essex County")
+					.param("userRole", "buyer")
+					.param("tankStatus", "documents_conflict")
+					.param("primaryQuestion", "interpret_documents")
+					.param("deadline", "2026-09-30")
+					.param("hasDocuments", "yes")
+					.param("email", "case@example.com")
+					.param("notes", "Need the agency file explained"))
+				.andExpect(status().is3xxRedirection());
+
+		String leadId = Files.readAllLines(STORAGE_ROOT.resolve("leads").resolve("leads.csv"))
+				.get(1).split(",", 2)[0];
+		mockMvc.perform(post("/admin/cases/status")
+					.with(httpBasic(ADMIN_USERNAME, ADMIN_PASSWORD))
+					.with(csrf())
+					.param("leadId", leadId)
+					.param("status", "researching")
+					.param("notes", "Searching municipal portal"))
+				.andExpect(status().is3xxRedirection())
+				.andExpect(redirectedUrl("/admin/?case=saved#case-desk"));
+
+		mockMvc.perform(post("/admin/cases/notification/retry")
+					.with(httpBasic(ADMIN_USERNAME, ADMIN_PASSWORD))
+					.with(csrf())
+					.param("leadId", leadId))
+				.andExpect(status().is3xxRedirection());
+
+		mockMvc.perform(get("/admin/").with(httpBasic(ADMIN_USERNAME, ADMIN_PASSWORD)))
+				.andExpect(status().isOk())
+				.andExpect(content().string(containsString("197 N Fullerton Ave")))
+				.andExpect(content().string(containsString("Montclair, Essex County")))
+				.andExpect(content().string(containsString("documents_conflict")))
+				.andExpect(content().string(containsString("interpret_documents")))
+				.andExpect(content().string(containsString("2026-09-30")))
+				.andExpect(content().string(containsString("case@example.com")))
+				.andExpect(content().string(containsString("Need the agency file explained")))
+				.andExpect(content().string(containsString("researching")))
+				.andExpect(content().string(containsString("mail: disabled")));
+
+		mockMvc.perform(get("/admin/exports/case-status.csv").with(httpBasic(ADMIN_USERNAME, ADMIN_PASSWORD)))
+				.andExpect(status().isOk())
+				.andExpect(content().string(containsString("researching")));
+		mockMvc.perform(get("/admin/exports/notification-attempts.csv").with(httpBasic(ADMIN_USERNAME, ADMIN_PASSWORD)))
+				.andExpect(status().isOk())
+				.andExpect(content().string(containsString("disabled,notifications_disabled")));
+		mockMvc.perform(get("/admin/exports/admin-metrics-snapshot.json").with(httpBasic(ADMIN_USERNAME, ADMIN_PASSWORD)))
+				.andExpect(status().isOk())
+				.andExpect(content().string(containsString("\"successfulSubmissions\" : 1")))
+				.andExpect(content().string(containsString("\"researching\" : 1")))
+				.andExpect(content().string(containsString("\"interpret_documents\" : 1")));
+	}
+
+	@Test
+	void multipartIntakeKeepsDocumentAndActivityPrivateBehindAdminAuthentication() throws Exception {
+		MockMultipartFile document = new MockMultipartFile(
+				"documents", "closure-letter.pdf", "application/pdf", "%PDF-1.7 private evidence".getBytes());
+		mockMvc.perform(multipart("/api/leads/capture")
+					.file(document)
+					.header("Origin", "http://localhost:8080")
+					.param("pageId", "service:sample-brief")
+					.param("pagePath", "/sample-brief/")
+					.param("routeFamily", "record-research")
+					.param("scenario", "records_first")
+					.param("partnerType", "record_research")
+					.param("submissionToken", "document-case")
+					.param("propertyAddress", "197 N Fullerton Ave")
+					.param("stateSlug", "new-jersey")
+					.param("countyMunicipality", "Montclair, Essex County")
+					.param("userRole", "buyer")
+					.param("tankStatus", "documents_conflict")
+					.param("primaryQuestion", "interpret_documents")
+					.param("hasDocuments", "yes")
+					.param("email", "documents@example.com"))
+				.andExpect(status().is3xxRedirection())
+				.andExpect(header().string("Location", matchesPattern("/sample-brief/\\?lead=success&receipt=OTR-[A-F0-9]{8}")));
+
+		String[] registerRow = Files.readAllLines(STORAGE_ROOT.resolve("operations").resolve("case-documents.csv"))
+				.get(1).split(",");
+		String documentId = registerRow[1];
+		String leadId = registerRow[2];
+		String downloadPath = "/admin/cases/" + leadId + "/documents/" + documentId;
+		mockMvc.perform(get(downloadPath)).andExpect(status().isUnauthorized());
+		mockMvc.perform(get(downloadPath).with(httpBasic(ADMIN_USERNAME, ADMIN_PASSWORD)))
+				.andExpect(status().isOk())
+				.andExpect(header().string("Content-Disposition", containsString("closure-letter.pdf")))
+				.andExpect(content().bytes("%PDF-1.7 private evidence".getBytes()));
+
+		mockMvc.perform(get("/admin/").with(httpBasic(ADMIN_USERNAME, ADMIN_PASSWORD)))
+				.andExpect(status().isOk())
+				.andExpect(content().string(containsString("closure-letter.pdf")))
+				.andExpect(content().string(containsString("Case activity")))
+				.andExpect(content().string(containsString("document-received")))
+				.andExpect(content().string(containsString("mail: disabled")));
+	}
+
+	@Test
+	void privacyExplainsPrivateUploadsAnalyticsExclusionAndOperationalDeletion() throws Exception {
+		mockMvc.perform(get("/privacy/"))
+				.andExpect(status().isOk())
+				.andExpect(content().string(containsString("actual uploaded PDF")))
+				.andExpect(content().string(containsString("original filename")))
+				.andExpect(content().string(containsString("excluded from GA4")))
+				.andExpect(content().string(containsString("request deletion")))
+				.andExpect(content().string(containsString("does not provide")));
+	}
+
+	@Test
+	void serviceAnalyticsEventsAcceptOnlyNonPiiCaseContext() throws Exception {
+		for (String eventType : List.of(
+				"service_cta_view",
+				"service_cta_click",
+				"research_form_start",
+				"research_form_submit_attempt"
+		)) {
+			mockMvc.perform(post("/api/leads/event")
+							.contentType("application/x-www-form-urlencoded")
+							.header("Origin", "http://localhost:8080")
+							.param("eventType", eventType)
+							.param("pageId", "service:home")
+							.param("pagePath", "/")
+							.param("stateSlug", "new-jersey")
+							.param("routeFamily", "record-research")
+							.param("scenario", "records_first")
+							.param("partnerType", "record_research")
+							.param("element", "hero"))
+					.andExpect(status().isAccepted());
+		}
+
+		String eventsCsv = Files.readString(STORAGE_ROOT.resolve("leads").resolve("lead_events.csv"));
+		assertThat(eventsCsv).contains("service_cta_view");
+		assertThat(eventsCsv).contains("research_form_submit_attempt");
+		assertThat(eventsCsv).doesNotContain("research_form_submit_success");
+		assertThat(eventsCsv).doesNotContain("qualified_case");
+		assertThat(eventsCsv).doesNotContain("197 N Fullerton");
+		assertThat(eventsCsv).doesNotContain("buyer@example.com");
 	}
 
 	@Test
@@ -84,6 +393,10 @@ class BuriedOilTankVerdictApplicationTests {
 		mockMvc.perform(get("/heating-oil-tank").queryParam("source", "test"))
 				.andExpect(status().isMovedPermanently())
 				.andExpect(header().string("Location", "/heating-oil-tank/?source=test"));
+
+		mockMvc.perform(get("/record-research"))
+				.andExpect(status().isMovedPermanently())
+				.andExpect(header().string("Location", "/record-research/"));
 
 		mockMvc.perform(get("/this-route-does-not-exist"))
 				.andExpect(status().isNotFound());
@@ -94,14 +407,16 @@ class BuriedOilTankVerdictApplicationTests {
 		mockMvc.perform(get("/"))
 				.andExpect(status().isOk())
 				.andExpect(content().string(containsString("Oil Tank Route")))
-				.andExpect(content().string(containsString("Know the tank. Plan the next move.")))
-				.andExpect(content().string(containsString("A single data model. Twenty useful routes.")))
-				.andExpect(content().string(containsString("Heating-oil tank cross-section")))
-				.andExpect(content().string(containsString("Official source material")))
+				.andExpect(content().string(containsString("Researched for you.")))
+				.andExpect(content().string(containsString("Start a property record check")))
+				.andExpect(content().string(containsString("Property address")))
+				.andExpect(content().string(containsString("The result, made useful")))
+				.andExpect(content().string(containsString("enctype=\"multipart/form-data\"")))
+				.andExpect(content().string(not(containsString("A single data model. Twenty useful routes."))))
 				.andExpect(content().string(containsString("property=\"og:image\"")))
 				.andExpect(content().string(containsString("application/ld+json")))
 				.andExpect(content().string(containsString("href=\"/states/\"")))
-				.andExpect(content().string(containsString("href=\"/heating-oil-tank/\"")))
+				.andExpect(content().string(containsString("href=\"/tools/\"")))
 				.andExpect(content().string(containsString("href=\"/contact/\"")))
 				.andExpect(content().string(not(containsString("href=\"/admin/\""))))
 				.andExpect(content().string(not(containsString("images.unsplash.com"))));
@@ -134,8 +449,29 @@ class BuriedOilTankVerdictApplicationTests {
 					.andExpect(content().string(containsString("<meta name=\"description\"")))
 					.andExpect(content().string(containsString("application/ld+json")))
 					.andExpect(content().string(containsString("Official source material")))
+					.andExpect(content().string(containsString("Start a property record check")))
 					.andExpect(content().string(not(containsString("images.unsplash.com"))));
 		}
+
+		mockMvc.perform(get("/tools/"))
+				.andExpect(status().isOk())
+				.andExpect(content().string(containsString("Residential heating-oil tools")))
+				.andExpect(content().string(containsString("A single data model. Twenty useful routes.")))
+				.andExpect(content().string(containsString("<link rel=\"canonical\" href=\"http://localhost:8080/tools/\"")));
+
+		for (String path : List.of("/how-it-works/", "/record-research/", "/sample-brief/")) {
+			mockMvc.perform(get(path))
+					.andExpect(status().isOk())
+					.andExpect(content().string(containsString("<link rel=\"canonical\" href=\"http://localhost:8080" + path + "\"")))
+					.andExpect(content().string(containsString("Start a property record check")))
+					.andExpect(content().string(containsString("data-research-form")));
+		}
+
+		mockMvc.perform(get("/sample-brief/"))
+				.andExpect(content().string(containsString("REP-NJ-001")))
+				.andExpect(content().string(containsString("Evidence review")))
+				.andExpect(content().string(containsString("does not establish removal method, soil condition, or present tank absence")))
+				.andExpect(content().string(containsString("Fictional composite")));
 
 		mockMvc.perform(get("/oil-tank-gauge-calculator/"))
 				.andExpect(content().string(containsString("Granby U.S. vertical tank capacity chart")))
@@ -304,8 +640,9 @@ class BuriedOilTankVerdictApplicationTests {
 						.andExpect(content().string(containsString("<link rel=\"canonical\" href=\"http://localhost:8080/states/" + state + "/" + route + "/\"")))
 						.andExpect(content().string(containsString("application/ld+json")))
 						.andExpect(content().string(containsString("Official lookup sequence")))
-						.andExpect(content().string(containsString("No address stored")))
-						.andExpect(content().string(containsString("Optional worksheet")));
+						.andExpect(content().string(containsString("Property-specific research")))
+						.andExpect(content().string(containsString("Identifiers to keep")))
+						.andExpect(content().string(containsString("data-research-form")));
 			}
 
 			for (String heldRoute : List.of("removal-vs-abandonment", "leak-and-cleanup", "cost-direction")) {
@@ -375,8 +712,8 @@ class BuriedOilTankVerdictApplicationTests {
 
 		mockMvc.perform(get("/methodology/"))
 				.andExpect(status().isOk())
-				.andExpect(content().string(containsString("We start with permits, disclosure, and site facts before talking removal, cleanup, or cost.")))
-				.andExpect(content().string(containsString("Every page gets a source check, review date, and scope check before it stays public.")));
+				.andExpect(content().string(containsString("We cross-check assessor, GIS, permit, environmental, conversion, and indexed document sources")))
+				.andExpect(content().string(containsString("The brief states confirmed facts, unresolved gaps, conflicts, plain-English meaning, and prioritized next actions.")));
 
 		mockMvc.perform(get("/contact/"))
 				.andExpect(status().isOk())
@@ -395,6 +732,10 @@ class BuriedOilTankVerdictApplicationTests {
 				.andExpect(status().isOk())
 				.andExpect(content().string(containsString("/states/")))
 				.andExpect(content().string(containsString("/guides/")))
+				.andExpect(content().string(containsString("/how-it-works/")))
+				.andExpect(content().string(containsString("/record-research/")))
+				.andExpect(content().string(containsString("/sample-brief/")))
+				.andExpect(content().string(containsString("/tools/")))
 				.andExpect(content().string(containsString("/oil-tank-gauge-calculator/")))
 				.andExpect(content().string(containsString("/heating-oil-tank-charts/")))
 				.andExpect(content().string(containsString("/heating-oil-delivery-check/")))
@@ -491,22 +832,12 @@ class BuriedOilTankVerdictApplicationTests {
 		mockMvc.perform(get("/admin/").with(httpBasic(ADMIN_USERNAME, ADMIN_PASSWORD)))
 				.andExpect(status().isOk())
 				.andExpect(header().string("X-Robots-Tag", "noindex, nofollow, noarchive"))
-				.andExpect(content().string(containsString("Operations dashboard")))
-				.andExpect(content().string(containsString("Lead submissions (28d)")))
-				.andExpect(content().string(containsString("Review approval and payout")))
-				.andExpect(content().string(containsString("Tool funnel / 28 days")))
-				.andExpect(content().string(containsString("Freshness review queue")))
+				.andExpect(content().string(containsString("Property research case desk")))
+				.andExpect(content().string(containsString("Successful submissions (28d)")))
+				.andExpect(content().string(containsString("Service funnel / 28 days")))
+				.andExpect(content().string(containsString("Utility funnel / 28 days")))
+				.andExpect(content().string(not(containsString("Review approval and payout"))))
 				.andExpect(content().string(containsString("/states/new-jersey/buyer-seller/")));
-
-		mockMvc.perform(post("/admin/leads/decision")
-					.with(httpBasic(ADMIN_USERNAME, ADMIN_PASSWORD))
-					.with(csrf())
-					.param("leadId", leadId)
-					.param("disposition", "approved")
-					.param("payoutCents", "2500")
-					.param("notes", "Approved test lead"))
-				.andExpect(status().is3xxRedirection())
-				.andExpect(redirectedUrl("/admin/?decision=saved#lead-review"));
 
 		mockMvc.perform(get("/admin/exports/route-status.csv").with(httpBasic(ADMIN_USERNAME, ADMIN_PASSWORD)))
 				.andExpect(status().isOk())
@@ -526,17 +857,16 @@ class BuriedOilTankVerdictApplicationTests {
 
 		mockMvc.perform(get("/admin/exports/admin-metrics-snapshot.json").with(httpBasic(ADMIN_USERNAME, ADMIN_PASSWORD)))
 				.andExpect(status().isOk())
-				.andExpect(content().string(containsString("\"leadSubmissions\" : 1")))
-				.andExpect(content().string(containsString("\"approvedLeads\" : 1")))
-				.andExpect(content().string(containsString("\"approvedPayoutCents\" : 2500")))
+				.andExpect(content().string(containsString("\"successfulSubmissions\" : 0")))
 				.andExpect(content().string(containsString("\"toolId\" : \"replacement-planner\"")))
-				.andExpect(content().string(containsString("\"ctaClicks\" : 1")))
 				.andExpect(content().string(containsString("\"staleScopeCount\"")));
 
 		mockMvc.perform(get("/admin/exports/routes.json").with(httpBasic(ADMIN_USERNAME, ADMIN_PASSWORD)))
 				.andExpect(status().isOk())
 				.andExpect(content().string(containsString("\"path\" : \"/states/new-jersey/buyer-seller/\"")))
 				.andExpect(content().string(containsString("\"routeFamily\" : \"buyer-seller\"")))
+				.andExpect(content().string(containsString("\"pageType\" : \"SERVICE\"")))
+				.andExpect(content().string(containsString("\"path\" : \"/sample-brief/\"")))
 				.andExpect(content().string(containsString("\"pageType\" : \"PRODUCT\"")))
 				.andExpect(content().string(containsString("\"path\" : \"/oil-tank-gauge-calculator/\"")));
 
@@ -549,10 +879,6 @@ class BuriedOilTankVerdictApplicationTests {
 				.andExpect(status().isOk())
 				.andExpect(content().string(containsString("cta_click")))
 				.andExpect(content().string(containsString("lead_submit")));
-
-		mockMvc.perform(get("/admin/exports/lead-dispositions.csv").with(httpBasic(ADMIN_USERNAME, ADMIN_PASSWORD)))
-				.andExpect(status().isOk())
-				.andExpect(content().string(containsString("approved,2500,Approved test lead")));
 
 		assertThat(Files.exists(STORAGE_ROOT.resolve("ops").resolve("route-status.csv"))).isTrue();
 		assertThat(Files.exists(STORAGE_ROOT.resolve("ops").resolve("promotion-review.json"))).isTrue();

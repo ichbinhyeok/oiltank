@@ -1,6 +1,7 @@
 package owner.buriedoiltank.leads;
 
 import java.nio.file.Path;
+import java.net.URI;
 import java.time.Clock;
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -27,12 +28,25 @@ public class EventLogService {
             "primary_cta_click",
             "records_checklist_complete",
             "records_state_select",
+            "service_cta_view",
+            "service_cta_click",
+            "research_form_start",
+            "research_form_submit_attempt",
+            "research_form_submit_success",
+            "document_interpretation_request",
+            "qualified_case",
             "result_cta_click",
             "result_email_submit",
             "result_view",
             "sweep_readiness_complete",
             "tool_complete",
             "tool_start"
+    );
+    private static final Set<String> SERVER_CONFIRMED_EVENT_TYPES = Set.of(
+            "lead_submit",
+            "research_form_submit_success",
+            "document_interpretation_request",
+            "qualified_case"
     );
     private static final List<String> HEADERS = List.of(
             "timestamp",
@@ -84,7 +98,7 @@ public class EventLogService {
                 scenario.slug(),
                 partnerType.slug(),
                 blankIfNull(request.getElement()),
-                blankIfNull(request.getReferrer()),
+                safeReferrer(request.getReferrer()),
                 blankIfNull(request.getToolId())
         ));
         eventPublisher.publishEvent(new OpsRefreshRequestedEvent("lead-event-recorded"));
@@ -98,7 +112,26 @@ public class EventLogService {
         return csvStore.readRaw(eventsPath);
     }
 
+    public boolean isClientEventType(String eventType) {
+        return ALLOWED_EVENT_TYPES.contains(eventType) && !SERVER_CONFIRMED_EVENT_TYPES.contains(eventType);
+    }
+
     private static String blankIfNull(String value) {
         return value == null ? "" : value;
+    }
+
+    private static String safeReferrer(String value) {
+        if (value == null || value.isBlank()) return "";
+        try {
+            URI uri = URI.create(value.trim());
+            if (uri.getHost() == null || !("http".equalsIgnoreCase(uri.getScheme()) || "https".equalsIgnoreCase(uri.getScheme()))) {
+                return "";
+            }
+            int port = uri.getPort();
+            return uri.getScheme().toLowerCase() + "://" + uri.getHost().toLowerCase()
+                    + (port == -1 ? "" : ":" + port);
+        } catch (IllegalArgumentException exception) {
+            return "";
+        }
     }
 }

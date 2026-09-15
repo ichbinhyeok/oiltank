@@ -26,7 +26,8 @@ import owner.buriedoiltank.data.StateRecord;
 import owner.buriedoiltank.data.SourceFreshnessStatus;
 import owner.buriedoiltank.leads.EventLogService;
 import owner.buriedoiltank.leads.LeadService;
-import owner.buriedoiltank.leads.LeadDispositionService;
+import owner.buriedoiltank.leads.CaseStatus;
+import owner.buriedoiltank.leads.CaseStatusService;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
@@ -58,7 +59,7 @@ public class OpsSnapshotService {
     private final ContentRepository contentRepository;
     private final RouteInventoryService routeInventoryService;
     private final LeadService leadService;
-    private final LeadDispositionService leadDispositionService;
+    private final CaseStatusService caseStatusService;
     private final EventLogService eventLogService;
     private final SearchMetricsRepository searchMetricsRepository;
     private final ObjectMapper objectMapper;
@@ -70,7 +71,7 @@ public class OpsSnapshotService {
             ContentRepository contentRepository,
             RouteInventoryService routeInventoryService,
             LeadService leadService,
-            LeadDispositionService leadDispositionService,
+            CaseStatusService caseStatusService,
             EventLogService eventLogService,
             SearchMetricsRepository searchMetricsRepository,
             ObjectMapper objectMapper,
@@ -80,7 +81,7 @@ public class OpsSnapshotService {
         this.contentRepository = contentRepository;
         this.routeInventoryService = routeInventoryService;
         this.leadService = leadService;
-        this.leadDispositionService = leadDispositionService;
+        this.caseStatusService = caseStatusService;
         this.eventLogService = eventLogService;
         this.searchMetricsRepository = searchMetricsRepository;
         this.objectMapper = objectMapper;
@@ -98,22 +99,24 @@ public class OpsSnapshotService {
         List<Map<String, String>> recentEvents = eventLogService.events().stream()
                 .filter(withinLast28Days())
                 .toList();
-        Map<String, Map<String, String>> latestDispositions = leadDispositionService.latestByLeadId();
-        long approvedLeads = countDispositions(recentLeads, latestDispositions, "approved");
-        long rejectedLeads = countDispositions(recentLeads, latestDispositions, "rejected");
-        long pendingLeads = Math.max(0, recentLeads.size() - approvedLeads - rejectedLeads);
-        long approvedPayoutCents = recentLeads.stream()
-                .map(row -> latestDispositions.get(row.getOrDefault("lead_id", "")))
-                .filter(java.util.Objects::nonNull)
-                .filter(row -> "approved".equals(row.get("disposition")))
-                .mapToLong(row -> parseLong(row.get("payout_cents")))
-                .sum();
-
-        Map<String, Long> leadsByPartner = recentLeads.stream()
-                .collect(Collectors.groupingBy(row -> row.getOrDefault("partner_type", "unknown"), LinkedHashMap::new, Collectors.counting()));
-        Map<String, Long> ctaClicksByRouteFamily = recentEvents.stream()
-                .filter(row -> "cta_click".equals(row.get("event_type")))
-                .collect(Collectors.groupingBy(row -> row.getOrDefault("route_family", "guide"), LinkedHashMap::new, Collectors.counting()));
+        List<Map<String, String>> researchCases = recentLeads.stream()
+                .filter(row -> "record-research".equals(row.get("route_family")))
+                .toList();
+        Map<String, Map<String, String>> latestStatuses = caseStatusService.latestByLeadId();
+        Map<String, Long> casesByStatus = researchCases.stream().collect(Collectors.groupingBy(
+                row -> latestStatuses.getOrDefault(row.getOrDefault("lead_id", ""), Map.of())
+                        .getOrDefault("status", CaseStatus.INTAKE.slug()),
+                LinkedHashMap::new,
+                Collectors.counting()
+        ));
+        Map<String, Long> submissionsByPage = groupResearchCases(researchCases, "page_id", "unknown-page");
+        Map<String, Long> submissionsByState = groupResearchCases(researchCases, "state_slug", "unknown-state");
+        Map<String, Long> submissionsByQuestion = groupResearchCases(researchCases, "primary_question", "unknown-question");
+        long openCases = researchCases.stream()
+                .filter(row -> !CaseStatus.CLOSED.slug().equals(latestStatuses
+                        .getOrDefault(row.getOrDefault("lead_id", ""), Map.of())
+                        .getOrDefault("status", CaseStatus.INTAKE.slug())))
+                .count();
 
         List<OpsSnapshots.RouteStatusSnapshot> routeStatuses = routeInventoryService.entries().stream()
                 .map(entry -> buildRouteStatus(reviewDate, recentLeads, recentEvents, entry))
@@ -137,15 +140,17 @@ public class OpsSnapshotService {
                 sourceFreshnessReviewSnapshot.staleScopeCount(),
                 sourceFreshnessReviewSnapshot.freshScopeCount(),
                 sourceFreshnessReviewSnapshot.staleRouteCount(),
-                recentEvents.stream().filter(row -> "cta_click".equals(row.get("event_type"))).count(),
-                recentEvents.stream().filter(row -> "lead_open".equals(row.get("event_type"))).count(),
-                recentLeads.size(),
-                approvedLeads,
-                rejectedLeads,
-                pendingLeads,
-                approvedPayoutCents,
-                leadsByPartner,
-                ctaClicksByRouteFamily,
+                countEvents(recentEvents, "service_cta_view"),
+                countEvents(recentEvents, "service_cta_click"),
+                countEvents(recentEvents, "research_form_start"),
+                researchCases.size(),
+                researchCases.stream().filter(row -> "interpret_documents".equals(row.get("primary_question"))).count(),
+                researchCases.stream().filter(row -> List.of("new-jersey", "new-york").contains(row.get("state_slug"))).count(),
+                openCases,
+                casesByStatus,
+                submissionsByPage,
+                submissionsByState,
+                submissionsByQuestion,
                 buildToolFunnels(recentLeads, recentEvents),
                 staleScopes
         );
@@ -235,8 +240,10 @@ public class OpsSnapshotService {
             List<Map<String, String>> recentEvents,
             RouteInventoryEntry entry
     ) {
-        long ctaClicks = countEventsForPage(recentEvents, entry.id(), "cta_click");
-        long leadOpens = countEventsForPage(recentEvents, entry.id(), "lead_open");
+        long ctaClicks = countEventsForPage(recentEvents, entry.id(), "cta_click")
+                + countEventsForPage(recentEvents, entry.id(), "service_cta_click");
+        long leadOpens = countEventsForPage(recentEvents, entry.id(), "lead_open")
+                + countEventsForPage(recentEvents, entry.id(), "research_form_start");
         long leadSubmissions = countLeadsForPage(recentLeads, entry.id());
         PromotionRecommendation recommendation = dynamicRecommendation(entry, ctaClicks, leadOpens, leadSubmissions);
         String recommendationReason = dynamicRecommendationReason(entry, recommendation, ctaClicks, leadOpens, leadSubmissions);
@@ -328,14 +335,14 @@ public class OpsSnapshotService {
         if (noHeldEvidence) {
             blockers.add("no query evidence");
         }
-        if (adminMetricsSnapshot.ctaClicks() == 0) {
-            blockers.add("weak CTA behavior");
+        if (adminMetricsSnapshot.serviceCtaClicks() == 0) {
+            blockers.add("no service CTA clicks");
         }
-        if (adminMetricsSnapshot.leadSubmissions() == 0) {
-            blockers.add("weak lead evidence");
+        if (adminMetricsSnapshot.successfulSubmissions() == 0) {
+            blockers.add("no successful record-research submissions");
         }
-        if (adminMetricsSnapshot.leadsByPartnerType().isEmpty()) {
-            blockers.add("partner gap");
+        if (adminMetricsSnapshot.qualifiedCases() == 0) {
+            blockers.add("no qualified NJ/NY cases");
         }
         return blockers;
     }
@@ -350,6 +357,16 @@ public class OpsSnapshotService {
         }
         for (GuideRecord guide : contentRepository.guides()) {
             scopes.add(buildGuideFreshnessScope(reviewDate, routeStatuses, guide));
+        }
+        for (var route : owner.buriedoiltank.data.ResearchCatalog.routes()) {
+            var entry = owner.buriedoiltank.data.ResearchCatalog.ALL.stream()
+                    .filter(e -> e.id().equals(route.id())).findFirst();
+            var sources = entry.map(e -> e.steps().stream().map(owner.buriedoiltank.data.ResearchCatalog.Step::sourceLabel).distinct().toList())
+                    .orElse(List.of("ResearchCatalog public-source guidance and linked walkthroughs"));
+            scopes.add(buildFreshnessScope(reviewDate, route.id(), route.title(), "research",
+                    reviewDate.isAfter(route.nextReviewOn()) ? SourceFreshnessStatus.STALE : SourceFreshnessStatus.FRESH,
+                    route.verifiedOn(), route.nextReviewOn(),
+                    routeStatuses.stream().filter(row -> row.routePath().equals(route.path())).toList(), sources));
         }
 
         List<OpsSnapshots.FreshnessScopeSnapshot> sortedScopes = scopes.stream()
@@ -517,24 +534,16 @@ public class OpsSnapshotService {
                 .count();
     }
 
-    private long countDispositions(
-            List<Map<String, String>> leads,
-            Map<String, Map<String, String>> latestDispositions,
-            String disposition
-    ) {
-        return leads.stream()
-                .map(row -> latestDispositions.get(row.getOrDefault("lead_id", "")))
-                .filter(java.util.Objects::nonNull)
-                .filter(row -> disposition.equals(row.get("disposition")))
-                .count();
+    private static long countEvents(List<Map<String, String>> events, String eventType) {
+        return events.stream().filter(row -> eventType.equals(row.get("event_type"))).count();
     }
 
-    private static long parseLong(String value) {
-        try {
-            return Long.parseLong(value);
-        } catch (Exception exception) {
-            return 0;
-        }
+    private static Map<String, Long> groupResearchCases(List<Map<String, String>> cases, String field, String fallback) {
+        return cases.stream().collect(Collectors.groupingBy(
+                row -> row.getOrDefault(field, "").isBlank() ? fallback : row.get(field),
+                LinkedHashMap::new,
+                Collectors.counting()
+        ));
     }
 
     private Predicate<Map<String, String>> withinLast28Days() {

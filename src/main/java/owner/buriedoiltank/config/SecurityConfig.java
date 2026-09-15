@@ -42,14 +42,14 @@ public class SecurityConfig {
                 .headers(headers -> headers
                         .contentSecurityPolicy(csp -> csp.policyDirectives(
                                 "default-src 'self'; "
-                                        + "script-src 'self' https://www.googletagmanager.com; "
+                                        + "script-src 'self' https://www.googletagmanager.com https://static.cloudflareinsights.com; "
                                         + "style-src 'self'; "
                                         + "img-src 'self' data: https://www.google-analytics.com https://*.google-analytics.com; "
                                         + "font-src 'self'; "
-                                        + "connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com; "
+                                        + "connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://cloudflareinsights.com; "
                                         + "object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"))
                         .referrerPolicy(policy ->
-                                policy.policy(ReferrerPolicyHeaderWriter.ReferrerPolicy.NO_REFERRER)))
+                                policy.policy(ReferrerPolicyHeaderWriter.ReferrerPolicy.SAME_ORIGIN)))
                 .addFilterBefore(adminResponseHeaderFilter, BasicAuthenticationFilter.class);
 
         return http.build();

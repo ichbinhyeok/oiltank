@@ -12,7 +12,7 @@ import owner.buriedoiltank.config.SiteProperties;
 import owner.buriedoiltank.data.ContentRepository;
 import owner.buriedoiltank.leads.EventLogService;
 import owner.buriedoiltank.leads.LeadService;
-import owner.buriedoiltank.leads.LeadDispositionService;
+import owner.buriedoiltank.leads.CaseStatusService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 import org.springframework.context.ApplicationEventPublisher;
@@ -34,13 +34,13 @@ class OpsSnapshotServiceTests {
         };
         EventLogService eventLogService = new EventLogService(siteProperties, csvStore, fixedClock, eventPublisher);
         LeadService leadService = new LeadService(siteProperties, csvStore, fixedClock, eventLogService);
-        LeadDispositionService leadDispositionService = new LeadDispositionService(siteProperties, csvStore, fixedClock, eventPublisher);
+        CaseStatusService caseStatusService = new CaseStatusService(siteProperties, csvStore, fixedClock, eventPublisher);
         SearchMetricsRepository searchMetricsRepository = new SearchMetricsRepository(csvStore, siteProperties, fixedClock);
         OpsSnapshotService opsSnapshotService = new OpsSnapshotService(
                 contentRepository,
                 routeInventoryService,
                 leadService,
-                leadDispositionService,
+                caseStatusService,
                 eventLogService,
                 searchMetricsRepository,
                 objectMapper,
@@ -51,7 +51,7 @@ class OpsSnapshotServiceTests {
         OpsSnapshots.SnapshotBundle snapshotBundle = opsSnapshotService.snapshotBundle();
 
         assertThat(snapshotBundle.sourceFreshnessReviewSnapshot().staleScopeCount()).isEqualTo(4);
-        assertThat(snapshotBundle.sourceFreshnessReviewSnapshot().freshScopeCount()).isEqualTo(7);
+        assertThat(snapshotBundle.sourceFreshnessReviewSnapshot().freshScopeCount()).isEqualTo(7 + owner.buriedoiltank.data.ResearchCatalog.routes().size());
         assertThat(snapshotBundle.sourceFreshnessReviewSnapshot().staleRouteCount()).isEqualTo(22);
         assertThat(snapshotBundle.adminMetricsSnapshot().staleScopeCount()).isEqualTo(4);
         assertThat(snapshotBundle.adminMetricsSnapshot().staleRouteCount()).isEqualTo(22);

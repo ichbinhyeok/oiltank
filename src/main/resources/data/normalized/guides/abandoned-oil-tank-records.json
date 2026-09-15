@@ -5,7 +5,7 @@
   "quickAnswer": "Missing records are a reason to verify more, not proof that the property is tank-free.",
   "stateEntryPrompt": "Then go to your state page for permits, agency rules, and the right next call.",
   "primaryScenario": "records_first",
-  "primaryPartnerType": "sweep_or_locate",
+  "primaryPartnerType": "record_research",
   "primaryRouteFamily": "records-and-proof",
   "indexable": true,
   "introPoints": [

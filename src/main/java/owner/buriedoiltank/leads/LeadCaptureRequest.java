@@ -51,6 +51,18 @@ public class LeadCaptureRequest {
     private String commercialIntent;
     @Size(max = 240)
     private String resultSummary;
+    @Size(max = 240)
+    private String propertyAddress;
+    @Size(max = 160)
+    private String countyMunicipality;
+    @Size(max = 80)
+    private String primaryQuestion;
+    @Size(max = 40)
+    private String deadline;
+    @Size(max = 24)
+    private String hasDocuments;
+    @Size(max = 64)
+    private String submissionToken;
 
     public String getPageId() {
         return pageId;
@@ -202,5 +214,53 @@ public class LeadCaptureRequest {
 
     public void setResultSummary(String resultSummary) {
         this.resultSummary = resultSummary;
+    }
+
+    public String getPropertyAddress() {
+        return propertyAddress;
+    }
+
+    public void setPropertyAddress(String propertyAddress) {
+        this.propertyAddress = propertyAddress;
+    }
+
+    public String getCountyMunicipality() {
+        return countyMunicipality;
+    }
+
+    public void setCountyMunicipality(String countyMunicipality) {
+        this.countyMunicipality = countyMunicipality;
+    }
+
+    public String getPrimaryQuestion() {
+        return primaryQuestion;
+    }
+
+    public void setPrimaryQuestion(String primaryQuestion) {
+        this.primaryQuestion = primaryQuestion;
+    }
+
+    public String getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(String deadline) {
+        this.deadline = deadline;
+    }
+
+    public String getHasDocuments() {
+        return hasDocuments;
+    }
+
+    public void setHasDocuments(String hasDocuments) {
+        this.hasDocuments = hasDocuments;
+    }
+
+    public String getSubmissionToken() {
+        return submissionToken;
+    }
+
+    public void setSubmissionToken(String submissionToken) {
+        this.submissionToken = submissionToken;
     }
 }

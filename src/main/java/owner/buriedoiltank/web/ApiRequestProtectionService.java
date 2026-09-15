@@ -30,13 +30,16 @@ public class ApiRequestProtectionService {
     }
 
     public boolean isTrustedRequest(HttpServletRequest request) {
-        String candidate = firstNonBlank(request.getHeader("Origin"), request.getHeader("Referer"));
-        if (candidate == null) {
+        return matchesExpectedOrigin(request.getHeader("Origin"))
+                || matchesExpectedOrigin(request.getHeader("Referer"));
+    }
+
+    private boolean matchesExpectedOrigin(String candidate) {
+        if (candidate == null || candidate.isBlank() || "null".equalsIgnoreCase(candidate.trim())) {
             return false;
         }
-
         try {
-            return expectedOrigin.matches(Origin.from(URI.create(candidate)));
+            return expectedOrigin.matches(Origin.from(URI.create(candidate.trim())));
         } catch (IllegalArgumentException exception) {
             return false;
         }
@@ -95,16 +98,6 @@ public class ApiRequestProtectionService {
     private static String clientIdentifier(HttpServletRequest request) {
         String remoteAddress = request.getRemoteAddr();
         return remoteAddress == null || remoteAddress.isBlank() ? "unknown" : remoteAddress;
-    }
-
-    private static String firstNonBlank(String first, String second) {
-        if (first != null && !first.isBlank()) {
-            return first.trim();
-        }
-        if (second != null && !second.isBlank()) {
-            return second.trim();
-        }
-        return null;
     }
 
     private record Origin(String scheme, String host, int port) {
