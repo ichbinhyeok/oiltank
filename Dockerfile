@@ -13,6 +13,7 @@ COPY src src
 RUN ./mvnw package -DskipTests
 
 FROM bellsoft/liberica-openjre-alpine:21
+RUN apk add --no-cache 'libssl3>=3.5.8-r0' 'libcrypto3>=3.5.8-r0'
 WORKDIR /app
 
 COPY --from=build /app/target/*.jar /app/app.jar
