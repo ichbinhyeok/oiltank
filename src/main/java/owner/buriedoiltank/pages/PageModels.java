@@ -133,18 +133,49 @@ public final class PageModels {
     ) {
     }
 
-    public record LeadReviewRow(
+    public record CaseReviewRow(
             String leadId,
             String submittedAt,
+            String propertyAddress,
+            String stateSlug,
+            String countyMunicipality,
+            String userRole,
+            String tankStatus,
+            String primaryQuestion,
+            String deadline,
+            String hasDocuments,
             String email,
-            String phone,
-            String toolId,
-            String riskBand,
-            String commercialIntent,
-            String resultSummary,
-            String disposition,
-            int payoutCents,
-            String decisionNotes
+            String notes,
+            String caseStatus,
+            String statusNotes,
+            String notificationStatus,
+            String notificationError,
+            String customerReceiptStatus,
+            String customerReceiptError,
+            List<CaseDocumentRow> documents,
+            List<CaseActivityRow> activities
+    ) {
+    }
+
+    public record CaseDocumentRow(
+            String documentId,
+            String originalName,
+            String contentType,
+            String sizeLabel
+    ) {
+    }
+
+    public record CaseActivityRow(
+            String timestamp,
+            String activityType,
+            String routeId,
+            String agency,
+            String channel,
+            String outcome,
+            String sourceId,
+            String notes,
+            String nextAction,
+            String checkDate
     ) {
     }
 
@@ -163,19 +194,22 @@ public final class PageModels {
     ) {
     }
 
-    public record HomePageModel(
+    public record HomePageModel(PageMeta meta) {
+    }
+
+    public record ServicePageModel(
             PageMeta meta,
-            List<LinkCard> scenarioCards,
-            List<String> hotStates,
-            List<LinkCard> decisionPathCards,
-            List<StateCard> states,
-            List<LinkCard> guideCards,
-            List<String> caseSeparationRules,
-            List<String> guardrails,
-            List<AudienceCard> audienceCards,
-            List<String> takeaways,
-            int trackedSourceCount
+            String pageId,
+            String pagePath,
+            String activeNav,
+            String kind,
+            String eyebrow,
+            String heading,
+            String intro
     ) {
+        public boolean isKind(String value) {
+            return kind.equals(value);
+        }
     }
 
     public record HubPageModel(
@@ -267,20 +301,28 @@ public final class PageModels {
             List<Breadcrumb> breadcrumbs,
             String countyName
     ) {
+        public String sourcePath() { return java.net.URI.create(meta.canonicalUrl()).getPath(); }
+        public String sourceId() {
+            return countyName == null || countyName.isBlank() ? stateSlug + ":records-and-proof"
+                : "new-york:county:" + sourcePath().split("/")[4];
+        }
     }
 
     public record AdminPageModel(
             PageMeta meta,
             List<MetricCard> metrics,
-            List<PartnerMetric> partnerMetrics,
-            List<RouteFamilyMetric> routeFamilyMetrics,
+            List<PartnerMetric> statusMetrics,
+            List<PartnerMetric> stateMetrics,
+            List<PartnerMetric> pageMetrics,
+            List<PartnerMetric> questionMetrics,
             List<ToolFunnelMetric> toolFunnels,
-            List<LeadReviewRow> leadRows,
+            List<CaseReviewRow> caseRows,
             List<RouteReviewRow> routeRows,
             List<FreshnessReviewRow> staleFreshnessRows,
             List<FreshnessReviewRow> freshnessRows,
             String freshnessSummary,
-            String reviewSummary
+            String reviewSummary,
+            String notificationReadiness
     ) {
     }
 }

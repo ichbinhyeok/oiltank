@@ -1,221 +1,37 @@
 @import owner.buriedoiltank.pages.PageModels.HomePageModel
+@import owner.buriedoiltank.data.ResearchCatalog
 @param HomePageModel page
 @template.layout.page(meta = page.meta(), activeNav = "home", content = @`
-<section class="hero hero--home">
-    <div class="hero__inner hero__inner--home">
-        <div class="hero__copy">
-            <div class="hero__status">Start here</div>
-            <div class="section__eyebrow">For buyers, sellers, and agents trying to keep a deal on track</div>
-            <h1>
-                <span class="hero__title-line">Figure out the</span>
-                <span class="hero__title-line"><span class="hero__accent">next step</span></span>
-                <span class="hero__title-line hero__title-line--lead">before closing</span>
-            </h1>
-            <p class="hero__lede">If a buried heating-oil tank might be on the property, start by figuring out whether you need records, a tank sweep, or a confirmed-tank path. This site is built to help you make that call quickly.</p>
-            <div class="hero__actions">
-                <a class="button" href="#start-here">Choose your situation</a>
-                <a class="button button--secondary" href="#states">Browse state pages</a>
-            </div>
-        </div>
-        <div class="hero__aside hero__aside--home">
-            <div class="hero__media hero__media--home">
-                @template.partials.tankDiagram()
-                <div class="hero__stamp hero__stamp--dark">
-                    <strong>Start with the smallest useful question</strong>
-                    <span>Do you need records, a sweep, or a confirmed-tank decision? Answer that first.</span>
-                </div>
-            </div>
-            <div class="hero__docket">
-                <div class="docket-row">
-                    <span class="docket-row__label">What you get</span>
-                    <p>A fast path to the next action instead of a long oil-tank explainer.</p>
-                </div>
-                <div class="docket-row">
-                    <span class="docket-row__label">Who this helps</span>
-                    <p>Buyers, sellers, owners, agents, and attorneys trying to keep a live deal on track.</p>
-                </div>
-                <div class="docket-row">
-                    <span class="docket-row__label">What to avoid</span>
-                    <p>Jumping into quotes or cleanup talk before you know which path this property is actually on.</p>
-                </div>
-            </div>
-        </div>
+<section class="v2-hero" data-page-id="service:home">
+    <img class="v2-hero__image" src="/images/property-editorial.jpg" width="1672" height="941" alt="Illustrative northeastern home framed by mature trees" fetchpriority="high">
+    <div class="v2-shell v2-hero__content">
+        <p class="v2-eyebrow">Oil Tank Route / Property record research</p>
+        <h1>Oil tank records.<br>Researched for you.</h1>
+        <p>We research missing permits, removal paperwork, and conflicting records—then show what the evidence supports and what remains unresolved.</p>
+        <a class="v2-button v2-button--white" href="#start-check" data-service-cta data-cta-location="hero">Start a property record check <span aria-hidden="true">↗</span></a>
+        <div class="v2-hero__meta"><span>New Jersey &amp; New York</span><span>Free founder-led beta</span></div>
     </div>
+    <div class="v2-hero__caption">Illustrative image · not a customer property</div>
 </section>
-
-<section id="start-here" class="section section--contrast">
-    <div class="section__inner">
-        <div class="section__header section__header--spaced">
-            <div>
-                <div class="section__eyebrow section__eyebrow--inverse">Start here</div>
-                <h2>Choose the situation that matches what you know right now.</h2>
-            </div>
-        </div>
-        <div class="route-grid">
-            @for (var card : page.scenarioCards())
-                <a class="route-card" href="${card.href()}">
-                    <span class="route-card__badge">${card.badge()}</span>
-                    <strong>${card.title()}</strong>
-                    <p>${card.description()}</p>
-                </a>
-            @endfor
-        </div>
-        <div class="section__header section__header--spaced">
-            <div>
-                <div class="section__eyebrow section__eyebrow--inverse">Then go deeper</div>
-                <h3>Use these once you already know the lane you are in.</h3>
-            </div>
-        </div>
-        <div class="route-grid route-grid--secondary">
-            @for (var card : page.decisionPathCards())
-                <a class="route-card route-card--secondary" href="${card.href()}">
-                    <span class="route-card__badge">${card.badge()}</span>
-                    <strong>${card.title()}</strong>
-                    <p>${card.description()}</p>
-                </a>
-            @endfor
-        </div>
+<section class="v2-intro v2-shell">
+    <p class="v2-eyebrow">A research service. A human on your side.</p>
+    <h2>You don’t need another<br>list of places to look.</h2>
+    <div><p>We match the property, work through the relevant sources, and compare the documents. You receive a source-backed brief—not just links to government websites.</p><a class="v2-text-link" href="/how-it-works/">See what we handle <span>↗</span></a></div>
+</section>
+@template.partials.researchStandard()
+<section class="v2-section v2-soft"><div class="v2-shell">
+    <div class="v2-section-head"><div><p class="v2-eyebrow">Start with your question</p><h2>What’s missing<br>from the picture?</h2></div><p>A missing file, a seller’s claim, or documents that don’t agree. Each calls for a different next step.</p></div>
+    <div class="v2-intents">
+        <a href="/record-help/missing-removal-records/"><span class="v2-index">01 / Locate</span><h3>“I can’t find the<br>removal records.”</h3><p>Trace the permit, inspection, and completion file.</p><span class="v2-circle-arrow" aria-hidden="true">↗</span></a>
+        <a href="/record-help/conflicting-tank-documents/"><span class="v2-index">02 / Understand</span><h3>“I have paperwork.<br>Not an answer.”</h3><p>Separate what the documents prove from what they leave open.</p><span class="v2-circle-arrow" aria-hidden="true">↗</span></a>
+        <a href="/record-help/seller-says-tank-removed/"><span class="v2-index">03 / Verify</span><h3>“The seller says<br>it was removed.”</h3><p>Match the claim to the property’s actual record trail.</p><span class="v2-circle-arrow" aria-hidden="true">↗</span></a>
     </div>
+    <a class="v2-urgent" href="/guides/leaking-heating-oil-tank-what-to-do/">Oil, strong odor, or an active leak? Skip research and use the safety route. ↗</a>
+</div></section>
+<section class="v2-section v2-shell v2-delivery">
+    <div><p class="v2-eyebrow">The result, made useful</p><h2>A clear brief.<br>Not a document dump.</h2><p>Every finding has a source. Every open question has a next action. You see what’s known, what’s pending, and where professional input belongs.</p><a class="v2-button" href="/sample-brief/">Explore the sample brief <span>↗</span></a><small>Illustrative format. Not a completed customer case.</small></div>
+    <div class="v2-brief-preview"><header><span class="v2-mini-brand">Oil Tank Route</span><span>Illustrative brief</span></header><h3>Property history,<br>with the gaps visible.</h3><div class="v2-preview-row"><span class="v2-status-dot"></span><div><strong>Documented</strong><p>Permit and inspection references, matched to the property.</p></div></div><div class="v2-preview-row"><span class="v2-status-dot v2-status-dot--open"></span><div><strong>Still unresolved</strong><p>Missing closeout evidence and the limits of the available file.</p></div></div><div class="v2-preview-next"><span>Recommended next action</span><strong>Request the underlying completion record.</strong><span aria-hidden="true">↗</span></div></div>
 </section>
-
-<section id="states" class="section section--soft">
-    <div class="section__inner">
-        <div class="section__header">
-            <div>
-                <div class="section__eyebrow">Current state coverage</div>
-                <h2>Start with the state that controls the permits, paperwork, and next call.</h2>
-            </div>
-            <a class="section__action" href="/states/">View all state pages</a>
-        </div>
-        <div class="card-grid">
-            @for (var state : page.states())
-                <a class="card card--state" href="${state.entryPath()}">
-                    <strong>${state.name()}</strong>
-                    <p>${state.quickAnswer()}</p>
-                    <ul class="mini-list">
-                        @for (var point : state.highlights())
-                            <li>${point}</li>
-                        @endfor
-                    </ul>
-                </a>
-            @endfor
-        </div>
-    </div>
-</section>
-
-<section class="section">
-    <div class="section__inner feature-split">
-        <div class="feature-copy">
-                <div class="section__eyebrow">If the deal clock is running</div>
-                <h2>Do these three things before you talk price, removal, or cleanup.</h2>
-            <ol class="number-list">
-                @for (var i = 0; i < page.takeaways().size(); i++)
-                    <li>
-                        <span class="number-list__index">${java.lang.String.format("%02d", i + 1)}</span>
-                        <p>${page.takeaways().get(i)}</p>
-                    </li>
-                @endfor
-            </ol>
-        </div>
-        <div class="file-panel">
-            <div class="file-panel__header">
-                <div class="section__eyebrow">Start with these requests today</div>
-                <h3>Ask for the documents that change the answer.</h3>
-                <p>Most buried-tank fights get expensive because the paperwork request happens too late.</p>
-            </div>
-            <div class="file-panel__list">
-                <div class="file-item">
-                    <span class="file-item__label">Ask now</span>
-                    <strong>Seller disclosure and prior oil-heat history</strong>
-                    <p>Start with what the seller already said, omitted, or cannot support in writing.</p>
-                </div>
-                <div class="file-item">
-                    <span class="file-item__label">Pull next</span>
-                    <strong>Permit trail, closure proof, or conversion paperwork</strong>
-                    <p>Missing paper is a routing clue. It is not proof that a tank never existed.</p>
-                </div>
-                <div class="file-item">
-                    <span class="file-item__label">Order when needed</span>
-                    <strong>Sweep or locate only after the file points that way</strong>
-                    <p>Use field work to narrow the question, not to skip the document request.</p>
-                </div>
-            </div>
-            <div class="file-panel__boundary">
-                <strong>Do not widen yet</strong>
-                <ul class="mini-list">
-                    <li>Removal quotes before a tank is confirmed.</li>
-                    <li>Cleanup narratives before release facts exist.</li>
-                    <li>Price talk before the record stack is clear.</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="section">
-    <div class="section__inner case-layout">
-        <div class="case-layout__copy">
-            <div class="section__eyebrow">Keep these cases separate</div>
-            <h2>Keep these cases separate before anyone prices the wrong problem.</h2>
-            <p>Separate sale-side paperwork from confirmed tank work and from actual leak concerns. Mixing them together is how a manageable issue turns into a bigger one.</p>
-        </div>
-        <div class="case-grid">
-            @for (var i = 0; i < page.caseSeparationRules().size(); i++)
-                <div class="case-note">
-                    <span class="case-note__index">${java.lang.String.format("%02d", i + 1)}</span>
-                    <p>${page.caseSeparationRules().get(i)}</p>
-                </div>
-            @endfor
-        </div>
-    </div>
-</section>
-
-<section id="guides" class="section">
-    <div class="section__inner">
-        <div class="section__header">
-            <div>
-                <div class="section__eyebrow">Cross-state guides</div>
-                <h2>Use a national guide when you still need the first smart move before the state page gets specific.</h2>
-            </div>
-            <a class="section__action" href="/guides/">View all guides</a>
-        </div>
-        <div class="card-grid">
-            @for (var guide : page.guideCards())
-                <a class="card" href="${guide.href()}">
-                    <strong>${guide.title()}</strong>
-                    <p>${guide.description()}</p>
-                    <span class="badge">${guide.badge()}</span>
-                </a>
-            @endfor
-        </div>
-    </div>
-</section>
-
-<section class="section section--proof">
-    <div class="section__inner trust-band">
-        <div class="trust-band__copy">
-            <div class="section__eyebrow section__eyebrow--inverse">Trust boundary</div>
-            <h2>Official guidance first. Transaction support after the record is clear.</h2>
-            <p>Start with permits, disclosure records, and state guidance. Bring in contractor, removal, or cleanup decisions only after the facts are clearer.</p>
-            <div class="hero__actions trust-band__actions">
-                <a class="button button--secondary button--inverse" href="/methodology/">View methodology</a>
-                <a class="button" href="/states/">Find your state</a>
-            </div>
-        </div>
-        <div class="trust-band__grid">
-            @for (var item : page.guardrails())
-                <div class="trust-note">
-                    <span class="trust-note__label">${java.lang.String.format("%02d", page.guardrails().indexOf(item) + 1)}</span>
-                    <p>${item}</p>
-                </div>
-            @endfor
-        </div>
-    </div>
-</section>
-
-<section class="section section--tight">
-    <div class="section__inner">
-        @template.partials.editorialTeam()
-    </div>
-</section>
+<section class="v2-section v2-green"><div class="v2-shell v2-area-feature"><div><p class="v2-eyebrow">Local knowledge matters</p><h2>Same question.<br>Different record holders.</h2><p>From a Nassau verification letter to a Montclair property file, the right route starts with the jurisdiction.</p><a class="v2-button v2-button--white" href="/research-areas/">Find your research area <span>↗</span></a></div><div class="v2-region-list"><a href="/research-areas/#new-jersey"><span>New Jersey</span><small>${ResearchCatalog.areaCount("new-jersey")} municipal routes · including Essex, Bergen, Union &amp; Passaic</small><b aria-hidden="true">↗</b></a><a href="/research-areas/#new-york"><span>New York</span><small>County &amp; city routes, plus four Long Island towns</small><b aria-hidden="true">↗</b></a><p>${ResearchCatalog.AREAS.size()} researched starting points. Other NJ/NY locations reviewed at intake.</p></div></div></section>
+@template.partials.intakeSection(pageId = "service:home", pagePath = "/")
 `)

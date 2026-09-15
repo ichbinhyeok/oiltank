@@ -1,14 +1,26 @@
 # Oil Tank Route
 
-Oil Tank Route is a server-rendered residential heating-oil tank utility and commercial-routing product. The August 2026 pivot replaces the old buried-tank blog front door with shared tank identification, verified size data, gauge interpolation, delivery-ticket cross-checking, private tank history, shape-based capacity estimation, and condition/transaction routing. Existing state and buried-tank guides remain available as supporting resources.
+Oil Tank Route is a founder-led **property-specific oil tank record research and transaction brief service** for U.S. buyers, sellers, owners, agents, and attorneys. A user sends a property and the question blocking a decision; the service resolves the parcel, searches municipal and environmental record layers, identifies the correct agency request route, interprets supplied documents, and returns confirmed facts, unresolved gaps, and prioritized next actions.
 
-Business target: 40 approved leads per month at $25 each ($1,000/month), with 100 organic clicks/day treated as the success ceiling rather than the base forecast.
+The existing heating-oil utilities and state/guide library remain live as organic acquisition and decision-support surfaces. They no longer define the homepage or the core business model. The first service cohort is New Jersey and New York, and intake is a free founder-led beta.
 
 Working internal project: `BuriedOilTankVerdict`  
 Suggested package root: `owner.buriedoiltank`
 
-**Date:** 2026-08-02 (Asia/Seoul)
-**Purpose:** Working U.S.-focused **residential heating-oil tank field utility** with a supporting buried/unknown-tank transaction resource library.
+**Date:** 2026-09-14 (Asia/Seoul)
+**Purpose:** U.S.-focused **oil tank record research, agency routing, document interpretation, and transaction briefs**, supported by a residential heating-oil utility library.
+
+## Primary service routes
+
+- `/` - service promise, evidence workflow, public-data demonstration, and research intake
+- `/how-it-works/` - parcel-to-brief research sequence
+- `/record-research/` - source matrix, agency-routing rules, and deliverables
+- `/sample-brief/` - visibly fictional composite brief showing evidence, gaps, and next actions
+- `/research-areas/` - searchable directory of 16 differentiated NJ/NY research routes
+- `/research-examples/` - public-source walkthroughs, not completed customer cases
+- `/states/new-jersey/records-and-proof/` - NJ parcel, municipal, NJDEP, and OPRA routing
+- `/states/new-york/records-and-proof/` - NY parcel, municipal, DEC, spill, and FOIL routing
+- `/tools/` - preserved 20-route heating-oil utility library
 
 ## Current product routes
 
@@ -33,10 +45,10 @@ Suggested package root: `owner.buriedoiltank`
 - `/heating-oil-tank-installation-cost/` - installation quote-scope comparator
 - `/basement-oil-tank-removal/` - routine indoor removal scope versus release response
 
-All public pages use JTE SSR. Calculator behavior is dependency-free ES module JavaScript, and results never require an email. See `DESIGN.md` for the Modern Field Instrument system.
+All public pages use JTE SSR. Calculator behavior is dependency-free ES module JavaScript, and results never require an email. See `DESIGN.md` for the current white/deep-green property-research design; utilities retain their functional layouts.
 
 ## What you are building
-A state-first decision site for buyers, sellers, homeowners, and agents who already have a buried-tank trigger:
+A property-first research service for buyers, sellers, homeowners, agents, and attorneys who have an unresolved oil-tank record question:
 
 - tank suspected before closing
 - old fill pipe or vent discovered
@@ -44,24 +56,14 @@ A state-first decision site for buyers, sellers, homeowners, and agents who alre
 - remove versus abandon decision needed
 - leak or contamination concern
 
-The product should tell the user what the likely next step is, what the state process actually says, what evidence matters, how cost direction changes by scenario, and whether they need a tank sweep, closure contractor, or environmental cleanup path first.
+The service should establish the exact property, search the available evidence layers, preserve the route for records that are not online, distinguish evidence from assumptions, and explain whether records, document interpretation, a sweep, confirmed-tank action, or urgent leak response comes next.
 
-## Phase 1 launch wedge
-Phase 1 is narrower than the full category.
+## Phase 1 service wedge
 
-The launch wedge is:
-
-- buyer or seller in a live or near-term transaction
-- buried tank suspected or records missing
-- need to know whether to get a sweep before closing
-
-This means the first public build should behave more like:
-
-- `home-sale tank risk decision engine`
-
-and less like:
-
-- `complete oil tank knowledge base`
+- buyer, seller, owner, agent, or attorney with a real property and decision deadline
+- records missing, documents unclear, or listing/seller claims unverified
+- NJ and NY public-record routes first
+- a founder-produced research brief, not an automated legal or environmental conclusion
 
 ## Why this concept is attractive
 - The trigger is urgent and commercial.
@@ -71,15 +73,15 @@ and less like:
 - Compared with many home-service topics, each qualified lead can be worth meaningful money even at low traffic.
 
 ## Product thesis
-Do not build `heating oil tank information`.
-
-Build a **post-trigger transaction and remediation decision engine** for people trying to answer:
+Build a **property-specific research desk** for people trying to answer:
 
 - Is there really a buried tank here?
 - What records do I need before I buy or sell?
 - Remove or abandon in place?
 - Is a leak likely?
-- Which professional should I call first?
+- Which source or agency can establish the next fact?
+- What do the files actually establish, and what remains unresolved?
+- Do records, a sweep, or confirmed-tank action come next?
 
 ## File map
 - `AGENT_START_HERE.md` - read order and handoff rules for any future agent
@@ -111,11 +113,15 @@ Build a **post-trigger transaction and remediation decision engine** for people 
 - Java runtime baseline: `21`
 
 ## Current implementation state
+- The service-first homepage, workflow, research-method page, public-data sample brief, and detailed intake are implemented.
+- NJ/NY route intelligence is bundled as a reviewed baseline and can be updated persistently at `storage/records/route-intelligence.json`; see `ops/route_intelligence.md`.
+- Privacy-safe service funnel measurement distinguishes browser submit attempts from server-confirmed submissions; property address, email, notes, document names, and document contents are excluded from analytics payloads.
+- All 20 existing utility routes remain available under the `/tools/` acquisition hub and include a contextual record-research handoff.
 - Spring Boot plus `jte` application scaffold is live under `owner.buriedoiltank`
-- Runtime route inventory contains 61 records: 41 supporting state/guide records plus 20 first-class product routes
-- Lead capture and event logging persist to `storage/leads`
-- Approval/rejection decisions and payout cents use an append-only audit log, leaving original lead rows unchanged
-- The admin dashboard reports progress toward 40 approved leads and $1,000 in 28 days, plus per-tool start-to-lead funnels
+- Runtime route inventory contains 92 records, including 16 area routes and 5 problem routes. The sitemap contains 67 canonical URLs, including static trust pages.
+- Lead capture and event logging persist to `storage/leads`; secure customer documents and their integrity register persist outside the release under `storage/cases` and `storage/operations`.
+- Record-research cases use append-only operational states: intake, researching, agency pending, waiting on customer, brief delivered, and closed.
+- The protected admin dashboard shows the full case intake, notification state/retry, service funnel by page/state/question, and supporting utility funnels without requiring a CSV download.
 - Ops snapshots persist to `storage/ops` and `storage/derived`
 - Admin exports are available under `/admin/exports/*`
 - Packaged runtime now uses generated `jte` template classes, so `java -jar` is deployable without template recompilation at runtime
@@ -123,7 +129,8 @@ Build a **post-trigger transaction and remediation decision engine** for people 
 ## Production persistence notes
 - Lead submissions are stored in `leads.csv`
 - CTA and lead funnel events are stored in `lead_events.csv`
-- Lead approval, rejection, payout, and decision notes are stored in `lead-dispositions.csv`
+- Case status changes and operator notes are stored in `case-status.csv`; findings, requests, replies, referrals, deliveries, and route lessons are stored in the append-only `case-activity.csv`; operator-email attempts are stored in `notification-attempts.csv`.
+- The intake accepts up to three PDF/JPG/PNG documents (8 MB each, 20 MB total). Content signatures are checked before private storage, and downloads remain behind admin authentication.
 - Admin shows aggregate metrics and exports raw CSV plus JSON snapshots under `/admin/exports/*`
 - Gauge calculations read the same server-rendered `TankSpec` data used by the SSR tables; verified Granby 138-, 275-, and 330-gallon vertical charts are supported
 - On production deploys, do not keep `buried-oil-tank.storage-root` inside the release directory
@@ -138,7 +145,19 @@ export BURIED_OIL_TANK_BASE_URL=https://oiltankroute.com
 export BURIED_OIL_TANK_STORAGE_ROOT=/var/lib/buried-oil-tank-verdict
 export BURIED_OIL_TANK_ADMIN_USERNAME=admin
 export BURIED_OIL_TANK_ADMIN_PASSWORD='replace-this'
+export BURIED_OIL_TANK_NOTIFICATION_ENABLED=true
+export BURIED_OIL_TANK_NOTIFICATION_TO=operator@example.com
+export BURIED_OIL_TANK_NOTIFICATION_FROM=intake@example.com
+export BURIED_OIL_TANK_SMTP_HOST=smtp.example.com
+export BURIED_OIL_TANK_SMTP_PORT=587
+export BURIED_OIL_TANK_SMTP_USERNAME=smtp-user
+export BURIED_OIL_TANK_SMTP_PASSWORD='replace-this'
+export BURIED_OIL_TANK_SMTP_STARTTLS=true
 ```
+
+Mail is disabled by default, so local development and tests require no SMTP setup. A valid case is persisted before notification is queued. Disabled, configuration, queue, and delivery outcomes remain visible in admin and can be retried without resubmitting or losing the case. Keep all SMTP credentials in environment variables or the host secret manager.
+
+The GitHub deployment requires `APP_GMAIL_USERNAME` and `APP_GMAIL_APP_PASSWORD` secrets, enables Gmail SMTP notification in the generated production `.env`, and fails before deployment when either secret is absent. The post-deploy canary also verifies the service positioning, representative evidence packet, and multipart document intake.
 
 Example systemd service fragment:
 

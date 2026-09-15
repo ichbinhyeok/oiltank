@@ -40,7 +40,7 @@ public enum RouteFamily {
             RoutePhase.PHASE_1_PUBLIC,
             IndexStatus.INDEX,
             Scenario.RECORDS_FIRST,
-            PartnerType.SWEEP_LOCATE
+            PartnerType.RECORD_RESEARCH
     ),
     REMOVAL_VS_ABANDONMENT(
             "removal-vs-abandonment",

@@ -53,165 +53,64 @@ public class SitePageService {
     }
 
     public PageModels.HomePageModel homePage() {
-        List<PageModels.AudienceCard> audienceCards = List.of(
-                new PageModels.AudienceCard(
-                        "Buyer",
-                        "Buyer under contract",
-                        "Keep the deal inside diligence until the file, sweep result, or leak evidence changes the route.",
-                        List.of(
-                                "Protect the inspection or attorney-review deadline before you debate credits.",
-                                "Request closure proof, permit history, and any fuel-conversion record on day one.",
-                                "Use records or a sweep before anyone pushes you into removal quotes."
-                        )
-                ),
-                new PageModels.AudienceCard(
-                        "Seller",
-                        "Seller before due diligence widens",
-                        "Reduce avoidable delay by cleaning up the record stack before the buyer frames the issue for you.",
-                        List.of(
-                                "Assemble every permit, closure, and prior oil-heat record you can find.",
-                                "Separate suspected tank risk from confirmed tank facts before you price the problem.",
-                                "Use the state page to decide whether records, a sweep, or disclosure questions come first."
-                        )
-                ),
-                new PageModels.AudienceCard(
-                        "Advisor",
-                        "Agent or attorney carrying the deal clock",
-                        "Keep the next call tied to evidence so the file does not jump from uncertainty into assumed contamination.",
-                        List.of(
-                                "Get the document request out before the next contingency or attorney-review call.",
-                                "Write down which deadline breaks first: inspection, attorney review, financing, or closing.",
-                                "Use records or a sweep before anyone sells a remediation story."
-                        )
-                )
-        );
-
-        List<PageModels.LinkCard> scenarioCards = List.of(
-                new PageModels.LinkCard(
-                        "I think there may be a tank",
-                        "Start with the first checks before anyone jumps into quotes, credits, or cleanup talk.",
-                        "/guides/buried-oil-tank-home-sale/",
-                        "Suspected tank"
-                ),
-                new PageModels.LinkCard(
-                        "The records are missing",
-                        "Use this when closure proof, permit history, or fuel-conversion paperwork is unclear or absent.",
-                        "/guides/abandoned-oil-tank-records/",
-                        "Missing records"
-                ),
-                new PageModels.LinkCard(
-                        "There may be a leak",
-                        "Use this when odor, staining, release language, or cleanup history is starting to control the answer.",
-                        "/guides/leaking-heating-oil-tank-what-to-do/",
-                        "Leak concern"
-                )
-        );
-
-        List<String> hotStates = List.of(
-                "You are under contract and the tank question is still unresolved.",
-                "A buyer, seller, or advisor needs the next honest move before a contract deadline slips.",
-                "Records are missing and nobody can show clean closure proof.",
-                "Old fill or vent evidence suggests a tank, but the site facts are still thin.",
-                "Leak concern is starting to overtake a simple transaction question."
-        );
-
-        List<PageModels.LinkCard> decisionPathCards = List.of(
-                new PageModels.LinkCard(
-                        "Should I order a tank sweep?",
-                        "Use this when site clues and paperwork do not line up and you need to know whether field work belongs yet.",
-                        "/guides/oil-tank-sweep-before-buying-house/",
-                        "Site check"
-                ),
-                new PageModels.LinkCard(
-                        "The tank is confirmed",
-                        "Use this after the tank is real and the question becomes closure path, removal, or abandonment.",
-                        "/guides/remove-vs-abandon-oil-tank/",
-                        "Confirmed tank"
-                ),
-                new PageModels.LinkCard(
-                        "When should I think about cost?",
-                        "Use this only after the scope is narrow enough that sweep, closure, removal, and cleanup are not being mixed together.",
-                        "/guides/oil-tank-removal-cost/",
-                        "Cost direction"
-                )
-        );
-
-        List<PageModels.StateCard> states = repository.states().stream()
-                .filter(StateRecord::launchReady)
-                .map(state -> new PageModels.StateCard(
-                        state.name(),
-                        state.slug(),
-                        state.quickAnswer(),
-                        "/states/" + state.slug() + "/",
-                        state.commonTriggers().stream().limit(3).toList()
-                ))
-                .toList();
-
-        List<PageModels.LinkCard> guideCards = repository.guides().stream()
-                .filter(GuideRecord::indexable)
-                .map(guide -> new PageModels.LinkCard(
-                        guideHeading(guide),
-                        guideMetaDescription(guide),
-                        "/guides/" + guide.slug() + "/",
-                        "Guide"
-                ))
-                .toList();
-
-        int trackedSourceCount = (int) Stream.concat(
-                        repository.states().stream()
-                                .filter(StateRecord::launchReady)
-                                .flatMap(state -> state.sourceStack().stream()),
-                        repository.guides().stream()
-                                .filter(GuideRecord::indexable)
-                                .flatMap(guide -> guide.sourceStack().stream())
-                )
-                .map(SourceReference::id)
-                .distinct()
-                .count();
-
         return new PageModels.HomePageModel(
                 meta(
-                        "Buried Oil Tank Before Closing: Next Steps for Buyers and Sellers | Oil Tank Route",
-                        "Buried oil tank disclosure, records, sweep, and next-step guidance for buyers, sellers, agents, and attorneys before closing.",
+                        "Oil Tank Record Research & Transaction Brief | Oil Tank Route",
+                        "Send the property. We research public oil-tank records, locate the right agencies, request missing files when needed, and explain the next action.",
                         "/",
                         true,
                         List.of(
                                 jsonLd(siteSchema()),
-                                jsonLd(collectionPageSchema(
-                                        "Buried Oil Tank Before Closing",
-                                        "Buried oil tank disclosure, records, sweep, and next-step guidance for buyers, sellers, agents, and attorneys before closing.",
-                                        "/",
-                                        List.of(
-                                                new PageModels.LinkCard("State pages", "State-specific buried oil tank disclosure and closing steps.", "/states/", "Hub"),
-                                                new PageModels.LinkCard("Route guides", "Cross-state route guides for disclosure, sweep, removal, leak, and cost questions.", "/routes/", "Hub"),
-                                                new PageModels.LinkCard("Cross-state guides", "Guides for home sale, records, and oil tank sweep questions.", "/guides/", "Hub")
-                                        )
+                                jsonLd(webpageSchema(
+                                        "Oil Tank Record Research & Transaction Brief",
+                                        "Property-specific public-record research, agency routing, document interpretation, and transaction next steps.",
+                                        "/"
                                 ))
                         )
+                )
+        );
+    }
+
+    public PageModels.ServicePageModel servicePage(String slug) {
+        return switch (slug) {
+            case "how-it-works" -> servicePage(
+                    slug, "how", "How it works", "From an address to an evidence-backed next step",
+                    "We identify the parcel, cross-check public sources, locate the correct agency route, and translate the record trail into a transaction-ready action list."
+            );
+            case "record-research" -> servicePage(
+                    slug, "research", "Record research", "A property-specific search, not another generic checklist",
+                    "We follow the address through parcel, permit, environmental, fuel-conversion, and agency-request sources, then state what was found, what remains unresolved, and what to do next."
+            );
+            case "sample-brief" -> servicePage(
+                    slug, "brief", "Representative delivery packet", "See the evidence packet before you send a property",
+                    "Open the source stack, finding language, unresolved gaps, agency route, and next-action brief a property research case is built to deliver."
+            );
+            default -> throw new IllegalArgumentException("Unknown service page: " + slug);
+        };
+    }
+
+    private PageModels.ServicePageModel servicePage(
+            String slug, String kind, String eyebrow, String heading, String intro
+    ) {
+        String path = "/" + slug + "/";
+        return new PageModels.ServicePageModel(
+                meta(
+                        heading + " | Oil Tank Route",
+                        intro,
+                        path,
+                        true,
+                        breadcrumbPageSchemas(
+                                breadcrumbs(eyebrow, path),
+                                webpageSchema(heading, intro, path)
+                        )
                 ),
-                scenarioCards,
-                hotStates,
-                decisionPathCards,
-                states,
-                guideCards,
-                List.of(
-                        "Suspected tank: ask for paperwork and site clues before anyone prices removal.",
-                        "Confirmed tank: compare closure options only after location and basic condition are real facts.",
-                        "Leak concern: move quickly into reporting or cleanup guidance instead of treating it like ordinary tank work."
-                ),
-                List.of(
-                        "This site can help you choose the next step, but it cannot prove a property is tank-free.",
-                        "Missing paperwork can still mean real sale risk.",
-                        "Official state guidance and paid service recommendations are kept separate.",
-                        "The public pages stay narrow so they stay useful under deadline."
-                ),
-                audienceCards,
-                List.of(
-                        "What to request before anyone argues about credits, price, or tank removal.",
-                        "Which document or site check matters first.",
-                        "Whether you should stay in records, order a sweep, or move into cleanup."
-                ),
-                trackedSourceCount
+                "service:" + slug,
+                path,
+                slug.equals("record-research") ? "research" : slug.equals("sample-brief") ? "brief" : "how",
+                kind,
+                eyebrow,
+                heading,
+                intro
         );
     }
 
@@ -220,26 +119,26 @@ public class SitePageService {
             case "about" -> new PageModels.StaticPageModel(
                     meta(
                             "About Oil Tank Route | Oil Tank Route",
-                            "What this buried oil tank decision-support site does, what it does not do, and how current coverage is limited.",
+                            "How Oil Tank Route researches property records, locates agency routes, interprets documents, and keeps uncertainty explicit.",
                             "/about/",
                             true,
                             breadcrumbPageSchemas(
                                     breadcrumbs("About", "/about/"),
                                     webpageSchema(
                                             "About Oil Tank Route",
-                                            "What this buried oil tank decision-support site does, what it does not do, and how current coverage is limited.",
+                                            "How Oil Tank Route researches property records, locates agency routes, interprets documents, and keeps uncertainty explicit.",
                                             "/about/"
                                     )
                             )
                     ),
-                    "What this site is for",
-                    "Oil Tank Route helps buyers, sellers, owners, and advisors figure out the next practical step after a residential heating-oil tank concern.",
+                    "Record research for the decision in front of you",
+                    "Oil Tank Route is a founder-led research service for buyers, sellers, owners, and advisors facing unclear residential oil-tank history.",
                             List.of(
-                                    "It is built for live situations: under-contract sales, missing permits, suspected tanks, and possible leak signals.",
-                                    "It focuses on the first useful questions: paperwork, disclosure, sweep timing, and state rules.",
-                                    "It organizes pages by state because closure, reporting, and cleanup rules can change.",
-                                    "It is not a government office, law firm, or environmental consultant.",
-                                    "Each page is checked against current public sources and kept inside clear limits."
+                                    "Send a property address, jurisdiction, the records already in hand, and the question blocking the transaction.",
+                                    "Research can include parcel, assessor, GIS, permit, environmental, fuel-conversion, and agency-request sources.",
+                                    "The response separates confirmed facts, conflicts, missing records, non-conclusions, and next actions.",
+                                    "It is not a government office, law firm, safety inspector, or environmental consultant.",
+                                    "The current free beta is handled directly by the founder, beginning with New Jersey and New York routes."
                             ),
                             breadcrumbs("About", "/about/"),
                             null
@@ -247,26 +146,26 @@ public class SitePageService {
             case "methodology" -> new PageModels.StaticPageModel(
                     meta(
                             "Methodology for Residential Oil Tank Pages | Oil Tank Route",
-                            "How state-first buried oil tank routes, source stacks, and evidence-first guidance are separated from service routing.",
+                    "How property-specific oil tank research preserves source evidence, agency request routes, interpretation limits, and next actions.",
                             "/methodology/",
                             true,
                             breadcrumbPageSchemas(
                                     breadcrumbs("Methodology", "/methodology/"),
                                     webpageSchema(
-                            "Methodology for Buried Oil Tank Pages",
-                            "How state-first buried oil tank pages are built from public sources and kept inside clear scope limits.",
+                            "Methodology for Oil Tank Record Research",
+                            "How property-specific research preserves sources, request status, interpretation limits, and next actions.",
                                             "/methodology/"
                                     )
                             )
                     ),
-                    "How we build each page",
-                    "Every public page starts with the state source, then narrows into the question a buyer, seller, or owner actually has.",
+                    "How a property becomes a research brief",
+                    "Every case begins by resolving the exact property, then follows independent public sources and the correct agency custodian.",
                     List.of(
-                            "We separate suspected tank, confirmed tank, and leak concern because they do not have the same next step.",
-                            "We start with permits, disclosure, and site facts before talking removal, cleanup, or cost.",
-                            "State environmental and homeowner guidance outrank every secondary source.",
-                            "Cost and cleanup pages stay directional unless the public documents support more.",
-                            "Every page gets a source check, review date, and scope check before it stays public."
+                            "We record the address, parcel identifiers, jurisdiction, question, documents already held, and transaction deadline.",
+                            "We cross-check assessor, GIS, permit, environmental, conversion, and indexed document sources instead of trusting one portal.",
+                            "When records are missing, we preserve the agency, request method, required identifiers, fee, response expectation, and fallback route.",
+                            "We distinguish a missing or unavailable source from evidence that a record or tank never existed.",
+                            "The brief states confirmed facts, unresolved gaps, conflicts, plain-English meaning, and prioritized next actions."
                     ),
                     breadcrumbs("Methodology", "/methodology/"),
                     null
@@ -287,12 +186,12 @@ public class SitePageService {
                             )
                     ),
                     "Contact",
-                    "Use a scenario page for next-step help. Use this page for source corrections, stale links, or launch questions.",
+                    "Use the property research form for a case. Use this page for source corrections, stale routes, or service questions.",
                     List.of(
                             "Email shinhyeok22@gmail.com for source corrections, stale links, or launch questions.",
                             "Send state source updates, stale PDFs, or broken links.",
                             "Flag any county, town, or local agency rule that changes the answer.",
-                            "Use scenario-page forms when you need the next document request or first action on a live property."
+                            "Use the property record check when you need research, an agency route, document interpretation, or next actions on a live property."
                     ),
                     breadcrumbs("Contact", "/contact/"),
                     CONTACT_EMAIL
@@ -300,24 +199,29 @@ public class SitePageService {
             case "privacy" -> new PageModels.StaticPageModel(
                     meta(
                             "Privacy | Oil Tank Route",
-                            "How next-step checklist requests and event data are stored in the first release.",
+                            "How property research requests and privacy-safe analytics events are handled in the founder-led beta.",
                             "/privacy/",
                             false,
                             breadcrumbPageSchemas(
                                     breadcrumbs("Privacy", "/privacy/"),
                                     webpageSchema(
                                             "Privacy",
-                            "How next-step checklist requests and event data are stored in the first release.",
+                                            "How private property research requests, uploads, and privacy-safe analytics events are handled.",
                                             "/privacy/"
                                     )
                             )
                     ),
                     "Privacy",
-                    "This release stores checklist requests and event logs in simple file-backed storage. There are no user accounts.",
+                    "The beta stores case intake in file-backed operational storage. There are no user accounts or public case pages.",
                     List.of(
-                            "Lead capture is email-first and does not require a phone number.",
-                            "Event logging keeps page, state, and scenario context so the team can improve the guidance.",
-                            "This release does not include user accounts or a broad provider marketplace."
+                            "A research request stores the property address, jurisdiction, role, tank status, question, deadline, document status, email, and optional notes.",
+                            "Optional uploads store the actual uploaded PDF, JPG, or PNG file, its original filename, size, content type, and integrity hash inside the private case workspace.",
+                            "Uploaded files and unredacted evidence are excluded from GA4, public pages, route intelligence, and repository commits; analytics receives page, state, and funnel context—not address, email, filenames, or free text.",
+                            "If a submission fails, non-file form entries and the submission token can remain in that browser tab's session storage so the form can be restored. They are cleared after a successful submission or when the browser session ends; selected files must be attached again.",
+                            "When email delivery is configured, the submitted email address receives an intake receipt with a case reference and next-step expectations. It does not include the full property address or uploaded files.",
+                            "Case files are kept only while needed to research, deliver, resolve follow-up questions, or meet a legitimate operational obligation. At the end of that need, the operator removes the uploaded files and their private register entries rather than promising an automatic deletion schedule the current system does not provide.",
+                            "To request deletion of a submitted case or uploaded document, contact the editorial address shown on the Contact page and identify the request sufficiently for the operator to locate it.",
+                            "This release does not include user accounts, public case pages, payment, or a provider marketplace."
                     ),
                     breadcrumbs("Privacy", "/privacy/"),
                     null
@@ -363,7 +267,7 @@ public class SitePageService {
                             )
                     ),
                     "Not government affiliated",
-                    "Oil Tank Route is an independent editorial decision-support site. It is not a state agency, cleanup fund, or municipal program.",
+                    "Oil Tank Route is an independent, founder-led record research service. It is not a state agency, cleanup fund, or municipal program.",
                     List.of(
                             "Official links appear on public pages so you can confirm the underlying rule yourself.",
                             "Paid help and editorial guidance are kept separate.",
@@ -620,10 +524,10 @@ public class SitePageService {
         boolean isNewJersey = "new-jersey".equals(stateSlug);
         String heading = isNewJersey
                 ? "Find New Jersey oil tank records and closure proof"
-                : "Search New York heating-oil spill records by county";
+                : "Find New York oil tank, permit, and spill records";
         String intro = isNewJersey
-                ? "Use the official NJDEP systems in order. Keep the case numbers and documents you find; this site does not collect or store a property address."
-                : "Use the official NYSDEC incident data to understand reported activity, then follow a known spill number. County totals are context, not a property risk score.";
+                ? "Resolve the parcel, search municipal permits and NJDEP systems, then preserve the exact OPRA route for records that are not online."
+                : "Resolve the local assessor and SBL, search municipal permits and NYSDEC sources, then use FOIL for specific existing records that are not online.";
         return new PageModels.RecordsNavigatorPageModel(
                 meta(heading + " | Oil Tank Route", intro, path, true,
                         breadcrumbPageSchemas(breadcrumbs, webpageSchema(heading, intro, path))),
@@ -688,7 +592,7 @@ public class SitePageService {
                 List.of(
                         "This total counts reported incidents, not tanks or affected homes.",
                         "Multiple incidents can relate to one location, and a tank can exist without a reported spill.",
-                        "The page never accepts a property address and does not issue a property score."
+                        "The optional research intake accepts a property address privately; the incident dataset does not issue a property score."
                 ),
                 ctaFor("new-york:county:" + countySlug, path, RouteFamily.RECORDS_AND_PROOF,
                         List.of(new PageModels.StateOption("new-york", "New York"))),
@@ -905,7 +809,7 @@ public class SitePageService {
         Map<String, Object> schema = baseSchema("WebSite");
         schema.put("name", "Oil Tank Route");
         schema.put("url", baseUrl.resolve("/").toString());
-        schema.put("description", "Buried oil tank disclosure, records, sweep, and next-step guidance before closing.");
+        schema.put("description", "Property-specific oil tank record research, agency routing, document interpretation, and transaction briefs.");
         schema.put("publisher", siteOrganization());
         return schema;
     }
@@ -925,8 +829,7 @@ public class SitePageService {
         schema.put("name", title);
         schema.put("description", description);
         schema.put("url", baseUrl.resolve(path).toString());
-        schema.put("author", routingDesk());
-        schema.put("editor", sourceReviewDesk());
+        schema.put("author", siteOrganization());
         schema.put("publisher", siteOrganization());
         schema.put("isPartOf", Map.of(
                 "@type", "WebSite",
@@ -942,8 +845,7 @@ public class SitePageService {
         schema.put("description", description);
         schema.put("url", baseUrl.resolve(path).toString());
         schema.put("mainEntityOfPage", baseUrl.resolve(path).toString());
-        schema.put("author", routingDesk());
-        schema.put("editor", sourceReviewDesk());
+        schema.put("author", siteOrganization());
         schema.put("publisher", siteOrganization());
         if (verifiedOn != null) {
             schema.put("dateModified", verifiedOn.toString());
@@ -1005,23 +907,7 @@ public class SitePageService {
                 "name", "Oil Tank Route",
                 "url", baseUrl.resolve("/").toString(),
                 "email", "mailto:" + CONTACT_EMAIL,
-                "description", "Editorial decision-support product for buried and abandoned residential heating oil tank questions before closing."
-        );
-    }
-
-    private static Map<String, Object> routingDesk() {
-        return Map.of(
-                "@type", "Organization",
-                "name", "Oil Tank Route Routing Desk",
-                "description", "Virtual editorial desk that drafts scenario routing, query framing, and next-step structure."
-        );
-    }
-
-    private static Map<String, Object> sourceReviewDesk() {
-        return Map.of(
-                "@type", "Organization",
-                "name", "Oil Tank Route Source Review Desk",
-                "description", "Virtual editorial desk that checks official state sources, review dates, and overreach risk before publication."
+                "description", "Independent oil tank public-record research and transaction-navigation service."
         );
     }
 

@@ -39,14 +39,14 @@ public class ProductPageService {
         this.heatingOilPriceCatalog = heatingOilPriceCatalog;
     }
 
-    public ProductPageModel homePage() {
+    public ProductPageModel toolsPage() {
         return page(
-                "home",
-                "/",
-                "home",
-                "Residential heating-oil tank tools",
-                "Know the tank. Plan the next move.",
-                "Identify a heating-oil tank, check a delivery, estimate fuel remaining, and route real risk to the right professional - without an email gate.",
+                "tools",
+                "/tools/",
+                "tools",
+                "Acquisition utility library",
+                "Residential heating-oil tools",
+                "Use verified tank charts, fuel calculators, delivery checks, and condition planners. If the issue is a property transaction or missing record, start a record check instead.",
                 "hub",
                 "One route from measurement to action",
                 List.of(
@@ -503,7 +503,9 @@ public class ProductPageService {
             List<LinkCard> nextLinks,
             List<Breadcrumb> breadcrumbs
     ) {
-        String title = heading + " | Oil Tank Route";
+        String title = "prices".equals(toolKind)
+                ? "Latest U.S. Heating Oil Prices — EIA Mar. 30, 2026 | Oil Tank Route"
+                : heading + " | Oil Tank Route";
         List<String> schemas = new ArrayList<>();
         schemas.add(json(schema("charts".equals(toolKind) ? "CollectionPage" : "WebPage", heading, path, intro)));
         if (List.of("gauge", "delivery", "usage", "capacity", "sludge", "planner", "removal", "identifier", "heating-cost", "order").contains(toolKind)) {

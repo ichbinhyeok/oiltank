@@ -14,3 +14,5 @@ test-results
 *.jpg
 *.jpeg
 *.zip
+!src/main/resources/static/images/*.jpg
+!src/main/resources/static/apple-touch-icon.png

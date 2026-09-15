@@ -29,7 +29,24 @@ public class SiteController {
 
     @GetMapping({"/", ""})
     public String home(Model model) {
-        model.addAttribute("page", productPageService.homePage());
+        model.addAttribute("page", sitePageService.homePage());
+        return "home";
+    }
+
+    @GetMapping({
+            "/how-it-works", "/how-it-works/",
+            "/record-research", "/record-research/",
+            "/sample-brief", "/sample-brief/"
+    })
+    public String servicePage(HttpServletRequest request, Model model) {
+        String slug = request.getRequestURI().replaceAll("^/|/$", "");
+        model.addAttribute("page", sitePageService.servicePage(slug));
+        return "service";
+    }
+
+    @GetMapping({"/tools", "/tools/"})
+    public String tools(Model model) {
+        model.addAttribute("page", productPageService.toolsPage());
         return "product";
     }
 

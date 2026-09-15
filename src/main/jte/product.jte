@@ -463,6 +463,15 @@
 <section class="otr-section otr-section--soft"><div class="otr-shell otr-editorial-grid"><div><p class="otr-kicker">Route-specific question</p><h2>One distinction that matters</h2></div><div class="faq-list">@for (var faq : page.faqs())<details><summary>${faq.question()}</summary><p>${faq.answer()}</p></details>@endfor</div></div></section>
 @endif
 
+@if (!page.isTool("hub"))
+<section class="utility-research-route" data-service-cta-view data-page-id="${page.pageId()}">
+    <div class="otr-shell utility-research-route__inner">
+        <div><p class="otr-kicker">Property transaction or missing history?</p><h2>Use the measurement. Research the property record.</h2></div>
+        <div><p>If you are buying, selling, or trying to explain an unknown tank, send the address. We cross-check public records, locate the correct agency route, and explain the next action.</p><a class="service-button" href="/#start-check" data-service-cta data-cta-location="utility-context">Start a property record check</a></div>
+    </div>
+</section>
+@endif
+
 <section class="otr-section" id="sources"><div class="otr-shell otr-editorial-grid"><div><p class="otr-kicker">Source boundary</p><h2>Official source material</h2><p>Model values require manufacturer support; safety and removal guidance uses official public-agency material. Verification date: 2026-08-02.</p></div><ol class="source-ledger">@for (var source : page.sources())<li><a href="${source.url()}">${source.title()} <span aria-hidden="true">&nearr;</span></a><p>${source.note()}</p></li>@endfor</ol></div></section>
 
 @if (!page.isTool("hub"))

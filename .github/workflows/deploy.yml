@@ -36,6 +36,8 @@ jobs:
         env:
           APP_ADMIN_USERNAME: ${{ secrets.APP_ADMIN_USERNAME }}
           APP_ADMIN_PASSWORD: ${{ secrets.APP_ADMIN_PASSWORD }}
+          APP_GMAIL_USERNAME: ${{ secrets.APP_GMAIL_USERNAME }}
+          APP_GMAIL_APP_PASSWORD: ${{ secrets.APP_GMAIL_APP_PASSWORD }}
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
           OCI_HOST: ${{ secrets.OCI_HOST }}
@@ -44,6 +46,8 @@ jobs:
         run: |
           test -n "$APP_ADMIN_USERNAME"
           test -n "$APP_ADMIN_PASSWORD"
+          test -n "$APP_GMAIL_USERNAME"
+          test -n "$APP_GMAIL_APP_PASSWORD"
           test -n "$DOCKERHUB_USERNAME"
           test -n "$DOCKERHUB_TOKEN"
           test -n "$OCI_HOST"
@@ -88,6 +92,40 @@ jobs:
           exit-code: 1
           timeout: 10m
 
+      - name: Preserve production data and rollback configuration
+        uses: appleboy/ssh-action@029f5b4aeeeb58fdfe1410a5d17f967dacf36262 # v1.0.3
+        with:
+          host: ${{ secrets.OCI_HOST }}
+          username: ${{ secrets.OCI_USERNAME }}
+          key: ${{ secrets.OCI_KEY }}
+          script: |
+            set -euo pipefail
+            umask 077
+            APP_DIR="$HOME/deploy/oiltankroute"
+            mkdir -p "$APP_DIR/backups"
+            BACKUP_DIR=$(mktemp -d "$APP_DIR/backups/predeploy-XXXXXXXX")
+            for config in .env docker-compose.yml; do
+              if [ -f "$APP_DIR/$config" ]; then
+                cp "$APP_DIR/$config" "$BACKUP_DIR/$config"
+              fi
+            done
+            if docker inspect oiltankroute >/dev/null 2>&1; then
+              docker inspect --format '{{.Config.Image}}' oiltankroute > "$BACKUP_DIR/image.txt"
+              WAS_RUNNING=$(docker inspect --format '{{.State.Running}}' oiltankroute)
+              if [ "$WAS_RUNNING" = "true" ]; then
+                docker pause oiltankroute >/dev/null
+                trap 'docker unpause oiltankroute >/dev/null || true' EXIT
+              fi
+              docker cp oiltankroute:/app/storage "$BACKUP_DIR/storage"
+              if [ "$WAS_RUNNING" = "true" ]; then
+                docker unpause oiltankroute >/dev/null
+                trap - EXIT
+              fi
+            elif [ -d "$APP_DIR/storage" ]; then
+              cp -a "$APP_DIR/storage" "$BACKUP_DIR/storage"
+            fi
+            echo "Private storage and rollback configuration preserved on the production host."
+
       - name: Copy compose file to OCI
         uses: appleboy/scp-action@917f8b81dfc1ccd331fef9e2d61bdc6c8be94634 # v0.1.7
         with:
@@ -116,14 +154,22 @@ jobs:
             BURIED_OIL_TANK_BASE_URL=https://oiltankroute.com
             BURIED_OIL_TANK_ADMIN_USERNAME=${{ secrets.APP_ADMIN_USERNAME }}
             BURIED_OIL_TANK_ADMIN_PASSWORD=${{ secrets.APP_ADMIN_PASSWORD }}
+            BURIED_OIL_TANK_NOTIFICATION_ENABLED=true
+            BURIED_OIL_TANK_NOTIFICATION_TO=${{ secrets.APP_GMAIL_USERNAME }}
+            BURIED_OIL_TANK_NOTIFICATION_FROM=${{ secrets.APP_GMAIL_USERNAME }}
+            BURIED_OIL_TANK_SMTP_HOST=smtp.gmail.com
+            BURIED_OIL_TANK_SMTP_PORT=587
+            BURIED_OIL_TANK_SMTP_USERNAME=${{ secrets.APP_GMAIL_USERNAME }}
+            BURIED_OIL_TANK_SMTP_PASSWORD=${{ secrets.APP_GMAIL_APP_PASSWORD }}
+            BURIED_OIL_TANK_SMTP_STARTTLS=true
             JAVA_OPTS=-XX:+UseG1GC -Xms256m -Xmx384m -Xss512k -Djava.security.egd=file:/dev/./urandom
             EOF
+            chmod 600 "$APP_DIR/.env"
 
             cd "$APP_DIR"
             docker compose pull
             docker compose up -d --remove-orphans
             docker compose ps
-            docker image prune -f
 
             for attempt in $(seq 1 24); do
               HEALTH_JSON=$(curl -fsS http://127.0.0.1:8097/actuator/health || true)
@@ -167,8 +213,27 @@ jobs:
               exit 1
             fi
 
+            if ! echo "$PUBLIC_HTML" | grep -q "Researched for you"; then
+              echo "Production service-positioning check failed."
+              exit 1
+            fi
+
+            SAMPLE_HTML=$(curl -fsSL https://oiltankroute.com/sample-brief/ || true)
+            if ! echo "$SAMPLE_HTML" | grep -q "Fictional composite"; then
+              echo "Production evidence-packet check failed."
+              exit 1
+            fi
+
+            if ! echo "$SAMPLE_HTML" | grep -q 'enctype="multipart/form-data"'; then
+              echo "Production secure-document intake check failed."
+              exit 1
+            fi
+
             SITEMAP_XML=$(curl -fsSL https://oiltankroute.com/sitemap.xml || true)
             if ! echo "$SITEMAP_XML" | grep -q "https://oiltankroute.com/heating-oil-tank/"; then
               echo "Public sitemap check failed."
               exit 1
             fi
+
+            curl -fsS https://oiltankroute.com/images/property-editorial.jpg -o /dev/null
+            curl -fsS https://oiltankroute.com/research-areas/brookhaven-ny/ -o /dev/null

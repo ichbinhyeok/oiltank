@@ -36,14 +36,17 @@
     <link rel="icon" href="/favicon.ico" sizes="32x32">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="stylesheet" href="/app.css">
+    @if (!"admin".equals(activeNav))
+    <link rel="stylesheet" href="/site-v2.css">
+    @endif
 </head>
-<body class="${"admin".equals(activeNav) ? "page page--admin" : "page"}">
+<body class="${"admin".equals(activeNav) ? "page page--admin" : "page page--v2"}">
 <a class="skip-link" href="#main-content">Skip to main content</a>
-<header class="${"admin".equals(activeNav) ? "site-header site-header--admin" : "site-header"}">
-    <div class="site-header__inner">
+<header class="${"admin".equals(activeNav) ? "site-header site-header--admin" : "v2-site-header"}">
+    <div class="${"admin".equals(activeNav) ? "site-header__inner" : "v2-header-inner"}">
         <a class="brand" href="/">
-            <svg class="brand__mark" viewBox="0 0 42 26" aria-hidden="true"><path d="M6 3h25a6 6 0 0 1 0 20H6z"/><path d="M15 3v20M24 3v20"/></svg>
-            <span><span class="brand__title">Oil Tank Route</span><span class="brand__tag">Residential field tools</span></span>
+            <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 26V6h13l9 9v11H5Z"/><path d="M18 6v9h9M11 20h10"/></svg>
+            <span><span class="brand__title">Oil Tank Route<span class="v2-brand-dot">.</span></span><span class="brand__tag">Property record research</span></span>
         </a>
         @if ("admin".equals(activeNav))
             <div class="admin-toolbar" aria-label="Admin">
@@ -51,12 +54,13 @@
                 <a class="admin-toolbar__link" href="/admin/exports/admin-metrics-snapshot.json">Metrics JSON</a>
             </div>
         @else
-            <div class="site-header__rail">
-                <nav class="site-nav" aria-label="Primary">
-                    <a class="${"tools".equals(activeNav) ? "site-nav__link site-nav__link--active" : "site-nav__link"}" href="/oil-tank-gauge-calculator/">Tools</a>
-                    <a class="${("guide".equals(activeNav) || "guides".equals(activeNav)) ? "site-nav__link site-nav__link--active" : "site-nav__link"}" href="/heating-oil-tank/">Tank Guides</a>
-                    <a class="${"risk".equals(activeNav) ? "site-nav__link site-nav__link--active" : "site-nav__link"}" href="/oil-tank-replacement-planner/">Risk &amp; Replacement</a>
-                    <a class="${("state".equals(activeNav) || "states".equals(activeNav)) ? "site-nav__link site-nav__link--active" : "site-nav__link"}" href="/states/">State Resources</a>
+            <div class="v2-header-rail">
+                <details class="v2-mobile-menu"><summary>Menu <span aria-hidden="true">＋</span></summary><nav aria-label="Mobile navigation"><a href="/how-it-works/">How it works</a><a href="/research-areas/">Research areas</a><a href="/sample-brief/">Sample brief</a><a href="/#start-check">Start a property record check ↗</a></nav></details>
+                <nav class="v2-desktop-nav" aria-label="Primary">
+                    <a class="v2-nav-link" aria-current="${"how".equals(activeNav) ? "page" : "false"}" href="/how-it-works/">How it works</a>
+                    <a class="v2-nav-link" aria-current="${"areas".equals(activeNav) ? "page" : "false"}" href="/research-areas/">Research areas</a>
+                    <a class="v2-nav-link" aria-current="${"brief".equals(activeNav) ? "page" : "false"}" href="/sample-brief/">Sample brief</a>
+                    <a class="v2-nav-cta" href="/#start-check">Start a check <span aria-hidden="true">↗</span></a>
                 </nav>
             </div>
         @endif
@@ -69,12 +73,18 @@
     <footer class="site-footer">
         <div class="site-footer__inner">
             <div class="site-footer__brand">
-                <p>Residential heating-oil tank measurements, risk routing, and sourced next steps.</p>
-                <span>Results are planning information - not a substitute for a qualified inspection, delivery decision, or emergency response.</span>
+                <a class="v2-footer-wordmark" href="/">Oil Tank Route.</a>
+                <p>Property-specific oil tank record research, agency routing, and transaction briefs.</p>
+                <span>Research distinguishes confirmed facts from gaps. It is not a safety certification, legal opinion, or environmental determination.</span>
             </div>
             <div class="site-footer__links">
                 <a href="/methodology/">Methodology</a>
                 <a href="/guides/">Resources</a>
+                <a href="/states/">State routes</a>
+                <a href="/record-research/">Research scope</a>
+                <a href="/research-areas/">Local research routes</a>
+                <a href="/research-examples/">Source walkthroughs</a>
+                <a href="/tools/">Tools</a>
                 <a href="/contact/">Contact</a>
                 <a href="/privacy/">Privacy</a>
                 <a href="/terms/">Terms</a>
@@ -84,6 +94,9 @@
     </footer>
 @endif
 <script src="/app.js"></script>
+@if (!"admin".equals(activeNav))
+<script src="/site-v2.js" defer></script>
+@endif
 <script type="module" src="/tools.js"></script>
 </body>
 </html>

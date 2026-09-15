@@ -18,6 +18,8 @@ import owner.buriedoiltank.data.RouteInventoryEntry;
 import owner.buriedoiltank.data.RoutePhase;
 import owner.buriedoiltank.data.SourceFreshnessStatus;
 import owner.buriedoiltank.data.StateRecord;
+import owner.buriedoiltank.data.ServiceRoute;
+import owner.buriedoiltank.data.ResearchCatalog;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,6 +30,38 @@ public class RouteInventoryService {
     public RouteInventoryService(ContentRepository repository, Clock clock) {
         LocalDate today = LocalDate.now(clock);
         List<RouteInventoryEntry> builtEntries = new ArrayList<>();
+
+        for (ServiceRoute route : java.util.stream.Stream.concat(ServiceRoute.CORE.stream(), ResearchCatalog.routes().stream()).toList()) {
+            builtEntries.add(new RouteInventoryEntry(
+                    route.id(),
+                    route.title(),
+                    route.path(),
+                    PageType.SERVICE,
+                    route.scopeLabel(),
+                    ResearchCatalog.ALL.stream().filter(e -> e.id().equals(route.id())).map(ResearchCatalog.Entry::state).filter(s -> !s.isBlank()).findFirst().orElse(null),
+                    null,
+                    IndexStatus.INDEX,
+                    RoutePhase.PHASE_1_PUBLIC,
+                    today.isAfter(route.nextReviewOn()) ? SourceFreshnessStatus.STALE : SourceFreshnessStatus.FRESH,
+                    owner.buriedoiltank.data.Scenario.RECORDS_FIRST,
+                    owner.buriedoiltank.data.PartnerType.RECORD_RESEARCH,
+                    PromotionRecommendation.HOLD,
+                    "Core record-research service route; evaluate successful cases and question mix before changing scope.",
+                    route.verifiedOn(),
+                    route.nextReviewOn()
+            ));
+        }
+
+        for (String county : List.of("westchester", "nassau", "suffolk")) {
+            builtEntries.add(new RouteInventoryEntry("new-york:county:" + county,
+                    county.substring(0, 1).toUpperCase() + county.substring(1) + " heating-oil spill records",
+                    "/states/new-york/counties/" + county + "/heating-oil-spill-records/", PageType.SERVICE,
+                    "New York county incident context", "new-york", null, IndexStatus.INDEX,
+                    RoutePhase.PHASE_1_PUBLIC, today.isAfter(ResearchCatalog.REVIEWED.plusMonths(3)) ? SourceFreshnessStatus.STALE : SourceFreshnessStatus.FRESH,
+                    owner.buriedoiltank.data.Scenario.RECORDS_FIRST, owner.buriedoiltank.data.PartnerType.RECORD_RESEARCH,
+                    PromotionRecommendation.HOLD, "Preserved incident-context URL; local research guidance is linked separately.",
+                    ResearchCatalog.REVIEWED, ResearchCatalog.REVIEWED.plusMonths(3)));
+        }
 
         for (StateRecord state : repository.states()) {
             for (RouteFamily family : RouteFamily.values()) {
@@ -131,7 +165,6 @@ public class RouteInventoryService {
 
     public List<String> indexableSitemapPaths() {
         List<String> staticPaths = List.of(
-                "/",
                 "/about/",
                 "/methodology/",
                 "/contact/",
@@ -146,12 +179,23 @@ public class RouteInventoryService {
                 .toList();
         List<String> paths = new ArrayList<>(staticPaths);
         paths.addAll(dynamicPaths);
-        return paths;
+        return paths.stream().distinct().toList();
+    }
+
+    public String sitemapPriorityForPath(String path) {
+        return java.util.stream.Stream.concat(ServiceRoute.CORE.stream(), ResearchCatalog.routes().stream())
+                .filter(route -> path.equals(route.path()))
+                .map(ServiceRoute::sitemapPriority)
+                .findFirst()
+                .orElseGet(() -> entries.stream()
+                        .filter(entry -> path.equals(entry.path()) && entry.pageType() == PageType.PRODUCT)
+                        .findFirst()
+                        .map(ignored -> "0.6")
+                        .orElse(null));
     }
 
     public LocalDate lastModifiedForPath(String path) {
         return switch (path) {
-            case "/" -> latestVerifiedOn;
             case "/states/" -> maxVerifiedForEntries(entries.stream()
                     .filter(entry -> entry.pageType() == PageType.STATE_ROUTE)
                     .filter(entry -> entry.routeFamily().isOverview())

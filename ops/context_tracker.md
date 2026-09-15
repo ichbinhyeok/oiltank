@@ -1,7 +1,19 @@
 # Context Tracker
 
 ## Current status
-- The 2026-08-01 full pivot to `Oil Tank Route` is implemented: the public front door is now a residential heating-oil tank utility, while existing state and buried-tank guides remain supporting resources.
+- Latest service-depth expansion: 16 area routes (8 NJ / 8 NY), 5 problem routes, 27 core service pages and 67 sitemap URLs. Added eight source-grounded municipal routes, county backlinks, dynamic coverage counts, a direct research-service hero, evidence-standard section, and redesigned static trust/contact pages. See `ops/2026-09-16_service_expansion.md`. All changes remain local.
+- The public-service visual redesign supersedes the first September layout: photo-led homepage, white/deep-green brand, search/filter directory, sticky source-reading detail pages, report-reader sample, native mobile menu, and a three-step progressively enhanced intake. See `DESIGN.md`; this is still local and awaiting owner review.
+- 2026-09-16 relaunch expansion is implemented locally: eight differentiated NJ/NY research routes, five question pages, a public-source walkthrough page, and a directory (15 new URLs). Inventory/sitemap, internal links, form defaults, and county source attribution share the same route identity. See `ops/2026-09-16_relaunch_readiness.md` for scope, source limits, baseline, and publication gate.
+- Production has **not** been updated by this relaunch work. Any older use of "live" below refers to previous release history, not proof that the September service rebuild is deployed. Owner review remains required before publishing.
+- The 2026-09-14 service rebuild is implemented on `codex/oil-tank-record-research`: the public front door is now property-specific oil tank record research and a transaction brief, with a free founder-led NJ/NY beta intake.
+- New primary service routes are `/how-it-works/`, `/record-research/`, `/sample-brief/`, and `/tools/`. The existing 20 utility canonicals remain live and link contextually into the research service.
+- The homepage explains the delegated research work and evidence standard. The sample is a visibly fictional report reader, not reconstructed official documents or proof of a completed customer investigation.
+- Intake now captures property, jurisdiction, user role, tank status, question family, deadline, document availability, email, optional notes, and up to three privately stored PDF/JPG/PNG source files. GA4-facing events contain only non-PII funnel context.
+- NJ/NY route intelligence now stores jurisdiction, source type, identifiers, request method, requirements, fees, response timing, fallback path, and verification date, with a persistent production override under `storage/records`.
+- Route-intelligence overrides are partial patches merged by normalized state, jurisdiction, source type, and agency; any malformed, incomplete, or duplicate-key override falls back atomically to the bundled baseline.
+- Research intake is persisted before optional async SMTP notification. Notification failure is visible and retryable in admin, while local/test mode works with notification disabled.
+- Case operations now use intake, researching, agency-pending, waiting-on-customer, brief-delivered, and closed plus an append-only activity ledger for findings, requests, bounces, referrals, replies, customer updates, documents, deliveries, and reusable route lessons.
+- The 2026-08-01 utility system remains implemented as the supporting `/tools/` acquisition library; it was replaced as the public front door by the 2026-09-14 research-service rebuild.
 - Nine indexable core product routes now share a reviewed `TankSpec` catalog, shape calculation service, verified gauge-chart interpolation, delivery cross-check, local Tank Passport, and risk-routing rules. They are first-class records in the route manifest and admin performance table.
 - The Modern Field Instrument JTE layout, self-hosted licensed fonts, tank-section SVG language, mobile-first public CSS, and dependency-free ES-module tools are live.
 - Lead and event CSV storage now migrates expanded headers with a timestamped backup and accepts optional tool/risk/commercial context.
@@ -19,26 +31,40 @@
 - The 21-query U.S. Google Ads validation is complete. The combined central overlap-adjusted denominator is 107,772 searches/month, equal to 107.8 clicks/day at the owner's 3% blended CTR assumption; the 50% overlap sensitivity is 82.9/day.
 
 ## Latest decisions
+- The core business identity is `Oil Tank Record Research & Transaction Brief`, not a utility directory or contractor-lead site.
+- `Start a property record check` is the primary CTA. Leak emergencies remain a separate safety route.
+- NJ and NY are the first founder-led research cohort. Other states may submit but are explicitly outside the researched-first route coverage.
+- Empty or unavailable searches never become proof of absence. Every brief must distinguish source evidence, interpretation, and unresolved gaps.
+- Existing 275-gallon, tank-size, chart, price, and calculator canonicals remain separate because their current jobs are distinct. Revisit consolidation only with route-level duplicate-intent evidence.
+- Address, email, notes, and document contents must stay out of GA4. Operational research fields remain in the local lead store.
 - Brand is `Oil Tank Route`; the product boundary is residential heating-oil tanks, not the broad industrial UST market.
 - Utility results are ungated. Normal gauge/fuel and low-risk planner results do not display removal lead capture.
 - Odor/wet soil/visible oil routes to leak/remediation; age/rust/indoor seepage routes to inspection/replacement; home-sale underground/unknown routes to sweep/removal evaluation.
 - General Sans, Source Sans 3, and IBM Plex Mono are self-hosted with license notices; public dark mode is not part of v1.
-- Canonical page unit is `state + transaction-stage route`.
-- Public launch cohort is `NJ`, `NY`, `CT`, and `ME`.
+- The supporting SEO library's canonical page unit is `state + transaction-stage route`; it is not the core service unit.
+- The supporting state-content cohort is `NJ`, `NY`, `CT`, and `ME`; active founder-led route research starts with `NJ` and `NY`.
 - `MA` stays in reserve until source depth is stronger and should not ship as an indexable state in the first public cohort.
 - The primary wedge is not generic tank ownership. It is `home sale + buried tank suspicion + missing records + next action`.
 - Phase 1 public focus is narrower still: `buyer-seller risk + sweep first + records first`.
-- Initial monetization should prioritize tank-sweep and records-checklist routing first, with closure or removal routing following once confirmed-tank paths prove traction.
+- The current beta validates paid record-research demand and delivery effort before choosing pricing or downstream professional-referral economics.
 - County or city overlays should only ship when official process or commercial value meaningfully changes the answer.
 - Runtime-derived `storage/derived/routes.json` is sufficient for phase 1. Do not check in a parallel repo-level derived artifact yet.
 - Packaged deploys should use generated `jte` template classes rather than runtime template compilation.
 - Keep public-facing copy close to `oil tank` language for phase 1 query clarity. Use `tank sweep` and `records` phrasing inside route and CTA copy, not as a full brand shift.
 
 ## What changed this session
+- Replaced the utility-first homepage with a service-first research journey and detailed founder-led intake.
+- Added service explanation, research evidence, sample brief, and tools-hub routes; updated navigation, footer identity, metadata, canonicals, redirects, and sitemap priorities.
+- Added a durable NJ/NY route-intelligence schema and operational update runbook.
+- Added service funnel analytics and privacy-safe payload rules, including document-interpretation and qualified-case events.
+- Connected every utility route contextually to property research without gating its answer or changing its established canonical.
+- Updated organization schema to remove invented desks and keep only the actual Oil Tank Route publisher identity.
+- Expanded integration coverage for service rendering, research intake, route intelligence, redirects, sitemap, utility continuity, and non-PII analytics acceptance.
+- Added CSP allowances for the production Cloudflare analytics script and beacon endpoint after live browser inspection found them blocked.
 - Added `DESIGN.md`, design tokens, self-hosted WOFF2 assets, license notices, and a complete public CSS/JTE layout rebuild.
 - Added the `TankSpec` catalog, obround/cylinder/rectangular capacity formulas, and Granby 138-, 275-, and 330-gallon vertical gauge-chart interpolation from the official U.S. capacity chart.
 - Added the nine core URLs, SSR metadata/JSON-LD/canonicals, sessionStorage handoff, privacy-safe tool analytics, and conditional lead routing.
-- Expanded lead CSV context and added safe header migration with timestamped backups. Lead approval/rejection and payout are recorded in an append-only disposition log and surfaced against the 40-lead/$1,000 target.
+- Expanded lead CSV context and added safe header migration with timestamped backups. Case status is recorded in an append-only operating log and the protected admin shows complete research intake plus notification state.
 - Removed duplicated tank/chart values from browser JavaScript; JTE now emits the Java catalog as page-scoped JSON consumed by the dependency-free ES module.
 - Added the core URLs to the top of the sitemap and retained existing state/guide URLs as resource inventory.
 - Replaced public stock photography with tank-section and measurement SVGs.
@@ -65,13 +91,21 @@
 - Synthesized the persona-council conclusions into the home and methodology surfaces so the product now foregrounds hot trigger states, verify-route-escalate flow, and suspected-versus-confirmed-versus-leak separation.
 
 ## Next recommended tasks
+- Review the feature branch locally before any main-branch merge or production deploy.
+- Connect GA4 property access and confirm service events arrive with only approved dimensions; use `research_form_submit_success` and `qualified_case` as conversions after receipt is verified.
+- Connect Bing Webmaster Tools and compare crawl/index signals with Search Console after the new service canonicals are deployed.
+- After the first real cases, time each research stage and update `storage/records/route-intelligence.json` with learned custodian, identifier, fee, timing, and fallback details.
+- Validate the initial route-review target against real case handling. Private PDF/JPG/PNG intake uploads are implemented (3 files, 8 MB each, 20 MB total); do not request a second transfer channel by default.
 - Use `analysis/price_delivery_volume_assessment_2026-08-02.md` as the current SEO denominator. Prioritize the national price hub and a credible delivery workflow; do not turn state, ZIP, city, cheap-oil, or cash-oil modifiers into thin pages.
 - Track the price/delivery cohort separately in GSC. Replace the 3% model only after it has enough impressions to measure query-weighted CTR, and keep 100/day as a target rather than a forecast until rankings support it.
 - On or after 2026-10-07, run the EIA price refresh checklist in `ops/heating_oil_price_refresh.md`. Keep the last verified snapshot if the expected official release is unavailable.
 - Deploy behind the existing canonical host and verify production Core Web Vitals and event ingestion.
 - Add additional manufacturer models only after a current official dimension table and compatible gauge chart are reviewed.
-- Decide whether early local overlays should start with `NJ` counties once post-launch demand is visible.
+- Evaluate the 16-area research cohort by actual jurisdiction and problem, retaining broad coverage while investigating stronger localities.
 
 ## Open questions
+- What response-time promise should the founder-led beta make after the first five completed briefs establish a real median?
+- Do real cases require any document format beyond the supported private PDF/JPG/PNG upload?
+- What criteria move a state beyond NJ/NY from accepted intake to a fully researched route?
 - Which accepted-lead buyer will explicitly accept replacement/HVAC intent in addition to removal?
 - Should early local pages remain state-first until the new utility routes produce live GSC demand?
