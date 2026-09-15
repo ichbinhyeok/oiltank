@@ -92,6 +92,40 @@ jobs:
           exit-code: 1
           timeout: 10m
 
+      - name: Preserve production data and rollback configuration
+        uses: appleboy/ssh-action@029f5b4aeeeb58fdfe1410a5d17f967dacf36262 # v1.0.3
+        with:
+          host: ${{ secrets.OCI_HOST }}
+          username: ${{ secrets.OCI_USERNAME }}
+          key: ${{ secrets.OCI_KEY }}
+          script: |
+            set -euo pipefail
+            umask 077
+            APP_DIR="$HOME/deploy/oiltankroute"
+            mkdir -p "$APP_DIR/backups"
+            BACKUP_DIR=$(mktemp -d "$APP_DIR/backups/predeploy-XXXXXXXX")
+            for config in .env docker-compose.yml; do
+              if [ -f "$APP_DIR/$config" ]; then
+                cp "$APP_DIR/$config" "$BACKUP_DIR/$config"
+              fi
+            done
+            if docker inspect oiltankroute >/dev/null 2>&1; then
+              docker inspect --format '{{.Config.Image}}' oiltankroute > "$BACKUP_DIR/image.txt"
+              WAS_RUNNING=$(docker inspect --format '{{.State.Running}}' oiltankroute)
+              if [ "$WAS_RUNNING" = "true" ]; then
+                docker pause oiltankroute >/dev/null
+                trap 'docker unpause oiltankroute >/dev/null || true' EXIT
+              fi
+              docker cp oiltankroute:/app/storage "$BACKUP_DIR/storage"
+              if [ "$WAS_RUNNING" = "true" ]; then
+                docker unpause oiltankroute >/dev/null
+                trap - EXIT
+              fi
+            elif [ -d "$APP_DIR/storage" ]; then
+              cp -a "$APP_DIR/storage" "$BACKUP_DIR/storage"
+            fi
+            echo "Private storage and rollback configuration preserved on the production host."
+
       - name: Copy compose file to OCI
         uses: appleboy/scp-action@917f8b81dfc1ccd331fef9e2d61bdc6c8be94634 # v0.1.7
         with:
