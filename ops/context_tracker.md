@@ -101,7 +101,7 @@
 - On or after 2026-10-07, run the EIA price refresh checklist in `ops/heating_oil_price_refresh.md`. Keep the last verified snapshot if the expected official release is unavailable.
 - Deploy behind the existing canonical host and verify production Core Web Vitals and event ingestion.
 - Add additional manufacturer models only after a current official dimension table and compatible gauge chart are reviewed.
-- Evaluate the eight-area research cohort by actual jurisdiction and problem, retaining broad coverage while investigating stronger localities.
+- Evaluate the 16-area research cohort by actual jurisdiction and problem, retaining broad coverage while investigating stronger localities.
 
 ## Open questions
 - What response-time promise should the founder-led beta make after the first five completed briefs establish a real median?

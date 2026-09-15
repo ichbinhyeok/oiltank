@@ -15,7 +15,9 @@ Suggested package root: `owner.buriedoiltank`
 - `/` - service promise, evidence workflow, public-data demonstration, and research intake
 - `/how-it-works/` - parcel-to-brief research sequence
 - `/record-research/` - source matrix, agency-routing rules, and deliverables
-- `/sample-brief/` - detailed Montclair public-data demonstration with facts, gaps, routes, and next actions
+- `/sample-brief/` - visibly fictional composite brief showing evidence, gaps, and next actions
+- `/research-areas/` - searchable directory of 16 differentiated NJ/NY research routes
+- `/research-examples/` - public-source walkthroughs, not completed customer cases
 - `/states/new-jersey/records-and-proof/` - NJ parcel, municipal, NJDEP, and OPRA routing
 - `/states/new-york/records-and-proof/` - NY parcel, municipal, DEC, spill, and FOIL routing
 - `/tools/` - preserved 20-route heating-oil utility library
@@ -43,7 +45,7 @@ Suggested package root: `owner.buriedoiltank`
 - `/heating-oil-tank-installation-cost/` - installation quote-scope comparator
 - `/basement-oil-tank-removal/` - routine indoor removal scope versus release response
 
-All public pages use JTE SSR. Calculator behavior is dependency-free ES module JavaScript, and results never require an email. See `DESIGN.md` for the Modern Field Instrument system.
+All public pages use JTE SSR. Calculator behavior is dependency-free ES module JavaScript, and results never require an email. See `DESIGN.md` for the current white/deep-green property-research design; utilities retain their functional layouts.
 
 ## What you are building
 A property-first research service for buyers, sellers, homeowners, agents, and attorneys who have an unresolved oil-tank record question:
@@ -116,7 +118,7 @@ Build a **property-specific research desk** for people trying to answer:
 - Privacy-safe service funnel measurement distinguishes browser submit attempts from server-confirmed submissions; property address, email, notes, document names, and document contents are excluded from analytics payloads.
 - All 20 existing utility routes remain available under the `/tools/` acquisition hub and include a contextual record-research handoff.
 - Spring Boot plus `jte` application scaffold is live under `owner.buriedoiltank`
-- Runtime route inventory contains 66 records: five service routes, 41 supporting state/guide records, and 20 first-class product routes. The sitemap is derived from this inventory.
+- Runtime route inventory contains 92 records, including 16 area routes and 5 problem routes. The sitemap contains 67 canonical URLs, including static trust pages.
 - Lead capture and event logging persist to `storage/leads`; secure customer documents and their integrity register persist outside the release under `storage/cases` and `storage/operations`.
 - Record-research cases use append-only operational states: intake, researching, agency pending, waiting on customer, brief delivered, and closed.
 - The protected admin dashboard shows the full case intake, notification state/retry, service funnel by page/state/question, and supporting utility funnels without requiring a CSV download.

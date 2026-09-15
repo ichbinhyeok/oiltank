@@ -9,7 +9,7 @@ This is a composition change, not just a palette update. Home, area discovery, d
 ## Composition and content
 
 - Home: edge-to-edge illustrative house photo; short service proposition; a clear primary action. Then the human service explanation, three question paths, a readable brief preview, locality routes, and intake.
-- Directory: compact orientation followed immediately by search, state filters, and locality rows. All eight areas and their links are server-rendered. Empty search states direct users to route review without inventing coverage.
+- Directory: compact orientation followed immediately by search, state filters, and locality rows. All 16 areas and their links are server-rendered. Empty search states direct users to route review without inventing coverage.
 - Detail: compact location header, source review date, sticky contents, numbered research steps, official source links, a copyable request outline, limits, related questions, and contextual intake.
 - Service: concise process and scope pages. No decorative stacks of fake agency letters.
 - Sample: a report reader with anchored sections for overview, evidence, open questions, and next actions. Fictional evidence is clearly labeled.
