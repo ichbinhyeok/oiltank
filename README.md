@@ -1,8 +1,10 @@
 # Oil Tank Route
 
-Oil Tank Route is a founder-led **property-specific oil tank record research and transaction brief service** for U.S. buyers, sellers, owners, agents, and attorneys. A user sends a property and the question blocking a decision; the service resolves the parcel, searches municipal and environmental record layers, identifies the correct agency request route, interprets supplied documents, and returns confirmed facts, unresolved gaps, and prioritized next actions.
+Oil Tank Route helps people **find official oil tank records and prepare the next request**. Its public front door is a server-rendered Record Finder with document/local routes, private browser worksheets and explicit search-outcome guidance. Optional founder-led property research and transaction briefs remain limited to NJ/NY intake review.
 
-The existing heating-oil utilities and state/guide library remain live as organic acquisition and decision-support surfaces. They no longer define the homepage or the core business model. The first service cohort is New Jersey and New York, and intake is a free founder-led beta.
+The existing 20 utilities and state/guide URLs are preserved. Public guidance expands to NJ, NY, Oregon, Seattle city, Maine and Connecticut; this does not expand human research coverage or promise an automatic property database. Intake remains a free founder-led NJ/NY beta.
+
+September 30 implementation is local on `codex/record-finder-pivot`, not yet deployed. See `ops/2026-09-30_record_finder_launch_inventory.md` for all candidate decisions, source checks and exact counts; `spec/12_seo_record_finder_pivot_proposal_2026-09-30.md` is the approved design basis. Production remains the September 16 release until separately verified.
 
 Working internal project: `BuriedOilTankVerdict`  
 Suggested package root: `owner.buriedoiltank`
@@ -16,7 +18,8 @@ Suggested package root: `owner.buriedoiltank`
 - `/how-it-works/` - parcel-to-brief research sequence
 - `/record-research/` - source matrix, agency-routing rules, and deliverables
 - `/sample-brief/` - visibly fictional composite brief showing evidence, gaps, and next actions
-- `/research-areas/` - searchable directory of 16 differentiated NJ/NY research routes
+- `/find-records/` - searchable record finder across document, local and missing-record routes
+- `/research-areas/` - 24 local routes: 10 NJ, 13 NY and Portland OR (Oregon self-service only)
 - `/research-examples/` - public-source walkthroughs, not completed customer cases
 - `/states/new-jersey/records-and-proof/` - NJ parcel, municipal, NJDEP, and OPRA routing
 - `/states/new-york/records-and-proof/` - NY parcel, municipal, DEC, spill, and FOIL routing

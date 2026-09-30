@@ -6,7 +6,7 @@ This board exists so future agents do not rely on founder memory.
 When metrics exist, the agent should review this board first and then tell the user whether any route deserves promotion.
 
 ## Current status
-No metrics yet.
+Search metrics exist: see `ops/2026-09-30_septic_seo_comparison.md` for dated GSC evidence and aggregation caveats. They do not prove conversion or justify promoting every held legacy family. The approved Record Finder implementation adds document-retrieval routes; it does not automatically promote held leak/removal advice families. See `ops/2026-09-30_record_finder_launch_inventory.md` for the explicit publication cohort.
 
 Default state for all held route families is `hold`.
 

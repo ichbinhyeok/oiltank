@@ -1,7 +1,7 @@
 # Record research operating model
 
 **Effective:** 2026-09-14
-**Status:** Current product direction. This document supersedes older utility-first positioning where the two conflict.
+**Status:** Current NJ/NY assisted-research operating model. The September 30 approved Record Finder plan supersedes this document's public-front-door positioning, not its case handling, intake acceptance, pricing or service boundaries. Wider self-service guidance is not wider human research coverage.
 
 ## Promise
 

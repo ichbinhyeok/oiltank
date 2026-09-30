@@ -2,6 +2,8 @@
 
 ## Direction
 
+September 30 refinement: the homepage is task-first, with a compact supporting photograph and immediate Record Finder action. `/find-records/` exposes SSR document/local routes, enhanced with jurisdiction/family filters. Every research detail uses the same local-only worksheet, per-source outcomes and request draft. No modal, signup gate, celebratory “safe” result, or nationwide assistance CTA. White/deep-green typography and the existing responsive header remain. Worksheet grid children must have `min-width:0`; test actual element bounds, not only document overflow, because the legacy shell clips overflow.
+
 A calm, contemporary property research service: architectural photography, crisp white space, quiet deep green, human language, and purposeful working surfaces. The previous ivory/orange paper-and-instrument direction is superseded for the public service experience.
 
 This is a composition change, not just a palette update. Home, area discovery, detail reading, service explanation, sample brief, and intake have distinct task-shaped layouts. The existing calculators retain their functional layouts and data while inheriting the public brand shell. Admin stays isolated from public styling.
