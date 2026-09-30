@@ -42,6 +42,47 @@ public class RecordsDataRepository {
         return activeLookupSources().stream().filter(source -> stateSlug.equals(source.stateSlug())).toList();
     }
 
+    /** Reuse compatible operational source overrides in detailed routes as well as state navigators. */
+    public ResearchCatalog.Entry resolveResearchEntry(ResearchCatalog.Entry entry) {
+        Map<String, RecordLookupSource> active = new LinkedHashMap<>();
+        activeLookupSources().forEach(source -> active.put(routeKey(source), source));
+        List<ResearchCatalog.Step> steps = entry.steps().stream().map(step -> {
+            List<RecordLookupSource> matches = lookupSources.stream()
+                .filter(source -> source.url().replaceAll("/+$", "").equals(step.sourceUrl().replaceAll("/+$", "")))
+                .toList();
+            if (matches.size() != 1) return step; // Ambiguous sources must not be guessed.
+            RecordLookupSource baseline = matches.getFirst();
+            RecordLookupSource current = active.get(routeKey(baseline));
+            if (current == null || current.equals(baseline)) return step;
+            return new ResearchCatalog.Step(step.title(), step.body() + " Current source note: " + current.caveat()
+                + " Fallback: " + current.fallbackRoute(), current.title(), current.url());
+        }).toList();
+        return new ResearchCatalog.Entry(entry.slug(), entry.kind(), entry.state(), entry.locality(), entry.title(),
+            entry.summary(), entry.identifiers(), steps, entry.request(), entry.boundary(), entry.question(), entry.related());
+    }
+
+    /** Read-only operational diagnostics: never expose file contents or private paths. */
+    public Map<String, String> overrideHealth() {
+        Map<String, String> result = new LinkedHashMap<>();
+        for (Path path : List.of(routeOverridePath, incidentOverridePath)) {
+            String name = path.equals(routeOverridePath) ? "route-intelligence" : "incident-aggregate";
+            if (Files.notExists(path)) { result.put(name, "bundled baseline (no override)"); continue; }
+            try {
+                if (path.equals(routeOverridePath)) {
+                    List<RecordLookupSource> rows = objectMapper.readValue(path.toFile(), new TypeReference<>() {});
+                    validateSources(rows, "override");
+                } else {
+                    List<IncidentAggregate> rows = objectMapper.readValue(path.toFile(), new TypeReference<>() {});
+                    if (rows == null || rows.stream().anyMatch(java.util.Objects::isNull)) throw new IllegalArgumentException("Invalid aggregate");
+                }
+                result.put(name, "readable; baseline merge/fallback rules retained");
+            } catch (IOException | RuntimeException exception) {
+                result.put(name, "INVALID: bundled fallback active; operator review required");
+            }
+        }
+        return Map.copyOf(result);
+    }
+
     public List<IncidentAggregate> incidentAggregates(String stateSlug) {
         return activeIncidentAggregates().stream()
                 .filter(row -> stateSlug.equals(row.stateSlug()))
@@ -63,8 +104,12 @@ public class RecordsDataRepository {
         }
         try {
             List<IncidentAggregate> override = objectMapper.readValue(incidentOverridePath.toFile(), new TypeReference<>() {});
+            if (override == null || override.stream().anyMatch(java.util.Objects::isNull)) {
+                throw new IllegalArgumentException("Invalid aggregate");
+            }
             return override.isEmpty() ? incidentAggregates : override;
-        } catch (IOException ignored) {
+        } catch (IOException | RuntimeException exception) {
+            LOGGER.warn("Ignored invalid incident override and kept the bundled baseline ({})", exception.getClass().getSimpleName());
             return incidentAggregates;
         }
     }

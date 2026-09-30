@@ -14,7 +14,8 @@
                 <span class="badge">${page.stateName()}</span>
             </div>
             <div class="hero__actions hero__actions--detail">
-                <a class="button" href="#start-check" data-service-cta data-cta-location="state-records-hero">Start a property record check</a>
+                <a class="button" href="/find-records/">Find a document &amp; prepare a worksheet</a>
+                <a href="#start-check" data-service-cta data-cta-location="state-records-hero">Optional NJ/NY research help</a>
             </div>
         </div>
         <aside class="hero__aside hero__aside--detail">

@@ -7,11 +7,12 @@ import org.junit.jupiter.api.Test;
 
 class ResearchCatalogTests {
     @Test void launchCohortIsDifferentiatedAndInternallyConnected() {
-        assertThat(ResearchCatalog.AREAS).hasSize(16);
+        assertThat(ResearchCatalog.AREAS).hasSize(24);
         assertThat(ResearchCatalog.PROBLEMS).hasSize(5);
         assertThat(ResearchCatalog.ALL).extracting(ResearchCatalog.Entry::slug).doesNotHaveDuplicates();
         assertThat(ResearchCatalog.ALL).extracting(ResearchCatalog.Entry::title).doesNotHaveDuplicates();
-        assertThat(ResearchCatalog.routes()).extracting(ServiceRoute::path).doesNotHaveDuplicates().hasSize(23);
+        assertThat(ResearchCatalog.TASKS).hasSize(8);
+        assertThat(ResearchCatalog.routes()).extracting(ServiceRoute::path).doesNotHaveDuplicates().hasSize(40);
         for (var entry : ResearchCatalog.ALL) {
             assertThat(entry.steps()).hasSizeGreaterThanOrEqualTo(3);
             assertThat(entry.identifiers()).isNotBlank();
@@ -28,7 +29,26 @@ class ResearchCatalogTests {
                 assertThat(step.sourceLabel()).isNotBlank();
             }
         }
-        assertThat(ResearchCatalog.areaCount("new-jersey")).isEqualTo(8);
-        assertThat(ResearchCatalog.areaCount("new-york")).isEqualTo(8);
+        assertThat(ResearchCatalog.areaCount("new-jersey")).isEqualTo(10);
+        assertThat(ResearchCatalog.areaCount("new-york")).isEqualTo(13);
+        assertThat(ResearchCatalog.areaCount("oregon")).isEqualTo(1);
+    }
+
+    @Test void everyRouteHasAnEvidenceTargetAndDocumentSpecificDraftScope() {
+        for (var entry : ResearchCatalog.ALL) {
+            var guide = RecordEvidence.forEntry(entry);
+            assertThat(guide.target()).isNotBlank();
+            assertThat(guide.firstRequest()).isNotBlank();
+            assertThat(guide.checks()).hasSizeGreaterThanOrEqualTo(2);
+            for (var check : guide.checks()) {
+                assertThat(check.document()).isNotBlank();
+                assertThat(check.compare()).isNotBlank();
+                assertThat(check.gap()).isNotBlank();
+            }
+        }
+        assertThat(RecordEvidence.forEntry(ResearchCatalog.find("nassau-ny")).firstRequest()).contains("verification letter");
+        assertThat(RecordEvidence.forEntry(ResearchCatalog.find("portland-or")).firstRequest()).contains("Fire & Rescue");
+        assertThat(ResearchCatalog.find("portland-or").assisted()).isFalse();
+        assertThat(ResearchCatalog.find("njdep-nfa-letter").steps()).anyMatch(s -> s.body().contains("NFA is not needed"));
     }
 }

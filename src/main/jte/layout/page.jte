@@ -38,6 +38,7 @@
     <link rel="stylesheet" href="/app.css">
     @if (!"admin".equals(activeNav))
     <link rel="stylesheet" href="/site-v2.css">
+    <link rel="stylesheet" href="/record-finder.css">
     @endif
 </head>
 <body class="${"admin".equals(activeNav) ? "page page--admin" : "page page--v2"}">
@@ -55,12 +56,12 @@
             </div>
         @else
             <div class="v2-header-rail">
-                <details class="v2-mobile-menu"><summary>Menu <span aria-hidden="true">＋</span></summary><nav aria-label="Mobile navigation"><a href="/how-it-works/">How it works</a><a href="/research-areas/">Research areas</a><a href="/sample-brief/">Sample brief</a><a href="/#start-check">Start a property record check ↗</a></nav></details>
+                <details class="v2-mobile-menu"><summary>Menu <span aria-hidden="true">＋</span></summary><nav aria-label="Mobile navigation"><a href="/find-records/">Find records</a><a href="/research-areas/">Local routes</a><a href="/how-it-works/">Research assistance</a><a href="/#start-check">Ask for NJ/NY assistance ↗</a></nav></details>
                 <nav class="v2-desktop-nav" aria-label="Primary">
-                    <a class="v2-nav-link" aria-current="${"how".equals(activeNav) ? "page" : "false"}" href="/how-it-works/">How it works</a>
+                    <a class="v2-nav-link" aria-current="${"finder".equals(activeNav) ? "page" : "false"}" href="/find-records/">Find records</a>
                     <a class="v2-nav-link" aria-current="${"areas".equals(activeNav) ? "page" : "false"}" href="/research-areas/">Research areas</a>
-                    <a class="v2-nav-link" aria-current="${"brief".equals(activeNav) ? "page" : "false"}" href="/sample-brief/">Sample brief</a>
-                    <a class="v2-nav-cta" href="/#start-check">Start a check <span aria-hidden="true">↗</span></a>
+                    <a class="v2-nav-link" aria-current="${"how".equals(activeNav) ? "page" : "false"}" href="/how-it-works/">How we help</a>
+                    <a class="v2-nav-cta" href="/find-records/">Find your route <span aria-hidden="true">↗</span></a>
                 </nav>
             </div>
         @endif
@@ -74,16 +75,18 @@
         <div class="site-footer__inner">
             <div class="site-footer__brand">
                 <a class="v2-footer-wordmark" href="/">Oil Tank Route.</a>
-                <p>Property-specific oil tank record research, agency routing, and transaction briefs.</p>
+                <p>Find official oil tank records, prepare your next request, or ask for NJ/NY research assistance.</p>
                 <span>Research distinguishes confirmed facts from gaps. It is not a safety certification, legal opinion, or environmental determination.</span>
             </div>
             <div class="site-footer__links">
                 <a href="/methodology/">Methodology</a>
+                <a href="/find-records/">Find records</a>
                 <a href="/guides/">Resources</a>
                 <a href="/states/">State routes</a>
                 <a href="/record-research/">Research scope</a>
                 <a href="/research-areas/">Local research routes</a>
                 <a href="/research-examples/">Source walkthroughs</a>
+                <a href="/sample-brief/">Sample research brief</a>
                 <a href="/tools/">Tools</a>
                 <a href="/contact/">Contact</a>
                 <a href="/privacy/">Privacy</a>
@@ -96,6 +99,7 @@
 <script src="/app.js"></script>
 @if (!"admin".equals(activeNav))
 <script src="/site-v2.js" defer></script>
+<script src="/record-workbench.js" defer></script>
 @endif
 <script type="module" src="/tools.js"></script>
 </body>
