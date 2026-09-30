@@ -48,6 +48,7 @@ class RecordsDataRepositoryTests {
 
         Files.writeString(override, "{not-json");
         assertBaseline(repository);
+        assertThat(repository.overrideHealth().get("route-intelligence")).contains("INVALID");
 
         RecordLookupSource original = repository.lookupSources("new-jersey").getFirst();
         writeOverride(tempDir, List.of(original, original));
@@ -61,6 +62,42 @@ class RecordsDataRepositoryTests {
         SiteProperties properties = new SiteProperties();
         properties.setStorageRoot(tempDir);
         return new RecordsDataRepository(objectMapper, properties);
+    }
+
+    @Test void invalidAggregateDiagnosticsAgreeWithPublicFallback(@TempDir Path tempDir) throws Exception {
+        RecordsDataRepository repository = repository(tempDir);
+        var baseline = repository.incidentAggregates("new-york");
+        assertThat(baseline).isNotEmpty();
+        Path override = tempDir.resolve("records/new-york-counties.json");
+        Files.createDirectories(override.getParent());
+        for (String invalid : List.of("null", "[null]", "{not-json")) {
+            Files.writeString(override, invalid);
+            assertThat(repository.overrideHealth().get("incident-aggregate")).contains("INVALID");
+            assertThat(repository.incidentAggregates("new-york")).isEqualTo(baseline);
+        }
+    }
+
+    @Test void sourceChangePropagatesToEveryMatchingResearchStepWithoutWritingCases(@TempDir Path tempDir) throws Exception {
+        RecordsDataRepository repository = repository(tempDir);
+        var original = repository.lookupSources("new-jersey").stream().filter(s -> s.title().equals("NJDEP DataMiner")).findFirst().orElseThrow();
+        var changed = new RecordLookupSource(original.stateSlug(), "Reviewed DataMiner entry", original.agency(),
+            original.jurisdiction(), original.sourceType(), "https://njems.nj.gov/DataMiner/",
+            original.searchBy(), original.usefulFor(), "Rehearsal note", original.identifiers(), original.requestMethod(),
+            original.requestRequirements(), original.fee(), original.responseTime(), original.fallbackRoute(), original.verifiedOn());
+        writeOverride(tempDir, List.of(changed));
+        int matches = 0;
+        for (var entry : ResearchCatalog.ALL) {
+            var resolved = repository.resolveResearchEntry(entry);
+            for (int i = 0; i < entry.steps().size(); i++) {
+                if (entry.steps().get(i).sourceUrl().replaceAll("/+$", "").equals(original.url())) {
+                    matches++;
+                    assertThat(resolved.steps().get(i).sourceUrl()).isEqualTo(changed.url());
+                    assertThat(resolved.steps().get(i).body()).contains("Rehearsal note");
+                }
+            }
+        }
+        assertThat(matches).isGreaterThan(1);
+        assertThat(Files.exists(tempDir.resolve("operations"))).isFalse();
     }
 
     private void writeOverride(Path tempDir, List<RecordLookupSource> rows) throws Exception {

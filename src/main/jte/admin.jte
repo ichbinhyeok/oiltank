@@ -154,6 +154,7 @@
     <div class="section__inner admin-panel-grid">
         <div class="admin-panel">
             <div class="section__eyebrow">Operational exports</div>
+            <p><a href="/admin/exports/record-source-health.json">Record-source health: overdue guidance, override failures and support boundaries</a></p>
             <div class="admin-export-grid">
                 <a class="admin-export-card" href="/admin/exports/routes.json"><strong>Route manifest</strong><p>Canonical route inventory and metadata.</p></a>
                 <a class="admin-export-card" href="/admin/exports/admin-metrics-snapshot.json"><strong>Service metrics</strong><p>28-day research funnel and breakdowns.</p></a>

@@ -50,18 +50,41 @@ class ResearchRoutesTests {
         }
     }
 
+    @Test void finderIsServerRenderedAndOperationalDiagnosticsStayProtected() throws Exception {
+        String finder = mvc.perform(get("/find-records/")).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        for (var entry : ResearchCatalog.ALL) assertThat(finder).contains("href=\"" + entry.path() + "\"");
+        assertThat(finder).contains("No email required", "Not an automatic address search");
+        mvc.perform(get("/admin/exports/record-source-health.json")).andExpect(status().isUnauthorized());
+        String health = mvc.perform(get("/admin/exports/record-source-health.json")
+            .header("Authorization", "Basic " + java.util.Base64.getEncoder().encodeToString("admin:test-admin-password".getBytes(java.nio.charset.StandardCharsets.UTF_8))))
+            .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        assertThat(health).contains("overrides", "reviewDue", "self-service only").doesNotContain("propertyAddress", "target/research-route-test-storage");
+    }
+
     @Test void newSourceScopesRemainVisibleInOperationalFreshnessReview() {
         String review = snapshots.sourceFreshnessReviewJson();
         for (var route : ResearchCatalog.routes()) assertThat(review).contains(route.id(), route.path(), route.nextReviewOn().toString());
     }
 
+    @Test void productionSmokeChecksMatchTheRecordFinderContract() throws Exception {
+        String workflow = Files.readString(Path.of(".github/workflows/deploy.yml"));
+        String home = mvc.perform(get("/")).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        String finder = mvc.perform(get("/find-records/")).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        String sitemap = mvc.perform(get("/sitemap.xml")).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        assertThat(workflow).contains("grep -q 'href=\"/find-records/\"'", "grep -q 'data-record-finder'",
+            "grep -q 'https://oiltankroute.com/find-records/'").doesNotContain("Researched for you");
+        assertThat(home).contains("href=\"/find-records/\"");
+        assertThat(finder).contains("data-record-finder");
+        assertThat(sitemap).contains("<loc>http://localhost:8080/find-records/</loc>");
+    }
+
     @Test void expandedCoverageAndTrustPagesStayConnected() throws Exception {
         String hub = mvc.perform(get("/research-areas/")).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
-        assertThat(hub).contains("16 areas", "Livingston", "Brookhaven", "Oyster Bay");
+        assertThat(hub).contains("24 areas", "Livingston", "Brookhaven", "Oyster Bay", "Portland", "data-area-filter=\"oregon\"");
         String county = mvc.perform(get("/research-areas/suffolk-ny/")).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
         assertThat(county).contains("/research-areas/brookhaven-ny/", "/research-areas/huntington-ny/", "/research-areas/islip-ny/");
         String home = mvc.perform(get("/")).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
-        assertThat(home).contains("Researched for you", "The research work.", "Our evidence standard");
+        assertThat(home).contains("Find the right", "No email required", "/find-records/", "Optional NJ/NY research assistance");
         for (String path : List.of("/contact/", "/privacy/", "/terms/", "/methodology/")) {
             String html = mvc.perform(get(path)).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
             assertThat(html).doesNotContain("BODY HEIGHT", "BODY LENGTH");
@@ -83,9 +106,16 @@ class ResearchRoutesTests {
         for (var entry : ResearchCatalog.ALL) {
             String html = mvc.perform(get(entry.path())).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
             assertThat(hub).contains("href=\"" + entry.path() + "\"");
-            assertThat(html).contains("name=\"pageId\" value=\"" + entry.id() + "\"", "name=\"pagePath\" value=\"" + entry.path() + "\"");
-            assertThat(html).contains("value=\"" + entry.question() + "\" selected");
-            if (!entry.state().isBlank()) assertThat(html).contains("value=\"" + entry.state() + "\" selected");
+            assertThat(html).contains("data-workbench", "data-route-id=\"" + entry.slug() + "\"");
+            assertThat(html).contains("id=\"check-documents\"", "data-request-scope", "Still missing?");
+            if (entry.assisted()) {
+                assertThat(html).contains("name=\"pageId\" value=\"" + entry.id() + "\"", "name=\"pagePath\" value=\"" + entry.path() + "\"");
+                assertThat(html).contains("value=\"" + entry.question() + "\" selected");
+                if (!entry.state().isBlank()) assertThat(html).contains("value=\"" + entry.state() + "\" selected");
+            } else {
+                assertThat(html).doesNotContain("data-research-form", "name=\"propertyAddress\"", "name=\"email\"");
+                assertThat(html).contains("Self-service guidance only");
+            }
             // All local destinations on the new page are real, including related and safety links.
             var matcher = Pattern.compile("href=\"(/[^\"?#]*)\"").matcher(html);
             var visited = new java.util.HashSet<String>();

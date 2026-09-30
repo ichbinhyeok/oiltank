@@ -213,8 +213,14 @@ jobs:
               exit 1
             fi
 
-            if ! echo "$PUBLIC_HTML" | grep -q "Researched for you"; then
-              echo "Production service-positioning check failed."
+            if ! echo "$PUBLIC_HTML" | grep -q 'href="/find-records/"'; then
+              echo "Production record-finder entry check failed."
+              exit 1
+            fi
+
+            FINDER_HTML=$(curl -fsSL https://oiltankroute.com/find-records/ || true)
+            if ! echo "$FINDER_HTML" | grep -q 'data-record-finder'; then
+              echo "Production record-finder page check failed."
               exit 1
             fi
 
@@ -230,6 +236,10 @@ jobs:
             fi
 
             SITEMAP_XML=$(curl -fsSL https://oiltankroute.com/sitemap.xml || true)
+            if ! echo "$SITEMAP_XML" | grep -q 'https://oiltankroute.com/find-records/'; then
+              echo "Record-finder sitemap check failed."
+              exit 1
+            fi
             if ! echo "$SITEMAP_XML" | grep -q "https://oiltankroute.com/heating-oil-tank/"; then
               echo "Public sitemap check failed."
               exit 1

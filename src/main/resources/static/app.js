@@ -96,7 +96,7 @@ function bindAnchors() {
       }
 
       event.preventDefault();
-      const headerHeight = document.querySelector(".site-header")?.getBoundingClientRect().height ?? 0;
+      const headerHeight = document.querySelector(".v2-site-header, .site-header")?.getBoundingClientRect().height ?? 0;
       const offset = headerHeight + 16;
       const top = Math.max(target.getBoundingClientRect().top + window.scrollY - offset, 0);
 
@@ -106,7 +106,7 @@ function bindAnchors() {
       }
       window.scrollTo({
         top,
-        behavior: "smooth"
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"
       });
     });
   });

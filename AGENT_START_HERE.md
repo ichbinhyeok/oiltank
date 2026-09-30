@@ -7,7 +7,8 @@ BuriedOilTankVerdict
 - Preferred stack: `Spring Boot` + `jte`
 - Preferred storage: raw `CSV` and `JSON` source files plus normalized and derived `JSON`
 - No runtime database in phase 1
-- The primary product is a property-specific oil tank record research and transaction brief service; the 20 heating-oil utilities are the supporting acquisition library at `/tools/`
+- Current approved direction: public self-service Record Finder + private browser worksheet, with optional NJ/NY property research. New public guidance does not expand assisted-service acceptance. The 20 utilities remain at `/tools/`.
+- September 30 implementation is local, not a verified production deployment. Read `ops/2026-09-30_record_finder_launch_inventory.md` for candidate KEEP/MERGE/HOLD decisions and remaining publication checks. Older service-first and NJ/NY-only public-front-door statements below are historical, not an instruction to undo the pivot.
 - The app runs on `Spring Boot` with file-backed content, persistent route intelligence, research intake, event logging, ops snapshots, and deployable precompiled `jte` templates
 
 ## What this folder contains

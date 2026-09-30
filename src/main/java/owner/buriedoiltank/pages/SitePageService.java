@@ -55,15 +55,15 @@ public class SitePageService {
     public PageModels.HomePageModel homePage() {
         return new PageModels.HomePageModel(
                 meta(
-                        "Oil Tank Record Research & Transaction Brief | Oil Tank Route",
-                        "Send the property. We research public oil-tank records, locate the right agencies, request missing files when needed, and explain the next action.",
+                        "Find Oil Tank Records & Removal Documents | Oil Tank Route",
+                        "Find official oil tank records by place and document. Prepare a private worksheet, draft a missing-file request and choose the next step. Optional NJ/NY research help.",
                         "/",
                         true,
                         List.of(
                                 jsonLd(siteSchema()),
                                 jsonLd(webpageSchema(
-                                        "Oil Tank Record Research & Transaction Brief",
-                                        "Property-specific public-record research, agency routing, document interpretation, and transaction next steps.",
+                                        "Find Oil Tank Records & Removal Documents",
+                                        "Official record routes, private search worksheets and optional NJ/NY research assistance.",
                                         "/"
                                 ))
                         )
@@ -214,6 +214,7 @@ public class SitePageService {
                     "Privacy",
                     "The beta stores case intake in file-backed operational storage. There are no user accounts or public case pages.",
                     List.of(
+                            "Record Finder worksheets stay in your browser: tab session by default, or optional device saving for up to 7 days. Expired device worksheets are removed when reopened; use Clear this worksheet or browser site-data controls to delete them sooner. Worksheet details are not sent to us or attached to research intake. Avoid saving on shared devices.",
                             "A research request stores the property address, jurisdiction, role, tank status, question, deadline, document status, email, and optional notes.",
                             "Optional uploads store the actual uploaded PDF, JPG, or PNG file, its original filename, size, content type, and integrity hash inside the private case workspace.",
                             "Uploaded files and unredacted evidence are excluded from GA4, public pages, route intelligence, and repository commits; analytics receives page, state, and funnel context—not address, email, filenames, or free text.",

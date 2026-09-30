@@ -13,7 +13,7 @@ public record ServiceRoute(
         LocalDate nextReviewOn
 ) {
     public static final List<ServiceRoute> CORE = List.of(
-            route("service:home", "Oil tank record research and transaction brief", "/", "Service home", "1.0"),
+            route("service:home", "Find oil tank records and removal documents", "/", "Record finder home", "1.0"),
             route("service:how-it-works", "How oil tank record research works", "/how-it-works/", "Service workflow", "0.9"),
             route("service:record-research", "Property-specific oil tank record research", "/record-research/", "Research method", "0.9"),
             route("service:sample-brief", "Sample oil tank transaction brief", "/sample-brief/", "Sample brief", "0.9"),
@@ -27,7 +27,7 @@ public record ServiceRoute(
                 path,
                 scopeLabel,
                 priority,
-                LocalDate.of(2026, 9, 14),
+                id.equals("service:home") ? LocalDate.of(2026, 9, 30) : LocalDate.of(2026, 9, 14),
                 LocalDate.of(2027, 3, 14)
         );
     }
