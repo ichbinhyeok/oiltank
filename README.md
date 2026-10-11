@@ -1,10 +1,10 @@
 # Oil Tank Route
 
-Oil Tank Route helps people **find official oil tank records and prepare the next request**. Its public front door is a server-rendered Record Finder with document/local routes, private browser worksheets and explicit search-outcome guidance. Optional founder-led property research and transaction briefs remain limited to NJ/NY intake review.
+Oil Tank Route helps people **identify document gaps, find official oil tank records and prepare the next request**. Its two public entry paths are a self-reported document-gap checklist and a server-rendered Record Finder with document/local routes, private browser worksheets and explicit search-outcome guidance. Optional founder-led property research and transaction briefs remain limited to NJ/NY intake review.
 
-The existing 20 utilities and state/guide URLs are preserved. Public guidance expands to NJ, NY, Oregon, Seattle city, Maine and Connecticut; this does not expand human research coverage or promise an automatic property database. Intake remains a free founder-led NJ/NY beta.
+The existing 20 utilities and state/guide URLs are preserved. Public guidance covers selected record programs across 12 states; this does not expand human research coverage or promise a nationwide property database. Seattle alone has an optional direct residential public-dataset lookup. Intake remains a free founder-led NJ/NY beta.
 
-September 30 implementation is local on `codex/record-finder-pivot`, not yet deployed. See `ops/2026-09-30_record_finder_launch_inventory.md` for all candidate decisions, source checks and exact counts; `spec/12_seo_record_finder_pivot_proposal_2026-09-30.md` is the approved design basis. Production remains the September 16 release until separately verified.
+September 30 Record Finder production release and dependency patch were verified at `70411cf` (PRs #6/#7); see `ops/2026-09-30_record_finder_deployment_attempt.md`. The October 11 work is local, **not deployed**: 36 local + 17 agency/document + 10 problem details, 67 catalog URLs and 111 full sitemap URLs. The latest intent research and document-check layer are documented in `ops/2026-10-11_search_intent_research_and_document_check.md`; broader source coverage and Seattle utility remain documented in `ops/2026-10-11_broader_record_utility.md`. Relevant search visibility is not proof of sufficient market size or future growth. `spec/12_seo_record_finder_pivot_proposal_2026-09-30.md` remains the underlying record-route design basis.
 
 Working internal project: `BuriedOilTankVerdict`  
 Suggested package root: `owner.buriedoiltank`
@@ -14,12 +14,13 @@ Suggested package root: `owner.buriedoiltank`
 
 ## Primary service routes
 
-- `/` - service promise, evidence workflow, public-data demonstration, and research intake
+- `/` - document-gap and known-record entry paths, service scope and research intake
+- `/tank-document-check/` - situation, document categories and region → research checklist; no address, upload, network lookup or persistence
 - `/how-it-works/` - parcel-to-brief research sequence
 - `/record-research/` - source matrix, agency-routing rules, and deliverables
 - `/sample-brief/` - visibly fictional composite brief showing evidence, gaps, and next actions
 - `/find-records/` - searchable record finder across document, local and missing-record routes
-- `/research-areas/` - 24 local routes: 10 NJ, 13 NY and Portland OR (Oregon self-service only)
+- `/research-areas/` - 36 local routes: 10 NJ, 15 NY, Portland OR, 3 selected WA, 3 MA and 4 CT. Outside NJ/NY is self-service only; Seattle residential records are a separate agency/document route.
 - `/research-examples/` - public-source walkthroughs, not completed customer cases
 - `/states/new-jersey/records-and-proof/` - NJ parcel, municipal, NJDEP, and OPRA routing
 - `/states/new-york/records-and-proof/` - NY parcel, municipal, DEC, spill, and FOIL routing
@@ -210,7 +211,7 @@ The focused public cohort is:
 - `New Jersey`
 - `New York`
 
-New Jersey keeps its state, buyer/seller, sweep, and records routes. New York keeps its state and records routes, plus Westchester, Nassau, and Suffolk incident pages; its buyer/seller and sweep URLs consolidate into the national guides. Connecticut and Maine consolidate into the state or national guide hubs. Massachusetts remains in launch reserve.
+New Jersey keeps its state, buyer/seller, sweep, and records routes. New York keeps its state and records routes, plus Westchester, Nassau, and Suffolk incident pages; its buyer/seller and sweep URLs consolidate into the national guides. Legacy Connecticut and Maine advice routes consolidate into the state or national guide hubs. Massachusetts legacy service families remain in reserve; the October record-finder cohort adds selected self-service MA/CT record routes without reopening those legacy service families.
 
 Reason:
 
