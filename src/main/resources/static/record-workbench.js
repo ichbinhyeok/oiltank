@@ -26,7 +26,8 @@
       const terms = search.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
       rows.forEach(row => {
         const searchable = `${row.textContent} ${row.dataset.state} ${row.dataset.routeId}`.toLowerCase().replaceAll('-', ' ');
-        row.hidden = !!((state.value && row.dataset.state !== state.value && !(row.dataset.state === '' && state.value !== 'unsupported')) || (kind.value && row.dataset.kind !== kind.value) || !terms.every(term => searchable.includes(term)));
+        const family = root.querySelector('[data-finder-family]').value;
+        row.hidden = !!((state.value && row.dataset.state !== state.value && !(row.dataset.state === '' && state.value !== 'unsupported')) || (kind.value && row.dataset.kind !== kind.value) || (family && !row.dataset.family.split(' ').includes(family)) || !terms.every(term => searchable.includes(term)));
         if (!row.hidden) count++;
       });
       root.querySelectorAll('[data-finder-group]').forEach(group => { group.hidden = ![...group.querySelectorAll('[data-finder-route]')].some(row => !row.hidden); });
@@ -34,6 +35,7 @@
       root.querySelector('[data-finder-empty]').hidden = count > 0;
     };
     state.addEventListener('change', filter); kind.addEventListener('change', filter);
+    root.querySelector('[data-finder-family]').addEventListener('change', filter);
     search.addEventListener('input', filter);
     rows.forEach(row => row.addEventListener('click', () => emit('route_selected', row.dataset.routeId, row.dataset.kind)));
     filter();

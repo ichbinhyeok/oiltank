@@ -3,19 +3,21 @@
 @param HomePageModel page
 @template.layout.page(meta = page.meta(), activeNav = "home", content = @`
 <section class="v2-shell rf-home" data-page-id="service:home">
-    <div class="rf-heading"><p class="v2-eyebrow">Official records. A clearer next step.</p>
-        <h1>Find the right<br>oil tank records.</h1>
-        <p>Permits, removal paperwork, environmental closure. Find the official route, prepare your search and know what to do when a document is missing.</p>
-        <div class="rf-start"><a class="v2-button" href="/find-records/">Find your record route <span aria-hidden="true">↗</span></a><p class="rf-caption">Free · No email required</p></div>
-        <p class="rf-caption">NJ · NY · Oregon · Seattle · Maine · Connecticut<br>Guided official lookup—not an automatic property search.</p>
+    <div class="rf-heading"><p class="v2-eyebrow">Oil tank paperwork · Before a purchase or sale</p>
+        <h1>Oil tank paperwork.<br>Know what’s missing.</h1>
+        <p>The seller says it was removed. The tank was filled in place. The permit has no final record. Turn the unresolved question into a document checklist and the right official search.</p>
+        <div class="rf-start"><a class="v2-button" href="/tank-document-check/">Check your document gaps <span aria-hidden="true">↗</span></a><p class="rf-caption">Free · No email required</p><a href="/find-records/">I know the record I need ↗</a></div>
+        <p class="rf-caption">${ResearchCatalog.ALL.size()} routes across ${ResearchCatalog.states().size()} states · Coverage varies by agency and document.<br>Guided official sources, plus direct Seattle residential dataset lookup.</p>
     </div>
     <figure><img src="/images/property-editorial.jpg" width="1672" height="941" alt="Illustrative home framed by mature trees"><figcaption class="rf-caption">The house is only part of the story.<br>Illustrative image, not a customer property.</figcaption></figure>
 </section>
+<section class="v2-shell dc-home-entrances"><article><p class="v2-eyebrow">Start with the question</p><h2>Have paperwork.<br>Still have questions?</h2><p>Select the document categories you hold. Get a self-reported research checklist with state-specific distinctions—not a safety verdict.</p><a href="/tank-document-check/">Check documents ↗</a></article><article><p class="v2-eyebrow">Start with the record</p><h2>Find the right<br>official record route.</h2><p>Already know you need a permit, verification letter or environmental file? Choose the actual record holder.</p><a href="/find-records/">Find records by place and document ↗</a></article></section>
 <section class="v2-shell rf-directory"><p class="v2-eyebrow">Start with the document</p><h2>Different records. Different answers.</h2>
-@for (var entry : ResearchCatalog.TASKS)
+@for (var entry : ResearchCatalog.TASKS.stream().filter(e -> java.util.List.of("njdep-nfa-letter", "nysdec-spill-documents", "oregon-clean-decommissioning", "seattle-residential-tank-records", "massdep-oil-release-files", "nysdec-pbs-registration-records").contains(e.slug())).toList())
 <a class="rf-route" href="${entry.path()}"><span>${entry.locality()}</span><div><h3>${entry.title()}</h3><p>${entry.summary()}</p></div><b aria-hidden="true">↗</b></a>
 @endfor
 <a class="rf-route" href="/research-areas/nassau-ny/"><span>Nassau County · New York</span><div><h3>Find a small-tank removal verification letter</h3><p>Look up a previous removal, not a new removal appointment.</p></div><b aria-hidden="true">↗</b></a>
+<a class="v2-text-link" href="/find-records/">Browse all ${ResearchCatalog.ALL.size()} record routes ↗</a>
 </section>
 <section class="v2-section v2-soft"><div class="v2-shell">
     <div class="v2-section-head"><div><p class="v2-eyebrow">Start with your question</p><h2>What’s missing<br>from the picture?</h2></div><p>A missing file, a seller’s claim, or documents that don’t agree. Each calls for a different next step.</p></div>
@@ -24,6 +26,7 @@
         <a href="/record-help/conflicting-tank-documents/"><span class="v2-index">02 / Understand</span><h3>“I have paperwork.<br>Not an answer.”</h3><p>Separate what the documents prove from what they leave open.</p><span class="v2-circle-arrow" aria-hidden="true">↗</span></a>
         <a href="/record-help/seller-says-tank-removed/"><span class="v2-index">03 / Verify</span><h3>“The seller says<br>it was removed.”</h3><p>Match the claim to the property’s actual record trail.</p><span class="v2-circle-arrow" aria-hidden="true">↗</span></a>
     </div>
+    <div class="dc-home-entrances"><article><h3>“It was filled with sand.”</h3><p>Closure in place is not removal. Locate the work and sampling file.</p><a href="/record-help/oil-tank-filled-with-sand/">Check a filled-in-place tank claim ↗</a></article><article><h3>“The house uses gas now.”</h3><p>Heating conversion does not establish what happened to the old tank.</p><a href="/record-help/oil-to-gas-tank-records/">Trace the former tank separately ↗</a></article></div>
     <a class="v2-urgent" href="/guides/leaking-heating-oil-tank-what-to-do/">Oil, strong odor, or an active leak? Skip research and use the safety route. ↗</a>
 </div></section>
 <section class="v2-section v2-shell v2-delivery">

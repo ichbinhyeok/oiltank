@@ -29,6 +29,9 @@
 </section>
 
 @template.partials.sourceReview(page.sourceReview())
+@if (page.guide().slug().equals("buried-oil-tank-home-sale"))
+<div class="dc-guide-wrap">@template.partials.tankDocumentCheck()</div>
+@endif
 @template.partials.audienceCards("Who this guide helps first", "Use this guide when you need the first smart move before the answer turns state-specific.", page.audienceCards())
 
 <section id="first-steps" class="section section--soft">

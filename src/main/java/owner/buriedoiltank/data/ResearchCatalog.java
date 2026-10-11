@@ -10,9 +10,14 @@ public final class ResearchCatalog {
     public static final LocalDate REVIEWED = LocalDate.of(2026, 9, 16);
     public static final String HUB = "/research-areas/";
     public static List<String> areaStates() { return AREAS.stream().map(Entry::state).distinct().toList(); }
+    public static List<String> states() { return ALL.stream().map(Entry::state).filter(s -> !s.isBlank()).distinct().toList(); }
     public static String stateLabel(String state) {
         return switch (state) { case "new-jersey" -> "New Jersey"; case "new-york" -> "New York";
-            case "oregon" -> "Oregon"; default -> state; };
+            case "oregon" -> "Oregon"; case "washington" -> "Washington";
+            case "massachusetts" -> "Massachusetts"; case "connecticut" -> "Connecticut";
+            case "maine" -> "Maine"; case "vermont" -> "Vermont"; case "rhode-island" -> "Rhode Island";
+            case "maryland" -> "Maryland"; case "virginia" -> "Virginia"; case "pennsylvania" -> "Pennsylvania";
+            default -> state; };
     }
     public record Step(String title, String body, String sourceLabel, String sourceUrl) {}
     public record Entry(String slug, String kind, String state, String locality, String title,
@@ -21,8 +26,24 @@ public final class ResearchCatalog {
         public String path() { return "/" + (kind.equals("area") ? "research-areas" : kind.equals("task") ? "records" : "record-help") + "/" + slug + "/"; }
         public String id() { return "research:" + slug; }
         public boolean assisted() { return state.isBlank() || state.equals("new-jersey") || state.equals("new-york"); }
-        public LocalDate reviewedOn() { return kind.equals("task") || LaunchResearchAreas.ALL.stream().anyMatch(e -> e.slug().equals(slug)) || slug.equals("brookhaven-ny") ? LocalDate.of(2026, 9, 30) : REVIEWED; }
+        public LocalDate reviewedOn() {
+            if (TransactionResearch.isNew(slug)) return RecordSearchGuide.UPDATED;
+            if (ExpandedRecordRoutes.profile(slug) != null) return RecordSearchGuide.UPDATED;
+            if (OctoberResearchAreas.ALL.stream().anyMatch(e -> e.slug().equals(slug)) || List.of("brookhaven-ny", "seattle-residential-tank-records", "connecticut-deep-spill-documents", "nysdec-spill-documents", "oregon-clean-decommissioning", "oregon-leaking-tank-records", "maine-tank-spill-records").contains(slug)) return RecordSearchGuide.UPDATED;
+            return kind.equals("task") || LaunchResearchAreas.ALL.stream().anyMatch(e -> e.slug().equals(slug)) ? LocalDate.of(2026, 9, 30) : REVIEWED;
+        }
+        public LocalDate updatedOn() { return kind.equals("problem") || RecordSearchGuide.updated(this) ? RecordSearchGuide.UPDATED : reviewedOn(); }
         public String documentType() { return kind.equals("task") ? slug : kind.equals("area") ? "local-permit-completion" : "document-gap"; }
+        public String recordFamily() {
+            var expanded = ExpandedRecordRoutes.profile(slug);
+            if (expanded != null) return expanded.family();
+            if (kind.equals("area")) return "completion";
+            return switch (slug) {
+                case "seattle-residential-tank-records", "oregon-clean-decommissioning" -> "completion";
+                case "njdep-nfa-letter", "njdep-tank-documents", "nysdec-spill-documents", "oregon-leaking-tank-records", "maine-tank-spill-records", "connecticut-deep-spill-documents" -> "environmental";
+                default -> "gap";
+            };
+        }
     }
     private static Step step(String title, String body, String label, String url) {
         return new Step(title, body, label, url);
@@ -117,12 +138,12 @@ public final class ResearchCatalog {
             "A DOB permit and an FDNY tank report have different coverage. A removed-tank entry does not by itself establish that no other tank remains, and report availability is not a safety determination.", "find_records", List.of("conflicting-tank-documents", "agency-record-request"))
     );
 
-    public static final List<Entry> AREAS = Stream.of(ORIGINAL_AREAS, AdditionalResearchAreas.ALL, LaunchResearchAreas.ALL).flatMap(List::stream).toList();
+    public static final List<Entry> AREAS = Stream.of(ORIGINAL_AREAS, AdditionalResearchAreas.ALL, LaunchResearchAreas.ALL, OctoberResearchAreas.ALL, ExpandedRecordRoutes.AREAS).flatMap(List::stream).toList();
     public static long areaCount(String state) { return AREAS.stream().filter(e -> e.state().equals(state)).count(); }
 
-    public static final List<Entry> PROBLEMS = List.of(
+    public static final List<Entry> PROBLEMS = Stream.concat(List.of(
         new Entry("missing-removal-records", "problem", "", "Missing paperwork",
-            "Oil tank removed, but no removal records?",
+            "Oil tank removed but no certificate: find the missing records",
             "Reconstruct the document trail by issuer and date before treating a missing certificate as proof of either completed work or an unsafe property.",
             "Address and parcel, claimed removal year, contractor name, invoices, photographs, permit references, and any seller-provided documents.",
             List.of(
@@ -171,8 +192,8 @@ public final class ResearchCatalog {
                 step("If timing is tight, separate parallel tracks", "Our action list distinguishes records still pending from decisions that need professional input now. A tank report can add documentary history, as NYC's FDNY route illustrates, but research does not replace an inspection or an urgent response. Share the actual deadline at intake so open agency requests remain visible.", "NYC tank-specific record route", FDNY)),
             "The unresolved question is [historic work / physical presence / conflicting documents]. Existing evidence is [list]. Please identify the records that address the historic portion and the gaps that remain outside record research.",
             "Oil, strong odor, or suspected active leakage should leave this research workflow for the official safety route. Research is not an emergency service or a tank-free certification.", "choose_next_step", List.of("wayne-nj", "westchester-ny", "missing-removal-records"))
-    );
-    public static final List<Entry> TASKS = RecordTasks.ALL;
+    ).stream(), TransactionResearch.ENTRIES.stream()).toList();
+    public static final List<Entry> TASKS = Stream.concat(RecordTasks.ALL.stream(), ExpandedRecordRoutes.TASKS.stream()).toList();
     public static final List<Entry> ALL = Stream.of(AREAS, PROBLEMS, TASKS).flatMap(List::stream).toList();
     public static Entry find(String slug) {
         return ALL.stream().filter(e -> e.slug().equals(slug)).findFirst().orElse(null);
@@ -181,7 +202,8 @@ public final class ResearchCatalog {
         return Stream.concat(Stream.of(
             new ServiceRoute("research:areas", "Local oil tank record research routes", HUB, "Research directory", "0.8", REVIEWED, REVIEWED.plusMonths(3)),
             new ServiceRoute("research:examples", "Oil tank research walkthroughs", "/research-examples/", "Public-source walkthroughs", "0.7", REVIEWED, REVIEWED.plusMonths(3)),
-            new ServiceRoute("research:finder", "Find oil tank records", "/find-records/", "Self-service record finder", "0.9", LocalDate.of(2026,9,30), LocalDate.of(2026,12,29))),
+            new ServiceRoute("research:finder", "Find oil tank records", "/find-records/", "Self-service record finder", "0.9", LocalDate.of(2026,9,30), LocalDate.of(2026,12,29)),
+            new ServiceRoute("research:document-check", "Oil tank document-gap checklist", TankDocumentCheck.PATH, "Self-reported research checklist", "0.9", RecordSearchGuide.UPDATED, RecordSearchGuide.UPDATED.plusDays(90))),
             ALL.stream().map(e -> new ServiceRoute(e.id(), e.title(), e.path(), e.locality(), "0.7", e.reviewedOn(), e.reviewedOn().plusDays(90)))).toList();
     }
 }

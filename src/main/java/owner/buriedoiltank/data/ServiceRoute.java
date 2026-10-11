@@ -13,7 +13,7 @@ public record ServiceRoute(
         LocalDate nextReviewOn
 ) {
     public static final List<ServiceRoute> CORE = List.of(
-            route("service:home", "Find oil tank records and removal documents", "/", "Record finder home", "1.0"),
+            route("service:home", "Oil tank records and document-gap checklist", "/", "Record and document-check home", "1.0"),
             route("service:how-it-works", "How oil tank record research works", "/how-it-works/", "Service workflow", "0.9"),
             route("service:record-research", "Property-specific oil tank record research", "/record-research/", "Research method", "0.9"),
             route("service:sample-brief", "Sample oil tank transaction brief", "/sample-brief/", "Sample brief", "0.9"),
