@@ -44,7 +44,7 @@ public class SecurityConfig {
                                 "default-src 'self'; "
                                         + "script-src 'self' https://www.googletagmanager.com https://static.cloudflareinsights.com; "
                                         + "style-src 'self'; "
-                                        + "img-src 'self' data: https://www.google-analytics.com https://*.google-analytics.com; "
+                                        + "img-src 'self' data: https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com/td; "
                                         + "font-src 'self'; "
                                         + "connect-src 'self' https://data.seattle.gov https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://cloudflareinsights.com; "
                                         + "object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"))
