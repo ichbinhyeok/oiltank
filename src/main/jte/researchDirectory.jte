@@ -3,7 +3,7 @@
 @param PageMeta meta
 @template.layout.page(meta = meta, activeNav = "areas", content = @`
 <div class="v2-directory" data-page-id="research:areas">
-<section class="v2-shell rf-explain"><p class="v2-eyebrow">Looking for an agency or a specific document?</p><h2>Start with the record finder.</h2><p>Includes Oregon, Seattle and Maine self-service routes alongside NJ/NY local files.</p><a class="v2-button" href="/find-records/">Choose place and document ↗</a>
+<section class="v2-shell rf-explain"><p class="v2-eyebrow">Looking for an agency or a specific document?</p><h2>Start with the record finder.</h2><p>${ResearchCatalog.TASKS.size()} agency and document routes across ${ResearchCatalog.states().size()} states, alongside selected local files. State coverage does not mean every municipal record is searchable here. Human research assistance remains NJ/NY only.</p><a class="v2-button" href="/find-records/">Choose place and document ↗</a>
 @for (var task : ResearchCatalog.TASKS)
 <a class="rf-route" href="${task.path()}"><span>${task.locality()}</span><div><h3>${task.title()}</h3></div><b aria-hidden="true">↗</b></a>
 @endfor

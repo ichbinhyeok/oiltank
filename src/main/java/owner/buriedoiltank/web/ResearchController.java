@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import owner.buriedoiltank.config.SiteProperties;
 import owner.buriedoiltank.data.ResearchCatalog;
+import owner.buriedoiltank.data.RecordSearchGuide;
 import owner.buriedoiltank.pages.PageModels.PageMeta;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,7 @@ public class ResearchController {
 
     @GetMapping({"/research-areas/", "/research-areas"})
     public String directory(Model model) {
-        model.addAttribute("meta", meta("Local oil tank records | NJ, NY & Portland", "Local and county record routes for New Jersey, New York and Portland, Oregon. Find the correct oil tank record holder before requesting a file. Human assistance is NJ/NY only.", ResearchCatalog.HUB));
+        model.addAttribute("meta", meta("Local oil tank records | NJ, NY, MA, CT, OR & WA", "Selected local oil tank record routes in New Jersey, New York, Massachusetts, Connecticut, Oregon and Washington. Find permits, inspection records and decommissioning reports. Assistance is NJ/NY only.", ResearchCatalog.HUB, RecordSearchGuide.UPDATED));
         return "researchDirectory";
     }
 
@@ -43,8 +44,16 @@ public class ResearchController {
     @GetMapping({"/find-records/", "/find-records"})
     public String finder(Model model) {
         model.addAttribute("meta", meta("Find oil tank records by place and document | Oil Tank Route",
-            "Find official oil tank record routes, prepare a private worksheet and draft a missing-document request. No email needed. Not an automatic property search.", "/find-records/"));
+            "Find official oil tank record routes, prepare a private worksheet and draft a missing-document request. No email needed. Not an automatic property search.", "/find-records/", RecordSearchGuide.UPDATED));
         return "recordFinder";
+    }
+
+    @GetMapping({"/tank-document-check/", "/tank-document-check"})
+    public String documentCheck(Model model) {
+        model.addAttribute("meta", meta("Oil tank documents: missing certificate & closure checklist | Oil Tank Route",
+            "Check self-reported oil tank paperwork gaps: missing removal certificate, filled-in-place tank, gas conversion or open permit. Get region-specific record routes. No email required.",
+            owner.buriedoiltank.data.TankDocumentCheck.PATH, RecordSearchGuide.UPDATED));
+        return "tankDocumentCheck";
     }
 
     private String detail(String slug, String kind, Model model) {
@@ -52,7 +61,8 @@ public class ResearchController {
         if (entry == null || !kind.equals(entry.kind())) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         entry = records.resolveResearchEntry(entry);
         model.addAttribute("entry", entry);
-        model.addAttribute("meta", meta(entry.title() + " | Oil Tank Route", entry.summary(), entry.path(), entry.reviewedOn()));
+        var guide = RecordSearchGuide.forEntry(entry);
+        model.addAttribute("meta", meta((guide == null ? entry.title() : guide.searchTitle()) + " | Oil Tank Route", entry.summary(), entry.path(), entry.updatedOn()));
         return "researchDetail";
     }
 

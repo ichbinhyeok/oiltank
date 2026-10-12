@@ -69,8 +69,8 @@ class BuriedOilTankVerdictApplicationTests {
 
 	@Test
 	void contextLoads() {
-		assertThat(routeInventoryService.entries()).hasSize(109);
-		assertThat(routeInventoryService.indexableEntries()).hasSize(79);
+		assertThat(routeInventoryService.entries()).hasSize(136);
+		assertThat(routeInventoryService.indexableEntries()).hasSize(106);
 		assertThat(routeInventoryService.entries())
 				.filteredOn(entry -> entry.id().startsWith("service:"))
 				.extracting(owner.buriedoiltank.data.RouteInventoryEntry::path)
@@ -407,7 +407,7 @@ class BuriedOilTankVerdictApplicationTests {
 		mockMvc.perform(get("/"))
 				.andExpect(status().isOk())
 				.andExpect(content().string(containsString("Oil Tank Route")))
-				.andExpect(content().string(containsString("Find the right")))
+				.andExpect(content().string(containsString("Know what’s missing")))
 				.andExpect(content().string(containsString("Start a property record check")))
 				.andExpect(content().string(containsString("Property address")))
 				.andExpect(content().string(containsString("Optional NJ/NY research assistance")))

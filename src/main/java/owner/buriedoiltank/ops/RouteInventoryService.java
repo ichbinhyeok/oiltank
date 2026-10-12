@@ -195,6 +195,9 @@ public class RouteInventoryService {
     }
 
     public LocalDate lastModifiedForPath(String path) {
+        if (ResearchCatalog.HUB.equals(path) || "/find-records/".equals(path) || "/".equals(path) || owner.buriedoiltank.data.TankDocumentCheck.PATH.equals(path) || "/guides/buried-oil-tank-home-sale/".equals(path)) return owner.buriedoiltank.data.RecordSearchGuide.UPDATED;
+        var researchEntry = ResearchCatalog.ALL.stream().filter(entry -> path.equals(entry.path())).findFirst();
+        if (researchEntry.isPresent()) return researchEntry.get().updatedOn();
         return switch (path) {
             case "/states/" -> maxVerifiedForEntries(entries.stream()
                     .filter(entry -> entry.pageType() == PageType.STATE_ROUTE)

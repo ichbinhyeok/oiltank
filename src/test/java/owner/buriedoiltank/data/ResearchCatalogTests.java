@@ -7,12 +7,12 @@ import org.junit.jupiter.api.Test;
 
 class ResearchCatalogTests {
     @Test void launchCohortIsDifferentiatedAndInternallyConnected() {
-        assertThat(ResearchCatalog.AREAS).hasSize(24);
-        assertThat(ResearchCatalog.PROBLEMS).hasSize(5);
+        assertThat(ResearchCatalog.AREAS).hasSize(36);
+        assertThat(ResearchCatalog.PROBLEMS).hasSize(10);
         assertThat(ResearchCatalog.ALL).extracting(ResearchCatalog.Entry::slug).doesNotHaveDuplicates();
         assertThat(ResearchCatalog.ALL).extracting(ResearchCatalog.Entry::title).doesNotHaveDuplicates();
-        assertThat(ResearchCatalog.TASKS).hasSize(8);
-        assertThat(ResearchCatalog.routes()).extracting(ServiceRoute::path).doesNotHaveDuplicates().hasSize(40);
+        assertThat(ResearchCatalog.TASKS).hasSize(17);
+        assertThat(ResearchCatalog.routes()).extracting(ServiceRoute::path).doesNotHaveDuplicates().hasSize(67);
         for (var entry : ResearchCatalog.ALL) {
             assertThat(entry.steps()).hasSizeGreaterThanOrEqualTo(3);
             assertThat(entry.identifiers()).isNotBlank();
@@ -30,8 +30,11 @@ class ResearchCatalogTests {
             }
         }
         assertThat(ResearchCatalog.areaCount("new-jersey")).isEqualTo(10);
-        assertThat(ResearchCatalog.areaCount("new-york")).isEqualTo(13);
+        assertThat(ResearchCatalog.areaCount("new-york")).isEqualTo(15);
         assertThat(ResearchCatalog.areaCount("oregon")).isEqualTo(1);
+        assertThat(ResearchCatalog.areaCount("washington")).isEqualTo(3);
+        assertThat(ResearchCatalog.areaCount("massachusetts")).isEqualTo(3);
+        assertThat(ResearchCatalog.areaCount("connecticut")).isEqualTo(4);
     }
 
     @Test void everyRouteHasAnEvidenceTargetAndDocumentSpecificDraftScope() {
@@ -50,5 +53,45 @@ class ResearchCatalogTests {
         assertThat(RecordEvidence.forEntry(ResearchCatalog.find("portland-or")).firstRequest()).contains("Fire & Rescue");
         assertThat(ResearchCatalog.find("portland-or").assisted()).isFalse();
         assertThat(ResearchCatalog.find("njdep-nfa-letter").steps()).anyMatch(s -> s.body().contains("NFA is not needed"));
+    }
+
+    @Test void searchGuidesUseValidResolvedStepPositionsAndPreserveServiceBoundaries() {
+        int count = 0;
+        for (var entry : ResearchCatalog.ALL) {
+            var guide = RecordSearchGuide.forEntry(entry);
+            if (guide == null) continue;
+            count++;
+            assertThat(guide.startStep()).isBetween(0, entry.steps().size() - 1);
+            assertThat(guide.action()).isNotBlank();
+            assertThat(guide.expected()).isNotBlank();
+            assertThat(guide.fallback()).isNotBlank();
+            assertThat(guide.answers()).isNotEmpty();
+            assertThat(entry.updatedOn()).isEqualTo(RecordSearchGuide.UPDATED);
+        }
+        assertThat(count).isEqualTo(30);
+        assertThat(ResearchCatalog.AREAS.stream().filter(e -> e.state().equals("washington"))).allMatch(e -> !e.assisted());
+        assertThat(ResearchCatalog.find("new-rochelle-ny").assisted()).isTrue();
+        // Editorial improvement must not pretend a blocked NJDEP live instruction check succeeded.
+        assertThat(ResearchCatalog.find("njdep-nfa-letter").reviewedOn()).isBefore(RecordSearchGuide.UPDATED);
+        assertThat(ResearchCatalog.find("connecticut-deep-spill-documents").steps()).anyMatch(s -> s.sourceUrl().equals("https://deep-react.service.ct.gov/"));
+    }
+
+    @Test void broaderRoutesHaveDistinctCustodyLimitsAndSpecificEvidence() {
+        assertThat(ExpandedRecordRoutes.PROFILES).hasSize(17);
+        for (var profile : ExpandedRecordRoutes.PROFILES) {
+            var entry = ResearchCatalog.find(profile.entry().slug());
+            assertThat(entry).isNotNull();
+            assertThat(RecordEvidence.forEntry(entry)).isEqualTo(profile.evidence());
+            assertThat(RecordSearchGuide.forEntry(entry)).isEqualTo(profile.search());
+            assertThat(entry.recordFamily()).isEqualTo(profile.family());
+            assertThat(entry.reviewedOn()).isEqualTo(RecordSearchGuide.UPDATED);
+            if (!entry.state().equals("new-york")) assertThat(entry.assisted()).isFalse();
+        }
+        assertThat(ResearchCatalog.states()).hasSize(12);
+        for (String state : ResearchCatalog.states()) assertThat(ResearchCatalog.stateLabel(state)).doesNotContain("-");
+        assertThat(ResearchCatalog.find("wilton-ct").boundary()).contains("October 2018");
+        assertThat(ResearchCatalog.find("wellesley-ma").steps()).anyMatch(s -> s.body().contains("FP 291"));
+        assertThat(ResearchCatalog.find("pennsylvania-dep-tank-files").boundary()).contains("home-oil-tank", "excluded");
+        assertThat(ResearchCatalog.find("nysdec-pbs-registration-records").recordFamily()).isEqualTo("registration");
     }
 }

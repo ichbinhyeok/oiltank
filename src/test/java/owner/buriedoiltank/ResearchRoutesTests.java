@@ -53,7 +53,7 @@ class ResearchRoutesTests {
     @Test void finderIsServerRenderedAndOperationalDiagnosticsStayProtected() throws Exception {
         String finder = mvc.perform(get("/find-records/")).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
         for (var entry : ResearchCatalog.ALL) assertThat(finder).contains("href=\"" + entry.path() + "\"");
-        assertThat(finder).contains("No email required", "Not an automatic address search");
+        assertThat(finder).contains("No email required", "not nationwide coverage", "data-finder-family", "value=\"massachusetts\"", "value=\"maryland\"");
         mvc.perform(get("/admin/exports/record-source-health.json")).andExpect(status().isUnauthorized());
         String health = mvc.perform(get("/admin/exports/record-source-health.json")
             .header("Authorization", "Basic " + java.util.Base64.getEncoder().encodeToString("admin:test-admin-password".getBytes(java.nio.charset.StandardCharsets.UTF_8))))
@@ -61,9 +61,35 @@ class ResearchRoutesTests {
         assertThat(health).contains("overrides", "reviewDue", "self-service only").doesNotContain("propertyAddress", "target/research-route-test-storage");
     }
 
+    @Test void seattleLookupHasExplicitPrivacyScopeAndNarrowCspPermission() throws Exception {
+        var response = mvc.perform(get("/records/seattle-residential-tank-records/")).andExpect(status().isOk()).andReturn().getResponse();
+        assertThat(response.getContentAsString()).contains("data-seattle-search", "data-seattle-form hidden", "directly to Seattle Open Data", "not a search of every Fire file", "/seattle-record-search.js");
+        assertThat(response.getHeader("Content-Security-Policy")).contains("connect-src 'self' https://data.seattle.gov ").doesNotContain("https://*.seattle.gov");
+        String other = mvc.perform(get("/research-areas/westport-ct/")).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        assertThat(other).doesNotContain("data-seattle-search");
+        String privacy = mvc.perform(get("/privacy/")).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        assertThat(privacy).contains("Seattle Open Data", "external provider can log requests", "Clear search removes the displayed results");
+        mvc.perform(get("/seattle-record-search.js")).andExpect(status().isOk());
+    }
+
     @Test void newSourceScopesRemainVisibleInOperationalFreshnessReview() {
         String review = snapshots.sourceFreshnessReviewJson();
         for (var route : ResearchCatalog.routes()) assertThat(review).contains(route.id(), route.path(), route.nextReviewOn().toString());
+    }
+
+    @Test void searchEntryPointsRenderWithoutJavascriptAndUseEditorialLastModified() throws Exception {
+        for (var entry : ResearchCatalog.ALL) {
+            var guide = owner.buriedoiltank.data.RecordSearchGuide.forEntry(entry);
+            if (guide == null) continue;
+            String html = mvc.perform(get(entry.path())).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+            assertThat(html).contains("data-record-start", "What you are looking for", "If the result is empty or incomplete", "Before you interpret the result");
+            assertThat(html).contains("href=\"" + org.springframework.web.util.HtmlUtils.htmlEscape(entry.steps().get(guide.startStep()).sourceUrl()) + "\"");
+            assertThat(html).contains(org.springframework.web.util.HtmlUtils.htmlEscape(guide.searchTitle()));
+            assertThat(html).contains("\"dateModified\":\"2026-10-11\"");
+            assertThat(inventory.lastModifiedForPath(entry.path())).isEqualTo(owner.buriedoiltank.data.RecordSearchGuide.UPDATED);
+        }
+        assertThat(inventory.lastModifiedForPath("/find-records/")).isEqualTo(owner.buriedoiltank.data.RecordSearchGuide.UPDATED);
+        assertThat(inventory.lastModifiedForPath("/research-areas/montclair-nj/")).isEqualTo(ResearchCatalog.REVIEWED);
     }
 
     @Test void productionSmokeChecksMatchTheRecordFinderContract() throws Exception {
@@ -80,11 +106,11 @@ class ResearchRoutesTests {
 
     @Test void expandedCoverageAndTrustPagesStayConnected() throws Exception {
         String hub = mvc.perform(get("/research-areas/")).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
-        assertThat(hub).contains("24 areas", "Livingston", "Brookhaven", "Oyster Bay", "Portland", "data-area-filter=\"oregon\"");
+        assertThat(hub).contains("36 areas", "Livingston", "Brookhaven", "Oyster Bay", "Portland", "data-area-filter=\"oregon\"", "data-area-filter=\"washington\"", "Unincorporated King County");
         String county = mvc.perform(get("/research-areas/suffolk-ny/")).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
         assertThat(county).contains("/research-areas/brookhaven-ny/", "/research-areas/huntington-ny/", "/research-areas/islip-ny/");
         String home = mvc.perform(get("/")).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
-        assertThat(home).contains("Find the right", "No email required", "/find-records/", "Optional NJ/NY research assistance");
+        assertThat(home).contains("Know what’s missing", "No email required", "/find-records/", "/tank-document-check/", "Optional NJ/NY research assistance");
         for (String path : List.of("/contact/", "/privacy/", "/terms/", "/methodology/")) {
             String html = mvc.perform(get(path)).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
             assertThat(html).doesNotContain("BODY HEIGHT", "BODY LENGTH");
@@ -126,6 +152,27 @@ class ResearchRoutesTests {
     @Test void wrongKindsAndUnknownLocationsAreNotSoft404s() throws Exception {
         for (String path : List.of("/research-areas/unknown/", "/research-areas/missing-removal-records/", "/record-help/nassau-ny/", "/record-help/unknown/"))
             mvc.perform(get(path)).andExpect(status().isNotFound());
+    }
+
+    @Test void documentCheckerHasCrawlableFallbackAndNoPersonalDataIntake() throws Exception {
+        String html = mvc.perform(get("/tank-document-check/")).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        assertThat(html).contains("data-document-check", "data-document-form hidden", "No address, email or upload", "not universally required documents", "No document is authenticated here", "NFA is not needed", "Location changes the paperwork");
+        assertThat(html).doesNotContain("name=\"propertyAddress\"", "name=\"email\"", "data-research-form", "type=\"file\"");
+        for (var entry : ResearchCatalog.PROBLEMS) assertThat(html).contains("href=\"" + entry.path() + "\"");
+        for (var doc : owner.buriedoiltank.data.TankDocumentCheck.DOCUMENTS) assertThat(org.springframework.web.util.HtmlUtils.htmlUnescape(html)).contains(doc.meaning());
+        for (String asset : List.of("/tank-document-check.js", "/tank-document-check.css")) mvc.perform(get(asset)).andExpect(status().isOk());
+        String script = Files.readString(Path.of("src/main/resources/static/tank-document-check.js"));
+        assertThat(script).doesNotContain("fetch(", "localStorage", "sessionStorage", "innerHTML", "pushState", "sendBeacon");
+    }
+
+    @Test void problemPagesAndExistingSaleGuideExposeTheWorkingChecklist() throws Exception {
+        for (var entry : ResearchCatalog.PROBLEMS) {
+            String html = mvc.perform(get(entry.path())).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+            assertThat(html).contains("The short answer", "data-document-check", "data-answer=", "No document is authenticated here").doesNotContain("risk score");
+            assertThat(html).contains("value=\"" + entry.slug() + "\" selected");
+        }
+        String guide = mvc.perform(get("/guides/buried-oil-tank-home-sale/")).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        assertThat(guide).contains("data-document-check", "data-document-region-guide=\"oregon\"");
     }
 
     @Test void preservedCountyPagesLinkLocalRouteAndRetainFormOrigin() throws Exception {

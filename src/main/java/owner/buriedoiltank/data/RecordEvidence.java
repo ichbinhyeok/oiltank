@@ -11,6 +11,15 @@ public final class RecordEvidence {
     private static Guide g(String target, String request, Check... checks) { return new Guide(target, request, List.of(checks)); }
 
     public static Guide forEntry(ResearchCatalog.Entry entry) {
+        var expanded = ExpandedRecordRoutes.profile(entry.slug());
+        if (expanded != null) return expanded.evidence();
+        if (entry.kind().equals("problem")) {
+            var situation = TankDocumentCheck.situation(entry.slug());
+            var documents = TankDocumentCheck.DOCUMENTS.stream().filter(d -> situation.targets().contains(d.id())).toList();
+            return new Guide(situation.answer(),
+                String.join(", ", documents.stream().map(TankDocumentCheck.Document::label).toList()),
+                documents.stream().map(d -> c(d.label(), d.match(), d.meaning())).toList());
+        }
         return switch (entry.slug()) {
             case "njdep-nfa-letter" -> g("A copy of the issued NFA tied to the environmental case—not only a closed status.",
                 "the issued UHOT No Further Action letter and its referenced closure documents",
@@ -46,6 +55,26 @@ public final class RecordEvidence {
                 "the spill report and identified attachments for the known DEEP agency or case ID",
                 c("Portal result", "Compare Town, Street Address, Agency ID, program and document type.", "A result from another program or nearby property is not the requested file."),
                 c("Delivered document", "Check the report date and referenced attachments against what downloaded.", "Use the Records Center/FOIA route for a specified missing document, not another broad search."));
+            case "brookhaven-ny" -> g("Town permit and final inspection/completion documents, with portal-migration gaps recorded separately.",
+                "the existing Town tank removal/abandonment permit, final inspection and completion attachments",
+                c("Town property file", "Match the full tax-map number, work date and permit reference; check the Digital Services transition if an old application is missing.", "Use the old-application help route for migration issues, or FOIL for the specific existing attachment."),
+                c("Separate custodians", "Keep Suffolk Health and DEC references in independent source lines.", "Brookhaven explicitly does not hold those agencies' records; a Town reply cannot complete those searches."));
+            case "new-rochelle-ny" -> g("Fire's tank-removal inspection/tank-status record, with Building and environmental records separately identified.",
+                "the Fire Department oil tank removal inspection/tank-status record and associated City Building attachments",
+                c("Fire record", "Compare property, tank description, inspection date and the action actually documented.", "A Building index result is not the Fire tank-status record; specify that record in the Clerk's request."),
+                c("Separate file references", "List any Building permit and DEC spill number alongside the actual files received.", "One department's reply does not establish that all other records were searched."));
+            case "king-county-wa" -> g("A County tank-work file for the correct work-date jurisdiction, not a countywide assumption.",
+                "the residential underground fuel tank removal/abandonment permit, inspections and certification attachments",
+                c("Jurisdiction at work date", "Compare parcel, work year, city limits and any annexation history.", "A Seattle or Bellevue mailing address alone does not establish which office holds the file."),
+                c("County attachments", "Separate the permit authorization, inspection and certification actually obtained.", "A referral or online blank remains a next step, not certification that no tank exists."));
+            case "bellevue-wa" -> g("Fire Prevention's existing residential oil tank decommissioning report.",
+                "the Fire Prevention residential heating-oil tank decommissioning report and retained attachments",
+                c("Decommissioning report", "Compare property, work date, contractor and removal versus abandonment wording.", "A general Building permit or the F-07 handout is not the property's report."),
+                c("Record holder", "Keep the Fire response separate from Development Services documents.", "If only a construction index was searched, the Fire report question remains open."));
+            case "tacoma-wa" -> g("The Fire Prevention decommissioning certification, where recorded for this property.",
+                "the Fire Prevention oil tank decommissioning certification and retained supporting records",
+                c("Recorded certification", "Compare address, date, tank details and the certified work, not just an application reference.", "Request the Fire-held certification through the current City record channel."),
+                c("Health scope limit", "Preserve whether the agency reply concerns small heating-oil tanks or a different tank category.", "The Health Department's small-tank record exclusion is not proof of no tank at the property."));
             case "nassau-ny" -> g("The existing county removal or abandonment verification letter for the matching address.",
                 "the existing small heating-oil tank removal or abandonment verification letter",
                 c("Verification letter", "Compare address, work date and removal versus abandonment wording.", "Scheduling new work is not retrieval of a historic verification letter."),

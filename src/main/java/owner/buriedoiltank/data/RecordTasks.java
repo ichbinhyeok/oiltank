@@ -16,7 +16,7 @@ final class RecordTasks {
     static final List<Entry> ALL = List.of(
         new Entry("njdep-nfa-letter", "task", "new-jersey", "New Jersey · NJDEP",
             "Find an NJDEP oil tank No Further Action letter",
-            "Look for the environmental closure letter, not just the municipal removal permit. Start with the incident reference and the letter's approximate date.",
+            "Find an oil tank No Further Action letter using NJDEP's date-specific route, DataMiner case reference and OPRA fallback for missing letters.",
             "Property address and municipality; NJDEP incident or PI number if known; approximate NFA date.",
             List.of(
                 s("Check whether an NFA is the right document", "NJDEP's FAQ says an NFA is not needed where an unregulated heating oil tank was closed with no evidence of a discharge and passed municipal inspection. Do not infer those conditions from an empty search. First compare the local completion file; pursue an NFA when there is an environmental remediation case.", "https://dep.nj.gov/srp/unregulated/unregulated-faqs/"),
@@ -27,7 +27,7 @@ final class RecordTasks {
             "An NFA concerns its environmental case and stated scope. It is not interchangeable with a removal permit or proof that every tank on a parcel is absent.", "find_records", List.of("njdep-tank-documents", "missing-removal-records")),
         new Entry("njdep-tank-documents", "task", "new-jersey", "New Jersey · NJDEP",
             "Find NJDEP oil tank case documents",
-            "Move from a case or report reference to the documents behind it. Keep NJDEP environmental records separate from municipal construction files.",
+            "Use NJDEP DataMiner to locate the case, DocMiner for available documents and OPRA for missing reports. Keep municipal permits separate.",
             "Address, municipality, incident/PI number, document type and approximate dates.",
             List.of(
                 s("Locate the reference", "Start with DataMiner to identify the relevant environmental reference. Record the search terms and date. A name or nearby location alone is not enough to associate a file with your property; compare the identifiers in the source.", "https://njems.nj.gov/DataMiner"),
@@ -57,7 +57,7 @@ final class RecordTasks {
             "A registration is not a guarantee about present site conditions. No online result does not establish that a tank was never present. Oregon assistance here is self-service only.", "find_records", List.of("oregon-leaking-tank-records", "missing-removal-records")),
         new Entry("oregon-leaking-tank-records", "task", "oregon", "Oregon · DEQ",
             "Find Oregon leaking heating oil tank and cleanup records",
-            "Follow the leaking-HOT project and its documents. Do not substitute a clean-decommissioning search for a cleanup file.",
+            "Search Your DEQ Online Projects by LUST number or address for leaking heating-oil tank cleanup reports and correspondence, not clean certificates.",
             "DEQ LUST number if known, house number and street name, approximate incident year.",
             List.of(
                 s("Choose the project route", "In Your DEQ Online Public Records, choose Projects and the Leaking Heating Oil Tank project type. This is a different record family from clean-decommissioning certificates. Keep the project reference alongside any files you obtain.", OR_PORTAL),
@@ -67,17 +67,17 @@ final class RecordTasks {
             "Case status and a document search are not safety determinations. Active oil or strong odor needs prompt official/professional response, not this paperwork workflow. Self-service only.", "find_records", List.of("oregon-clean-decommissioning", "conflicting-tank-documents")),
         new Entry("seattle-residential-tank-records", "task", "washington", "Seattle city · Fire Department",
             "Find Seattle residential oil tank decommissioning records",
-            "Search Seattle's residential permit records, then check whether the follow-up tank information is actually present. This route covers Seattle city, not all Washington.",
+            "Search Seattle Fire's residential UST dataset for oil tank permits and decommissioning details. Check missing reports and pre-1996 coverage limits.",
             "Seattle property address, permit number if known, approximate decommissioning year.",
             List.of(
-                s("Open the residential dataset", "Seattle's residential UST dataset concerns Fire Department decommissioning permits, code 6103. Search the address and inspect permit number and date issued. This is not the commercial UST records route or a statewide tank inventory.", "https://data.seattle.gov/Built-Environment/Underground-Storage-Tank-UST-Records-Residential/xvj2-ai6y"),
-                s("Check the follow-up fields", "Compare date and type decommissioned with the permit details. The dataset explains that incomplete tank information indicates the required follow-up report has not been received by SFD. An issued permit alone must not become a completed-removal claim.", "https://data.seattle.gov/Built-Environment/Underground-Storage-Tank-UST-Records-Residential/xvj2-ai6y"),
+                s("Search the residential permit dataset", "Open the dataset's table/search view and search the property address. Compare Address, Permit Number and Date Issued. This is SFD residential decommissioning permit code 6103, not a statewide tank inventory. Keep the reference and search date even if no document downloads.", "https://data.seattle.gov/Built-Environment/Underground-Storage-Tank-UST-Records-Residential/xvj2-ai6y"),
+                s("Check work date, method and tank details", "Inspect Date Decommissioned and Type Decommissioned, then Tank Size, Fill Material and Company. SFD says incomplete tank information indicates its required follow-up report has not been received. Preserve blank fields as a report gap; do not convert Date Issued into completed-removal evidence.", "https://data.seattle.gov/Built-Environment/Underground-Storage-Tank-UST-Records-Residential/xvj2-ai6y"),
                 s("Ask for the missing underlying record", "SFD's residential records begin in 1996; earlier work may have no SFD record. Use the City's public records channel for a specific permit or missing follow-up file. Keep the search result and the agency's eventual response separate.", "https://www.seattle.gov/public-records/public-records-request-center")),
-            "Please provide the residential heating oil tank decommissioning permit and follow-up report for [property], permit [number], approximately [dates]. The public dataset is missing [field or document].",
-            "Missing data is not evidence of a tank-free property. A permit record is not a present-condition inspection. Seattle guidance is self-service only; no Washington-wide research service is offered.", "find_records", List.of("missing-removal-records", "records-or-tank-sweep")),
+            "Please provide the existing SFD residential heating oil tank decommissioning permit and follow-up report for [Seattle property], permit [number], approximately [dates]. I searched the residential UST dataset on [date]. It shows [reference/work type] but I still need [report or missing fields]. Please identify any historic coverage limitation.",
+            "Missing data is not evidence of a tank-free property. A permit is not a present-condition inspection. This dataset covers Seattle residential records only; other Washington jurisdictions have separate routes. Self-service only.", "find_records", List.of("king-county-wa", "bellevue-wa", "tacoma-wa", "missing-removal-records")),
         new Entry("maine-tank-spill-records", "task", "maine", "Maine · DEP",
             "Find Maine tank registration and oil spill files",
-            "Choose TankSmart for registration information and the DEP document portals for finalized spill or tank files. They answer different questions.",
+            "Search registered tanks in Maine TankSmart, then use DEP's separate document portals for finalized oil spill reports and tank files.",
             "Town, address, facility or tank reference, spill number and approximate dates.",
             List.of(
                 s("Choose registration or spill documents", "For registration, choose Search Registered Tanks in TankSmart, not Get Certified. The search offers registration number, facility name, town/city and street address. For spill reports, use the separate DEP document route in the next step; registration does not include every cleanup file.", "https://apps.web.maine.gov/cgi-bin/dep/tanksmart/index.cgi"),
@@ -87,11 +87,12 @@ final class RecordTasks {
             "Registered tanks and finalized spill files are not a complete inventory of every residential tank. This is self-service guidance, not an offer of Maine research assistance.", "find_records", List.of("agency-record-request", "records-or-tank-sweep")),
         new Entry("connecticut-deep-spill-documents", "task", "connecticut", "Connecticut · DEEP",
             "Find Connecticut DEEP oil spill reports and documents",
-            "Locate the underlying spill report by property or case reference, then distinguish missing online documents from a record request still awaiting response.",
+            "Find CT DEEP spill reports by address or case ID. Check the document portal, REACT cleanup files and the Records Center for missing documents.",
             "Town, street address, agency/case ID, document type and approximate document dates.",
             List.of(
                 s("Search the document portal", "The DEEP document portal offers Town, Street Address, Agency ID, Agency Program and document-type fields. Start with the address or known case reference and narrow the result. You are retrieving agency documents, not submitting a new spill report.", "https://filings.deep.ct.gov/DEEPDocumentSearchPortal/"),
                 s("Separate incident data from the file", "DEEP's FOIA guidance distinguishes spill datasets from the associated reports. Use a listing to identify a reference, then obtain the document itself. An incident entry is not evidence that the requested report or every attachment is available online.", "https://portal.ct.gov/deep/about/foia-requests"),
+                s("Check REACT for current cleanup documents", "DEEP's 2026 guidance adds REACT for cleanup status and recent document uploads. Search the same address or case number; older submitted cleanup documents remain in the Document Search Portal. Public property search does not require registration. A cleanup status and the report itself still need to be logged separately.", "https://deep-react.service.ct.gov/"),
                 s("Follow the missing-file route", "DEEP directs users through online search, its Records Center and then a specific FOIA request when needed. Prepare one property and the missing record category. Follow current appointment or request requirements; this worksheet does not book or send anything.", "https://portal.ct.gov/deep/about/foia-requests")),
             "Please provide existing spill reports and [specific attachments] for [property; town], case/agency ID [number], during [dates]. I checked [source] on [date] and still need [document].",
             "A spill-document search is not a complete residential tank inventory or a safety finding. Local tank work may require a municipal file. Connecticut guidance is self-service only.", "find_records", List.of("agency-record-request", "records-or-tank-sweep"))
