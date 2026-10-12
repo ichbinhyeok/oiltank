@@ -99,6 +99,25 @@ class BuriedOilTankVerdictApplicationTests {
 	}
 
 	@Test
+	void imagePolicyAllowsOnlyTheObservedGoogleTagBeaconWithoutBroadeningOtherDirectives() throws Exception {
+		for (String path : List.of("/", "/tank-document-check/")) {
+			String policy = mockMvc.perform(get(path))
+					.andExpect(status().isOk())
+					.andReturn().getResponse().getHeader("Content-Security-Policy");
+			assertThat(policy).isNotNull();
+			assertThat(java.util.Arrays.stream(policy.split(";")).map(String::trim).toList())
+					.containsExactly(
+							"default-src 'self'",
+							"script-src 'self' https://www.googletagmanager.com https://static.cloudflareinsights.com",
+							"style-src 'self'",
+							"img-src 'self' data: https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com/td",
+							"font-src 'self'",
+							"connect-src 'self' https://data.seattle.gov https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://cloudflareinsights.com",
+							"object-src 'none'", "base-uri 'self'", "form-action 'self'", "frame-ancestors 'none'");
+		}
+	}
+
+	@Test
 	void propertyResearchIntakeRequiresCaseFieldsAndStoresTheOperationalBriefInput() throws Exception {
 		mockMvc.perform(post("/api/leads/capture")
 						.contentType("application/x-www-form-urlencoded")
