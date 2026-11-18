@@ -1,5 +1,11 @@
 # 00 Strategy
 
+## November 18 acquisition direction
+
+The owner authorized broader SEO implementation after the November 18 opportunity review. Public acquisition now includes three parallel tasks: compare dated heating-oil prices and delivery budgets, operate a known tank using manufacturer-backed tools, and find property records. The working copy implements this direction; production remains the previously deployed record-first release until the expansion is deployed and verified.
+
+Use the existing domain and canonical utility/record URLs. New state-price pages need actual EIA history and useful budget calculations; supplier pages need actual public coverage statements. Fuel-delivery interest is not a paid removal lead. Human record assistance remains the NJ/NY free beta. The sections below preserve the original property-transaction wedge and must not be used to undo the owner's newer public acquisition direction.
+
 ## Positioning
 Build a state-first buried or abandoned residential heating-oil-tank decision site for users who already have a trigger event and need the next step.
 

@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 @SpringBootApplication
+@org.springframework.scheduling.annotation.EnableScheduling
 @EnableConfigurationProperties({SiteProperties.class, AdminSecurityProperties.class, RecordResearchNotificationProperties.class})
 public class BuriedOilTankVerdictApplication {
 

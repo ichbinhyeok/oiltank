@@ -66,7 +66,7 @@ class ResearchCatalogTests {
             assertThat(guide.expected()).isNotBlank();
             assertThat(guide.fallback()).isNotBlank();
             assertThat(guide.answers()).isNotEmpty();
-            assertThat(entry.updatedOn()).isEqualTo(RecordSearchGuide.UPDATED);
+            assertThat(entry.updatedOn()).isEqualTo(RecordSearchGuide.quickSteps(entry).isEmpty() ? RecordSearchGuide.UPDATED : java.time.LocalDate.of(2026, 11, 18));
         }
         assertThat(count).isEqualTo(30);
         assertThat(ResearchCatalog.AREAS.stream().filter(e -> e.state().equals("washington"))).allMatch(e -> !e.assisted());

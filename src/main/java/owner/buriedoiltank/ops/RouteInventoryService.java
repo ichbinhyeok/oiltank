@@ -26,6 +26,10 @@ import org.springframework.stereotype.Service;
 public class RouteInventoryService {
     private final List<RouteInventoryEntry> entries;
     private final LocalDate latestVerifiedOn;
+    private owner.buriedoiltank.heating.HeatingOilPriceCatalog prices;
+
+    @org.springframework.beans.factory.annotation.Autowired
+    public void setPrices(owner.buriedoiltank.heating.HeatingOilPriceCatalog prices) { this.prices = prices; }
 
     public RouteInventoryService(ContentRepository repository, Clock clock) {
         LocalDate today = LocalDate.now(clock);
@@ -128,8 +132,8 @@ public class RouteInventoryService {
                     route.partnerType(),
                     PromotionRecommendation.HOLD,
                     "Core product route; review search and tool-funnel evidence before changing scope.",
-                    LocalDate.of(2026, 8, 1),
-                    LocalDate.of(2027, 2, 1)
+                    LocalDate.of(2026, 11, 18),
+                    LocalDate.of(2027, 2, 18)
             ));
         }
 
@@ -195,8 +199,12 @@ public class RouteInventoryService {
     }
 
     public LocalDate lastModifiedForPath(String path) {
+        if (path.startsWith("/heating-oil-prices/") && prices != null)
+            return prices.data().releasedOn().isAfter(LocalDate.of(2026, 11, 18)) ? prices.data().releasedOn() : LocalDate.of(2026, 11, 18);
+        if (path.equals("/") || path.equals("/tools/")) return LocalDate.of(2026, 11, 18);
         if (ResearchCatalog.HUB.equals(path) || "/find-records/".equals(path) || "/".equals(path) || owner.buriedoiltank.data.TankDocumentCheck.PATH.equals(path) || "/guides/buried-oil-tank-home-sale/".equals(path)) return owner.buriedoiltank.data.RecordSearchGuide.UPDATED;
         var researchEntry = ResearchCatalog.ALL.stream().filter(entry -> path.equals(entry.path())).findFirst();
+        if (researchEntry.isPresent() && !owner.buriedoiltank.data.RecordSearchGuide.quickSteps(researchEntry.get()).isEmpty()) return LocalDate.of(2026, 11, 18);
         if (researchEntry.isPresent()) return researchEntry.get().updatedOn();
         return switch (path) {
             case "/states/" -> maxVerifiedForEntries(entries.stream()

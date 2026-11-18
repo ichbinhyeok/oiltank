@@ -1,0 +1,9 @@
+@import owner.buriedoiltank.pages.FuelPageService.GuideHub
+@param GuideHub page
+@template.layout.page(meta = page.meta(), activeNav = "guides", content = @`
+<div class="fuel-page">
+<header class="fuel-heading"><div class="v2-shell"><nav class="v2-breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><span>Heating oil guides</span></nav><p class="v2-eyebrow">Buying · Delivery · Consumption</p><h1>Make the next oil order<br>an informed one.</h1><p class="fuel-intro">Compare quantities, understand delivery terms and work through the numbers. Each guide answers a different part of the purchase.</p><nav class="fuel-jump" aria-label="Related tools"><a href="/heating-oil-prices/">Prices in 21 states</a><a href="/heating-oil-delivery/">Selected suppliers</a><a href="/tools/">Tank calculators</a></nav></div></header>
+<section class="v2-shell fuel-section"><h2>Heating oil buying and planning guides</h2><div class="fuel-guide-grid">@for(var guide : page.guides())<article><p class="v2-eyebrow">${guide.category()}</p><h3><a href="${guide.path()}">${guide.title()}</a></h3><p>${guide.description()}</p><a href="${guide.path()}">Read the guide ↗</a></article>@endfor</div></section>
+<section class="fuel-soft"><div class="v2-shell fuel-section fuel-two-column"><div><h2>Have a tank question?</h2><p>Start with the tank's actual model and orientation, then use the correct chart. A nominal capacity is not the amount of oil currently available.</p><a href="/heating-oil-tank-sizes-dimensions/">Compare tank sizes ↗</a></div><div><h2>Checking an old property?</h2><p>Fuel orders and property records answer different questions. Trace permits, closure documents or spill records through the relevant agency route.</p><a href="/find-records/">Find the right records route ↗</a></div></div></section>
+</div>
+`)

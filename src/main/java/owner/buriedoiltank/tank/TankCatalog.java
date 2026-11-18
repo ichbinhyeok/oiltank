@@ -9,10 +9,16 @@ public class TankCatalog {
     private static final LocalDate VERIFIED_ON = LocalDate.of(2026, 8, 1);
     private static final String GRANBY_PRODUCT = "https://www.granbyindustries.com/en-us/petroleum-tanks/products/standard-20-plus/";
     private static final String GRANBY_CHART = "https://www.granbyindustries.com/app/uploads/2026/04/GranbyInd_Capacity-Chart_VerticalTanks_USA_v1.pdf";
-    private static final String GRANBY_STANDARD = "https://www.granbyindustries.com/en-us/petroleum-tanks/products/standard/";
+    private static final String GRANBY_STANDARD = "https://www.granbyindustries.com/en-us/products/standard-residential-oil-storage-tank-ul-80/";
     private static final String ROTH_PRODUCT = "https://www.roth-america.com/product/oil-storage-tanks/double-wall-heating-oil-tank/";
 
     private final List<TankSpec> specs = List.of(
+            new TankSpec("roth-dwt-400l-110", "Roth", "DWT 400L", TankShape.RECTANGULAR, TankOrientation.VERTICAL,
+                    110, 29, 28, 44, 110, List.of(), "Roth double-wall heating-oil tank dimensions", ROTH_PRODUCT, LocalDate.of(2026, 11, 18)),
+            new TankSpec("roth-dwt-620l-165", "Roth", "DWT 620L", TankShape.RECTANGULAR, TankOrientation.VERTICAL,
+                    165, 29, 28, 61, 165, List.of(), "Roth double-wall heating-oil tank dimensions", ROTH_PRODUCT, LocalDate.of(2026, 11, 18)),
+            new TankSpec("roth-dwt-1500l-400", "Roth", "DWT 1500L", TankShape.RECTANGULAR, TankOrientation.VERTICAL,
+                    400, 64, 30, 68, 400, List.of(), "Roth double-wall heating-oil tank dimensions", ROTH_PRODUCT, LocalDate.of(2026, 11, 18)),
             new TankSpec(
                     "granby-204201p-275-vertical",
                     "Granby",

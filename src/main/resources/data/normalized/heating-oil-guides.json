@@ -1,0 +1,953 @@
+[
+  {
+    "slug": "100-gallons-heating-oil",
+    "category": "Order quantity",
+    "title": "100 Gallons of Heating Oil: Cost, Days & Tank Space",
+    "description": "Calculate the cost of 100 gallons, compare 20–50 days of example use, and check tank space, minimum-order fees and delivery terms.",
+    "answer": "A 100-gallon order costs 100 times your quoted price per gallon, plus applicable taxes and fees. At an assumed 3 gallons a day, that purchase adds about 33 days of fuel before any reserve. It does not mean every home will get 33 days.",
+    "tool": "order",
+    "gallons": 100,
+    "sections": [
+      {
+        "id": "cost",
+        "heading": "How much does 100 gallons of heating oil cost?",
+        "paragraphs": [
+          "Start with the price for a 100-gallon order. A dealer's headline rate may apply to a larger purchase. Ask for a written total at your quantity and payment method before comparing suppliers.",
+          "For an illustrative quote of $5.00 per gallon, the fuel subtotal is $500.00. A quoted 5% fuel tax adds $25.00 and a $20 delivery fee brings the total to $545.00. Those tax and fee figures are examples, not rates for your state. The effective delivered price in this example is $5.45 per gallon.",
+          "The dated EIA benchmark below provides context. It is not a dealer offer, a guaranteed price today or a prediction of what you will pay."
+        ],
+        "bullets": [],
+        "columns": [],
+        "rows": []
+      },
+      {
+        "id": "days",
+        "heading": "How long will 100 gallons last?",
+        "paragraphs": [
+          "Divide usable gallons by daily consumption. The table assumes all 100 purchased gallons are available to use and sets no reserve. A reserve reduces the days you should plan around. Existing fuel in the tank is separate from this added purchase."
+        ],
+        "bullets": [],
+        "columns": [
+          "Assumed consumption",
+          "100 gallons ÷ daily use",
+          "With a 10-gallon reserve"
+        ],
+        "rows": [
+          [
+            "2 gallons/day",
+            "50.0 days",
+            "45.0 days"
+          ],
+          [
+            "3 gallons/day",
+            "33.3 days",
+            "30.0 days"
+          ],
+          [
+            "4 gallons/day",
+            "25.0 days",
+            "22.5 days"
+          ],
+          [
+            "5 gallons/day",
+            "20.0 days",
+            "18.0 days"
+          ]
+        ]
+      },
+      {
+        "id": "space",
+        "heading": "Will 100 gallons fit in a 275-gallon tank?",
+        "paragraphs": [
+          "The tank's nominal size alone cannot answer that question. You need a reliable estimate of current contents and the supplier's permitted delivery level. A gauge that says half is a rough reading, and the tank chart must match its model and orientation.",
+          "As a planning example only, choosing 80% of a nominal 275-gallon tank gives a 220-gallon target. If the tank currently contains 80 gallons, that target leaves 140 gallons of planning space. If it contains 150 gallons, the same target leaves only 70. The 80% setting is an assumption you can change, not a universal fill rule or delivery authorization."
+        ],
+        "bullets": [],
+        "columns": [],
+        "rows": []
+      },
+      {
+        "id": "order",
+        "heading": "Questions to ask before ordering 100 gallons",
+        "paragraphs": [
+          "A small order can solve a near-term cash constraint, but compare the complete cost against a larger order only if you have the storage space and budget. An extra delivery fee can outweigh a small per-gallon saving."
+        ],
+        "bullets": [
+          "Is 100 gallons the minimum in my town, and is there a small-order fee?",
+          "Does this price apply to cash, card or a particular payment deadline?",
+          "Is an inspection required for a new customer, and when can delivery actually occur?",
+          "What happens to the price and payment if the tank accepts fewer than 100 gallons?",
+          "Can you confirm the fuel grade, delivery date and final charges in writing?"
+        ],
+        "columns": [],
+        "rows": []
+      },
+      {
+        "id": "records",
+        "heading": "Use your next delivery to improve the next estimate",
+        "paragraphs": [
+          "Keep the delivery ticket, date, gallons, total paid and gauge reading. A second reading over a known interval can give a more useful consumption estimate than a national rule of thumb. If weather or occupancy changes, calculate a new range rather than carrying the earlier number forward.",
+          "If heat has already stopped, use the run-out guide and contact your supplier or heating technician. A calculator cannot confirm that an unattended system can safely restart."
+        ],
+        "bullets": [],
+        "columns": [],
+        "rows": []
+      }
+    ],
+    "related": [
+      {
+        "title": "Compare 100 and 150 gallons",
+        "url": "/150-gallons-heating-oil/"
+      },
+      {
+        "title": "Estimate available tank space",
+        "url": "/how-much-heating-oil-do-i-need/"
+      },
+      {
+        "title": "Compare complete quotes",
+        "url": "/heating-oil-cost-calculator/"
+      },
+      {
+        "title": "Ran out of oil?",
+        "url": "/ran-out-of-heating-oil/"
+      }
+    ],
+    "sources": [
+      {
+        "title": "EIA residential heating-oil price observations",
+        "url": "https://www.eia.gov/dnav/pet/PET_PRI_WFR_A_EPD2F_PRS_DPGAL_W.htm"
+      },
+      {
+        "title": "Central Bucks Oil: delivery quantities and service area",
+        "url": "https://www.centralbucksoil.com/locations/doylestown-pa/"
+      }
+    ]
+  },
+  {
+    "slug": "150-gallons-heating-oil",
+    "category": "Order quantity",
+    "title": "150 Gallons of Heating Oil: Cost & How Long It Lasts",
+    "description": "Estimate a 150-gallon delivery budget and days of use. Compare the extra 50 gallons, storage space and fees against a 100-gallon order.",
+    "answer": "The fuel subtotal for 150 gallons is 150 × the quoted per-gallon price. At an assumed 3 gallons a day, 150 gallons represents 50 days before a reserve. Whether it is a better purchase than 100 gallons depends on your tank space, fees and budget.",
+    "tool": "order",
+    "gallons": 150,
+    "sections": [
+      {
+        "id": "cost",
+        "heading": "What does a 150-gallon delivery cost?",
+        "paragraphs": [
+          "Ask for the rate that applies to exactly 150 gallons. Some dealer sites use that quantity for an advertised price, while another supplier may use a different threshold. Comparing two numbers without their quantity terms can hide the more expensive order.",
+          "At a hypothetical $5.00 per gallon, 150 gallons costs $750.00 before additional charges. If the quote includes a $15 fee, the total becomes $765.00 before any applicable tax. Dividing that total by 150 gives $5.10 per gallon delivered. Use the calculator below with your actual quoted tax and fees."
+        ],
+        "bullets": [],
+        "columns": [],
+        "rows": []
+      },
+      {
+        "id": "days",
+        "heading": "150 gallons: example days of heating",
+        "paragraphs": [
+          "These are arithmetic scenarios, not measured household averages. The reserve column leaves 15 of the 150 gallons unspent in the planning calculation. It does not establish a safe minimum level for your equipment."
+        ],
+        "bullets": [],
+        "columns": [
+          "Assumed use",
+          "No reserve",
+          "15 gallons held in reserve"
+        ],
+        "rows": [
+          [
+            "2 gallons/day",
+            "75 days",
+            "67.5 days"
+          ],
+          [
+            "3 gallons/day",
+            "50 days",
+            "45 days"
+          ],
+          [
+            "4 gallons/day",
+            "37.5 days",
+            "33.8 days"
+          ],
+          [
+            "5 gallons/day",
+            "30 days",
+            "27 days"
+          ]
+        ]
+      },
+      {
+        "id": "compare",
+        "heading": "100 vs. 150 gallons: compare the extra purchase",
+        "paragraphs": [
+          "At the same $5.00 fuel price, the extra 50 gallons adds $250 before tax. At 3 gallons per day, it represents about 16.7 more days before reserve. That comparison says what you are buying; it does not say that the larger order is automatically cheaper per gallon.",
+          "Consider a separate example: 100 gallons at $5.10 plus a $20 delivery fee costs $530, or $5.30 per delivered gallon. An offer for 150 gallons at $5.00 with no delivery fee costs $750, or $5.00 per delivered gallon. The second offer has a lower unit cost but requires $220 more now. Both offers are hypothetical; compare your supplier's actual quantity brackets."
+        ],
+        "bullets": [],
+        "columns": [],
+        "rows": []
+      },
+      {
+        "id": "capacity",
+        "heading": "Check space before choosing the larger order",
+        "paragraphs": [
+          "A 275-gallon nominal tank does not have room for a 150-gallon order at every gauge level. Using an illustrative 220-gallon planning target, 50 gallons currently in the tank leaves 170 gallons of planning space; 100 currently in the tank leaves 120. The same tank can therefore pass one scenario and fail the other.",
+          "Use the correct manufacturer chart or ask the delivery company to establish the level. Do not open fittings or force a gauge to obtain a reading. The supplier determines how much can actually be delivered."
+        ],
+        "bullets": [],
+        "columns": [],
+        "rows": []
+      },
+      {
+        "id": "confirm",
+        "heading": "Confirm the minimum and partial-fill policy",
+        "paragraphs": [
+          "Before paying, ask whether the quoted rate changes if the tank accepts less than 150 gallons. Also ask how an unused prepaid balance is handled. Keep the order confirmation and the metered delivery ticket so you can reconcile the final quantity and bill."
+        ],
+        "bullets": [
+          "Written price for 150 gallons at the chosen payment method",
+          "All taxes, delivery charges and inspection requirements",
+          "Confirmed service town and expected delivery window",
+          "Partial delivery, cancellation and unused-payment terms",
+          "Your current level estimate and the supplier's fill procedure"
+        ],
+        "columns": [],
+        "rows": []
+      }
+    ],
+    "related": [
+      {
+        "title": "Budget a 100-gallon order",
+        "url": "/100-gallons-heating-oil/"
+      },
+      {
+        "title": "Understand minimum deliveries",
+        "url": "/heating-oil-minimum-delivery/"
+      },
+      {
+        "title": "Check order space",
+        "url": "/how-much-heating-oil-do-i-need/"
+      },
+      {
+        "title": "Find selected suppliers",
+        "url": "/heating-oil-delivery/"
+      }
+    ],
+    "sources": [
+      {
+        "title": "EIA residential heating-oil price observations",
+        "url": "https://www.eia.gov/dnav/pet/PET_PRI_WFR_A_EPD2F_PRS_DPGAL_W.htm"
+      },
+      {
+        "title": "PayLessForOil: delivery quote and customer terms",
+        "url": "https://paylessforoil.com/"
+      },
+      {
+        "title": "Central Bucks Oil: delivery quantities and service area",
+        "url": "https://www.centralbucksoil.com/locations/doylestown-pa/"
+      }
+    ]
+  },
+  {
+    "slug": "cash-heating-oil",
+    "category": "Buying oil",
+    "title": "Cash Heating Oil & COD: Compare the Full Delivered Price",
+    "description": "Understand cash and COD heating-oil quotes, compare card charges and minimum gallons, and check payment, inspection and delivery terms before ordering.",
+    "answer": "A cash or COD heating-oil offer describes payment terms. To compare it with a card or account quote, use the same gallons and add every quoted charge. Confirm what the dealer means by cash: accepted payment methods and payment timing can differ.",
+    "tool": "none",
+    "gallons": 0,
+    "sections": [
+      {
+        "id": "meaning",
+        "heading": "What does cash heating oil mean?",
+        "paragraphs": [
+          "Dealers may distinguish a one-time order paid under cash terms from a credit account or a delivery bundled with other services. COD means cash on delivery, but the label alone does not tell you whether a particular supplier accepts a check, bank payment, debit card or another method. Ask before placing the order.",
+          "This is an independent buying guide. The phrase cash heating oil is also used by named businesses, including CashHeatingOil.com; Oil Tank Route is not that company and does not take fuel orders. Use a dealer's own checkout or phone number to confirm a real offer."
+        ],
+        "bullets": [],
+        "columns": [],
+        "rows": []
+      },
+      {
+        "id": "math",
+        "heading": "Compare cash and card on a single order size",
+        "paragraphs": [
+          "Suppose a cash quote is $4.95 per gallon and a card quote is $5.05 for the same 150 gallons. Their fuel subtotals are $742.50 and $757.50, a $15 difference. If the cash offer also carries a $20 delivery charge while the card offer does not, their before-tax totals become $762.50 and $757.50. The cheaper headline rate now costs $5 more.",
+          "These are made-up quotes showing the calculation. Enter your own two offers in the quote calculator and use the supplier's stated tax treatment, including any treatment of fees."
+        ],
+        "bullets": [],
+        "columns": [],
+        "rows": []
+      },
+      {
+        "id": "terms",
+        "heading": "The price needs a quantity and a time",
+        "paragraphs": [
+          "Write down the gallons, fuel grade, payment method, address coverage and delivery timing beside the rate. Ask when the rate becomes binding and whether it is the order-date or delivery-date price. If you are comparing a screenshot with a new phone quote, check whether the offer has changed."
+        ],
+        "bullets": [
+          "Does the displayed rate require a minimum number of gallons?",
+          "Is the quoted price available in my actual town?",
+          "Does paying now reserve that price and delivery window?",
+          "What fees apply to urgent delivery, card payment or an inspection?",
+          "How is the bill adjusted when the tank takes fewer gallons?"
+        ],
+        "columns": [],
+        "rows": []
+      },
+      {
+        "id": "service",
+        "heading": "Compare what comes with the purchase",
+        "paragraphs": [
+          "A lower fuel subtotal and an annual service package are different purchases. Ask each supplier to separate fuel, delivery and optional service charges so you can compare like with like. Do not assume that a one-off oil order includes burner repair or emergency heating service.",
+          "If you already have an automatic-delivery or price agreement, read its purchase and cancellation terms before switching an order. Keep any required written notice and the supplier's confirmation; a new order with a second dealer does not by itself close the first arrangement."
+        ],
+        "bullets": [],
+        "columns": [],
+        "rows": []
+      },
+      {
+        "id": "before-paying",
+        "heading": "Before paying a new supplier",
+        "paragraphs": [
+          "Check the supplier's own service-area page and contact details, then confirm any new-customer tank inspection. A payment receipt is evidence of payment; it is not proof that delivery has been scheduled or completed. Save the accepted order terms and match them to the delivery ticket afterward.",
+          "If you need oil urgently, ask the dealer directly about availability. A cheap rate without a confirmed delivery window does not resolve a near-empty tank."
+        ],
+        "bullets": [],
+        "columns": [],
+        "rows": []
+      }
+    ],
+    "related": [
+      {
+        "title": "Compare two quotes",
+        "url": "/heating-oil-cost-calculator/"
+      },
+      {
+        "title": "Selected supplier directory",
+        "url": "/heating-oil-delivery/"
+      },
+      {
+        "title": "Automatic vs. will-call",
+        "url": "/automatic-vs-will-call-heating-oil/"
+      },
+      {
+        "title": "State price benchmarks",
+        "url": "/heating-oil-prices/"
+      }
+    ],
+    "sources": [
+      {
+        "title": "PayLessForOil: delivery quote and customer terms",
+        "url": "https://paylessforoil.com/"
+      },
+      {
+        "title": "Reis Fuel: ordering and payment options",
+        "url": "https://reisfuel.com/"
+      }
+    ]
+  },
+  {
+    "slug": "automatic-vs-will-call-heating-oil",
+    "category": "Delivery plans",
+    "title": "Automatic vs. Will-Call Heating Oil Delivery",
+    "description": "Compare who schedules heating-oil deliveries, how payment and price plans differ, and what to confirm when changing suppliers or moving home.",
+    "answer": "With will-call delivery, you contact the supplier to order. Automatic delivery uses an agreed supplier scheduling arrangement. Neither label by itself specifies a fixed price, budget billing, emergency repair service or a guarantee against running out.",
+    "tool": "none",
+    "gallons": 0,
+    "sections": [
+      {
+        "id": "comparison",
+        "heading": "Start with who places the order",
+        "paragraphs": [
+          "Choosing a delivery plan is partly a question of who monitors the need for the next delivery. Read the actual agreement and ask what information the supplier uses, what you must report, and what happens when household use changes."
+        ],
+        "bullets": [],
+        "columns": [
+          "Question",
+          "Will-call arrangement",
+          "Automatic arrangement"
+        ],
+        "rows": [
+          [
+            "Who initiates a delivery?",
+            "You request an order",
+            "Supplier follows the agreed schedule or estimate"
+          ],
+          [
+            "Who watches the level?",
+            "You need a monitoring routine",
+            "Confirm both the supplier's method and your responsibilities"
+          ],
+          [
+            "How is price set?",
+            "Terms of the accepted order",
+            "Terms of the account or separate price agreement"
+          ],
+          [
+            "Is service included?",
+            "Only what the order includes",
+            "Only what the service agreement includes"
+          ]
+        ]
+      },
+      {
+        "id": "will-call",
+        "heading": "When will-call may fit your situation",
+        "paragraphs": [
+          "Will-call can suit someone who wants to compare each purchase and can consistently monitor the tank. The tradeoff is the work of checking the level, planning lead time and placing an order before a delivery becomes urgent. An online quote is not a scheduled delivery until the supplier accepts the order.",
+          "Build a simple record: gauge reading and date, estimated gallons, consumption since the previous reading, and the next point at which you will contact a supplier. Recalculate after unusually cold weather, a vacancy ending or another change in use. Leave enough time for the supplier's real delivery window."
+        ],
+        "bullets": [],
+        "columns": [],
+        "rows": []
+      },
+      {
+        "id": "automatic",
+        "heading": "Questions for an automatic-delivery account",
+        "paragraphs": [
+          "Ask how deliveries are estimated, whether a monitor is involved, and how to report a change in occupancy, supplemental heat or hot-water use. Request the written process for a low reading or a missed delivery rather than assuming the scheduling model will capture every change."
+        ],
+        "bullets": [
+          "Must each delivery fill the tank, or can quantity be limited?",
+          "What are the payment deadline and account requirements?",
+          "Does buying from another supplier affect the agreement?",
+          "What is included in any run-out policy, and what exclusions apply?",
+          "Who do I contact outside normal hours?"
+        ],
+        "columns": [],
+        "rows": []
+      },
+      {
+        "id": "billing",
+        "heading": "Keep delivery, price and payment plans separate",
+        "paragraphs": [
+          "Automatic describes scheduling. A fixed or capped agreement describes the way fuel prices are determined. Budget billing describes how payments are spread. A service contract describes covered maintenance or repair. One account may combine several, but none should be assumed from a single label.",
+          "Compare the expected annual fuel bill and separately listed charges. A monthly budget payment can differ from the value of oil delivered that month; ask how the balance is reconciled at the end of the plan."
+        ],
+        "bullets": [],
+        "columns": [],
+        "rows": []
+      },
+      {
+        "id": "switch",
+        "heading": "Changing supplier or moving home",
+        "paragraphs": [
+          "Record the current level and the last delivery, then confirm the old account's cancellation process and effective date. Ask about prepaid balances, outstanding bills and any minimum-purchase commitment. Obtain confirmation before treating the old schedule as ended.",
+          "For a new supplier, confirm delivery access and inspection requirements early. At a move, identify who is responsible for each account and avoid giving two suppliers overlapping automatic instructions. These are questions to settle in writing, not a substitute for the terms you signed."
+        ],
+        "bullets": [],
+        "columns": [],
+        "rows": []
+      }
+    ],
+    "related": [
+      {
+        "title": "Fixed vs. capped prices",
+        "url": "/fixed-vs-capped-heating-oil-prices/"
+      },
+      {
+        "title": "Calculate days left",
+        "url": "/how-long-does-heating-oil-last/"
+      },
+      {
+        "title": "Compare cash/COD terms",
+        "url": "/cash-heating-oil/"
+      },
+      {
+        "title": "Check delivery quantities",
+        "url": "/heating-oil-minimum-delivery/"
+      }
+    ],
+    "sources": [
+      {
+        "title": "Fielding's Oil: example automatic-delivery arrangement",
+        "url": "https://www.fieldingsoil.com/automatic-delivery"
+      },
+      {
+        "title": "Welch Oil: will-call and automatic delivery options",
+        "url": "https://welchheatingoil.com/fuel-delivery/"
+      },
+      {
+        "title": "Massachusetts Attorney General: heating-oil price contracts",
+        "url": "https://www.mass.gov/info-details/understanding-un-regulated-utilities"
+      }
+    ]
+  },
+  {
+    "slug": "heating-oil-minimum-delivery",
+    "category": "Order terms",
+    "title": "Heating Oil Minimum Delivery: 50, 100 or 150 Gallons?",
+    "description": "Check heating-oil delivery minimums, small-order fees and quantity discounts. Work through an example instead of assuming every dealer requires 100 gallons.",
+    "answer": "There is no single commercial minimum you can apply to every supplier and location. Ask for the minimum in your town, the quantity needed for the advertised rate, and the total charge for the gallons you can actually accept. Local consumer rules may also affect terms.",
+    "tool": "none",
+    "gallons": 0,
+    "sections": [
+      {
+        "id": "three-quantities",
+        "heading": "Minimum order, advertised rate and available space",
+        "paragraphs": [
+          "Three quantities can be different: the smallest order the supplier accepts, the quantity that qualifies for a displayed rate, and the space currently available in your tank. A valid comparison needs all three. Do not place an oversized order merely to reach a price threshold."
+        ],
+        "bullets": [],
+        "columns": [
+          "Quantity",
+          "What it answers",
+          "Question for the dealer"
+        ],
+        "rows": [
+          [
+            "Commercial minimum",
+            "Can this order be accepted?",
+            "What is the minimum for my town and date?"
+          ],
+          [
+            "Price threshold",
+            "Which per-gallon rate applies?",
+            "What is the rate for exactly my gallons?"
+          ],
+          [
+            "Available space",
+            "How much might fit?",
+            "How do you handle a partial fill?"
+          ],
+          [
+            "Emergency quantity",
+            "Can a smaller urgent order be arranged?",
+            "What timing and extra charges apply?"
+          ]
+        ]
+      },
+      {
+        "id": "examples",
+        "heading": "Published supplier examples show why you must check",
+        "paragraphs": [
+          "Central Bucks Oil asks customers to call for orders below 150 gallons and to check small-order or urgent-delivery terms. The Heating Oil Lady publishes zone-dependent delivery information, including 100- and 150-gallon quantities. These are selected supplier examples checked for this guide, not a nationwide rule or a promise for your address.",
+          "A supplier can also limit towns, delivery days or new-customer orders. Use the actual service-area and checkout terms on the supplier's site; a broad county name does not establish coverage at every address."
+        ],
+        "bullets": [],
+        "columns": [],
+        "rows": []
+      },
+      {
+        "id": "effective-price",
+        "heading": "How a small-order fee changes the unit cost",
+        "paragraphs": [
+          "Consider an illustrative $5.00 rate with a $25 delivery charge on a 50-gallon order. The before-tax total is $275, so the effective delivered price is $5.50 per gallon. If 100 gallons at $5.00 carries no delivery charge, its before-tax total is $500 and effective rate is $5.00. The smaller order costs less today but more per gallon.",
+          "Compare only offers you can actually use. If your tank has space for 60 gallons, the 100-gallon example is not an available alternative. If cash is the limiting factor, ask the dealer about a smaller scheduled order and contact the appropriate local fuel-assistance program rather than assuming an advertised minimum is your only option."
+        ],
+        "bullets": [],
+        "columns": [],
+        "rows": []
+      },
+      {
+        "id": "partial-fill",
+        "heading": "What if the tank takes less than the minimum?",
+        "paragraphs": [
+          "Ask before payment whether the rate changes, a fee applies, or an unused balance remains when the delivered quantity is lower than the order. Keep the written response. The final metered delivery quantity is what you should reconcile with the receipt; a rough gauge estimate is not an invoice measurement.",
+          "Confirm the fill procedure with the supplier. A planning calculator cannot establish the tank's condition or authorize a delivery beyond the supplier's limit."
+        ],
+        "bullets": [],
+        "columns": [],
+        "rows": []
+      },
+      {
+        "id": "phone-script",
+        "heading": "A short quote request you can reuse",
+        "paragraphs": [
+          "I need approximately [gallons] of [fuel grade] delivered to [town]. I am [a new/an existing] customer and will pay by [method]. What is the full price for that quantity, including applicable tax and fees? What is the delivery window? Is a tank inspection required? What happens if the tank accepts less?",
+          "Use that same request for each supplier. Retain the order confirmation, delivery ticket and any partial-fill adjustment together so the next purchase starts with a reliable record."
+        ],
+        "bullets": [],
+        "columns": [],
+        "rows": []
+      }
+    ],
+    "related": [
+      {
+        "title": "100-gallon order guide",
+        "url": "/100-gallons-heating-oil/"
+      },
+      {
+        "title": "150-gallon order guide",
+        "url": "/150-gallons-heating-oil/"
+      },
+      {
+        "title": "Estimate tank space",
+        "url": "/how-much-heating-oil-do-i-need/"
+      },
+      {
+        "title": "Compare delivered totals",
+        "url": "/heating-oil-cost-calculator/"
+      }
+    ],
+    "sources": [
+      {
+        "title": "Central Bucks Oil: delivery quantities and service area",
+        "url": "https://www.centralbucksoil.com/locations/doylestown-pa/"
+      },
+      {
+        "title": "The Heating Oil Lady: delivery zones and minimum quantities",
+        "url": "https://theoilladyhho.com/"
+      }
+    ]
+  },
+  {
+    "slug": "fixed-vs-capped-heating-oil-prices",
+    "category": "Price plans",
+    "title": "Fixed vs. Capped Heating Oil Prices: Compare the Contract",
+    "description": "Compare fixed, capped and variable heating-oil prices with worked scenarios. Check cap fees, gallon commitments, delivery terms and unused balances.",
+    "answer": "A fixed plan holds the agreed unit price; a capped plan sets a ceiling while allowing the contract's price to move below it. The cap fee, pricing formula and gallon commitment can change the result. Compare written terms with several price scenarios rather than guessing the winter market.",
+    "tool": "none",
+    "gallons": 0,
+    "sections": [
+      {
+        "id": "definitions",
+        "heading": "Fixed, capped and variable describe different risks",
+        "paragraphs": [
+          "Massachusetts' consumer guidance distinguishes a fixed price from a capped price that can move with the market below its ceiling. For a particular offer, the contract must explain which market or dealer rate is used, when it is measured and what charges are separate."
+        ],
+        "bullets": [],
+        "columns": [
+          "Plan",
+          "Question it settles",
+          "Term to verify"
+        ],
+        "rows": [
+          [
+            "Fixed",
+            "What agreed unit rate applies?",
+            "Covered gallons, dates and exceptions"
+          ],
+          [
+            "Capped",
+            "What ceiling applies?",
+            "Below-cap formula and cap fee"
+          ],
+          [
+            "Variable/market",
+            "How is each delivery priced?",
+            "Order-date or delivery-date quote basis"
+          ]
+        ]
+      },
+      {
+        "id": "scenarios",
+        "heading": "Worked example: the fee can change the winner",
+        "paragraphs": [
+          "Assume a hypothetical 600-gallon season: a fixed price of $5.00, a capped plan with a $5.20 ceiling and $100 annual fee, and a variable plan. For simplicity, assume the uncapped unit rate stays at each scenario's price all season and the capped plan follows that same rate below the ceiling. Real contracts and delivery timing can differ. Taxes and other charges are omitted."
+        ],
+        "bullets": [],
+        "columns": [
+          "Assumed variable rate",
+          "Fixed: 600 × $5",
+          "Capped: 600 × min(rate, $5.20) + $100",
+          "Variable: 600 × rate"
+        ],
+        "rows": [
+          [
+            "$4.00",
+            "$3,000",
+            "$2,500",
+            "$2,400"
+          ],
+          [
+            "$5.00",
+            "$3,000",
+            "$3,100",
+            "$3,000"
+          ],
+          [
+            "$6.00",
+            "$3,000",
+            "$3,220",
+            "$3,600"
+          ]
+        ]
+      },
+      {
+        "id": "fee",
+        "heading": "Turn a cap fee into a per-gallon cost",
+        "paragraphs": [
+          "A $100 annual fee spread over 600 gallons adds about $0.167 per gallon. Spread over 300 gallons, it adds about $0.333. That is why the same offer can look different for a lightly used home. Use your own plausible gallon range, and do not count a fee twice if the written rate already includes it.",
+          "In the example, a below-cap rate of about $4.833 would make 600 gallons plus the $100 fee equal the $3,000 fixed total. That break-even is arithmetic for these assumptions, not a prediction or a recommendation for a particular price plan."
+        ],
+        "bullets": [],
+        "columns": [],
+        "rows": []
+      },
+      {
+        "id": "contract",
+        "heading": "Questions to answer before committing",
+        "paragraphs": [
+          "Make a one-page comparison using the same gallon range and coverage dates. If the quote combines delivery, price protection and service, request separate figures where available so you understand what each payment buys."
+        ],
+        "bullets": [
+          "What start and end dates, minimum gallons and maximum covered gallons apply?",
+          "Is prepayment required, and when is an unused balance returned or credited?",
+          "What fee buys the cap, and can it be refunded?",
+          "How is the below-cap price calculated on an actual delivery?",
+          "Are automatic delivery, exclusive purchases or a service contract required?",
+          "What are the cancellation, moving-home and early-termination terms?"
+        ],
+        "columns": [],
+        "rows": []
+      },
+      {
+        "id": "decision",
+        "heading": "Use scenarios to choose the uncertainty you can carry",
+        "paragraphs": [
+          "A fixed price can make the fuel-rate portion of a budget more predictable, while a capped price trades its fee and conditions for a stated ceiling with possible lower rates. A variable arrangement leaves future prices open. Your actual gallons, delivery charges and tax can still change the bill.",
+          "Keep the signed agreement and accepted quote. A weekly benchmark is useful context, but it cannot establish what your supplier owes under a specific contract. Ask the supplier to explain ambiguous terms before relying on them."
+        ],
+        "bullets": [],
+        "columns": [],
+        "rows": []
+      }
+    ],
+    "related": [
+      {
+        "title": "Automatic vs. will-call",
+        "url": "/automatic-vs-will-call-heating-oil/"
+      },
+      {
+        "title": "Weekly state price context",
+        "url": "/heating-oil-prices/"
+      },
+      {
+        "title": "Compare delivery quotes",
+        "url": "/heating-oil-cost-calculator/"
+      },
+      {
+        "title": "Cash/COD ordering",
+        "url": "/cash-heating-oil/"
+      }
+    ],
+    "sources": [
+      {
+        "title": "Massachusetts Attorney General: heating-oil price contracts",
+        "url": "https://www.mass.gov/info-details/understanding-un-regulated-utilities"
+      }
+    ]
+  },
+  {
+    "slug": "how-long-does-heating-oil-last",
+    "category": "Consumption",
+    "title": "How Long Does Heating Oil Last? Gallons-to-Days Guide",
+    "description": "Estimate days left from usable gallons and daily consumption. Compare 50, 100, 150 and 200 gallons, set a reserve and learn how to measure your own usage.",
+    "answer": "Estimated days left = max(0, gallons remaining − planning reserve) ÷ gallons used per day. A 100-gallon balance with a 10-gallon reserve and an assumed 3-gallon daily rate gives 30 planning days. The daily rate is the uncertain part, so calculate a range.",
+    "tool": "runtime",
+    "gallons": 100,
+    "sections": [
+      {
+        "id": "days-table",
+        "heading": "How many days might 50–200 gallons represent?",
+        "paragraphs": [
+          "The table uses selected rates to show sensitivity. It does not claim that any rate is typical for your home, and it does not subtract a reserve. The relevant amount is the fuel currently available, which may differ from your last delivery quantity."
+        ],
+        "bullets": [],
+        "columns": [
+          "Gallons available",
+          "2 gallons/day",
+          "3 gallons/day",
+          "5 gallons/day"
+        ],
+        "rows": [
+          [
+            "50",
+            "25 days",
+            "16.7 days",
+            "10 days"
+          ],
+          [
+            "100",
+            "50 days",
+            "33.3 days",
+            "20 days"
+          ],
+          [
+            "150",
+            "75 days",
+            "50 days",
+            "30 days"
+          ],
+          [
+            "200",
+            "100 days",
+            "66.7 days",
+            "40 days"
+          ]
+        ]
+      },
+      {
+        "id": "measure",
+        "heading": "Measure your own daily use over a known interval",
+        "paragraphs": [
+          "Record the starting gallons and date, all deliveries during the interval, then the ending gallons and date. Estimated consumption equals starting gallons plus delivered gallons minus ending gallons. Divide by elapsed days. Use readings from the same verified model chart or a consistent gauge method; imprecise readings make the daily rate imprecise too.",
+          "For example, start with 180 gallons, receive no deliveries, and finish at 138 gallons 14 days later. Estimated use is 42 gallons, or 3 gallons per day. If a 100-gallon delivery occurred in the same interval, the estimated consumption would instead be 142 gallons. Leaving deliveries out can completely reverse the result."
+        ],
+        "bullets": [],
+        "columns": [],
+        "rows": []
+      },
+      {
+        "id": "range",
+        "heading": "Build a range instead of one countdown",
+        "paragraphs": [
+          "Using the 100-gallon balance and 10-gallon reserve, 2 gallons per day gives 45 days, 3 gives 30, and 5 gives 18. That 18–45-day range is much wider than a single 30-day answer. Choose scenarios that reflect your own recent readings and allow for different conditions.",
+          "Outside temperature, indoor settings, occupancy and whether the system supplies hot water can make one interval unlike another. A delivery ticket measures oil added, not fuel burned on each day. Recheck a forecast when the home or weather changes; do not use a calendar estimate as permission to wait until the tank is empty."
+        ],
+        "bullets": [],
+        "columns": [],
+        "rows": []
+      },
+      {
+        "id": "tank-size",
+        "heading": "Does a 275-gallon tank last longer than a 330?",
+        "paragraphs": [
+          "A larger nominal tank can store more fuel, but it does not directly lower consumption. At the same daily use, what matters to the immediate forecast is usable gallons now. A partly filled 330-gallon tank can have fewer gallons remaining than a fuller 275-gallon tank.",
+          "Identify the model and orientation before converting an inches reading. A 275-gallon horizontal chart and a vertical chart have different intermediate values. Keep the manufacturer's chart precision and any gauge uncertainty in mind when turning that reading into days."
+        ],
+        "bullets": [],
+        "columns": [],
+        "rows": []
+      },
+      {
+        "id": "schedule",
+        "heading": "Turn the estimate into an ordering decision",
+        "paragraphs": [
+          "Ask the supplier for an actual delivery window. Plan an earlier check or order point that accounts for that lead time and your uncertainty range. A reserve is a planning input, not an equipment-specific safe operating threshold.",
+          "If the gauge is stuck, the system has stopped, or you suspect a leak, resolve that condition with the appropriate supplier or technician. The days calculator cannot diagnose it. Use the dedicated run-out or gauge guide for the next contact."
+        ],
+        "bullets": [],
+        "columns": [],
+        "rows": []
+      }
+    ],
+    "related": [
+      {
+        "title": "Measure usage between readings",
+        "url": "/heating-oil-usage-calculator/"
+      },
+      {
+        "title": "Convert a gauge reading",
+        "url": "/oil-tank-gauge-calculator/"
+      },
+      {
+        "title": "100-gallon order cost",
+        "url": "/100-gallons-heating-oil/"
+      },
+      {
+        "title": "Tank gauge troubleshooting",
+        "url": "/oil-tank-gauge-replacement/"
+      }
+    ],
+    "sources": [
+      {
+        "title": "EIA: degree days and heating demand",
+        "url": "https://www.eia.gov/energyexplained/units-and-calculators/degree-days.php"
+      },
+      {
+        "title": "Granby: official vertical tank capacity chart",
+        "url": "https://www.granbyindustries.com/app/uploads/2026/04/GranbyInd_Capacity-Chart_VerticalTanks_USA_v1.pdf"
+      }
+    ]
+  },
+  {
+    "slug": "heating-oil-vs-propane",
+    "category": "Fuel comparison",
+    "title": "Heating Oil vs. Propane: Cost per Useful Heat Calculator",
+    "description": "Compare heating oil and propane by cost per million Btu of useful heat. Enter both quoted prices and equipment efficiencies to find a break-even propane price.",
+    "answer": "Compare useful heat rather than gallons. Using EIA sample conversion factors, a gallon of heating oil contains about 138,500 Btu and propane about 91,452 Btu. Divide each fuel price by its energy content and equipment efficiency to compare operating fuel costs on the same basis.",
+    "tool": "heat",
+    "gallons": 0,
+    "sections": [
+      {
+        "id": "energy",
+        "heading": "Why the lower per-gallon price may not win",
+        "paragraphs": [
+          "One gallon of propane and one gallon of heating oil do not represent the same energy. At equal efficiency, the conversion factors used here give roughly 1.514 gallons of propane for the energy in one gallon of oil. Different equipment efficiencies change the useful heat delivered from either purchase.",
+          "This calculator compares a fuel-cost component. It does not estimate a complete conversion project, installation cost, tank rental, financing or maintenance. Keep those items separate when evaluating whether to change equipment."
+        ],
+        "bullets": [],
+        "columns": [],
+        "rows": []
+      },
+      {
+        "id": "formula",
+        "heading": "The useful-heat calculation",
+        "paragraphs": [
+          "Useful million Btu per gallon = Btu per gallon × efficiency as a decimal ÷ 1,000,000. Cost per useful million Btu = price per gallon ÷ useful million Btu per gallon. Enter an equipment-specific seasonal efficiency assumption; an input of 85% means 0.85 in the formula.",
+          "For a hypothetical oil price of $5.00 and 85% efficiency, useful heat per gallon is 0.117725 million Btu. The cost is about $42.47 per useful million Btu. For propane at $3.00 and 90% efficiency, useful heat is 0.0823068 million Btu per gallon and the cost is about $36.45. Those efficiencies and prices are illustrative, not defaults proven for your home."
+        ],
+        "bullets": [],
+        "columns": [],
+        "rows": []
+      },
+      {
+        "id": "break-even",
+        "heading": "Find the propane price that matches oil",
+        "paragraphs": [
+          "Break-even propane price = oil price × (propane Btu × propane efficiency) ÷ (oil Btu × oil efficiency). With the same $5.00 oil, 85% oil and 90% propane assumptions, the break-even propane price is about $3.496 per gallon. Below that, propane has a lower fuel cost per useful heat under these inputs; above it, oil does.",
+          "This relationship is useful when a supplier gives a propane quote. It lets you compare that quote to your oil price while keeping the efficiency assumptions visible, instead of treating every dollar-per-gallon difference as a saving."
+        ],
+        "bullets": [],
+        "columns": [],
+        "rows": []
+      },
+      {
+        "id": "quote-basis",
+        "heading": "Use comparable prices and equipment assumptions",
+        "paragraphs": [
+          "A fuel price can vary with purchase quantity, payment terms or delivery area. Add relevant recurring charges to the comparison period separately. If propane has a tank rental or minimum-use fee, a low unit price alone will not show its annual effect."
+        ],
+        "bullets": [
+          "Use local quotes for the same period, with each fuel's correct delivery terms.",
+          "Check tax and fee treatment instead of silently mixing included and excluded charges.",
+          "Use a documented efficiency assumption for each appliance; label uncertainty.",
+          "Compare several plausible prices and efficiencies rather than treating the example as a forecast.",
+          "Keep a full conversion quote separate from this fuel-only calculation."
+        ],
+        "columns": [],
+        "rows": []
+      },
+      {
+        "id": "annual",
+        "heading": "Turn the unit comparison into an annual scenario",
+        "paragraphs": [
+          "If your scenario needs 60 million Btu of useful heat, multiply each calculated unit cost by 60. The illustrative figures above give about $2,548 for oil and $2,187 for propane before excluded charges. The 60-million-Btu requirement is an assumed equal heat demand, not a measured average or a prediction for your property.",
+          "To make this personal, start with reliable delivery history and equipment information. Fuel-cost savings alone cannot establish the payback of new equipment without installation, recurring costs and an honest range for future fuel use."
+        ],
+        "bullets": [],
+        "columns": [],
+        "rows": []
+      }
+    ],
+    "related": [
+      {
+        "title": "Heating-oil state benchmarks",
+        "url": "/heating-oil-prices/"
+      },
+      {
+        "title": "Compare complete oil quotes",
+        "url": "/heating-oil-cost-calculator/"
+      },
+      {
+        "title": "Estimate your oil consumption",
+        "url": "/heating-oil-usage-calculator/"
+      },
+      {
+        "title": "Replacement cost scope",
+        "url": "/oil-tank-replacement-cost/"
+      }
+    ],
+    "sources": [
+      {
+        "title": "EIA: fuel energy conversion factors",
+        "url": "https://www.eia.gov/energyexplained/units-and-calculators/british-thermal-units.php"
+      }
+    ]
+  }
+]

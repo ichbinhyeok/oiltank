@@ -32,7 +32,7 @@ public final class ResearchCatalog {
             if (OctoberResearchAreas.ALL.stream().anyMatch(e -> e.slug().equals(slug)) || List.of("brookhaven-ny", "seattle-residential-tank-records", "connecticut-deep-spill-documents", "nysdec-spill-documents", "oregon-clean-decommissioning", "oregon-leaking-tank-records", "maine-tank-spill-records").contains(slug)) return RecordSearchGuide.UPDATED;
             return kind.equals("task") || LaunchResearchAreas.ALL.stream().anyMatch(e -> e.slug().equals(slug)) ? LocalDate.of(2026, 9, 30) : REVIEWED;
         }
-        public LocalDate updatedOn() { return kind.equals("problem") || RecordSearchGuide.updated(this) ? RecordSearchGuide.UPDATED : reviewedOn(); }
+        public LocalDate updatedOn() { return !RecordSearchGuide.quickSteps(this).isEmpty() ? LocalDate.of(2026, 11, 18) : kind.equals("problem") || RecordSearchGuide.updated(this) ? RecordSearchGuide.UPDATED : reviewedOn(); }
         public String documentType() { return kind.equals("task") ? slug : kind.equals("area") ? "local-permit-completion" : "document-gap"; }
         public String recordFamily() {
             var expanded = ExpandedRecordRoutes.profile(slug);

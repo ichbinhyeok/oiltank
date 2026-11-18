@@ -36,6 +36,7 @@
     <link rel="icon" href="/favicon.ico" sizes="32x32">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link rel="stylesheet" href="/app.css">
+    <link rel="stylesheet" href="/fuel.css?v=20261118b">
     @if (!"admin".equals(activeNav))
     <link rel="stylesheet" href="/site-v2.css">
     <link rel="stylesheet" href="/record-finder.css">
@@ -48,7 +49,7 @@
     <div class="${"admin".equals(activeNav) ? "site-header__inner" : "v2-header-inner"}">
         <a class="brand" href="/">
             <svg class="brand__mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 26V6h13l9 9v11H5Z"/><path d="M18 6v9h9M11 20h10"/></svg>
-            <span><span class="brand__title">Oil Tank Route<span class="v2-brand-dot">.</span></span><span class="brand__tag">Property record research</span></span>
+            <span><span class="brand__title">Oil Tank Route<span class="v2-brand-dot">.</span></span><span class="brand__tag">Heating oil · Tank tools · Records</span></span>
         </a>
         @if ("admin".equals(activeNav))
             <div class="admin-toolbar" aria-label="Admin">
@@ -57,12 +58,12 @@
             </div>
         @else
             <div class="v2-header-rail">
-                <details class="v2-mobile-menu"><summary>Menu <span aria-hidden="true">＋</span></summary><nav aria-label="Mobile navigation"><a href="/tank-document-check/">Check documents</a><a href="/find-records/">Find records</a><a href="/research-areas/">Local routes</a><a href="/how-it-works/">Research assistance</a><a href="/#start-check">Ask for NJ/NY assistance ↗</a></nav></details>
+                <details class="v2-mobile-menu"><summary>Menu <span aria-hidden="true">＋</span></summary><nav aria-label="Mobile navigation"><a href="/heating-oil-prices/">Heating oil prices</a><a href="/tools/">Tank calculators</a><a href="/heating-oil-tank-sizes-dimensions/">Tank sizes & charts</a><a href="/find-records/">Find records</a><a href="/tank-document-check/">Check documents</a><a href="/#start-check">Ask for NJ/NY assistance ↗</a></nav></details>
                 <nav class="v2-desktop-nav" aria-label="Primary">
-                    <a class="v2-nav-link" aria-current="${"documents".equals(activeNav) ? "page" : "false"}" href="/tank-document-check/">Check documents</a>
+                    <a class="v2-nav-link" aria-current="${"prices".equals(activeNav) ? "page" : "false"}" href="/heating-oil-prices/">Oil prices</a>
+                    <a class="v2-nav-link" aria-current="${"tools".equals(activeNav) ? "page" : "false"}" href="/tools/">Tank tools</a>
                     <a class="v2-nav-link" aria-current="${"finder".equals(activeNav) ? "page" : "false"}" href="/find-records/">Find records</a>
-                    <a class="v2-nav-link" aria-current="${"how".equals(activeNav) ? "page" : "false"}" href="/how-it-works/">How we help</a>
-                    <a class="v2-nav-cta" href="/tank-document-check/">Start a checklist <span aria-hidden="true">↗</span></a>
+                    <a class="v2-nav-cta" href="/oil-tank-gauge-calculator/">Check your tank <span aria-hidden="true">↗</span></a>
                 </nav>
             </div>
         @endif
@@ -76,10 +77,16 @@
         <div class="site-footer__inner">
             <div class="site-footer__brand">
                 <a class="v2-footer-wordmark" href="/">Oil Tank Route.</a>
-                <p>Check oil tank document gaps, find official records, or ask for NJ/NY research assistance.</p>
+                <p>Heating-oil prices, manufacturer-backed tank tools and official property-record routes.</p>
                 <span>Research distinguishes confirmed facts from gaps. It is not a safety certification, legal opinion, or environmental determination.</span>
             </div>
             <div class="site-footer__links">
+                <a href="/heating-oil-prices/">Heating oil prices</a>
+                <a href="/heating-oil-delivery/">Heating oil suppliers</a>
+                <a href="/heating-oil-tank-sizes-dimensions/">Tank sizes</a>
+                <a href="/330-gallon-oil-tank/">330-gallon tanks</a>
+                <a href="/roth-oil-tank-sizes/">Roth tank sizes</a>
+                <a href="/heating-oil-guides/">Heating oil buying guides</a>
                 <a href="/methodology/">Methodology</a>
                 <a href="/find-records/">Find records</a>
                 <a href="/tank-document-check/">Document-gap checklist</a>
@@ -105,6 +112,7 @@
 <script src="/seattle-record-search.js" defer></script>
 <script src="/tank-document-check.js" defer></script>
 @endif
-<script type="module" src="/tools.js"></script>
+<script type="module" src="/tools.js?v=20261118"></script>
+<script type="module" src="/fuel.js?v=20261118b"></script>
 </body>
 </html>
