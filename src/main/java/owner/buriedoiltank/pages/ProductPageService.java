@@ -44,9 +44,9 @@ public class ProductPageService {
                 "tools",
                 "/tools/",
                 "tools",
-                "Acquisition utility library",
-                "Residential heating-oil tools",
-                "Use verified tank charts, fuel calculators, delivery checks, and condition planners. If the issue is a property transaction or missing record, start a record check instead.",
+                "Heating oil calculators & charts",
+                "Heating oil tank calculators and tools",
+                "Convert a gauge reading to gallons, estimate days remaining, compare current fuel costs, or identify your tank. Start with the calculation you need.",
                 "hub",
                 "One route from measurement to action",
                 List.of(
@@ -65,6 +65,20 @@ public class ProductPageService {
 
     public ProductPageModel corePage(String slug) {
         return switch (slug) {
+            case "330-gallon-oil-tank" -> page(slug, "/330-gallon-oil-tank/", "tools", "330-gallon tank reference",
+                    "330-gallon oil tank dimensions and gallons chart", "Compare the 72 x 27 x 44 inch Granby vertical tank with its manufacturer-published inches-to-gallons chart, then calculate remaining oil.",
+                    "model-chart", "Read the model before the chart", List.of("The reviewed vertical Granby 205201P model is 72 inches long, 27 inches wide and 44 inches high.",
+                    "Its published chart reaches 328.6 gallons at 44 inches; nominal capacity is 330 gallons.", "Horizontal tanks need a different chart. Dimensions do not replace the label or installation clearances."),
+                    tankCatalog.all().stream().filter(s -> s.nominalCapacityGallons() == 330).toList(),
+                    List.of(new FaqItem("How much oil is at half the chart height?", "At 22 inches, the reviewed Granby 330-gallon vertical chart reads 164.3 gallons. Gauge precision, tank tilt and installation can change a real-world reading.")),
+                    commonSources(), linksFor("/oil-tank-gauge-calculator/", "/heating-oil-usage-calculator/", "/heating-oil-tank-sizes-dimensions/"), crumbs("330 gallon oil tank"));
+            case "roth-oil-tank-sizes" -> page(slug, "/roth-oil-tank-sizes/", "tools", "Roth double-wall reference",
+                    "Roth oil tank sizes and dimensions", "Compare Roth's 110, 165, 275, low-height 275 and 400-gallon heating-oil tanks using the manufacturer's published dimensions.",
+                    "sizes", "Choose body dimensions and installation clearance separately", List.of("Roth publishes both a tall DWT 1000L and a lower, wider DWT 1000LH at the same nominal 275-gallon capacity.",
+                    "The table shows tank-body dimensions. Minimum installation height, fittings, base and outdoor cover requirements are separate.", "No reviewed Roth gallons-by-inch chart is bundled here. A steel obround Granby chart is not interchangeable with a Roth tank."),
+                    tankCatalog.all().stream().filter(s -> s.manufacturer().equals("Roth")).toList(),
+                    List.of(new FaqItem("Can I use the 275-gallon steel tank chart for a Roth tank?", "No. The body construction and geometry differ. Use a manufacturer-supported chart or ask your Roth installer for the correct measurement method.")),
+                    commonSources(), linksFor("/heating-oil-tank-sizes-dimensions/", "/275-gallon-oil-tank/", "/heating-oil-tank-installation-cost/"), crumbs("Roth oil tank sizes"));
             case "heating-oil-tank" -> page(
                     slug, "/heating-oil-tank/", "guides", "Tank identifier",
                     "Identify your residential heating-oil tank",
@@ -87,7 +101,7 @@ public class ProductPageService {
             case "heating-oil-tank-sizes-dimensions" -> page(
                     slug, "/heating-oil-tank-sizes-dimensions/", "guides", "Verified size comparison",
                     "Heating-oil tank sizes and dimensions",
-                    "Compare a small, verified set of residential models. Dimensions are manufacturer-published and are not a substitute for the tank label.",
+                    "Compare standard Granby and Roth oil tank sizes, dimensions and orientations. Match the tank label before selecting a gallons chart or planning a replacement footprint.",
                     "sizes", "How to compare the table",
                     List.of(
                             "Orientation changes which side you see as height, even when the steel shell is the same size.",
@@ -131,16 +145,16 @@ public class ProductPageService {
                     "charts", "Choose the chart by label, not capacity alone",
                     List.of(
                             "Match the manufacturer, model, nominal capacity, dimensions, and orientation before reading any gallons column.",
-                            "The 138- and 330-gallon vertical tables below reproduce reviewed manufacturer chart points; they are not linear capacity estimates.",
-                            "The verified 275-gallon vertical table lives only on the 275-gallon field guide so the same chart is not duplicated across URLs.",
+                            "The 138-gallon vertical table below reproduces reviewed manufacturer chart points; it is not a linear capacity estimate.",
+                            "The 275- and 330-gallon vertical tables live on their own model guides; choose the correct model from the links below.",
                             "A horizontal tank, double-wall tank, or unidentified tank needs its own supported chart. Do not rotate or substitute a vertical table."
                     ),
                     tankCatalog.withGaugeCharts().stream()
-                            .filter(spec -> spec.nominalCapacityGallons() != 275)
+                            .filter(spec -> spec.nominalCapacityGallons() != 275 && spec.nominalCapacityGallons() != 330)
                             .toList(),
                     List.of(new FaqItem(
                             "Which heating-oil tank charts are included here?",
-                            "This page publishes the verified Granby 138- and 330-gallon vertical tables. The verified Granby 275-gallon vertical table remains on the 275-gallon field guide and is linked from this library."
+                            "This library publishes the verified Granby 138-gallon vertical table and links to the 275- and 330-gallon model guides for their full tables."
                     ), new FaqItem(
                             "Can I use a chart when I only know the tank capacity?",
                             "No. Tanks with the same nominal capacity can have different bodies and orientations. Confirm the manufacturer label, model, dimensions, and orientation before choosing a chart."
@@ -223,11 +237,11 @@ public class ProductPageService {
                     "Read the latest published federal residential heating-oil benchmark with its observation date, unit, and seasonal collection status. It is context for a local quote, not today's supplier price.",
                     "prices", "Read the date before the dollar figure",
                     List.of(
-                            "The latest EIA weekly observation available here is March 30, 2026; it excludes taxes and is not a live retail quote.",
+                            "The latest verified EIA observation here is " + heatingOilPriceCatalog.latest().observedOn() + "; it excludes taxes and is not a live retail quote.",
                             "EIA's residential heating-oil price collection runs during the heating season and is paused from April through September.",
                             "Delivery size, payment terms, location, supplier, taxes, and service terms can make a local quote differ from a regional benchmark."
                     ), List.of(),
-                    List.of(new FaqItem("Is this today's heating-oil price?", "No. It is the latest dated EIA residential benchmark available for the 2025-26 heating season. Ask local suppliers for a current delivered quote."),
+                    List.of(new FaqItem("Is this today's heating-oil price?", "This is a dated weekly EIA residential benchmark. Ask local suppliers for a current delivered quote."),
                             new FaqItem("Does the EIA price include taxes?", "No. The published series is in dollars per gallon excluding taxes.")),
                     priceSources(), linksExcept(slug), crumbs("Heating oil prices")
             );
@@ -504,7 +518,7 @@ public class ProductPageService {
             List<Breadcrumb> breadcrumbs
     ) {
         String title = "prices".equals(toolKind)
-                ? "Latest U.S. Heating Oil Prices — EIA Mar. 30, 2026 | Oil Tank Route"
+                ? "Heating Oil Prices — EIA " + heatingOilPriceCatalog.latest().observedOn() + " | Oil Tank Route"
                 : heading + " | Oil Tank Route";
         List<String> schemas = new ArrayList<>();
         schemas.add(json(schema("charts".equals(toolKind) ? "CollectionPage" : "WebPage", heading, path, intro)));
@@ -549,7 +563,7 @@ public class ProductPageService {
         schema.put("name", heading);
         schema.put("description", description);
         schema.put("url", baseUrl.resolve(path).toString());
-        schema.put("dateModified", LocalDate.of(2026, 8, 2).toString());
+        schema.put("dateModified", LocalDate.of(2026, 11, 18).toString());
         schema.put("isPartOf", Map.of("@type", "WebSite", "name", "Oil Tank Route", "url", baseUrl.resolve("/").toString()));
         return schema;
     }
@@ -707,12 +721,12 @@ public class ProductPageService {
                 new SourceLink(
                         "U.S. EIA: Weekly Heating Oil and Propane Prices",
                         "https://www.eia.gov/dnav/pet/PET_PRI_WFR_A_EPD2F_PRS_DPGAL_W.htm",
-                        "Official weekly residential price table. Snapshot observed 2026-03-30 and released 2026-04-01; dollars per gallon excluding taxes."
+                        "Official weekly residential price table; dollars per gallon excluding taxes. The latest verified date appears alongside each figure."
                 ),
                 new SourceLink(
                         "U.S. EIA: Heating Oil and Propane Update",
                         "https://www.eia.gov/petroleum/heatingoilpropane/",
-                        "Official seasonal publication schedule and notice that weekly price collection returns in October 2026; reviewed 2026-08-02."
+                        "Official publication schedule: weekly observations during October-March, with holiday adjustments."
                 )
         );
     }
@@ -819,6 +833,9 @@ public class ProductPageService {
 
     private List<LinkCard> coreLinks() {
         return List.of(
+                new LinkCard("330-gallon tank chart", "Dimensions and a manufacturer-published gallons table.", "/330-gallon-oil-tank/", "Tank reference"),
+                new LinkCard("Roth oil tank sizes", "Compare double-wall models and body footprints.", "/roth-oil-tank-sizes/", "Tank reference"),
+                new LinkCard("Find heating oil delivery", "Check selected suppliers' real service areas and quote terms.", "/heating-oil-delivery/", "Delivery suppliers"),
                 new LinkCard("Identify a tank", "Start with shape, orientation, label, and dimensions.", "/heating-oil-tank/", "01 / Identify"),
                 new LinkCard("Compare sizes", "Use one verified model table shared by every tool.", "/heating-oil-tank-sizes-dimensions/", "02 / Compare"),
                 new LinkCard("Check a 275-gallon tank", "Resolve the most common nominal size without assuming one body shape.", "/275-gallon-oil-tank/", "03 / Verify"),
@@ -848,7 +865,7 @@ public class ProductPageService {
                     "/oil-tank-gauge-replacement/", "/heating-oil-delivery-check/", "/heating-oil-usage-calculator/"
             );
             case "heating-oil-tank-charts" -> linksFor(
-                    "/275-gallon-oil-tank/", "/oil-tank-gauge-calculator/", "/heating-oil-tank-sizes-dimensions/"
+                    "/275-gallon-oil-tank/", "/330-gallon-oil-tank/", "/oil-tank-gauge-calculator/", "/heating-oil-tank-sizes-dimensions/"
             );
             case "275-gallon-oil-tank" -> linksFor(
                     "/heating-oil-tank-charts/", "/oil-tank-gauge-calculator/", "/heating-oil-tank-sizes-dimensions/"

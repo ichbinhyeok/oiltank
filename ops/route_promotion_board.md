@@ -1,5 +1,19 @@
 # Route Promotion Board
 
+## Owner-directed implementation — 2026-11-18
+
+- Following the recommendation below, the owner requested actual further work. Eight state-price destinations, two model destinations and a selected supplier hub are now implemented locally with their data and tools; this is not a production deployment or an expansion of assisted research.
+- Six supplier websites were reviewed for actual service regions and order terms. The directory carries no live ZIP-price, complete-coverage or partner-network claim.
+- The six existing record depth candidates received concise task workflows. Their source-review dates remain unchanged; editorial modification dates advance only for changed content. See `2026-11-18_seo_expansion_release.md` for verification.
+
+## Acquisition expansion recommendation — 2026-11-18
+
+- Owner requested broader SEO/pivot opportunity research; no publication or assisted-service expansion performed.
+- Recommend a coordinated price/state/budget and manufacturer-backed tank-tool expansion alongside improvements to the existing record pages receiving clicks. Scope and sources: `2026-11-18_seo_expansion_research.md`.
+- Immediate depth candidates: CT DEEP, NYSDEC spill documents, NJDEP NFA, NYSDEC PBS, Seattle and King County. Recent GSC window Oct 18–Nov 14; named-query click attribution is heavily withheld. These are page-depth recommendations, not evidence of revenue.
+- Proposed new acquisition families: eight state-price pages with actual data/history and two distinct tank-model pages. Supplier-discovery hub requires real dealer/coverage data; state averages do not support a live ZIP-price claim.
+- Older held removal/cleanup/cost/market-overlay families are not promoted by this research. Existing customer-service boundaries and beta pricing remain as currently implemented. Older pure record-front-door strategy is the current implementation, not a restriction on the requested opportunity research.
+
 ## Search-intent follow-up — 2026-10-11
 
 - Implemented a complementary document-gap checker and five distinct question entrances: filled-in-place, oil-to-gas conversion, unresolved permit, NFA versus local completion paper, and sampling-file interpretation. Existing five problem routes were deepened; the existing home-sale guide is reused rather than duplicated.

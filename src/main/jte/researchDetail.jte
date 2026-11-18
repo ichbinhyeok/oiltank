@@ -30,6 +30,9 @@
     @endif
     <a href="#prepare">Before you search</a><a href="#research-sequence">Official sources</a><a href="#check-documents">Check your documents</a><a href="#worksheet">Your worksheet</a><a href="#request-plan">Request outline</a><a href="#limitations">Limits</a></nav><div class="v2-research-assist"><h2>Find it.<br>Keep the trail.</h2><p>Use the official routes and private worksheet. No email required.</p><a class="v2-button" href="#worksheet">Prepare your search <span>↗</span></a><a href="/find-records/">Change place or document ↗</a></div></aside>
     <div class="v2-research-body">
+    @if (!RecordSearchGuide.quickSteps(entry).isEmpty())
+    <section class="rf-quick-search"><p class="v2-eyebrow">Search in three steps</p><h2>Get from a search result to the file.</h2><ol>@for (var step : RecordSearchGuide.quickSteps(entry))<li>${step}</li>@endfor</ol><p><a href="#worksheet">Keep the identifiers and result in your private worksheet ↓</a></p></section>
+    @endif
     @if (entry.kind().equals("problem"))
     <section class="dc-short-answer"><h2>The short answer</h2><p>${TankDocumentCheck.situation(entry.slug()).answer()}</p><p>${TankDocumentCheck.situation(entry.slug()).next()}</p><a href="/guides/buried-oil-tank-home-sale/">Buying or selling? Assemble the wider document file ↗</a></section>
     @template.partials.tankDocumentCheck(situationId = entry.slug())

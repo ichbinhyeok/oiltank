@@ -55,15 +55,15 @@ public class SitePageService {
     public PageModels.HomePageModel homePage() {
         return new PageModels.HomePageModel(
                 meta(
-                        "Oil Tank Records & Missing Document Checklist | Oil Tank Route",
-                        "Missing oil tank removal papers or unclear decommissioning history? Check document gaps, find official records and prepare your next request. Optional NJ/NY research help.",
+                        "Heating Oil Prices, Tank Calculators & Records | Oil Tank Route",
+                        "Compare dated heating-oil prices by state, calculate tank gallons and delivery costs, or find official oil tank records. Free tools and optional NJ/NY research assistance.",
                         "/",
                         true,
                         List.of(
                                 jsonLd(siteSchema()),
                                 jsonLd(webpageSchema(
-                                        "Oil Tank Records & Missing Document Checklist",
-                                        "Self-reported document-gap checklists, official record routes and optional NJ/NY research assistance.",
+                                        "Heating Oil Prices, Tank Calculators & Records",
+                                        "Heating-oil prices, manufacturer-backed tank calculations and official property-record routes.",
                                         "/"
                                 ))
                         )

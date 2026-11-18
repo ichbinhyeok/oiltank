@@ -9,7 +9,10 @@ public record ProductRoute(
         Scenario scenario,
         PartnerType partnerType
 ) {
-    public static final List<ProductRoute> CORE = List.of(
+    public static final List<ProductRoute> CORE = java.util.stream.Stream.of(List.of(
+            new ProductRoute("heating-oil-delivery", "/heating-oil-delivery/", "Heating oil suppliers and delivery terms", Scenario.RECORDS_FIRST, PartnerType.SWEEP_LOCATE),
+            new ProductRoute("330-gallon-oil-tank", "/330-gallon-oil-tank/", "330-gallon oil tank dimensions and chart", Scenario.RECORDS_FIRST, PartnerType.SWEEP_LOCATE),
+            new ProductRoute("roth-oil-tank-sizes", "/roth-oil-tank-sizes/", "Roth oil tank sizes and dimensions", Scenario.RECORDS_FIRST, PartnerType.SWEEP_LOCATE),
             new ProductRoute("heating-oil-tank", "/heating-oil-tank/", "Heating-oil tank identifier", Scenario.RECORDS_FIRST, PartnerType.SWEEP_LOCATE),
             new ProductRoute("heating-oil-tank-sizes-dimensions", "/heating-oil-tank-sizes-dimensions/", "Heating-oil tank sizes and dimensions", Scenario.RECORDS_FIRST, PartnerType.SWEEP_LOCATE),
             new ProductRoute("275-gallon-oil-tank", "/275-gallon-oil-tank/", "275-gallon oil tank field guide", Scenario.RECORDS_FIRST, PartnerType.SWEEP_LOCATE),
@@ -30,5 +33,11 @@ public record ProductRoute(
             new ProductRoute("oil-tank-replacement-cost", "/oil-tank-replacement-cost/", "Oil tank replacement cost scope builder", Scenario.REMOVAL_DECISION, PartnerType.CLOSURE_REMOVAL),
             new ProductRoute("heating-oil-tank-installation-cost", "/heating-oil-tank-installation-cost/", "Heating-oil tank installation cost scope builder", Scenario.REMOVAL_DECISION, PartnerType.CLOSURE_REMOVAL),
             new ProductRoute("basement-oil-tank-removal", "/basement-oil-tank-removal/", "Basement oil tank removal planner", Scenario.REMOVAL_DECISION, PartnerType.CLOSURE_REMOVAL)
-    );
+    ).stream(), owner.buriedoiltank.heating.PriceArea.PAGE_STATES.stream().map(id -> new ProductRoute(
+        "prices:" + id, "/heating-oil-prices/" + id + "/", owner.buriedoiltank.heating.PriceArea.require(id).name() + " heating oil prices",
+        Scenario.RECORDS_FIRST, PartnerType.SWEEP_LOCATE)),
+        owner.buriedoiltank.heating.FuelGuideCatalog.ALL.stream().map(guide -> new ProductRoute(
+            "fuel-guide:" + guide.slug(), guide.path(), guide.title(), Scenario.RECORDS_FIRST, PartnerType.SWEEP_LOCATE)),
+        java.util.stream.Stream.of(new ProductRoute("heating-oil-guides", "/heating-oil-guides/", "Heating oil buying and delivery guides", Scenario.RECORDS_FIRST, PartnerType.SWEEP_LOCATE))
+    ).flatMap(java.util.function.Function.identity()).toList();
 }

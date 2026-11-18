@@ -497,6 +497,8 @@ function bindHeatingCost(root) {
   const prior = loadSession(root.dataset.toolId);
   if (prior?.localPrice) form.elements.localPrice.value = prior.localPrice;
   if (prior?.gallons) form.elements.gallons.value = prior.gallons;
+  const orderContext = loadLastContext();
+  if (Number(orderContext?.planningSpaceGallons) > 0) form.elements.gallons.value = Math.floor(Number(orderContext.planningSpaceGallons));
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     const values = Object.fromEntries(new FormData(form));
@@ -507,11 +509,21 @@ function bindHeatingCost(root) {
       announceResult(root, "Check the quote inputs", "<p>Enter a positive per-gallon quote and order amount.</p>");
       return;
     }
+    const feesA = Number(values.feesA || 0);
+    const feesB = Number(values.feesB || 0);
+    const tax = Number(values.taxPercent || 0);
+    const priceB = values.priceB ? Number(values.priceB) : null;
+    if (![feesA, feesB, tax].every(Number.isFinite) || feesA < 0 || feesB < 0 || tax < 0 || tax > 100 || (priceB !== null && (!Number.isFinite(priceB) || priceB <= 0))) {
+      announceResult(root, "Check the quote charges", "<p>Fees must be zero or greater, tax must be 0–100%, and the optional second price must be positive.</p>"); return;
+    }
     const subtotal = localPrice * gallons;
     const benchmarkSubtotal = benchmark * gallons;
     const difference = subtotal - benchmarkSubtotal;
     saveSession(root.dataset.toolId, values);
-    announceResult(root, "Calculated fuel subtotal", `<dl class="result-metrics"><div><dt>Supplier quote subtotal</dt><dd>$${subtotal.toFixed(2)}</dd></div><div><dt>Dated EIA comparison</dt><dd>$${benchmarkSubtotal.toFixed(2)}</dd></div><div><dt>Difference</dt><dd>${difference >= 0 ? "+" : "-"}$${Math.abs(difference).toFixed(2)}</dd></div></dl><p>The EIA comparison was observed March 30, 2026 and excludes taxes. Confirm taxes, fees, minimum delivery, payment terms, and the final delivered price with the supplier.</p>`);
+    const totalA = subtotal * (1 + tax / 100) + feesA;
+    const totalB = priceB === null ? null : priceB * gallons * (1 + tax / 100) + feesB;
+    const comparison = totalB === null ? "" : `<div><dt>Quote B total</dt><dd>$${totalB.toFixed(2)}</dd></div><div><dt>Difference between quotes</dt><dd>$${Math.abs(totalA - totalB).toFixed(2)} (${totalA < totalB ? "A is lower" : totalA > totalB ? "B is lower" : "same total"})</dd></div>`;
+    announceResult(root, "Calculated delivery totals", `<dl class="result-metrics"><div><dt>Supplier quote subtotal</dt><dd>$${subtotal.toFixed(2)}</dd></div><div><dt>Quote A total with entered tax and fees</dt><dd>$${totalA.toFixed(2)}</dd></div>${comparison}<div><dt>Dated EIA fuel-only comparison</dt><dd>$${benchmarkSubtotal.toFixed(2)}</dd></div><div><dt>Fuel subtotal versus benchmark</dt><dd>${difference >= 0 ? "+" : "-"}$${Math.abs(difference).toFixed(2)}</dd></div></dl><p>The EIA comparison was observed ${root.dataset.benchmarkDate} and excludes taxes. The entered percentage is applied to fuel only. Confirm tax on fees, minimum delivery, payment terms and the final delivered price with the supplier.</p>`);
     finish(root);
   });
 }
@@ -521,8 +533,11 @@ function bindOrder(root) {
   if (!form) return;
   bindLifecycle(root, form);
   const prior = loadLastContext();
-  if (Number.isFinite(Number(prior?.nominalCapacityGallons))) form.elements.capacity.value = prior.nominalCapacityGallons;
-  if (Number.isFinite(Number(prior?.gallonsRemaining))) form.elements.currentGallons.value = prior.gallonsRemaining;
+  const gauge = loadSession("gauge-calculator");
+  const capacity = prior?.nominalCapacityGallons ?? gauge?.nominalCapacityGallons;
+  const remaining = prior?.gallonsRemaining ?? prior?.remainingGallons ?? gauge?.gallonsRemaining;
+  if (Number.isFinite(Number(capacity))) form.elements.capacity.value = capacity;
+  if (Number.isFinite(Number(remaining))) form.elements.currentGallons.value = remaining;
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     const values = Object.fromEntries(new FormData(form));

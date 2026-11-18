@@ -246,4 +246,16 @@ jobs:
             fi
 
             curl -fsS https://oiltankroute.com/images/property-editorial.jpg -o /dev/null
+            PRICE_HTML=$(curl -fsS https://oiltankroute.com/heating-oil-prices/)
+            case "$PRICE_HTML" in *'data-budget-form'*) ;; *) echo "Price budget canary failed"; exit 1 ;; esac
+            STATE_PRICE_HTML=$(curl -fsS https://oiltankroute.com/heating-oil-prices/connecticut/)
+            case "$STATE_PRICE_HTML" in *'data-price-page="connecticut"'*) ;; *) echo "State price canary failed"; exit 1 ;; esac
+            DELIVERY_HTML=$(curl -fsS https://oiltankroute.com/heating-oil-delivery/)
+            case "$DELIVERY_HTML" in *'data-supplier-state'*) ;; *) echo "Supplier directory canary failed"; exit 1 ;; esac
+            TANK330_HTML=$(curl -fsS https://oiltankroute.com/330-gallon-oil-tank/)
+            case "$TANK330_HTML" in *'330-gallon-chart'*) ;; *) echo "330-gallon chart canary failed"; exit 1 ;; esac
+            FUEL_GUIDE_HTML=$(curl -fsS https://oiltankroute.com/heating-oil-vs-propane/)
+            case "$FUEL_GUIDE_HTML" in *'data-heat-form'*) ;; *) echo "Fuel comparison guide canary failed"; exit 1 ;; esac
+            MIDWEST_PRICE_HTML=$(curl -fsS https://oiltankroute.com/heating-oil-prices/wisconsin/)
+            case "$MIDWEST_PRICE_HTML" in *'data-price-page="wisconsin"'*) ;; *) echo "Expanded state price canary failed"; exit 1 ;; esac
             curl -fsS https://oiltankroute.com/research-areas/brookhaven-ny/ -o /dev/null

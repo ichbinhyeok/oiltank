@@ -83,4 +83,15 @@ public final class RecordSearchGuide {
         };
     }
     public static boolean updated(ResearchCatalog.Entry entry) { return forEntry(entry) != null; }
+    public static List<String> quickSteps(ResearchCatalog.Entry entry) {
+        return switch (entry.slug()) {
+            case "njdep-nfa-letter" -> List.of("Locate the incident or PI reference and check the letter date.", "Follow the official NFA retrieval instructions for that case and period.", "Match the actual letter to the property; keep municipal completion records separate.");
+            case "nysdec-spill-documents" -> List.of("Search the official environmental system using the property and locality.", "Record the matched spill number, incident date and reported status.", "Retrieve the underlying reports or name the missing documents in a focused records request.");
+            case "nysdec-pbs-registration-records" -> List.of("Search the official PBS system using a facility reference or property details.", "Match the facility, tank identifiers and registration dates.", "Check spill and municipal closure files separately; a PBS listing is not every home tank's history.");
+            case "connecticut-deep-spill-documents" -> List.of("Search DEEP's document portal by address or known case reference.", "Identify the actual spill report and its attachments, not only the index entry.", "Use the separate REACT or Records Center route when the needed cleanup file is missing.");
+            case "seattle-residential-tank-records" -> List.of("Search the residential dataset here or open the official City dataset.", "Compare location, tank work and follow-up fields to the documents you hold.", "Request missing reports and preserve the dataset's historical coverage limits.");
+            case "king-county-wa" -> List.of("Confirm the property is in unincorporated King County.", "Ask for the County's tank-work permit and retained completion file.", "Check annexation history before using a Seattle, Bellevue or County record route.");
+            default -> List.of();
+        };
+    }
 }

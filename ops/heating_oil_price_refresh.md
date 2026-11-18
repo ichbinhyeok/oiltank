@@ -1,5 +1,18 @@
 # Heating-oil price refresh runbook
 
+## November 18 runtime refresh (current implementation)
+
+This supersedes the manual hard-coded-catalog procedure below once the November expansion is deployed. It is currently verified locally; do not assume production is upgraded.
+
+- The prod profile enables `BURIED_OIL_TANK_PRICE_REFRESH_ENABLED` by default. A startup check after one minute and subsequent six-hour checks fetch the fixed public EIA residential table, without API credentials.
+- The bundled baseline includes 24 area series (21 states plus national/East Coast/New England) and six weekly observations, Oct 5–Nov 9, released Nov 12. It is actual source data, not estimated prices.
+- Validated observations persist atomically to `storage/market/heating-oil-prices.json`. The storage root must remain outside the release. Invalid HTTP responses, missing areas, malformed dates, invalid values and older snapshots retain the last valid data.
+- Source publication and next-release dates come from EIA. Public pages keep the observation date visible and flag a release more than two days overdue. Do not advance dates merely to make the page appear current.
+- To refresh the reviewed bundled baseline during maintenance, run `python ops/fetch_eia_price_snapshot.py` with requests/BeautifulSoup installed and inspect the resulting JSON and public EIA fixture before committing. The source-check date uses the current Korea date; fixture filenames use the actual EIA release date. Update dated test expectations when changing the reviewed seed.
+- Verify the price page, one state page, CSV download and cost-calculator benchmark after release. Check runtime cache persistence and source dates separately from the public page's HTTP status.
+
+The older process and completion record below remain historical evidence.
+
 ## Next required review
 
 - **Trigger date:** 2026-10-07, after the EIA resumes weekly residential heating-oil price publication.

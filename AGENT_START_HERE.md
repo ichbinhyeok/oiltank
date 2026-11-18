@@ -4,6 +4,7 @@
 BuriedOilTankVerdict
 
 ## Current implementation direction
+- November 18 owner-directed implementation supersedes earlier record-only public positioning: heating-oil prices, tank tools and records are parallel acquisition paths. New EIA ingestion/cache, 21 state-price pages, eight buying/consumption guides and their hub, six-supplier directory and two tank-model pages are implemented locally. Check `ops/2026-11-18_seo_content_wave.md` for the latest verification and preview status before claiming deployment. Customer-case operations, NJ/NY assisted scope and free-beta pricing are unchanged.
 - Preferred stack: `Spring Boot` + `jte`
 - Preferred storage: raw `CSV` and `JSON` source files plus normalized and derived `JSON`
 - No runtime database in phase 1

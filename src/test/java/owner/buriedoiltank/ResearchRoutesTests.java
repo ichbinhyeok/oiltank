@@ -85,8 +85,8 @@ class ResearchRoutesTests {
             assertThat(html).contains("data-record-start", "What you are looking for", "If the result is empty or incomplete", "Before you interpret the result");
             assertThat(html).contains("href=\"" + org.springframework.web.util.HtmlUtils.htmlEscape(entry.steps().get(guide.startStep()).sourceUrl()) + "\"");
             assertThat(html).contains(org.springframework.web.util.HtmlUtils.htmlEscape(guide.searchTitle()));
-            assertThat(html).contains("\"dateModified\":\"2026-10-11\"");
-            assertThat(inventory.lastModifiedForPath(entry.path())).isEqualTo(owner.buriedoiltank.data.RecordSearchGuide.UPDATED);
+            assertThat(html).contains("\"dateModified\":\"" + entry.updatedOn() + "\"");
+            assertThat(inventory.lastModifiedForPath(entry.path())).isEqualTo(entry.updatedOn());
         }
         assertThat(inventory.lastModifiedForPath("/find-records/")).isEqualTo(owner.buriedoiltank.data.RecordSearchGuide.UPDATED);
         assertThat(inventory.lastModifiedForPath("/research-areas/montclair-nj/")).isEqualTo(ResearchCatalog.REVIEWED);
@@ -110,7 +110,7 @@ class ResearchRoutesTests {
         String county = mvc.perform(get("/research-areas/suffolk-ny/")).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
         assertThat(county).contains("/research-areas/brookhaven-ny/", "/research-areas/huntington-ny/", "/research-areas/islip-ny/");
         String home = mvc.perform(get("/")).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
-        assertThat(home).contains("Know what’s missing", "No email required", "/find-records/", "/tank-document-check/", "Optional NJ/NY research assistance");
+        assertThat(home).contains("Heating oil prices.", "No email required", "/find-records/", "/tank-document-check/", "Optional NJ/NY research assistance");
         for (String path : List.of("/contact/", "/privacy/", "/terms/", "/methodology/")) {
             String html = mvc.perform(get(path)).andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
             assertThat(html).doesNotContain("BODY HEIGHT", "BODY LENGTH");

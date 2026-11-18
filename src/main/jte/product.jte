@@ -16,7 +16,7 @@
             <p class="otr-dek">${page.intro()}</p>
             <div class="otr-actions">
                 @if (page.isTool("hub"))
-                    <a class="otr-button" href="/heating-oil-tank/">Identify your tank</a>
+                    <a class="otr-button" href="#tool">Calculate tank gallons</a>
                     <a class="otr-text-link" href="/oil-tank-gauge-calculator/">Check a gauge reading <span aria-hidden="true">&rarr;</span></a>
                 @else
                     @if (page.isTool("replacement-cost") || page.isTool("installation-cost"))
@@ -65,9 +65,13 @@
 </section>
 
 @if (page.isTool("hub"))
+@template.partials.gaugeCalculator(page = page)
+@endif
+
+@if (page.isTool("hub"))
 <section class="otr-section otr-section--instrument" aria-labelledby="route-heading">
     <div class="otr-shell">
-        <div class="otr-section__head otr-section__head--inverse"><p class="otr-kicker">Choose one job</p><h2 id="route-heading">A single data model. Twenty useful routes.</h2></div>
+        <div class="otr-section__head otr-section__head--inverse"><p class="otr-kicker">Choose one job</p><h2 id="route-heading">Tank charts, fuel budgets and next steps.</h2></div>
         <div class="route-list">
             @for (var link : page.nextLinks())
                 <a class="route-list__item" href="${link.href()}"><span class="route-list__index">${link.badge()}</span><span><strong>${link.title()}</strong><small>${link.description()}</small></span><span aria-hidden="true">&nearr;</span></a>
@@ -103,7 +107,7 @@
 @endif
 
 @if (page.isTool("heating-cost"))
-<section id="tool" class="otr-section otr-section--instrument" data-tool-root data-tool-id="heating-oil-cost" data-page-id="${page.pageId()}" data-page-path="/heating-oil-cost-calculator/">
+<section id="tool" class="otr-section otr-section--instrument" data-tool-root data-tool-id="heating-oil-cost" data-benchmark-date="${page.priceSnapshot().observedOn().toString()}" data-page-id="${page.pageId()}" data-page-path="/heating-oil-cost-calculator/">
     <div class="otr-shell tool-grid">
         <div class="tool-intro"><p class="otr-kicker">Cost / quote</p><h2>Calculate the fuel subtotal</h2><p>Use a current supplier quote. The selected EIA figure is only a dated comparison.</p></div>
         <form class="instrument-form" data-heating-cost-form>
@@ -113,7 +117,10 @@
                     <option value="${point.dollarsPerGallon()}">${point.areaName()} — $${point.dollarsPerGallon()}</option>
                 @endfor
             </select><span class="field-help">EIA observation ${page.priceSnapshot().observedOn().toString()}, excluding taxes</span></label>
-            <button class="otr-button" type="submit">Calculate delivery subtotal</button>
+            <div class="field-pair"><label>Quote A fees ($)<input name="feesA" type="number" min="0" max="10000" step="0.01" value="0" required></label><label>Quoted fuel tax (%)<input name="taxPercent" type="number" min="0" max="100" step="0.01" value="0" required></label></div>
+            <div class="field-pair"><label>Quote B price per gallon ($)<input name="priceB" type="number" min="0.001" max="100" step="0.001" placeholder="Optional comparison"></label><label>Quote B fees ($)<input name="feesB" type="number" min="0" max="10000" step="0.01" value="0" required></label></div>
+            <p class="field-help">Both quotes use the same gallons and fuel-tax percentage. Include card or delivery charges in quoted fees. Check any tax on fees separately.</p>
+            <button class="otr-button" type="submit">Compare delivery totals</button>
         </form>
         <div class="instrument-result" data-tool-result hidden tabindex="-1" aria-live="polite"><p class="instrument-result__label">Calculated fuel subtotal</p><h3 data-result-heading>Quote total</h3><div data-result-body></div></div>
     </div>
@@ -169,6 +176,10 @@
 </section>
 @endif
 
+@if (page.isTool("gauge-service"))
+@template.partials.gaugeServiceGuide()
+@endif
+
 @if (page.isTool("repair"))
 <section id="decision" class="otr-section otr-section--soft" aria-labelledby="repair-heading">
     <div class="otr-shell scope-ledger">
@@ -188,7 +199,7 @@
     <div class="otr-shell tool-grid">
         <div class="tool-intro"><p class="otr-kicker">Identifier / 01</p><h2>Narrow the verified model list</h2><p>Select only what you can confirm. The result suggests candidates; the label remains the model evidence.</p></div>
         <form class="instrument-form" data-identifier-form>
-            <div class="field-pair"><label>Nominal capacity<select name="capacity"><option value="any">Not sure</option><option value="138">138 gal</option><option value="275">275 gal</option><option value="330">330 gal</option></select></label><label>Orientation<select name="orientation"><option value="any">Not sure</option><option value="VERTICAL">Vertical</option><option value="HORIZONTAL">Horizontal</option></select></label></div>
+            <div class="field-pair"><label>Nominal capacity<select name="capacity"><option value="any">Not sure</option>@for (var capacity : page.specs().stream().map(s -> s.nominalCapacityGallons()).distinct().sorted().toList())<option value="${java.lang.String.format("%.0f", capacity)}">${java.lang.String.format("%.0f", capacity)} gal</option>@endfor</select></label><label>Orientation<select name="orientation"><option value="any">Not sure</option><option value="VERTICAL">Vertical</option><option value="HORIZONTAL">Horizontal</option></select></label></div>
             <button class="otr-button" type="submit">Show verified candidates</button>
         </form>
         <div class="instrument-result" data-tool-result hidden tabindex="-1"><p class="instrument-result__label">Candidate set</p><h3 data-result-heading>Check the model label</h3><div data-result-body></div></div>
@@ -197,24 +208,7 @@
 @endif
 
 @if (page.isTool("gauge"))
-<section id="tool" class="otr-section otr-section--instrument" data-tool-root data-tool-id="gauge-calculator" data-page-id="${page.pageId()}" data-page-path="/oil-tank-gauge-calculator/">
-    <div class="otr-shell tool-grid">
-        <div class="tool-intro"><p class="otr-kicker">Gauge / 04</p><h2>Enter the reading</h2><p>Only tank/orientation combinations with a reviewed chart are available. Your reading stays in this browser session and is not sent in analytics.</p></div>
-        <form class="instrument-form" data-gauge-form>
-            <label>Verified tank and orientation<select name="tankId">@for (var spec : page.specs())<option value="${spec.id()}">${spec.manufacturer()} ${spec.model()} / ${java.lang.String.format("%.0f", spec.nominalCapacityGallons())} gal ${spec.orientation().toString().toLowerCase()}</option>@endfor</select></label>
-            <div class="field-pair"><label>Reading type<select name="readingType"><option value="fraction">Gauge fraction</option><option value="stick">Stick depth in inches</option></select></label><label>Reading<input name="reading" type="number" inputmode="decimal" min="0" max="44" step="0.125" value="0.25" aria-describedby="gauge-help"></label></div>
-            <p class="field-help" id="gauge-help">For fractions enter a decimal: 0.125 = 1/8, 0.25 = 1/4, 0.5 = 1/2. For a stick, enter liquid depth from the tank bottom.</p>
-            <button class="otr-button" type="submit">Calculate remaining oil</button>
-        </form>
-        <div class="instrument-result" data-tool-result hidden tabindex="-1"><p class="instrument-result__label">Chart-interpolated result</p><h3 data-result-heading>Estimated gallons remaining</h3><div class="result-number"><strong data-result-primary>-</strong><span>US gal</span></div><div data-result-body></div></div>
-    </div>
-</section>
-<section class="otr-section otr-section--soft" aria-labelledby="gauge-troubleshooting-heading">
-    <div class="otr-shell scope-ledger">
-        <div><p class="otr-kicker">Gauge troubleshooting</p><h3 id="gauge-troubleshooting-heading">A strange reading is a diagnosis prompt, not a tank verdict</h3><p>Keep the tank closed. Match the symptom to the narrowest qualified next step.</p></div>
-        <ol class="scope-ledger__list"><li><span>01</span><strong>Gauge stays on one mark</strong><p>Recheck recent deliveries and usage. Ask a heating-oil service technician to inspect the gauge rather than forcing the float.</p></li><li><span>02</span><strong>Gauge and stick disagree</strong><p>Confirm model, orientation, chart, tank tilt, and reading method. Never open or probe a tank when an unsafe condition is suspected.</p></li><li><span>03</span><strong>Cracked gauge or component drip</strong><p>Stop treating the number as reliable and request service. Visible oil, fresh staining, or strong odor enters the leak-response route.</p></li><li><span>04</span><strong>Vent whistle is weak or silent</strong><p>Do not authorize a delivery based on the gauge result alone. Tell the supplier and have the fill and vent system checked.</p></li></ol>
-    </div>
-</section>
+@template.partials.gaugeCalculator(page = page)
 @endif
 
 @if (page.isTool("delivery"))
@@ -410,13 +404,13 @@
 </section>
 @endif
 
-@if (page.isTool("275"))
-<section class="otr-section otr-section--soft" id="275-gallon-chart">
+@if (page.isTool("275") || page.isTool("model-chart"))
+<section class="otr-section otr-section--soft" id="${page.isTool("275") ? "275-gallon-chart" : "330-gallon-chart"}">
     <div class="otr-shell">
         <div class="otr-section__head">
             <p class="otr-kicker">Manufacturer capacity table</p>
-            <h2>275-gallon vertical oil tank chart: inches to gallons</h2>
-            <p>This chart belongs only to the labeled vertical model shown below. A horizontal 275-gallon tank has different geometry and must not use this table.</p>
+            <h2>${page.isTool("275") ? "275" : "330"}-gallon vertical oil tank chart: inches to gallons</h2>
+            <p>This chart belongs only to the labeled vertical model shown below. A horizontal tank has different geometry and must not use this table.</p>
         </div>
         @for (var spec : page.specs())
             @if (spec.hasGaugeChart())
@@ -424,6 +418,7 @@
             @endif
         @endfor
         <p class="chart-next-step"><a class="otr-button" href="/oil-tank-gauge-calculator/">Calculate between chart rows</a><span>Uses interval interpolation instead of linear tank-capacity multiplication.</span></p>
+        <button type="button" class="otr-button" data-print-chart>Print this model's chart</button>
     </div>
 </section>
 @endif
@@ -438,6 +433,7 @@
         </div>
         <nav class="chart-index" aria-label="Available oil tank charts">
             <a href="/275-gallon-oil-tank/#275-gallon-chart"><strong>275 gal vertical</strong><span>Open the canonical 275 chart</span></a>
+            <a href="/330-gallon-oil-tank/#330-gallon-chart"><strong>330 gal vertical</strong><span>Open the canonical 330 chart</span></a>
             @for (var spec : page.specs())
                 <a href="#chart-${spec.id()}"><strong>${java.lang.String.format("%.0f", spec.nominalCapacityGallons())} gal ${spec.orientation().toString().toLowerCase()}</strong><span>${spec.manufacturer()} ${spec.model()}</span></a>
             @endfor
@@ -472,9 +468,12 @@
 </section>
 @endif
 
-<section class="otr-section" id="sources"><div class="otr-shell otr-editorial-grid"><div><p class="otr-kicker">Source boundary</p><h2>Official source material</h2><p>Model values require manufacturer support; safety and removal guidance uses official public-agency material. Verification date: 2026-08-02.</p></div><ol class="source-ledger">@for (var source : page.sources())<li><a href="${source.url()}">${source.title()} <span aria-hidden="true">&nearr;</span></a><p>${source.note()}</p></li>@endfor</ol></div></section>
+<section class="otr-section" id="sources"><div class="otr-shell otr-editorial-grid"><div><p class="otr-kicker">Source boundary</p><h2>Official source material</h2><p>Model values require manufacturer support; safety and removal guidance uses official public-agency material. Model review dates appear beside the data; individual source notes retain their own review dates.</p></div><ol class="source-ledger">@for (var source : page.sources())<li><a href="${source.url()}">${source.title()} <span aria-hidden="true">&nearr;</span></a><p>${source.note()}</p></li>@endfor</ol></div></section>
 
 @if (!page.isTool("hub"))
 <section class="otr-section otr-section--instrument"><div class="otr-shell"><div class="otr-section__head otr-section__head--inverse"><p class="otr-kicker">Continue the route</p><h2>Use the next tool only when the job changes.</h2></div><div class="route-list route-list--compact">@for (var link : page.nextLinks())<a class="route-list__item" href="${link.href()}"><span class="route-list__index">${link.badge()}</span><span><strong>${link.title()}</strong><small>${link.description()}</small></span><span aria-hidden="true">&rarr;</span></a>@endfor</div></div></section>
+@endif
+@if (page.isTool("hub") || page.isTool("heating-cost") || page.isTool("usage") || page.isTool("order"))
+@template.partials.fuelGuideLinks()
 @endif
 `)

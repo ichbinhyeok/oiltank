@@ -69,8 +69,8 @@ class BuriedOilTankVerdictApplicationTests {
 
 	@Test
 	void contextLoads() {
-		assertThat(routeInventoryService.entries()).hasSize(136);
-		assertThat(routeInventoryService.indexableEntries()).hasSize(106);
+		assertThat(routeInventoryService.entries()).hasSize(169);
+		assertThat(routeInventoryService.indexableEntries()).hasSize(139);
 		assertThat(routeInventoryService.entries())
 				.filteredOn(entry -> entry.id().startsWith("service:"))
 				.extracting(owner.buriedoiltank.data.RouteInventoryEntry::path)
@@ -426,12 +426,12 @@ class BuriedOilTankVerdictApplicationTests {
 		mockMvc.perform(get("/"))
 				.andExpect(status().isOk())
 				.andExpect(content().string(containsString("Oil Tank Route")))
-				.andExpect(content().string(containsString("Know what’s missing")))
+				.andExpect(content().string(containsString("Heating oil prices.")))
 				.andExpect(content().string(containsString("Start a property record check")))
 				.andExpect(content().string(containsString("Property address")))
 				.andExpect(content().string(containsString("Optional NJ/NY research assistance")))
 				.andExpect(content().string(containsString("enctype=\"multipart/form-data\"")))
-				.andExpect(content().string(not(containsString("A single data model. Twenty useful routes."))))
+				.andExpect(content().string(not(containsString("Tank charts, fuel budgets and next steps."))))
 				.andExpect(content().string(containsString("property=\"og:image\"")))
 				.andExpect(content().string(containsString("application/ld+json")))
 				.andExpect(content().string(containsString("href=\"/states/\"")))
@@ -474,8 +474,8 @@ class BuriedOilTankVerdictApplicationTests {
 
 		mockMvc.perform(get("/tools/"))
 				.andExpect(status().isOk())
-				.andExpect(content().string(containsString("Residential heating-oil tools")))
-				.andExpect(content().string(containsString("A single data model. Twenty useful routes.")))
+				.andExpect(content().string(containsString("Heating oil tank calculators and tools")))
+				.andExpect(content().string(containsString("Tank charts, fuel budgets and next steps.")))
 				.andExpect(content().string(containsString("<link rel=\"canonical\" href=\"http://localhost:8080/tools/\"")));
 
 		for (String path : List.of("/how-it-works/", "/record-research/", "/sample-brief/")) {
@@ -509,8 +509,7 @@ class BuriedOilTankVerdictApplicationTests {
 		mockMvc.perform(get("/heating-oil-tank-charts/"))
 				.andExpect(content().string(containsString("Heating-oil tank charts: verified inches-to-gallons tables")))
 				.andExpect(content().string(containsString("Granby 208101 Standard 138-gallon vertical oil tank chart")))
-				.andExpect(content().string(containsString("Granby 205201P Standard 20Plus 330-gallon vertical oil tank chart")))
-				.andExpect(content().string(containsString("328.6 gal")))
+				.andExpect(content().string(containsString("href=\"/330-gallon-oil-tank/#330-gallon-chart\"")))
 				.andExpect(content().string(containsString("href=\"/275-gallon-oil-tank/#275-gallon-chart\"")))
 				.andExpect(content().string(not(containsString("Granby 204201P Standard 20Plus 275-gallon vertical oil tank chart"))))
 				.andExpect(content().string(containsString("\"@type\":\"CollectionPage\"")));
@@ -555,15 +554,15 @@ class BuriedOilTankVerdictApplicationTests {
 				.andExpect(content().string(not(containsString("Request a qualified follow-up"))));
 
 		mockMvc.perform(get("/heating-oil-prices/"))
-				.andExpect(content().string(containsString("Latest published residential benchmark")))
-				.andExpect(content().string(containsString("2026-03-30")))
-				.andExpect(content().string(containsString("$5.535")))
-				.andExpect(content().string(containsString("collection is paused")))
+				.andExpect(content().string(containsString("Heating oil prices by state")))
+				.andExpect(content().string(containsString("2026-11-09")))
+				.andExpect(content().string(containsString("$5.915")))
+				.andExpect(content().string(containsString("Next scheduled release")))
 				.andExpect(content().string(not(containsString("Request a qualified follow-up"))));
 
 		mockMvc.perform(get("/heating-oil-cost-calculator/"))
 				.andExpect(content().string(containsString("data-heating-cost-form")))
-				.andExpect(content().string(containsString("EIA observation 2026-03-30")))
+				.andExpect(content().string(containsString("EIA observation 2026-11-09")))
 				.andExpect(content().string(containsString("\"@type\":\"WebApplication\"")))
 				.andExpect(content().string(not(containsString("Request a qualified follow-up"))));
 
